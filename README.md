@@ -190,8 +190,8 @@ In summary, the following types of `(a, b)` are defined for the various
 * `(const String&, const String&)`
 * `(const String&, const __FlashStringHelper*)`
 * `(const __FlashStringHelper*, const char*)`
-* `(const __FlashStringHelper*, const __FlashStringHelper*)`
 * `(const __FlashStringHelper*, const String&)`
+* `(const __FlashStringHelper*, const __FlashStringHelper*)`
 
 The following boolean asserts are also available, just like ArduinoUnit:
 
