@@ -22,6 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+// Significant portions of the design and implementation of this file came from
+// https://github.com/mmurdoch/arduinounit/blob/master/src/ArduinoUnit.h
+
 #ifndef AUNIT_ASSERTION_H
 #define AUNIT_ASSERTION_H
 
@@ -62,8 +65,8 @@ namespace aunit {
 // overloaded for the various types that we want to support.
 //
 // Prints something like the following:
-// Assertion failed: (5) == (6), file Test.ino line 820.
-// Assertion passed: (6) == (6), file Test.ino line 820.
+// Assertion failed: (5) == (6), file Test.ino, line 820.
+// Assertion passed: (6) == (6), file Test.ino, line 820.
 template <typename A, typename B>
 void printAssertionMessage(bool ok, const char* file, uint16_t line,
     const A& lhs, const char *opName, const B& rhs) {

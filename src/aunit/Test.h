@@ -22,6 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+// Significant portions of the design and implementation of this file came from
+// https://github.com/mmurdoch/arduinounit/blob/master/src/ArduinoUnit.h
+
 #ifndef AUNIT_TEST_H
 #define AUNIT_TEST_H
 

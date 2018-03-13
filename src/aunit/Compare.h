@@ -22,6 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+// Significant portions of the design and implementation of this file came from
+// https://github.com/mmurdoch/arduinounit/blob/master/src/ArduinoUnitUtility/Compare.h
+
 #ifndef AUNIT_COMPARE_H
 #define AUNIT_COMPARE_H
 
@@ -72,14 +75,13 @@ class FCString;
  * Function Overloading:
  * ---------------------
  * In this project, I used function overloading instead of template
- * specialization. Functional overloading handles c-style strings (i.e.
- * character arrays) naturally, in the way users expect. For example, (char*) is
+ * specialization. Function overloading handles c-style strings (i.e. character
+ * arrays) naturally, in the way most users expect. For example, (char*) is
  * automarically cast to (const char*), and (char[N]) is autonmatically
- * converted to (const char*).
+ * cast to (const char*).
  *
- * Since all the primitive value types (e.g. (char), (int), (unsigned char),
- * etc.) can be implemented using the exact same code, I attempted to use a
- * generic templatized version, using sonmething like:
+ * For the primitive value types (e.g. (char), (int), (unsigned char), etc.) I
+ * attempted to use a generic templatized version, using sonmething like:
  *
  *    template<typename T>
  *    compareEqual(const T& a, const T& b) { ... }
@@ -92,13 +94,14 @@ class FCString;
  *
  *    compareEqual(const char* a, const char*b);
  *
- * When the compareEqual() method is called with a (char*) or a (char[N]):
+ * When the compareEqual() method is called with a (char*) or a (char[N]),
+ * like this:
  *
  *    char a[3] = {...};
  *    char b[4] = {...};
  *    compareEqual(a, b);
  *
- * This calls compareEqual(char* const&, const* const&), which is the wrong
+ * this calls compareEqual(char* const&, const* const&), which is the wrong
  * version for a c-style string. The only way I could get this to work was to
  * avoid templates completely and manually define all the function overloads
  * even for primitive integer types.
