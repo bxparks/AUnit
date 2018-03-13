@@ -104,26 +104,33 @@ void TestRunner::runTest() {
       break;
     case Test::kStatusSetup:
       (*mCurrent)->loop();
-      // skip to the next one, but keep current test in the list
-      mCurrent = (*mCurrent)->getNext();
+
+      // If test status is unresolved (i.e. still in kStatusSetup state) after
+      // loop(), then this is a continuous testing() test case, so skip to the
+      // next test. Otherwise, stay on the current test so that the next
+      // iteration can resolve the current test.
+      if ((*mCurrent)->getStatus() == Test::kStatusSetup) {
+        // skip to the next one, but keep current test in the list
+        mCurrent = (*mCurrent)->getNext();
+      }
       break;
     case Test::kStatusSkipped:
       mSkippedCount++;
       resolveTest((*mCurrent));
       // skip to the next one by taking current test out of the list
-      (*mCurrent) = *(*mCurrent)->getNext();
+      *mCurrent = *(*mCurrent)->getNext();
       break;
     case Test::kStatusPassed:
       mPassedCount++;
       resolveTest((*mCurrent));
       // skip to the next one by taking current test out of the list
-      (*mCurrent) = *(*mCurrent)->getNext();
+      *mCurrent = *(*mCurrent)->getNext();
       break;
     case Test::kStatusFailed:
       mFailedCount++;
       resolveTest((*mCurrent));
       // skip to the next one by taking current test out of the list
-      (*mCurrent) = *(*mCurrent)->getNext();
+      *mCurrent = *(*mCurrent)->getNext();
       break;
   }
 }
