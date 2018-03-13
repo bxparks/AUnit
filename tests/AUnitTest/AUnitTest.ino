@@ -325,11 +325,11 @@ void setup() {
   while (! Serial); // Wait until Serial is ready - Leonardo
 
 #if USE_AUNIT == 1
-  TestRunner::setVerbosity(Verbosity::kAll);
+  //TestRunner::setVerbosity(Verbosity::kAll);
   TestRunner::exclude("looping_f*");
   TestRunner::list();
 #else
-  Test::min_verbosity = TEST_VERBOSITY_ALL;
+  //Test::min_verbosity = TEST_VERBOSITY_ALL;
   Test::exclude("looping_f*");
 #endif
 }

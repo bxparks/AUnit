@@ -35,31 +35,20 @@ namespace aunit {
 int compareString(const __FlashStringHelper* a, const __FlashStringHelper* b) {
   const char* aa = reinterpret_cast<const char*>(a);
   const char* bb = reinterpret_cast<const char*>(b);
-  char bufa[4];
-  char bufb[4];
 
-  // Using uint8_t instead of size_t is not a bug because we only need the
-  // least significant 2 bits of the counter. Rolling over the uint8_t counter
-  // is ok too.
-  for (uint8_t i = 0; true; i++) {
-    if ((i & 0x03) == 0) {
-      // NOTE: There ought to be a simpler, more efficient way of extracting 4
-      // characters from flash memory the pointer is already 4-byte aligned.
-      // But I don't know what it is right now.
-      memcpy_P(bufa, aa, 4);
-      memcpy_P(bufb, bb, 4);
-      aa += 4;
-      bb += 4;
-    }
-    // Avoid '%' operator since some 8-bit processors lack hardware division.
-    char ca = bufa[i & 0x03];
-    char cb = bufb[i & 0x03];
+  // On ESP8266, pgm_read_byte() already takes care of 4-byte alignment, and
+  // memcpy_P(s, p, 4) makes 4 calls to pgm_read_byte() anyway, so don't bother
+  // optimizing for 4-byte alignment here.
+  while (true) {
+    char ca = pgm_read_byte(aa);
+    char cb = pgm_read_byte(bb);
     if (ca < cb) return -1;
     if (ca > cb) return 1;
     // we hit this condition only if both strings were the same length
     if (ca == '\0' || cb == '\0') return 0;
+    aa++;
+    bb++;
   }
-  return 0;
 }
 
 int compareString(const FCString& a, const FCString& b) {
@@ -82,24 +71,20 @@ int compareStringN(const __FlashStringHelper* a, const __FlashStringHelper* b,
     size_t n) {
   const char* aa = reinterpret_cast<const char*>(a);
   const char* bb = reinterpret_cast<const char*>(b);
-  char bufa[4];
-  char bufb[4];
-  for (size_t i = 0; i < n; i++) {
-    if ((i & 0x03) == 0) {
-      // NOTE: There ought to be a simpler, more efficient way of extracting 4
-      // characters from flash memory the pointer is already 4-byte aligned.
-      // But I don't know what it is right now.
-      memcpy_P(bufa, aa, 4);
-      memcpy_P(bufb, bb, 4);
-      aa += 4;
-      bb += 4;
-    }
-    char ca = bufa[i & 0x03];
-    char cb = bufb[i & 0x03];
+
+  // On ESP8266, pgm_read_byte() already takes care of 4-byte alignment, and
+  // memcpy_P(s, p, 4) makes 4 calls to pgm_read_byte() anyway, so don't bother
+  // optimizing for 4-byte alignment here.
+  while (n > 0) {
+    char ca = pgm_read_byte(aa);
+    char cb = pgm_read_byte(bb);
     if (ca < cb) return -1;
     if (ca > cb) return 1;
     // we hit this condition only if both strings were the same length
     if (ca == '\0' || cb == '\0') return 0;
+    aa++;
+    bb++;
+    n--;
   }
   return 0;
 }
