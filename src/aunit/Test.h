@@ -29,8 +29,9 @@ SOFTWARE.
 #define AUNIT_TEST_H
 
 #include <stdint.h>
-#include <WString.h>
 #include "FCString.h"
+
+class __FlashStringHelper;
 
 // On the ESP8266 platform, The F() string cannot be placed in an inline
 // context, because it interferes with other PROGMEM strings. See

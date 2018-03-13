@@ -28,6 +28,7 @@ SOFTWARE.
 #ifndef AUNIT_ASSERTION_H
 #define AUNIT_ASSERTION_H
 
+#include <Arduino.h>  // definition of Print
 #include "Printer.h"
 #include "Verbosity.h"
 #include "TestRunner.h"
@@ -104,152 +105,72 @@ void printAssertionMessage(bool ok, const char* file, uint16_t line,
 
 bool assertion(const char* file, uint16_t line, bool lhs,
     const char* opName, bool (*op)(bool lhs, bool rhs),
-    bool rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    bool rhs);
 
 bool assertion(const char* file, uint16_t line, char lhs,
     const char* opName, bool (*op)(char lhs, char rhs),
-    char rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    char rhs);
 
 bool assertion(const char* file, uint16_t line, int lhs,
     const char* opName, bool (*op)(int lhs, int rhs),
-    int rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    int rhs);
 
 bool assertion(const char* file, uint16_t line, unsigned int lhs,
     const char* opName, bool (*op)(unsigned int lhs, unsigned int rhs),
-    unsigned int rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    unsigned int rhs);
 
 bool assertion(const char* file, uint16_t line, long lhs,
     const char* opName, bool (*op)(long lhs, long rhs),
-    long rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    long rhs);
 
 bool assertion(const char* file, uint16_t line, unsigned long lhs,
     const char* opName, bool (*op)(unsigned long lhs, unsigned long rhs),
-    unsigned long rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    unsigned long rhs);
 
 bool assertion(const char* file, uint16_t line, double lhs,
     const char* opName, bool (*op)(double lhs, double rhs),
-    double rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    double rhs);
 
 bool assertion(const char* file, uint16_t line, const char* lhs,
     const char* opName, bool (*op)(const char* lhs, const char* rhs),
-    const char* rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    const char* rhs);
 
 bool assertion(const char* file, uint16_t line, const char* lhs,
     const char *opName, bool (*op)(const char* lhs, const String& rhs),
-    const String& rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    const String& rhs);
 
 bool assertion(const char* file, uint16_t line, const char* lhs,
     const char *opName,
     bool (*op)(const char* lhs, const __FlashStringHelper* rhs),
-    const __FlashStringHelper* rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    const __FlashStringHelper* rhs);
 
 bool assertion(const char* file, uint16_t line, const String& lhs,
     const char *opName, bool (*op)(const String& lhs, const char* rhs),
-    const char* rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    const char* rhs);
 
 bool assertion(const char* file, uint16_t line, const String& lhs,
     const char *opName, bool (*op)(const String& lhs, const String& rhs),
-    const String& rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    const String& rhs);
 
 bool assertion(const char* file, uint16_t line, const String& lhs,
     const char *opName,
     bool (*op)(const String& lhs, const __FlashStringHelper* rhs),
-    const __FlashStringHelper* rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    const __FlashStringHelper* rhs);
 
-bool assertion(const char* file, uint16_t line, const __FlashStringHelper* lhs,
-    const char *opName,
+bool assertion(const char* file, uint16_t line,
+    const __FlashStringHelper* lhs, const char *opName,
     bool (*op)(const __FlashStringHelper* lhs, const char* rhs),
-    const char* rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    const char* rhs);
 
-bool assertion(const char* file, uint16_t line, const __FlashStringHelper* lhs,
-    const char *opName,
+bool assertion(const char* file, uint16_t line,
+    const __FlashStringHelper* lhs, const char *opName,
     bool (*op)(const __FlashStringHelper* lhs, const String& rhs),
-    const String& rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    const String& rhs);
 
-bool assertion(const char* file, uint16_t line, const __FlashStringHelper* lhs,
-    const char *opName,
+bool assertion(const char* file, uint16_t line,
+    const __FlashStringHelper* lhs, const char *opName,
     bool (*op)(const __FlashStringHelper* lhs, const __FlashStringHelper* rhs),
-    const __FlashStringHelper* rhs) {
-  bool ok = op(lhs, rhs);
-  printAssertionMessage(ok, file, line, lhs, opName, rhs);
-  TestRunner::setPassOrFail(ok);
-  return ok;
-}
+    const __FlashStringHelper* rhs);
 
 }
 #endif

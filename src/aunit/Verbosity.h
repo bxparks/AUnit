@@ -25,6 +25,8 @@ SOFTWARE.
 #ifndef AUNIT_VERBOSITY_H
 #define AUNIT_VERBOSITY_H
 
+#include <stdint.h>
+
 namespace aunit {
 
 /**

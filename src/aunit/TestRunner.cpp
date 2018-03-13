@@ -22,9 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <Arduino.h>  // import 'Serial'
+#include <Arduino.h>  // definition of 'Serial'
 #include <string.h>
-
+#include <stdint.h>
 #include "FCString.h"
 #include "Compare.h"
 #include "Printer.h"

@@ -22,9 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "Test.h"
-
 #include <Arduino.h>  // for declaration of 'Serial' on Teensy and others
+#include "Test.h"
 #include "Compare.h"
 
 namespace aunit {

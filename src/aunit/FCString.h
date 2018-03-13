@@ -25,6 +25,10 @@ SOFTWARE.
 #ifndef AUNIT_FSTRING_H
 #define AUNIT_FSTRING_H
 
+#include <stdint.h>
+
+class __FlashStringHelper;
+
 namespace aunit {
 
 /**
