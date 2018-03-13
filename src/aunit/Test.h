@@ -59,8 +59,6 @@ void test_ ## name :: loop()
 
 namespace aunit {
 
-class TestRunner;
-
 class Test {
   public:
     static const uint8_t kStatusNew = 0;
@@ -161,7 +159,7 @@ class TestOnce: public Test {
      * the internal status, then this calls pass() to make sure that this test
      * case will be called only once from Test::run().
      */
-    virtual void loop();
+    virtual void loop() override;
 
     /** User-provided test case. */
     virtual void once() = 0;
