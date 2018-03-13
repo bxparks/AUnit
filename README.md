@@ -33,7 +33,7 @@ Most of the frequently used macros are compatible between ArduinoUnit and AUnit:
 * `testing()`
 * `assertXxx()`
 
-AUnit supports a exclude and include filters:
+AUnit supports exclude and include filters:
 * `TestRunner::exclude()`
 * `TestRunner::include()`
 
@@ -70,9 +70,9 @@ in the global namespace, so it is usually not necessary to import the entire
 The usage of **AUnit** is almost identical to **ArduinoUnit**. A test case is
 defined by a fragment of code inside the `{ }` just after the `test()` or
 `testing()` macros. The argument to these macros are the name of the test case.
-(The name is available within the test code through the `const
-__FlashStringHelper* getName()` method). It is used to generate a class whose
-parents are `aunit::TestOnce` and `aunit::Test` respectively.
+(The name is available within the test code using the `Test::getName()`
+method). The `test()` and `testing()` macros use the name to generate a subclass
+whose parents are `aunit::TestOnce` and `aunit::Test` respectively.
 
 The macros also generate code to create an instance of the subclass.
 The code following after the `test()` and `testing()` macros becomes
@@ -80,11 +80,11 @@ the body of the virtual `TestOnce::once()` and `Test::loop` methods
 (respectively).
 
 When the instance of the test case is statically initialized, it adds itself to
-a linked list. The root of that singly linked list is given by
+a linked list. The root of that singly-linked list is given by
 `Test::getRoot()`. The `TestRunner::run()` method traverses the linked list,
 executing each test case until it passes, fails or is skipped.
 
-Here is an outline of what an AUnit unit test sketch:
+Here is a rough outline of an AUnit unit test sketch:
 
 ```
 #line 2 AUnitTest.ino
