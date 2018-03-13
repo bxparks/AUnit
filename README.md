@@ -168,7 +168,7 @@ following implicit conversions will occur:
 C++.)
 
 Mixing the parameter types will often  produce compiler errors. See comments
-and solutions in the "Migration from ArduinoUnit to AUnit" section below.
+and solutions in the *Migrating from ArduinoUnit to AUnit* section below.
 
 For the 3 string types (`char*`, `String`, and `__FlashStringHelper*`),
 all 9 combinatorial mixes are supported.
@@ -284,9 +284,8 @@ void loop() {
 ```
 
 This is the equivalent of the `Test::out` static member variable in
-ArduinoUnit. In AUnit, the member variable is not exposed, it is accessed and
-changed throught the `TestRunner::setPrinter()` and `TestRunner::getPrinter()`
-methods.
+ArduinoUnit. In AUnit member variables are not exposed, so changes must be
+made through the `TestRunner::setPrinter()` method.
 
 ### Controlling the Verbosity
 
@@ -304,7 +303,7 @@ void setup() {
 }
 ```
 
-The verbosity rules are more primitive (and simpler) than ArduinoUnit The each
+The verbosity rules are more primitive (and simpler) than ArduinoUnit. Each
 flag below is a bit field that controls whether certain messages are enabled
 or disabled. There is no concept of a "minimum" or "maximum" verbosity. Also,
 the verbosity of an individual test case cannot be independently controlled, the
