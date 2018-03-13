@@ -40,6 +40,17 @@ AUnit supports exclude and include filters:
 Currently, only a single `*` wildcard is supported and it must occur at the end
 if present.
 
+## Installation
+
+The library will be available in the Arduino IDE Library Manager eventually.
+
+In the mean time, it can be installed by cloning the
+[GitHub repository](https://github.com/bxparks/AUnit), then
+manually copying over the contents to the `./libraries` directory used
+by the Arduino IDE. (The result is a directory named `./libraries/AUnit`.)
+See the Preferences menu for the location of the Arduino sketch directory.
+You may need to restart the Arduino IDE to let it see the new library.
+
 ## Usage
 
 ### Header and Namespace
