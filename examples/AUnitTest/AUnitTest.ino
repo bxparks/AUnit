@@ -274,14 +274,19 @@ test(flashString) {
 
 #if USE_AUNIT == 1
 test(compareStringN) {
-  assertEqual(0, compareStringN(ff, "abcde", 5));
-  assertEqual(1, compareStringN(ff, "abcd", 5));
-  assertEqual(0, compareStringN(ff, "abcd", 4));
-  assertEqual(1, compareStringN(ff, "", 1));
-  assertEqual(0, compareStringN(ff, "", 0));
+  assertEqual(compareStringN(ff, "abcde", 5), 0);
+  assertEqual(compareStringN("abcde", ff, 5), 0);
+  assertMore(compareStringN(ff, "abcd", 5), 0);
+  assertLess(compareStringN("abcd", ff, 5), 0);
+  assertEqual(compareStringN(ff, "abcd", 4), 0);
+  assertEqual(compareStringN("abcd", ff, 4), 0);
+  assertMore(compareStringN(ff, "", 1), 0);
+  assertLess(compareStringN("", ff, 1), 0);
+  assertEqual(compareStringN(ff, "", 0), 0);
+  assertEqual(compareStringN("", ff, 0), 0);
 
-  assertEqual(0, compareStringN(gg, ff, 5));
-  assertEqual(1, compareStringN(gg, ff, 6));
+  assertEqual(compareStringN(gg, ff, 5), 0);
+  assertMore(compareStringN(gg, ff, 6), 0);
 }
 #endif
 

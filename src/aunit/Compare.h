@@ -170,32 +170,36 @@ inline int compareString(const __FlashStringHelper* a, const String& b) {
 int compareString(const FCString& a, const FCString& b);
 
 // compareStringN()
+//
 // These methods are used to implement the TestRunner::exclude() and
 // TestRunner::include() features.
 
-/** Compare only the first n characters of 'b'. */
-int compareStringN(const __FlashStringHelper* a, const __FlashStringHelper* b,
-    uint16_t n);
-
-/** Compare only the first n characters of 'b'. */
-int compareStringN(const __FlashStringHelper* a, const char* b, uint16_t n);
-
-/** Compare only the first n characters of 'b'. */
-inline int compareStringN(const char* a, const char* b, uint16_t n) {
+/** Compare only the first n characters of 'a' or 'b'. */
+inline int compareStringN(const char* a, const char* b, size_t n) {
   return strncmp(a, b, n);
 }
 
-/** Compare only the first n characters of 'b'. */
+/** Compare only the first n characters of 'a' or 'b'. */
 inline int compareStringN(const char* a, const __FlashStringHelper* b,
-    uint16_t n) {
+    size_t n) {
   return strncmp_P(a, (const char*)b, n);
 }
 
-/** Compare only the first n characters of 'b'. */
-int compareStringN(const FCString& a, const __FlashStringHelper* b, uint16_t n);
+/** Compare only the first n characters of 'a' or 'b'. */
+inline int compareStringN(const __FlashStringHelper* a, const char* b,
+    size_t n) {
+  return -strncmp_P(b, (const char*)a, n);
+}
 
-/** Compare only the first n characters of 'b'. */
-int compareStringN(const FCString& a, const char* b, uint16_t n);
+/** Compare only the first n characters of 'a' or 'b'. */
+int compareStringN(const __FlashStringHelper* a, const __FlashStringHelper* b,
+    size_t n);
+
+/** Compare only the first n characters of 'a' or 'b'. */
+int compareStringN(const FCString& a, const char* b, size_t n);
+
+/** Compare only the first n characters of 'a' or 'b'. */
+int compareStringN(const FCString& a, const __FlashStringHelper* b, size_t n);
 
 // compareEqual()
 

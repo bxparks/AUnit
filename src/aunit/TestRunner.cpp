@@ -48,13 +48,13 @@ void TestRunner::setPrinter(Print* printer) {
 }
 
 void TestRunner::setStatusMatchingPattern(const char* pattern, uint8_t status) {
-  uint16_t length = strlen(pattern);
+  size_t length = strlen(pattern);
   if (length > 0 && pattern[length - 1] == '*') {
     // prefix match
-    length -= 1;
+    length--;
   } else {
     // exact match
-    length += 1;
+    length++;
   }
 
   for (Test** p = Test::getRoot(); *p != nullptr; p = (*p)->getNext()) {
@@ -148,7 +148,8 @@ uint16_t TestRunner::countTests() {
 
 void TestRunner::resolveTest(Test* testCase) {
   bool isOutput = isVerbosity(
-      Verbosity::kTestFailed | Verbosity::kTestSkipped | Verbosity::kTestPassed);
+      Verbosity::kTestFailed | Verbosity::kTestSkipped |
+      Verbosity::kTestPassed);
   if (!isOutput) return;
 
   Printer::getPrinter()->print(F("Test "));
