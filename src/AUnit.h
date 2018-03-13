@@ -32,7 +32,7 @@ SOFTWARE.
 #include "aunit/TestRunner.h"
 #include "aunit/Assertion.h"
 
-// Version string format: "010203" == "1.2.3"
-#define AUNIT_VERSION "000100"
+// Version format: 010203 == "1.2.3"
+#define AUNIT_VERSION 000100
 
 #endif
