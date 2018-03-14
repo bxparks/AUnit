@@ -29,6 +29,8 @@ class Print;
 
 namespace aunit {
 
+class FCString;
+
 /**
  * Utility class that provides a level of indirection to the Print class where
  * test results can be sent. By default, the Print object will be the Serial
@@ -49,6 +51,12 @@ class Printer {
 
     /** Set the printer. */
     static void setPrinter(Print* printer) { sPrinter = printer; }
+
+    /** Convenience method for printing an FCString. */
+    static void print(const FCString& s);
+
+    /** Convenience method for printing an FCString. */
+    static void println(const FCString& s);
 
   private:
     // Disable copy-constructor and assignment operator

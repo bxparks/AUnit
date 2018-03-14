@@ -30,9 +30,10 @@ SOFTWARE.
 
 class String;
 class __FlashStringHelper;
-class FCString;
 
 namespace aunit {
+
+class FCString;
 
 // compareString()
 

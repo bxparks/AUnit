@@ -160,12 +160,7 @@ void TestRunner::resolveTest(Test* testCase) {
   if (!isOutput) return;
 
   Printer::getPrinter()->print(F("Test "));
-  const FCString& name = testCase->getName();
-  if (name.getType() == FCString::kCStringType) {
-    Printer::getPrinter()->print(name.getCString());
-  } else {
-    Printer::getPrinter()->print(name.getFString());
-  }
+  Printer::print(testCase->getName());
   if (testCase->getStatus() == Test::kStatusSkipped) {
     Printer::getPrinter()->println(F(" skipped."));
   } else if (testCase->getStatus() == Test::kStatusFailed) {
@@ -198,12 +193,7 @@ void TestRunner::listTests() {
   Printer::getPrinter()->println(mCount);
   for (Test** p = Test::getRoot(); (*p) != nullptr; p = (*p)->getNext()) {
     Printer::getPrinter()->print(F("Test "));
-    const FCString& name = (*p)->getName();
-    if (name.getType() == FCString::kCStringType) {
-      Printer::getPrinter()->print(name.getCString());
-    } else {
-      Printer::getPrinter()->print(name.getFString());
-    }
+    Printer::print((*p)->getName());
     Printer::getPrinter()->println(F(" found."));
   }
 }
