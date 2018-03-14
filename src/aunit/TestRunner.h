@@ -89,7 +89,7 @@ class TestRunner {
     TestRunner(const TestRunner&) = delete;
     TestRunner& operator=(const TestRunner&) = delete;
 
-    /** Contructor. */
+    /** Constructor. */
     TestRunner();
 
     /** Run the current test case and print out the result. */

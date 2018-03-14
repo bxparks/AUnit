@@ -77,14 +77,14 @@ class Test {
     /**
      * Constructor taking the name of the given test case. Also performs
      * self-registration into the linked list of all test cases defined by
-     * Test::sRoot.
+     * Test::getRoot().
      */
     explicit Test(const char* name);
 
     /**
      * Constructor taking the name of the given test case. Also performs
      * self-registration into the linked list of all test cases defined by
-     * Test::sRoot.
+     * Test::getRoot()..
      */
     explicit Test(const __FlashStringHelper* name);
 
