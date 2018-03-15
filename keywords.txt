@@ -1,0 +1,89 @@
+#######################################
+# Syntax Coloring Map for AUnit library
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Test	KEYWORD1
+TestOnce	KEYWORD1
+test	KEYWORD1
+testing	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+# Public methods from TestRunner.h
+run	KEYWORD2
+list	KEYWORD2
+exclude	KEYWORD2
+include	KEYWORD2
+setVerbosity	KEYWORD2
+isVerbosity	KEYWORD2
+setPrinter	KEYWORD2
+
+# Public methods from Test.h
+getRoot	KEYWORD2
+setup	KEYWORD2
+loop	KEYWORD2
+getName	KEYWORD2
+getStatus	KEYWORD2
+setStatus	KEYWORD2
+setPassOrFail	KEYWORD2
+getNext	KEYWORD2
+#
+# Protected methods from Test.h
+skip	KEYWORD2
+pass	KEYWORD2
+fail	KEYWORD2
+# TestOnce
+once	KEYWORD2
+
+# Macros from Assertion.h
+assertEqual	KEYWORD2
+assertNotEqual	KEYWORD2
+assertLess	KEYWORD2
+assertLessOrEqual	KEYWORD2
+assertMore	KEYWORD2
+assertMoreOrEqual	KEYWORD2
+assertTrue	KEYWORD2
+assertFalse	KEYWORD2
+
+# Overloaded functions from Compare.h
+compareString	KEYWORD2
+compareStringN	KEYWORD2
+compareEqual	KEYWORD2
+compareLess	KEYWORD2
+compareLessOrEqual	KEYWORD2
+compareMoreOrEqual	KEYWORD2
+compareNotEqual	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+# public constants from Verbosity.h
+kTestRunSummary	LITERAL1
+kTestFailed	LITERAL1
+kTestPassed	LITERAL1
+kTestSkipped	LITERAL1
+kTestAll	LITERAL1
+kAssertionFailed	LITERAL1
+kAssertionPassed	LITERAL1
+kAssertionAll	LITERAL1
+kDefault	LITERAL1
+kAll	LITERAL1
+kNone	LITERAL1
+
+# public constants from Test.h
+kStatusNew	LITERAL1
+kStatusSetup	LITERAL1
+kStatusPassed	LITERAL1
+kStatusFailed	LITERAL1
+kStatusSkipped	LITERAL1
