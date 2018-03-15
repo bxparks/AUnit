@@ -497,20 +497,23 @@ from an actual unit test sketch containing 26 test cases using 331 `assertXxx()`
 statements, compiled using AUnit and ArduinoUnit on 4 different
 microcontrollers:
 ```
-Platform (resource)   |     Max | ArduinoUnit |       AUnit |
-----------------------+---------+-------------+-------------|
-Arduino Nano (flash)  |   30720 |       54038 |       18416 |
-Arduino Nano (static) |    2048 |        1061 |         908 |
-----------------------+---------+-------------+-------------|
-Teensy LC (flash)     |   63488 |       36196 |       25108 |
-Teensy LC (static)    |    8192 |        2980 |        2768 |
-----------------------+---------+-------------+-------------|
-Teensy 3.2 (flash)    |  262144 |       51236 |       36136 |
-Teensy 3.2 (static)   |   65536 |        5328 |        5224 |
-----------------------+---------+-------------+-------------|
-ESP8266 (flash)       | 1044464 |    does not |      267391 |
-ESP8266 (static)      |   81920 |     compile |       34564 |
-----------------------+---------+-------------+-------------|
+Platform (resource)        |     Max | ArduinoUnit |       AUnit |
+---------------------------+---------+-------------+-------------|
+Arduino Nano (flash)       |   30720 |       54038 |       18416 |
+Arduino Nano (static)      |    2048 |        1061 |         908 |
+---------------------------+---------+-------------+-------------|
+Teensy LC (flash)          |   63488 |       36196 |       25108 |
+Teensy LC (static)         |    8192 |        2980 |        2768 |
+---------------------------+---------+-------------+-------------|
+Teensy 3.2 (flash)         |  262144 |       51236 |       36136 |
+Teensy 3.2 (static)        |   65536 |        5328 |        5224 |
+---------------------------+---------+-------------+-------------|
+ESP8266 - ESP-12E (flash)  | 1044464 |    does not |      267391 |
+ESP8266 - ESP-12E (static) |   81920 |     compile |       34564 |
+---------------------------+---------+-------------+-------------|
+ESP8266 - ESP-01 (flash)   |  499696 |    does not |      267391 |
+ESP8266 - ESP-01 (static)  |   47356 |     compile |       34564 |
+---------------------------+---------+-------------+-------------|
 ```
 
 Not all unit test sketches will experience a savings of 66% of flash memory with
@@ -536,6 +539,7 @@ The library has been verified to work on the following hardware:
 * Teensy LC (48 MHz ARM Cortex-M0+)
 * Teensy 3.2 (72 MHz ARM Cortex-M4)
 * NodeMCU 1.0 clone (ESP-12E module, 80MHz ESP8266)
+* ESP-01 (ESP-01 module, 80MHz ESP8266)
 
 ## License
 
