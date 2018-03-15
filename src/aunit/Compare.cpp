@@ -171,20 +171,17 @@ int compareString(const __FlashStringHelper* a, const char* b) {
   return -strcmp_P(b, (const char*) a);
 }
 
+// On ESP8266, pgm_read_byte() already takes care of 4-byte alignment, and
+// memcpy_P(s, p, 4) makes 4 calls to pgm_read_byte() anyway, so don't bother
+// optimizing for 4-byte alignment here.
 int compareString(const __FlashStringHelper* a, const __FlashStringHelper* b) {
   const char* aa = reinterpret_cast<const char*>(a);
   const char* bb = reinterpret_cast<const char*>(b);
 
-  // On ESP8266, pgm_read_byte() already takes care of 4-byte alignment, and
-  // memcpy_P(s, p, 4) makes 4 calls to pgm_read_byte() anyway, so don't bother
-  // optimizing for 4-byte alignment here.
   while (true) {
-    char ca = pgm_read_byte(aa);
-    char cb = pgm_read_byte(bb);
-    if (ca < cb) return -1;
-    if (ca > cb) return 1;
-    // we hit this condition only if both strings are the same length,
-    // so no need to check both strings for '\0'
+    uint8_t ca = pgm_read_byte(aa);
+    uint8_t cb = pgm_read_byte(bb);
+    if (ca != cb) return (int) ca - (int) cb;
     if (ca == '\0') return 0;
     aa++;
     bb++;
@@ -225,21 +222,18 @@ int compareStringN(const __FlashStringHelper* a, const char* b, size_t n) {
   return -strncmp_P(b, (const char*)a, n);
 }
 
+// On ESP8266, pgm_read_byte() already takes care of 4-byte alignment, and
+// memcpy_P(s, p, 4) makes 4 calls to pgm_read_byte() anyway, so don't bother
+// optimizing for 4-byte alignment here.
 int compareStringN(const __FlashStringHelper* a, const __FlashStringHelper* b,
     size_t n) {
   const char* aa = reinterpret_cast<const char*>(a);
   const char* bb = reinterpret_cast<const char*>(b);
 
-  // On ESP8266, pgm_read_byte() already takes care of 4-byte alignment, and
-  // memcpy_P(s, p, 4) makes 4 calls to pgm_read_byte() anyway, so don't bother
-  // optimizing for 4-byte alignment here.
   while (n > 0) {
-    char ca = pgm_read_byte(aa);
-    char cb = pgm_read_byte(bb);
-    if (ca < cb) return -1;
-    if (ca > cb) return 1;
-    // we hit this condition only if both strings are the same length,
-    // so no need to check both strings for '\0'
+    uint8_t ca = pgm_read_byte(aa);
+    uint8_t cb = pgm_read_byte(bb);
+    if (ca != cb) return (int) ca - (int) cb;
     if (ca == '\0') return 0;
     aa++;
     bb++;
