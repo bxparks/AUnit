@@ -183,8 +183,9 @@ int compareString(const __FlashStringHelper* a, const __FlashStringHelper* b) {
     char cb = pgm_read_byte(bb);
     if (ca < cb) return -1;
     if (ca > cb) return 1;
-    // we hit this condition only if both strings were the same length
-    if (ca == '\0' || cb == '\0') return 0;
+    // we hit this condition only if both strings are the same length,
+    // so no need to check both strings for '\0'
+    if (ca == '\0') return 0;
     aa++;
     bb++;
   }
@@ -237,8 +238,9 @@ int compareStringN(const __FlashStringHelper* a, const __FlashStringHelper* b,
     char cb = pgm_read_byte(bb);
     if (ca < cb) return -1;
     if (ca > cb) return 1;
-    // we hit this condition only if both strings were the same length
-    if (ca == '\0' || cb == '\0') return 0;
+    // we hit this condition only if both strings are the same length,
+    // so no need to check both strings for '\0'
+    if (ca == '\0') return 0;
     aa++;
     bb++;
     n--;

@@ -96,6 +96,57 @@ test(type_mismatch) {
   assertEqual(5UL, ulongValue);
 }
 
+#if USE_AUNIT == 1
+
+test(compareString) {
+  assertEqual(compareString(a, a), 0);
+  assertEqual(compareString(a, f), 0);
+  assertEqual(compareString(a, s), 0);
+
+  assertEqual(compareString(f, a), 0);
+  assertEqual(compareString(f, f), 0);
+  assertEqual(compareString(f, s), 0);
+
+  assertEqual(compareString(s, a), 0);
+  assertEqual(compareString(s, f), 0);
+  assertEqual(compareString(s, s), 0);
+
+  assertLess(compareString(a, b), 0);
+  assertLess(compareString(a, g), 0);
+  assertLess(compareString(a, t), 0);
+
+  assertLess(compareString(f, b), 0);
+  assertLess(compareString(f, g), 0);
+  assertLess(compareString(f, t), 0);
+
+  assertLess(compareString(s, b), 0);
+  assertLess(compareString(s, g), 0);
+  assertLess(compareString(s, t), 0);
+}
+
+test(compareStringN) {
+  assertEqual(compareStringN(ff, "abcde", 5), 0);
+  assertEqual(compareStringN("abcde", ff, 5), 0);
+
+  assertMore(compareStringN(ff, "abcd", 5), 0);
+  assertLess(compareStringN("abcd", ff, 5), 0);
+
+  assertEqual(compareStringN(ff, "abcd", 4), 0);
+  assertEqual(compareStringN("abcd", ff, 4), 0);
+
+  assertMore(compareStringN(ff, "", 1), 0);
+  assertLess(compareStringN("", ff, 1), 0);
+
+  assertEqual(compareStringN(ff, "", 0), 0);
+  assertEqual(compareStringN("", ff, 0), 0);
+
+  assertEqual(compareStringN(gg, ff, 5), 0);
+
+  assertMore(compareStringN(gg, ff, 6), 0);
+}
+
+#endif
+
 test(assertEqual) {
   assertEqual(true, true);
   assertEqual(c, c);
@@ -271,24 +322,6 @@ test(flashString) {
   assertMoreOrEqual(hh, ff);
   assertMoreOrEqual(hh, gg);
 }
-
-#if USE_AUNIT == 1
-test(compareStringN) {
-  assertEqual(compareStringN(ff, "abcde", 5), 0);
-  assertEqual(compareStringN("abcde", ff, 5), 0);
-  assertMore(compareStringN(ff, "abcd", 5), 0);
-  assertLess(compareStringN("abcd", ff, 5), 0);
-  assertEqual(compareStringN(ff, "abcd", 4), 0);
-  assertEqual(compareStringN("abcd", ff, 4), 0);
-  assertMore(compareStringN(ff, "", 1), 0);
-  assertLess(compareStringN("", ff, 1), 0);
-  assertEqual(compareStringN(ff, "", 0), 0);
-  assertEqual(compareStringN("", ff, 0), 0);
-
-  assertEqual(compareStringN(gg, ff, 5), 0);
-  assertMore(compareStringN(gg, ff, 6), 0);
-}
-#endif
 
 testing(looping_skip) {
   static int count = 0;
