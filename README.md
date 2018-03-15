@@ -11,11 +11,11 @@ the microcontrollers themselves, not on emulators or simulators.
 AUnit was created to solve 2 problems with ArduinoUnit:
 * ArduinoUnit consumes too much flash memory on an AVR platform (e.g.
   Arduino UNO, Nano) as explained in
-  [issue #70](https://github.com/mmurdoch/arduinounit/issues/70).
+  [ArduinoUnit#70](https://github.com/mmurdoch/arduinounit/issues/70).
 * ArduinoUnit does not compile on the ESP8266 platform (see
-  [issue #68](https://github.com/mmurdoch/arduinounit/issues/68),
-  [issue #57](https://github.com/mmurdoch/arduinounit/pull/57), and
-  [issue #55](https://github.com/mmurdoch/arduinounit/issues/55)).
+  [ArduinoUni#68](https://github.com/mmurdoch/arduinounit/issues/68),
+  [ArduinoUni#57](https://github.com/mmurdoch/arduinounit/pull/57), and
+  [ArduinoUni#55](https://github.com/mmurdoch/arduinounit/issues/55)).
 
 
 In contrast:
@@ -39,6 +39,13 @@ AUnit supports exclude and include filters:
 
 Currently, only a single `*` wildcard is supported and it must occur at the end
 if present.
+
+Various "Meta Assertions" from ArduinoUnit have not been implemented yet
+(see *Migrating from ArduinoUnit to AUnit* section below).
+
+(**Beta Status**: Although this library has been extensively tested by me, and I
+convered my [AceButton](https://github.com/bxparks/AceButton) library to use it,
+I consider it currently in "beta stage" until more  users have tested it.)
 
 ## Installation
 
@@ -354,19 +361,54 @@ instead of
 
 ### Test Runner
 
-The `Test::run()` method has been moved to a new `TestRunner` class:
+The `Test::run()` method has been moved to a new `TestRunner` class. Use
+```
+aunit::TestRunner::run();
+```
+instead of
+```
+Test::run();
+```
 
-* `Test::run()` -> `TestRunner::run()`
+### Compile Time Selection
+
+I have found that the following macros are useful during the transition:
+
+```
+#define USE_AUNIT 1
+
+#if USE_AUNIT == 1
+#include <AUnit.h>
+#else
+#include <ArduinoUnit.h>
+#endif
+
+...
+
+void loop() {
+#if USE_AUNIT == 1
+aunit::TestRunner::run();
+#else
+Test::run();
+#endif
+}
+```
 
 ### Printer
 
 The `Test::out` static variable can be set using the static method on
-`TestRunner`:
+`TestRunner`. Use
 
-* `Test::out = &Serial1` -> `TestRunner::setPrinter(&Serial1)`
+```
+TestRunner::setPrinter(&Serial1);
+```
+instead of
+```
+Test::out = &Serial1;
+```
 
-(It can be accessed through `aunit::Printer::getPrinter()` but I don't
-expect this to be needed often.)
+(The current `Print` object can be accessed through
+`aunit::Printer::getPrinter()` but I don't expect this to be needed often.)
 
 ### Verbosity
 
