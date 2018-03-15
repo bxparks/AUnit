@@ -44,8 +44,8 @@ Various "Meta Assertions" from ArduinoUnit have not been implemented yet
 (see *Migrating from ArduinoUnit to AUnit* section below).
 
 (**Beta Status**: Although this library has been extensively tested by me, and I
-convered my [AceButton](https://github.com/bxparks/AceButton) library to use it,
-I consider it currently in "beta stage" until more  users have tested it.)
+converted my [AceButton](https://github.com/bxparks/AceButton) library to use
+it, I consider it currently in "beta stage" until more  users have tested it.)
 
 ## Installation
 
