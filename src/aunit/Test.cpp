@@ -60,7 +60,7 @@ void Test::setPassOrFail(bool ok) {
 // Insert the current test case into the singly linked list, sorted by
 // getName(). This is an O(N^2) algorithm, but should be good enough for
 // small N ~= 100. If N becomes bigger than that, it's probably better to insert
-// using an O(N) alorithm, then sort the elements later in TestRunner::run().
+// using an O(N) algorithm, then sort the elements later in TestRunner::run().
 // Also, we don't increment a static counter here, because that would introduce
 // another static initialization ordering problem.
 void Test::insert() {

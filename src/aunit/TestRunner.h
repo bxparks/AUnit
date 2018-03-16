@@ -78,7 +78,27 @@ class TestRunner {
     /** Set the pass/fail status of the current test. */
     static void setPassOrFail(bool ok) { getRunner()->setTestPassOrFail(ok); }
 
+    /**
+     * Set test runner timeout across all tests, in millis. Set to 0 for
+     * infinite timeout. Useful for preventing testing() test cases that never
+     * end. This a timeout for the TestRunner itself, not for individual tests.
+     *
+     * It might be usefult to allow timeouts on a per-test basis, but I'm
+     * reluctant to do that at the Test class level because it would add extra
+     * 4 bytes (maybe 2 if we allowed a small maximum) of static memory per
+     * test case. The solution might be to allow the end-user to choose to pay
+     * for this extra cost if they want to. I think the right way to do that is
+     * to add support for test fixtures which is something on the back of my
+     * mind.
+     */
+    static void setTimeout(long millis) {
+      getRunner()->setRunnerTimeout(millis);
+    }
+
   private:
+    // 10 second timeout for the runner
+    static const unsigned long kTimeoutDefault = 10000;
+
     /** Return the singleton TestRunner. */
     static TestRunner* getRunner();
 
@@ -119,6 +139,9 @@ class TestRunner {
     /** Set the pass/fail status of the current test. */
     void setTestPassOrFail(bool ok) { (*mCurrent)->setPassOrFail(ok); }
 
+    /** Set the test runner timeout. */
+    void setRunnerTimeout(unsigned long timeout);
+
     // The current test case is represented by a pointer to a pointer. This
     // allows treating the root node the same as all the other nodes, and
     // simplifies the code traversing the singly-linked list significantly.
@@ -131,6 +154,9 @@ class TestRunner {
     uint16_t mPassedCount;
     uint16_t mFailedCount;
     uint16_t mSkippedCount;
+    uint16_t mExpiredCount;;
+    unsigned long mTimeout;
+    unsigned long mStartTime;
 };
 
 }
