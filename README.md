@@ -541,7 +541,7 @@ microcontrollers:
 ```
 Platform (resource)        |     Max | ArduinoUnit |       AUnit |
 ---------------------------+---------+-------------+-------------|
-Arduino Nano (flash)       |   30720 |       54038 |       18422 |
+Arduino Nano (flash)       |   30720 |       54038 |       18418 |
 Arduino Nano (static)      |    2048 |        1061 |         908 |
 ---------------------------+---------+-------------+-------------|
 Teensy LC (flash)          |   63488 |       36196 |       25096 |

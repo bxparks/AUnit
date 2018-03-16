@@ -49,8 +49,12 @@ Test::Test(const __FlashStringHelper* name):
   insert();
 }
 
+// Resolve the status as kStatusFailed only if ok == false. Otherwise, keep the
+// status as kStatusSetup to allow testing() test cases to continue.
 void Test::setPassOrFail(bool ok) {
-  mStatus = (ok) ? kStatusPassed : kStatusFailed;
+  if (!ok) {
+    mStatus = kStatusFailed;
+  }
 }
 
 // Insert the current test case into the singly linked list, sorted by
