@@ -456,6 +456,16 @@ The following methods from ArduinoUnit are not yet implemented:
 * `assertTestSkip(name)`
 * `assertTestNotSkip(name)`
 
+### Smaller Test Runner Loop Chunks
+
+In ArduinoUnit, each call to `Test::run()` will process the entire list of
+currently active test cases. In AUnit, each call to `TestRunner::run()` will
+process just one test case and return. I chose to break up the
+`TestRunner::run()` method into smaller pieces to allow the `loop()` method to
+return to the system more frequently. This is especially important on the
+ESP8266 platform where system must get some periodic CPU cycles to perform its
+own tasks.
+
 ### Assertion Parameters Omitted in Messages
 
 The various `assertXxx()` macros in AUnit print a slightly shorter
