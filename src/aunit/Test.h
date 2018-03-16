@@ -61,6 +61,9 @@ namespace aunit {
 
 class Test {
   public:
+    // Don't change the order of Passed, Failed, or Skipped without changing
+    // the checkTestDone(), checkTestNotDone(), assertTestDone() and
+    // assertTestNotDone() macros.
     static const uint8_t kStatusNew = 0;
     static const uint8_t kStatusSetup = 1;
     static const uint8_t kStatusPassed = 2;

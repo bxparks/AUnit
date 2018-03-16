@@ -59,6 +59,61 @@ SOFTWARE.
     return;\
 } while (false)
 
+// Meta tests, copied from ArduinoUnit for compatibility.
+
+// The checkTestXxx() macros returns a boolean. Execution continues.
+
+#define checkTestDone(name) \
+    (test_##name##_instance.getStatus() >= Test::kStatusPassed)
+
+#define checkTestNotDone(name) \
+    (test_##name##_instance.getStatus() < Test::kStatusPassed)
+
+#define checkTestPass(name) \
+    (test_##name##_instance.getStatus() == Test::kStatusPassed)
+
+#define checkTestNotPass(name) \
+    (test_##name##_instance.getStatus() != Test::kStatusPassed)
+
+#define checkTestFail(name) \
+    (test_##name##_instance.getStatus() == Test::kStatusFailed)
+
+#define checkTestNotFail(name) \
+    (test_##name##_instance.getStatus() != Test::kStatusFailed)
+
+#define checkTestSkip(name) \
+    (test_##name##_instance.getStatus() == Test::kStatusSkipped)
+
+#define checkTestNotSkip(name) \
+    (test_##name##_instance.getStatus() != Test::kStatusSkipped)
+
+// If the assertTestXxx() macros fail, they generate an optional output, calls
+// fail(), and returns from the current test case.
+
+#define assertTestDone(name) \
+    assertMoreOrEqual(test_##name##_instance.getStatus(), Test::kStatusPassed)
+
+#define assertTestNotDone(name) \
+    assertLess(test_##name##_instance.getStatus(), Test::kStatusPassed)
+
+#define assertTestPass(name) \
+    assertEqual(test_##name##_instance.getStatus(), Test::kStatusPassed)
+
+#define assertTestNotPass(name) \
+    assertNotEqual(test_##name##_instance.getStatus(), Test::kStatusPassed)
+
+#define assertTestFail(name) \
+    assertEqual(test_##name##_instance.getStatus(), Test::kStatusFailed)
+
+#define assertTestNotFail(name) \
+    assertNotEqual(test_##name##_instance.getStatus(), Test::kStatusFailed)
+
+#define assertTestSkip(name) \
+    assertEqual(test_##name##_instance.getStatus(), Test::kStatusSkipped)
+
+#define assertTestNotSkip(name) \
+    assertNotEqual(test_##name##_instance.getStatus(), Test::kStatusSkipped)
+
 namespace aunit {
 
 // This can be a template function because it is accessed only through the
