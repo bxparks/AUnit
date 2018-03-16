@@ -456,6 +456,16 @@ The following methods from ArduinoUnit are not yet implemented:
 * `assertTestSkip(name)`
 * `assertTestNotSkip(name)`
 
+### Smaller Test Runner Loop Chunks
+
+In ArduinoUnit, each call to `Test::run()` will process the entire list of
+currently active test cases. In AUnit, each call to `TestRunner::run()` will
+process just one test case and return. I chose to break up the
+`TestRunner::run()` method into smaller pieces to allow the `loop()` method to
+return to the system more frequently. This is especially important on the
+ESP8266 platform where system must get some periodic CPU cycles to perform its
+own tasks.
+
 ### Assertion Parameters Omitted in Messages
 
 The various `assertXxx()` macros in AUnit print a slightly shorter
@@ -541,19 +551,19 @@ microcontrollers:
 ```
 Platform (resource)        |     Max | ArduinoUnit |       AUnit |
 ---------------------------+---------+-------------+-------------|
-Arduino Nano (flash)       |   30720 |       54038 |       18412 |
+Arduino Nano (flash)       |   30720 |       54038 |       18418 |
 Arduino Nano (static)      |    2048 |        1061 |         908 |
 ---------------------------+---------+-------------+-------------|
-Teensy LC (flash)          |   63488 |       36196 |       25104 |
+Teensy LC (flash)          |   63488 |       36196 |       25096 |
 Teensy LC (static)         |    8192 |        2980 |        2768 |
 ---------------------------+---------+-------------+-------------|
 Teensy 3.2 (flash)         |  262144 |       51236 |       36136 |
 Teensy 3.2 (static)        |   65536 |        5328 |        5224 |
 ---------------------------+---------+-------------+-------------|
-ESP8266 - ESP-12E (flash)  | 1044464 |    does not |      267375 |
+ESP8266 - ESP-12E (flash)  | 1044464 |    does not |      267359 |
 ESP8266 - ESP-12E (static) |   81920 |     compile |       34564 |
 ---------------------------+---------+-------------+-------------|
-ESP8266 - ESP-01 (flash)   |  499696 |    does not |      267375 |
+ESP8266 - ESP-01 (flash)   |  499696 |    does not |      267359 |
 ESP8266 - ESP-01 (static)  |   47356 |     compile |       34564 |
 ---------------------------+---------+-------------+-------------|
 ```

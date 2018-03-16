@@ -325,9 +325,9 @@ test(flashString) {
 
 testing(looping_skip) {
   static int count = 0;
+  // a successful assetXxx() should not terminate a testing() early
+  assertLess(count, 3);
   count++;
-  Serial.print(F("looping_skip: iteration "));
-  Serial.println(count);
   if (count >= 3) {
     skip();
   }
@@ -335,9 +335,9 @@ testing(looping_skip) {
 
 testing(looping_fail) {
   static int count = 0;
+  // a successful assetXxx() should not terminate a testing() early
+  assertLess(count, 3);
   count++;
-  Serial.print(F("looping_fail: iteration "));
-  Serial.println(count);
   if (count >= 3) {
     fail();
   }
@@ -345,9 +345,9 @@ testing(looping_fail) {
 
 testing(looping_pass) {
   static int count = 0;
+  // a successful assetXxx() should not terminate a testing() early
+  assertLess(count, 3);
   count++;
-  Serial.print(F("looping_pass: iteration "));
-  Serial.println(count);
   if (count >= 3) {
     pass();
   }
