@@ -331,6 +331,12 @@ The following methods from ArduinoUnit are not implemented:
 * `assertTestSkip(name)`
 * `assertTestNotSkip(name)`
 
+The following macros are not implemented because they are only needed
+by the Meta Assertions:
+
+* `externTest()`
+* `externTesting()`
+
 ***ArduinoUnit Compatibility***: _Not implemented in AUnit._
 
 ### Status Indicator Methods
