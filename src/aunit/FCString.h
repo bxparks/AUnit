@@ -38,6 +38,14 @@ namespace aunit {
  * outside a function, it can only be used inside a function, so we are forced
  * to use normal c-strings instead of F() strings when manually creating Test or
  * TestOnce instances.
+ *
+ * I deliberately decided not to inherit from Printable. While it is convenient
+ * to be able to call Print::print() with an instance of this class, the cost
+ * is 2 (AVR) or 4 (Teensy-ARM or ESP8266) extra bytes of static memory for the
+ * v-table pointer for each instance. But each instance is only 3 (AVR) or 5
+ * (Teensy-ARM or ESP8266) bytes big, so the cost of 50-100 bytes of static
+ * memory for a large suite of 25 unit tests does not seem worth the minor
+ * convenience.
  */
 class FCString {
   public:
