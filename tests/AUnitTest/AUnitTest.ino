@@ -353,6 +353,16 @@ testing(looping_pass) {
   }
 }
 
+testing(looping_until) {
+  static unsigned long startTime  = millis();
+
+  // complete the test in 20 secons.
+  unsigned long now = millis();
+  if (now >= startTime + 20000) {
+    pass();
+  }
+}
+
 void setup() {
   Serial.begin(74880); // 74880 is the default for some ESP8266 boards
   while (! Serial); // Wait until Serial is ready - Leonardo
@@ -361,6 +371,11 @@ void setup() {
   //TestRunner::setVerbosity(Verbosity::kAll);
   TestRunner::exclude("looping_f*");
   TestRunner::list();
+
+  // If set to something really small, like 1, all tests are incomplete.
+  // If set to 0, infinite timeout, some testing() may accidentally run forever.
+  // Default is 10000 ms.
+  //TestRunner::setTimeout(25000);
 #else
   //Test::min_verbosity = TEST_VERBOSITY_ALL;
   Test::exclude("looping_f*");

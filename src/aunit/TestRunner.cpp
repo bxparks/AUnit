@@ -72,7 +72,8 @@ TestRunner::TestRunner():
     mCount(0),
     mPassedCount(0),
     mFailedCount(0),
-    mSkippedCount(0) {}
+    mSkippedCount(0),
+    mTimeout(kTimeoutDefault) {}
 
 void TestRunner::runTest() {
   setupRunner();
@@ -103,15 +104,29 @@ void TestRunner::runTest() {
       }
       break;
     case Test::kStatusSetup:
-      (*mCurrent)->loop();
+      {
+        // Check for timeout. mTimeout == 0 means infinite timeout.
+        // NOTE: It feels like this code should go into the Test::loop() method
+        // (like the extra bit of code in TestOnce::loop()) because it seems
+        // like we could want the timeout to be configurable on a case by case
+        // basis. This would cause the testing() code to move down into a new
+        // again() virtual method dispatched from Test::loop(), analogous to
+        // once(). But let's keep the code here for now.
+        unsigned long now = millis();
+        if (mTimeout > 0 && now >= mStartTime + mTimeout) {
+          (*mCurrent)->expire();
+        } else {
+          (*mCurrent)->loop();
 
-      // If test status is unresolved (i.e. still in kStatusSetup state) after
-      // loop(), then this is a continuous testing() test case, so skip to the
-      // next test. Otherwise, stay on the current test so that the next
-      // iteration can resolve the current test.
-      if ((*mCurrent)->getStatus() == Test::kStatusSetup) {
-        // skip to the next one, but keep current test in the list
-        mCurrent = (*mCurrent)->getNext();
+          // If test status is unresolved (i.e. still in kStatusSetup state)
+          // after loop(), then this is a continuous testing() test case, so
+          // skip to the next test. Otherwise, stay on the current test so that
+          // the next iteration of runTest() can resolve the current test.
+          if ((*mCurrent)->getStatus() == Test::kStatusSetup) {
+            // skip to the next one, but keep current test in the list
+            mCurrent = (*mCurrent)->getNext();
+          }
+        }
       }
       break;
     case Test::kStatusSkipped:
@@ -132,6 +147,12 @@ void TestRunner::runTest() {
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
       break;
+    case Test::kStatusExpired:
+      mExpiredCount++;
+      resolveTest((*mCurrent));
+      // skip to the next one by taking current test out of the list
+      *mCurrent = *(*mCurrent)->getNext();
+      break;
   }
 }
 
@@ -140,6 +161,7 @@ void TestRunner::setupRunner() {
     mIsSetup = true;
     mCount = countTests();
     mCurrent = Test::getRoot();
+    mStartTime = millis();
   }
 }
 
@@ -167,19 +189,23 @@ void TestRunner::resolveTest(Test* testCase) {
     Printer::getPrinter()->println(F(" failed."));
   } else if (testCase->getStatus ()== Test::kStatusPassed) {
     Printer::getPrinter()->println(F(" passed."));
+  } else if (testCase->getStatus ()== Test::kStatusExpired) {
+    Printer::getPrinter()->println(F(" timed out."));
   }
 }
 
 void TestRunner::resolveRun() {
   if (!isVerbosity(Verbosity::kTestRunSummary)) return;
 
-  Printer::getPrinter()->print(F("Test summary: "));
+  Printer::getPrinter()->print(F("TestRunner summary: "));
   Printer::getPrinter()->print(mPassedCount);
   Printer::getPrinter()->print(F(" passed, "));
   Printer::getPrinter()->print(mFailedCount);
-  Printer::getPrinter()->print(F(" failed, and "));
+  Printer::getPrinter()->print(F(" failed, "));
   Printer::getPrinter()->print(mSkippedCount);
-  Printer::getPrinter()->print(F(" skipped, out of "));
+  Printer::getPrinter()->print(F(" skipped, "));
+  Printer::getPrinter()->print(mExpiredCount);
+  Printer::getPrinter()->print(F(" timed out, out of "));
   Printer::getPrinter()->print(mCount);
   Printer::getPrinter()->println(F(" test(s)."));
 
@@ -189,13 +215,17 @@ void TestRunner::resolveRun() {
 void TestRunner::listTests() {
   setupRunner();
 
-  Printer::getPrinter()->print("Test count: ");
+  Printer::getPrinter()->print("TestRunner test count: ");
   Printer::getPrinter()->println(mCount);
   for (Test** p = Test::getRoot(); (*p) != nullptr; p = (*p)->getNext()) {
     Printer::getPrinter()->print(F("Test "));
     Printer::print((*p)->getName());
     Printer::getPrinter()->println(F(" found."));
   }
+}
+
+void TestRunner::setRunnerTimeout(unsigned long timeout) {
+  mTimeout = timeout;
 }
 
 }

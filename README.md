@@ -6,7 +6,9 @@
 on the venerable [ArduinoUnit](https://github.com/mmurdoch/arduinounit)
 framework. It is almost a drop-in replacement for the API implemented by
 ArduinoUnit version 2.2. Just like ArduinoUnit, the unit tests run directly on
-the microcontrollers themselves, not on emulators or simulators.
+the microcontrollers themselves, not on emulators or simulators. The test
+results are printed on the `Serial` object by default, but can be redirected to
+another `Print` object.
 
 AUnit was created to solve 2 problems with ArduinoUnit:
 * ArduinoUnit consumes too much flash memory on an AVR platform (e.g.
@@ -17,18 +19,20 @@ AUnit was created to solve 2 problems with ArduinoUnit:
   [ArduinoUni#57](https://github.com/mmurdoch/arduinounit/pull/57), and
   [ArduinoUni#55](https://github.com/mmurdoch/arduinounit/issues/55)).
 
-
 In contrast:
 * AUnit consumes as much as 66% *less* flash memory than ArduinoUnit on the
   AVR platform. On Teensy-ARM, the savings can be as much as 30%.
 * AUnit has been tested on AVR, Teensy-ARM and ESP8266.
+
+### Supported or Compatible Features
 
 For basic unit tests written using ArduinoUnit, only two changes are required to
 convert to AUnit:
 * `#include <ArduinoUnit.h>` -> `#include <AUnit.h>`
 * `Test::run()` -> `aunit::TestRunner::run()`
 
-Most of the frequently used macros are compatible between ArduinoUnit and AUnit:
+Almost all of the frequently used macros are compatible between ArduinoUnit and
+AUnit:
 * `test()`
 * `testing()`
 * `assertXxx()`
@@ -37,37 +41,56 @@ AUnit supports exclude and include filters:
 * `TestRunner::exclude()`
 * `TestRunner::include()`
 
-Currently, only a single `*` wildcard is supported and it must occur at the end
-if present.
+### Missing Features
 
-Various "Meta Assertions" from ArduinoUnit have not been implemented yet
-(see *Migrating from ArduinoUnit to AUnit* section below).
+Here are the features which have not been ported over from ArduinoUnit:
 
-(**Beta Status**: Although this library has been extensively tested by me, and I
-converted my [AceButton](https://github.com/bxparks/AceButton) library to use
-it, I consider it currently in "beta stage" until more  users have tested it.)
+* ArduinoUnit supports multiple `*` wildcards in its `exclude()` and `include()`
+  methods. AUnit supports only a single `*` wildcard and it must occur at the
+  end if present.
+* Various "Meta Assertions" from ArduinoUnit (i.e. `checkTestXxx()` and
+  `assertTestXxx()`) have not been implemented.
+
+### Added Features
+
+Here are some features in AUnit, not available in ArduinoUnit:
+
+* The `TestRunner` supports a configurable timeout parameter which
+  can prevent `testing()` test cases from running forever.
+* AUnit works on the ESP8266 platform.
+
+### Beta Status
+
+Although this library has been extensively tested by me, and I converted my
+[AceButton](https://github.com/bxparks/AceButton) library to use it, I consider
+it currently in "beta stage" until more  users have tested it.
 
 ## Installation
 
-The library will be available in the Arduino IDE Library Manager eventually.
+The library is available in the Arduino IDE Library Manager. Search for "unit
+test" or "AUnit", select "AUnit", then click the "Install" button.
 
-In the mean time, it can be installed by cloning the
+The library can also be installed by cloning the
 [GitHub repository](https://github.com/bxparks/AUnit), then
 manually copying over the contents to the `./libraries` directory used
 by the Arduino IDE. (The result is a directory named `./libraries/AUnit`.)
 See the Preferences menu for the location of the Arduino sketch directory.
-You may need to restart the Arduino IDE to let it see the new library.
+
+Using either installation method, you may need to restart the Arduino IDE to
+pick up the new library.
 
 ## Usage
+
+In this section, information about differences between AUnit and ArduinoUnit
+will appear in a note marked by ***ArduinoUnit Compatibility***.
 
 ### Header and Namespace
 
 To prevent name clashes with other libraries and code, all classes in the AUnit
-library are defined in the `aunit` namespace. The user will normally interact
-with only the `TestRunner` class. It can be reference with an explicit namespace
+library are defined in the `aunit` namespace. The user will mostly interact with
+the `TestRunner` class. It can be referenced with an explicit namespace
 qualifier (i.e. `aunit::TestRunner`), or we can use a `using` directive like
 this:
-
 ```
 #include <AUnit.h>
 using aunit::TestRunner;
@@ -83,24 +106,49 @@ Similar to ArduinoUnit, many of the "functions" in this framework (e.g.
 in the global namespace, so it is usually not necessary to import the entire
 `aunit` namespace.
 
+***ArduinoUnit Compatibility***: _I have found that the following macros are
+useful during the transition:_
+```
+#define USE_AUNIT 1
+
+#if USE_AUNIT == 1
+#include <AUnit.h>
+#else
+#include <ArduinoUnit.h>
+#endif
+
+...
+
+void loop() {
+#if USE_AUNIT == 1
+  aunit::TestRunner::run();
+#else
+  Test::run();
+#endif
+}
+```
+
 ### Defining the Tests
 
-The usage of **AUnit** is almost identical to **ArduinoUnit**. A test case is
-defined by a fragment of code inside the `{ }` just after the `test()` or
-`testing()` macros. The argument to these macros are the name of the test case.
-(The name is available within the test code using the `Test::getName()`
-method). The `test()` and `testing()` macros use the name to generate a subclass
-whose parents are `aunit::TestOnce` and `aunit::Test` respectively.
+The usage of **AUnit** is basically identical to **ArduinoUnit**. The following
+macros are used to create a subclass of one of the two test classes (`Test` or
+`TestOnce`):
 
-The macros also generate code to create an instance of the subclass.
-The code following after the `test()` and `testing()` macros becomes
-the body of the virtual `TestOnce::once()` and `Test::loop` methods
-(respectively).
+* `test()`
+* `testing()`
 
-When the instance of the test case is statically initialized, it adds itself to
-a linked list. The root of that singly-linked list is given by
-`Test::getRoot()`. The `TestRunner::run()` method traverses the linked list,
-executing each test case until it passes, fails or is skipped.
+and the code in `{ }` following these macros becomes the body of the `looping()`
+or `once()` methods of the two base test classes.
+
+The argument to these macros are the name of the test case, and is used to
+generate a name for the subclass. (The name is available within the test code
+using the `Test::getName()` method). The macros also generate code to create an
+global instance of the subclass, which are static initialized by C++.
+
+During static initialization, the constructor of the object adds itself to an
+internal list. The root of that list is given by `Test::getRoot()`. The
+`TestRunner::run()` method traverses the linked list, executing each test case
+until it passes, fails or is skipped.
 
 Here is a rough outline of an AUnit unit test sketch:
 
@@ -140,14 +188,10 @@ void loop() {
 }
 ```
 
-### Supported Macros
+***ArduinoUnit Compatibility***: _The basic structure of the
+unit test is identical to ArduinoUnit._
 
-These are identical to ArduinoUnit:
-
-* `test()`
-* `testing()`
-
-### Supported Assertions
+### Binary Assertions
 
 Inside the `test()` and `testing()` macros, the following assertions
 are available. These are essentially identical to ArduinoUnit:
@@ -159,29 +203,8 @@ are available. These are essentially identical to ArduinoUnit:
 * `assertLessOrEqual(a, b)`
 * `assertMoreOrEqual(a, b)`
 
-The type inference logic of two `(a, b)` arguments in the `assertXxx(a, b)` is
-slightly different than ArduinoUnit. For non-String types, `a` and `b` must have
-the same type, after the usual implicit type converisons. For example, the
-following implicit conversions will occur:
-* `signed char` -> `int`
-* `unsigned char` -> `int`
-* `short` -> `int`
-* `unsigned short` -> `int` or `unsigned int` (depending on `sizeof(int)`)
-* `char*` -> `const char*`.
-* `char[N]` -> `const char*`
-* `float` -> `double`
-
-(Note that `char`, `signed char`, and `unsigned char` are 3 distinct types in
-C++.)
-
-Mixing the parameter types will often  produce compiler errors. See comments
-and solutions in the *Migrating from ArduinoUnit to AUnit* section below.
-
-For the 3 string types (`char*`, `String`, and `__FlashStringHelper*`),
-all 9 combinatorial mixes are supported.
-
-In summary, the following types of `(a, b)` are defined for the various
-`assertXxx()` macros:
+The following overloaded types for the various `assertXxx()` macros are
+defined:
 
 * `(bool, bool)`
 * `(char, char)`
@@ -200,296 +223,32 @@ In summary, the following types of `(a, b)` are defined for the various
 * `(const __FlashStringHelper*, const String&)`
 * `(const __FlashStringHelper*, const __FlashStringHelper*)`
 
-The following boolean asserts are also available, just like ArduinoUnit:
+As you can see, all 9 combinations of the 3 string types (`char*`, `String`, and
+`__FlashStringHelper*`) are supported.
 
-* `assertTrue(condition)`
-* `assertFalse(condition)`
+Additionally, the usual C++ implicit type conversion and function overloading
+matching algorithms apply. For example, the conversions will occur:
 
-### Supported Methods in a Test Case
+* `signed char` -> `int`
+* `unsigned char` -> `int`
+* `short` -> `int`
+* `unsigned short` -> `int` or `unsigned int` (depending on `sizeof(int)`)
+* `char*` -> `const char*`.
+* `char[N]` -> `const char*`
+* `float` -> `double`
 
-These are identical to the equivalent methods in ArduinoUnit, and are available
-in a `test()` or `testing()` macro:
+Note that `char`, `signed char`, and `unsigned char` are 3 distinct types in
+C++, so a `(char, char)` will match exactly to one of the `assertXxx()`
+methods.
 
-* `pass()`
-* `fail()`
-* `skip()`
+***ArduinoUnit Compatibility***:
+_The names of the macros are identical. However, the
+type inference logic of two `(a, b)` arguments in the `assertXxx(a, b)` is
+slightly different. ArduinoUnit allows the two parameters to be slightly
+different types, at the expense of a compiler warning. In AUnit, the
+warning becomes a compiler error. See below._
 
-### Supported Methods on Test Class
-
-These are identical to ArduinoUnit:
-
-* `setup()`
-* `loop()`
-* `once()`
-
-### Running the Tests
-
-Similar to ArduinioUnit, we run the test cases in the global `loop()` method by
-calling `TestRunner::run()`. Each call to the `run()` method causes one test
-case to run and be resolved. The next call to `run()` executes the next test
-case. This design allows the `loop()` method to perform a small amount of work
-and return periodically to allow the system to perform some actions. On some
-systems, such as the ESP8266, an error is generated if `loop()` takes too much
-CPU time.
-
-```
-...
-void loop() {
-  TestRunner::run();
-}
-```
-
-### Excluding and Including Test Cases
-
-We can `exclude()` or `include()` test cases using a pattern match,
-just like ArduinoUnit. The names are slightly different:
-
-* `TestRunner::exclude()` (equivalent to `Test::exclude()`
-* `TestRunner::include()` (equivalent to `Test::include()`
-
-These methods are called from the global `setup()` method:
-
-```
-void setup() {
-  TestRunner::exclude("*");
-  TestRunner::include("looping*");
-  ...
-}
-```
-
-The `TestRunner::exclude()` and `TestRunner::include()` methods in AUnit
-are not as powerful as the ones provided by ArduinoUnit. AUnit supports only a
-single wildcard character `*` and that character can appear only at the end if
-it is present. For example, the following are accepted:
-
-* `TestRunner::exclude("*");`
-* `TestRunner::exclude("f*");`
-* `TestRunner::include("flash_*");`
-* `TestRunner::exclude("looping*");`
-* `TestRunner::include("flashTest");`
-
-### Output Printer
-
-The default output printer is the `Serial` instance. This can be
-changed using the `TestRunner::setPrinter()` method:
-
-```
-#include <AUnit.h>
-using aunit::TestRunner;
-...
-
-void setup() {
-  Serial1.begin(...);
-
-  TestRunner::setPrinter(&Serial1);
-  ...
-}
-
-void loop() {
-  TestRunner::run();
-}
-```
-
-This is the equivalent of the `Test::out` static member variable in
-ArduinoUnit. In AUnit member variables are not exposed, so changes must be
-made through the `TestRunner::setPrinter()` method.
-
-### Controlling the Verbosity
-
-The verbosity of the test results can be controlled using the the
-`setVerbosity()` method:
-```
-#include <AUnit.h>
-using aunit::TestRunner;
-using aunit::Verbosity;
-...
-void setup() {
-  ...
-  TestRunner::setVerbosity(Verbosity::kAll);
-  ...
-}
-```
-
-The verbosity rules are more primitive (and simpler) than ArduinoUnit. Each
-flag below is a bit field that controls whether certain messages are enabled
-or disabled. There is no concept of a "minimum" or "maximum" verbosity. Also,
-the verbosity of an individual test case cannot be independently controlled, the
-`TestRunner` verbosity setting applies to all tests.
-
-The names of the bit field flags are different from ArduinoUnit to avoid name
-collisions with other `#define` macros which have global scope. AUnit uses
-static constants of the `Verbosity` utility class:
-
-* `Verbosity::kTestRunSummary`
-* `Verbosity::kTestFailed`
-* `Verbosity::kTestPassed`
-* `Verbosity::kTestSkipped`
-* `Verbosity::kTestAll`
-* `Verbosity::kAssertionFailed`
-* `Verbosity::kAssertionPassed`
-* `Verbosity::kAssertionAll`
-* `Verbosity::kDefault`, equivalent to setting the following
-    * `Verbosity::kAssertionFailed`
-    * `Verbosity::kTestFailed`
-    * `Verbosity::kTestPassed`
-    * `Verbosity::kTestSkipped`
-    * `Verbosity::kTestRunSummary`
-* `Verbosity::kAll` - enables all messages
-* `Verbosity::kNone` - disables all messages
-
-### Line Number Mismatch
-
-AUnit suffers from the same compiler/preprocessor bug as ArduinoUnit that causes
-the built-in `__LINE__` macro to be off by one. The solution is to add:
-```
-#line 2 {file.ino}
-```
-as the first line of a unit test sketch.
-
-## Migrating from ArduinoUnit to AUnit
-
-### Header
-
-Use
-```
-#include <AUnit.h>
-```
-instead of
-```
-#include <ArduinoUnit.h>
-```
-
-### Test Runner
-
-The `Test::run()` method has been moved to a new `TestRunner` class. Use
-```
-aunit::TestRunner::run();
-```
-instead of
-```
-Test::run();
-```
-
-### Compile Time Selection
-
-I have found that the following macros are useful during the transition:
-
-```
-#define USE_AUNIT 1
-
-#if USE_AUNIT == 1
-#include <AUnit.h>
-#else
-#include <ArduinoUnit.h>
-#endif
-
-...
-
-void loop() {
-#if USE_AUNIT == 1
-aunit::TestRunner::run();
-#else
-Test::run();
-#endif
-}
-```
-
-### Printer
-
-The `Test::out` static variable can be set using the static method on
-`TestRunner`. Use
-
-```
-TestRunner::setPrinter(&Serial1);
-```
-instead of
-```
-Test::out = &Serial1;
-```
-
-(The current `Print` object can be accessed through
-`aunit::Printer::getPrinter()` but I don't expect this to be needed often.)
-
-### Verbosity
-
-The following ArduinoUnit variables do not exist:
-* `Test::verbosity`
-* `Test::min_verbosity`
-* `Test::max_verbosity`
-
-Verbosity can be set only at the `TestRunner` level. Verbosity cannot be set at
-the test case (i.e. `Test` or `TestOnce` class) level individually. There is no
-"min" or "max" verbosity level. Each type of message is controlled by a bit
-flag. The bit flag can be set using `TestRunner::setVerbosity()`. The bit field
-constants have slightly different names:
-
-* `TEST_VERBOSITY_TESTS_SUMMARY` -> `Verbosity::kTestRunSummary`
-* `TEST_VERBOSITY_TESTS_FAILED` -> `Verbosity::kTestFailed`
-* `TEST_VERBOSITY_TESTS_PASSED` -> `Verbosity::kTestPassed`
-* `TEST_VERBOSITY_TESTS_SKIPPED` -> `Verbosity::kTestPassed`
-* `TEST_VERBOSITY_TESTS_ALL` -> `Verbosity::kTestAll`
-* `TEST_VERBOSITY_ASSERTIONS_FAILED` -> `Verbosity::kAssertionFailed`
-* `TEST_VERBOSITY_ASSERTIONS_PASSED` -> `Verbosity::kAssertionPassed`
-* `TEST_VERBOSITY_ASSERTIONS_ALL` -> `Verbosity::kAssertionAll`
-* `TEST_VERBOSITY_ALL` -> `Verbosity::kAll`
-* `TEST_VERBOSITY_NONE` -> `Verbosity::kNone`
-* {no equivalent} <- `Verbosity::kDefault`
-
-### Missing ArduinoUnit Features
-
-The following methods from ArduinoUnit are not yet implemented:
-
-* `checkTestDone(name)`
-* `checkTestNotDone(name)`
-* `checkTestPass(name)`
-* `checkTestNotPass(name)`
-* `checkTestFail(name)`
-* `checkTestNotFail(name)`
-* `checkTestSkip(name)`
-* `checkTestNotSkip(name)`
-* `assertTestDone(name)`
-* `assertTestNotDone(name)`
-* `assertTestPass(name)`
-* `assertTestNotPass(name)`
-* `assertTestFail(name)`
-* `assertTestNotFail(name)`
-* `assertTestSkip(name)`
-* `assertTestNotSkip(name)`
-
-### Smaller Test Runner Loop Chunks
-
-In ArduinoUnit, each call to `Test::run()` will process the entire list of
-currently active test cases. In AUnit, each call to `TestRunner::run()` will
-process just one test case and return. I chose to break up the
-`TestRunner::run()` method into smaller pieces to allow the `loop()` method to
-return to the system more frequently. This is especially important on the
-ESP8266 platform where system must get some periodic CPU cycles to perform its
-own tasks.
-
-### Assertion Parameters Omitted in Messages
-
-The various `assertXxx()` macros in AUnit print a slightly shorter
-message upon pass or fail. For example, if the assertion was:
-```
-int expected = 3;
-int counter = 4;
-assertEquals(expected, counter);
-```
-
-ArduinoUnit captures the arguments of the `assertEqual()` macro
-and prints:
-
-```
-Assertion failed: (expected=3) == (counter=4), file AUnitTest.ino, line 134.
-```
-
-AUnit omits the parameters to reduce flash memory space by about 33%:
-
-```
-Assertion failed: (3) == (4), file AUnitTest.ino, line 134.
-```
-
-### Assertion Parameters Must Match Types
+#### Assertion Parameters Must Match Types
 
 In ArduinoUnit, the `assertXxx()` macros could be slightly different types, for
 example:
@@ -540,6 +299,314 @@ difficult to remember (and sometimes difficult to understand). The best way to
 avoid these compiler errors is to make sure that the assertion parameter types
 are identical, potentially using explicit casting.
 
+### Boolean Assertions
+
+The following boolean asserts are also available:
+
+* `assertTrue(condition)`
+* `assertFalse(condition)`
+
+***ArduinoUnit Compatibility***: _These are identical to ArduinoUnit._
+
+### Meta Assertions
+
+***ArduinoUnit Compatibility***: _Not implemented in AUnit._
+
+The following methods from ArduinoUnit are not implemented:
+
+* `checkTestDone(name)`
+* `checkTestNotDone(name)`
+* `checkTestPass(name)`
+* `checkTestNotPass(name)`
+* `checkTestFail(name)`
+* `checkTestNotFail(name)`
+* `checkTestSkip(name)`
+* `checkTestNotSkip(name)`
+* `assertTestDone(name)`
+* `assertTestNotDone(name)`
+* `assertTestPass(name)`
+* `assertTestNotPass(name)`
+* `assertTestFail(name)`
+* `assertTestNotFail(name)`
+* `assertTestSkip(name)`
+* `assertTestNotSkip(name)`
+
+The following macros are not implemented because they are only needed
+by the Meta Assertions:
+
+* `externTest()`
+* `externTesting()`
+
+***ArduinoUnit Compatibility***: _Not implemented in AUnit._
+
+### Status Indicator Methods
+
+These methods can be used inside a `test()` or `testing()` macro
+to indicate whether the test has passed or failed (or reached some other
+status reason).
+
+* `pass()` - test passed
+* `fail()` - test failed
+* `skip()` - test skipped
+* `expire()`  - test timed out
+
+***ArduinoUnit Compatibility***: _`expire()` is available only in AUnit._
+
+### Overridable Methods
+
+The following methods are defined at the `Test` base class level:
+
+* `setup()`
+* `loop()`
+* `once()`
+
+***ArduinoUnit Compatibility***: _These are identifcal to ArduinoUnit._
+
+### Running the Tests
+
+We run the test cases in the global `loop()` method by calling
+`TestRunner::run()`. The tests are sorted according to the name of the test
+given in the argument in the `test()` or `testing()` macro.
+
+Each call to the `run()` method causes one test case to run and be resolved. The
+next call to `run()` executes the next test case. This design allows the
+`loop()` method to perform a small amount of work and return periodically to
+allow the system to perform some actions. On some systems, such as the ESP8266,
+an error is generated if `loop()` takes too much CPU time.
+
+```
+...
+void loop() {
+  TestRunner::run();
+}
+```
+
+***ArduinoUnit Compatibility***: _This is equivalent to called `Test::run()` in
+ArduinoUnit. AUnit sorts the tests in the same way as ArduinoUnit. In
+ArduinoUnit, each call to `Test::run()` will process the entire list of
+currently active test cases. In AUnit, each call to `TestRunner::run()` performs
+only a single test case, then returns._
+
+### Excluding and Including Test Cases
+
+We can `exclude()` or `include()` test cases using a pattern match,
+just like ArduinoUnit. The names are slightly different:
+
+* `TestRunner::exclude()`
+* `TestRunner::include()`
+
+These methods are called from the global `setup()` method:
+
+```
+void setup() {
+  TestRunner::exclude("*");
+  TestRunner::include("looping*");
+  ...
+}
+```
+
+***ArduinoUnit Compatibility***:
+_The equivalent versions in ArduinoUnit are `Test::exclude()` and
+`Test::include()` The matching algorithm in AUnit is not as powerful as one in
+ArduinoUnit. AUnit supports only a single wildcard character `*` and that
+character can appear only at the end if it is present. For example, the
+following are accepted:_
+
+* `TestRunner::exclude("*");`
+* `TestRunner::include("f*");`
+* `TestRunner::exclude("flash_*");`
+* `TestRunner::include("looping*");`
+* `TestRunner::include("flashTest");`
+
+### Output Printer
+
+The default output printer is the `Serial` instance. This can be
+changed using the `TestRunner::setPrinter()` method:
+
+```
+#include <AUnit.h>
+using aunit::TestRunner;
+...
+
+void setup() {
+  Serial1.begin(...);
+
+  TestRunner::setPrinter(&Serial1);
+  ...
+}
+
+void loop() {
+  TestRunner::run();
+}
+```
+
+***ArduinoUnit Compatibility***:
+_This is the equivalent of the `Test::out` static member variable in
+ArduinoUnit._
+
+### Controlling the Verbosity
+
+The verbosity of the test results can be controlled using the the
+`setVerbosity()` method:
+```
+#include <AUnit.h>
+using aunit::TestRunner;
+using aunit::Verbosity;
+...
+void setup() {
+  ...
+  TestRunner::setVerbosity(Verbosity::kAll);
+  ...
+}
+```
+
+The verbosity rules are more primitive (and simpler) than ArduinoUnit. Each
+flag below is a bit field that controls whether certain messages are enabled
+or disabled. There is no concept of a "minimum" or "maximum" verbosity. Also,
+the verbosity of an individual test case cannot be independently controlled, the
+`TestRunner` verbosity setting applies to all tests.
+
+The names of the bit field flags are different from ArduinoUnit to avoid name
+collisions with other `#define` macros which have global scope. AUnit uses
+static constants of the `Verbosity` utility class:
+
+* `Verbosity::kTestRunSummary`
+* `Verbosity::kTestFailed`
+* `Verbosity::kTestPassed`
+* `Verbosity::kTestSkipped`
+* `Verbosity::kTestAll`
+* `Verbosity::kAssertionFailed`
+* `Verbosity::kAssertionPassed`
+* `Verbosity::kAssertionAll`
+* `Verbosity::kDefault`, equivalent to setting the following
+    * `(Verbosity::kAssertionFailed | Verbosity::kTestAll)`
+* `Verbosity::kAll` - enables all messages
+* `Verbosity::kNone` - disables all messages
+
+***ArduinoUnit Compatibility***:
+_The following ArduinoUnit variables do not exist:_`
+* `Test::verbosity`
+* `Test::min_verbosity`
+* `Test::max_verbosity`
+
+_In AUnit, verbosity can be set only at the `TestRunner` level. Verbosity cannot
+be set at the test case (i.e. `Test` or `TestOnce` class) level individually.
+The bit field constants have slightly different names:_
+
+* `TEST_VERBOSITY_TESTS_SUMMARY` -> `Verbosity::kTestRunSummary`
+* `TEST_VERBOSITY_TESTS_FAILED` -> `Verbosity::kTestFailed`
+* `TEST_VERBOSITY_TESTS_PASSED` -> `Verbosity::kTestPassed`
+* `TEST_VERBOSITY_TESTS_SKIPPED` -> `Verbosity::kTestPassed`
+* `TEST_VERBOSITY_TESTS_ALL` -> `Verbosity::kTestAll`
+* `TEST_VERBOSITY_ASSERTIONS_FAILED` -> `Verbosity::kAssertionFailed`
+* `TEST_VERBOSITY_ASSERTIONS_PASSED` -> `Verbosity::kAssertionPassed`
+* `TEST_VERBOSITY_ASSERTIONS_ALL` -> `Verbosity::kAssertionAll`
+* `TEST_VERBOSITY_ALL` -> `Verbosity::kAll`
+* `TEST_VERBOSITY_NONE` -> `Verbosity::kNone`
+* {no equivalent} <- `Verbosity::kDefault`
+
+### Line Number Mismatch
+
+AUnit suffers from the same compiler/preprocessor bug as ArduinoUnit that causes
+the built-in `__LINE__` macro to be off by one. The solution is to add:
+```
+#line 2 {file.ino}
+```
+as the first line of a unit test sketch.
+
+***ArduinoUnit Compatibility***: _This problem is identical to ArduinoUnit._
+
+### Assertion Message
+
+The various `assertXxx()` macros in AUnit print a message upon pass or fail. For
+example, if the assertion was:
+```
+int expected = 3;
+int counter = 4;
+assertEquals(expected, counter);
+```
+
+The error message (if enabled, which is the default) is:
+```
+Assertion failed: (3) == (4), file AUnitTest.ino, line 134.
+```
+
+***ArduinoUnit Compatibility***:
+_ArduinoUnit captures the arguments of the `assertEqual()` macro
+and prints:_
+
+```
+Assertion failed: (expected=3) == (counter=4), file AUnitTest.ino, line 134.
+```
+
+_Each capture of the parameter string consumes flash memory space. If the unit
+test has numerous `assertXxx()` statements, the flash memory cost is expensive.
+AUnit omits the parameters to reduce flash memory space by about 33%_
+
+### Test Summary
+
+As each test case finishes, the `TestRunner` prints out the summary of the test
+case like this:
+
+```
+Test bad failed.
+Test looping_pass passed.
+Test looping_skip skipped.
+Test looping_until timed out.
+```
+
+***ArduinoUnit Compatibility***: _These are identifcal to ArduinoUnit,
+except that the "timed out" status is new to AUnit. See Test Timeout
+section below._
+
+### Test Runner Summary
+
+At the end of the test run, the `TestRunner` prints out the summary
+of all test cases, like this:
+
+```
+TestRunner summary: 12 passed, 0 failed, 2 skipped, 1 timed out, out of 15 test(s).
+```
+
+***ArduinoUnit Compatibility***: _The message format is slightly different than
+ArduinoUnit. I changed "Test summary" to "TestRunner summary" because the former
+looks identical to the message that could have been printed by a `test(summary)`
+test case. AUnit also adds information about tests which timed out. See below._
+
+### Test Timeout
+
+***ArduinoUnit Compatibility***: _Only available in AUnit._
+
+From my experience, it seems incredibly easy to write a `testing()` test case
+which accidentally runs forever because the code forgets to call an explicit
+`pass()`, `fail()` or `skip()`.
+
+The `TestRunner` in AUnit applies a time out value to all the test cases that it
+runs. The default time out is 10000 milliseconds (10 seconds). Currently, the
+time out value is global to all test cases, individual test time out values
+cannot be set independently. If a test does not finish before that time, then
+the test is marked as `timed out` (internally implemented by the
+`Test::expire()` method) and a message is printed like this:
+```
+Test looping_until timed out.
+```
+
+The time out value can be changed by calling the static
+`TestRunner::setTimeout()` method. Here is an example that sets the timeout to 1
+second instead:
+```
+void setup() {
+  ...
+  TestRunner::setTimeout(1000);
+  ...
+}
+```
+
+A timeout value of `0` means an infinite timeout, which means that the
+`testing()` test case may run forever.
+
+***ArduinoUnit Compatibility***: _Only available in AUnit._
+
 ## Benchmarks
 
 AUnit consumes as much as 66% less flash memory than ArduinoUnit on an AVR
@@ -551,16 +618,16 @@ microcontrollers:
 ```
 Platform (resource)        |     Max | ArduinoUnit |       AUnit |
 ---------------------------+---------+-------------+-------------|
-Arduino Nano (flash)       |   30720 |       54038 |       18418 |
-Arduino Nano (static)      |    2048 |        1061 |         908 |
+Arduino Nano (flash)       |   30720 |       54038 |       18666 |
+Arduino Nano (static)      |    2048 |        1061 |         918 |
 ---------------------------+---------+-------------+-------------|
-Teensy LC (flash)          |   63488 |       36196 |       25096 |
-Teensy LC (static)         |    8192 |        2980 |        2768 |
+Teensy LC (flash)          |   63488 |       36196 |       25228 |
+Teensy LC (static)         |    8192 |        2980 |        2780 |
 ---------------------------+---------+-------------+-------------|
-Teensy 3.2 (flash)         |  262144 |       51236 |       36136 |
-Teensy 3.2 (static)        |   65536 |        5328 |        5224 |
+Teensy 3.2 (flash)         |  262144 |       51236 |       36300 |
+Teensy 3.2 (static)        |   65536 |        5328 |        5236 |
 ---------------------------+---------+-------------+-------------|
-ESP8266 - ESP-12E (flash)  | 1044464 |    does not |      267359 |
+ESP8266 - ESP-12E (flash)  | 1044464 |    does not |      267479 |
 ESP8266 - ESP-12E (static) |   81920 |     compile |       34564 |
 ---------------------------+---------+-------------+-------------|
 ESP8266 - ESP-01 (flash)   |  499696 |    does not |      267359 |

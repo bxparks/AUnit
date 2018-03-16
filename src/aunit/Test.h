@@ -66,6 +66,7 @@ class Test {
     static const uint8_t kStatusPassed = 2;
     static const uint8_t kStatusFailed = 3;
     static const uint8_t kStatusSkipped = 4;
+    static const uint8_t kStatusExpired = 5;
 
     /**
      * Get the pointer to the root pointer. Implemented as a function static so
@@ -122,6 +123,9 @@ class Test {
 
     /** Mark the test as skipped. */
     void skip() { mStatus = kStatusSkipped; }
+
+    /** Mark the test as expired (i.e. timed out). */
+    void expire() { mStatus = kStatusExpired; }
 
   protected:
     /** Mark the test as failed. */
