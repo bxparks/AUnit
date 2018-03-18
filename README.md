@@ -1,5 +1,7 @@
 # AUnit - Unit Testing Framework for Arduino Platforms
 
+Version: v0.2.0 (2018-03-16)
+
 ## Summary
 
 **AUnit** (rhymes with "JUnit") is a unit testing framework based
@@ -16,8 +18,9 @@ AUnit was created to solve 2 problems with ArduinoUnit:
   [ArduinoUnit#70](https://github.com/mmurdoch/arduinounit/issues/70).
 * ArduinoUnit does not compile on the ESP8266 platform (see
   [ArduinoUni#68](https://github.com/mmurdoch/arduinounit/issues/68),
-  [ArduinoUni#57](https://github.com/mmurdoch/arduinounit/pull/57), and
-  [ArduinoUni#55](https://github.com/mmurdoch/arduinounit/issues/55)).
+  [ArduinoUni#57](https://github.com/mmurdoch/arduinounit/pull/57),
+  [ArduinoUni#55](https://github.com/mmurdoch/arduinounit/issues/55)), and
+  [ArduinoUni#54](https://github.com/mmurdoch/arduinounit/issues/54)).
 
 In contrast:
 * AUnit consumes as much as 66% *less* flash memory than ArduinoUnit on the
@@ -67,14 +70,16 @@ it currently in "beta stage" until more  users have tested it.
 
 ## Installation
 
-The library is available in the Arduino IDE Library Manager. Search for "unit
-test" or "AUnit", select "AUnit", then click the "Install" button.
+The latest stable release is available in the Arduino IDE Library Manager.
+Search for "unit test" or "AUnit", select "AUnit", then click the "Install"
+button.
 
-The library can also be installed by cloning the
-[GitHub repository](https://github.com/bxparks/AUnit), then
-manually copying over the contents to the `./libraries` directory used
-by the Arduino IDE. (The result is a directory named `./libraries/AUnit`.)
-See the Preferences menu for the location of the Arduino sketch directory.
+The development version can be installed by cloning the
+[GitHub repository](https://github.com/bxparks/AUnit), checking out the
+`develop` branch, then manually copying over the contents to the `./libraries`
+directory used by the Arduino IDE. (The result is a directory named
+`./libraries/AUnit`.) See the Preferences menu for the location of the Arduino
+sketch directory. The `master` branch contains the stable release.
 
 Using either installation method, you may need to restart the Arduino IDE to
 pick up the new library.
