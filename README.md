@@ -19,7 +19,7 @@ AUnit was created to solve 2 problems with ArduinoUnit:
 * ArduinoUnit does not compile on the ESP8266 platform (see
   [ArduinoUni#68](https://github.com/mmurdoch/arduinounit/issues/68),
   [ArduinoUni#57](https://github.com/mmurdoch/arduinounit/pull/57),
-  [ArduinoUni#55](https://github.com/mmurdoch/arduinounit/issues/55)), and
+  [ArduinoUni#55](https://github.com/mmurdoch/arduinounit/issues/55),
   [ArduinoUni#54](https://github.com/mmurdoch/arduinounit/issues/54)).
 
 In contrast:
@@ -686,7 +686,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 This library was developed and tested using:
 * [Arduino IDE 1.8.5](https://www.arduino.cc/en/Main/Software)
 * [Teensyduino 1.41](https://www.pjrc.com/teensy/td_download.html)
-* [ESP8266 Arduino Core 2.4.0](https://arduino-esp8266.readthedocs.io/en/2.4.0-rc2/)
+* [ESP8266 Arduino Core 2.4.1](https://arduino-esp8266.readthedocs.io/en/2.4.1/)
 
 I used MacOS 10.13.3 for most of my development.
 
