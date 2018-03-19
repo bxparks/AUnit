@@ -61,9 +61,8 @@ namespace aunit {
 
 class Test {
   public:
-    // Don't change the order of Passed, Failed, or Skipped without changing
-    // the checkTestDone(), checkTestNotDone(), assertTestDone() and
-    // assertTestNotDone() macros.
+    // Don't change the order of Passed, Failed, Skipped or Expired without
+    // looking at the isDone() method.
     static const uint8_t kStatusNew = 0;
     static const uint8_t kStatusSetup = 1;
     static const uint8_t kStatusPassed = 2;
@@ -123,6 +122,36 @@ class Test {
      * Also makes setNext() method unnecessary.
      */
     Test** getNext() { return &mNext; }
+
+    /** Return true if test is done (passed, failed, skipped, expired). */
+    bool isDone() { return mStatus >= kStatusPassed; }
+
+    /** Return true if test is done (passed, failed, skipped, expired). */
+    bool isNotDone() { return !isDone(); }
+
+    /** Return true if test is passed. */
+    bool isPassed() { return mStatus == kStatusPassed; }
+
+    /** Return true if test is passed. */
+    bool isNotPassed() { return !isPassed(); }
+
+    /** Return true if test is failed. */
+    bool isFailed() { return mStatus == kStatusFailed; }
+
+    /** Return true if test is failed. */
+    bool isNotFailed() { return !isFailed(); }
+
+    /** Return true if test isNot skipped. */
+    bool isSkipped() { return mStatus == kStatusSkipped; }
+
+    /** Return true if test isNot skipped. */
+    bool isNotSkipped() { return !isSkipped(); }
+
+    /** Return true if test is expired. */
+    bool isExpired() { return mStatus == kStatusExpired; }
+
+    /** Return true if test is expired. */
+    bool isNotExpired() { return !isExpired(); }
 
     /** Mark the test as skipped. */
     void skip() { mStatus = kStatusSkipped; }

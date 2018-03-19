@@ -39,6 +39,9 @@ AUnit:
 * `test()`
 * `testing()`
 * `assertXxx()`
+* Meta Assertions
+    * `checkTestXxx()`
+    * `assertTestXxx()`
 
 AUnit supports exclude and include filters:
 * `TestRunner::exclude()`
@@ -51,8 +54,6 @@ Here are the features which have not been ported over from ArduinoUnit:
 * ArduinoUnit supports multiple `*` wildcards in its `exclude()` and `include()`
   methods. AUnit supports only a single `*` wildcard and it must occur at the
   end if present.
-* Various "Meta Assertions" from ArduinoUnit (i.e. `checkTestXxx()` and
-  `assertTestXxx()`) have not been implemented.
 
 ### Added Features
 
@@ -315,9 +316,7 @@ The following boolean asserts are also available:
 
 ### Meta Assertions
 
-***ArduinoUnit Compatibility***: _Not implemented in AUnit._
-
-The following methods from ArduinoUnit are not implemented:
+The following methods from ArduinoUnit have also been implemented:
 
 * `checkTestDone(name)`
 * `checkTestNotDone(name)`
@@ -327,6 +326,8 @@ The following methods from ArduinoUnit are not implemented:
 * `checkTestNotFail(name)`
 * `checkTestSkip(name)`
 * `checkTestNotSkip(name)`
+* `checkTestExpire(name)` [&ast;]
+* `checkTestNotExpire(name)` [&ast;]
 * `assertTestDone(name)`
 * `assertTestNotDone(name)`
 * `assertTestPass(name)`
@@ -335,14 +336,15 @@ The following methods from ArduinoUnit are not implemented:
 * `assertTestNotFail(name)`
 * `assertTestSkip(name)`
 * `assertTestNotSkip(name)`
+* `assertTestExpire(name)` [&ast;]
+* `assertTestNotExpire(name)` [&ast;]
 
-The following macros are not implemented because they are only needed
-by the Meta Assertions:
+The following macros are not yet implemented:
 
 * `externTest()`
 * `externTesting()`
 
-***ArduinoUnit Compatibility***: _Not implemented in AUnit._
+***ArduinoUnit Compatibility***: _[&ast;] only in AUnit._
 
 ### Status Indicator Methods
 
@@ -353,9 +355,9 @@ status reason).
 * `pass()` - test passed
 * `fail()` - test failed
 * `skip()` - test skipped
-* `expire()`  - test timed out
+* `expire()`  - test timed out [&ast;]
 
-***ArduinoUnit Compatibility***: _`expire()` is available only in AUnit._
+***ArduinoUnit Compatibility***: _[&ast;] only in AUnit._
 
 ### Overridable Methods
 

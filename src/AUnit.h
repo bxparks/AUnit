@@ -31,6 +31,7 @@ SOFTWARE.
 #include "aunit/Test.h"
 #include "aunit/TestRunner.h"
 #include "aunit/Assertion.h"
+#include "aunit/MetaAssertion.h"
 
 // Version format: 010203 == "1.2.3"
 #define AUNIT_VERSION 000200
