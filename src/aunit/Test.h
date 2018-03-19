@@ -57,6 +57,25 @@ void test_ ## name :: once()
 test_ ## name :: test_ ## name() : Test(F(#name)) {}\
 void test_ ## name :: loop()
 
+// Create an extern reference to a test() test case object defined elsewhere.
+// This is only necessary if you use assertTestXxx() or checkTestXxx() when the
+// test is in another file (or defined after the assertion on it).
+#define externTest(name) struct test_ ## name : aunit::TestOnce {\
+  test_ ## name();\
+  void once();\
+};\
+extern test_##name test_##name##_instance
+
+// Create an extern reference to a testing() test case object defined
+// elsewhere.  This is only necessary if you use assertTestXxx() or
+// checkTestXxx() when the test is in another file (or defined after the
+// assertion on it).
+#define externTesting(name) struct test_ ## name : aunit::Test {\
+  test_ ## name();\
+  void loop();\
+};\
+extern test_##name test_##name##_instance
+
 namespace aunit {
 
 class Test {

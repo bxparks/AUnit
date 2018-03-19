@@ -28,6 +28,8 @@ SOFTWARE.
 #ifndef AUNIT_COMPARE_H
 #define AUNIT_COMPARE_H
 
+#include <stddef.h> // size_t
+
 class String;
 class __FlashStringHelper;
 

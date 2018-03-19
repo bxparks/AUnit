@@ -24,25 +24,7 @@ SOFTWARE.
 */
 
 #include <WString.h>
-
-// If ArduinoUnit is used, this unit test no longer fits in a 32kB
-// Arduino UNO or Nano.
-#define USE_AUNIT 1
-
-#if USE_AUNIT == 1
-#include <AUnit.h>
-using namespace aunit;
-#else
-#include <ArduinoUnit.h>
-#define assertTestExpire(x)
-#define assertTestNotExpire(x)
-#define checkTestExpire(x) true
-#define checkTestNotExpire(x) true
-#endif
-
-#ifndef FPSTR
-#define FPSTR(pstr_pointer) (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
-#endif
+#include "AUnitTest.h"
 
 signed char sc = 4;
 signed char sd = 5;
@@ -101,6 +83,9 @@ test(type_mismatch) {
 }
 
 #if USE_AUNIT == 1
+
+using aunit::compareString;
+using aunit::compareStringN;
 
 test(compareString) {
   assertEqual(compareString(a, a), 0);
@@ -337,15 +322,27 @@ testing(timeout_after_10_seconds) {
   }
 }
 
-testing(slow_pass) { if (millis() > 1000) pass(); }
-
-testing(slow_fail) { if (millis() > 1000) fail(); }
-
-testing(slow_skip) { if (millis() > 1000) skip(); }
-
+// Test that the externTesting() and externTest() macros work.
+externTesting(slow_pass);
+externTesting(slow_fail);
+externTesting(slow_skip);
 #if USE_AUNIT == 1
-testing(slow_expire) { if (millis() > 1000) expire(); }
+externTesting(slow_expire);
 #endif
+externTest(external);
+
+// Check 10 times if the test(external) passes. Requires externTest().
+testing(external_monitor) {
+  static int count = 10;
+  if (count > 0) {
+    if (checkTestPass(external)) {
+      pass();
+    }
+    count++;
+  } else {
+    fail();
+  }
+}
 
 testing(slow_pass_monitor) {
   unsigned long now = millis();

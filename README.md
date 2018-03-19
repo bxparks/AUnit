@@ -34,7 +34,7 @@ convert to AUnit:
 * `#include <ArduinoUnit.h>` -> `#include <AUnit.h>`
 * `Test::run()` -> `aunit::TestRunner::run()`
 
-Almost all of the frequently used macros are compatible between ArduinoUnit and
+Essentially all of the various macros are compatible between ArduinoUnit and
 AUnit:
 * `test()`
 * `testing()`
@@ -42,6 +42,8 @@ AUnit:
 * Meta Assertions
     * `checkTestXxx()`
     * `assertTestXxx()`
+* `externTest()`
+* `externTesting()`
 
 AUnit supports exclude and include filters:
 * `TestRunner::exclude()`
@@ -57,10 +59,16 @@ Here are the features which have not been ported over from ArduinoUnit:
 
 ### Added Features
 
-Here are some features in AUnit, not available in ArduinoUnit:
+Here are the features in AUnit which are not available in ArduinoUnit:
 
 * The `TestRunner` supports a configurable timeout parameter which
-  can prevent `testing()` test cases from running forever.
+  can prevent `testing()` test cases from running forever. The following
+  methods and macros are available in AUnit to support this feature:
+    * `Test::expire()`
+    * `assertTestExpire()`
+    * `assertTestNotExpire()`
+    * `checkTestExpire()`
+    * `checkTestNotExpire()`
 * AUnit works on the ESP8266 platform.
 
 ### Beta Status
@@ -339,7 +347,9 @@ The following methods from ArduinoUnit have also been implemented:
 * `assertTestExpire(name)` [&ast;]
 * `assertTestNotExpire(name)` [&ast;]
 
-The following macros are not yet implemented:
+The following macros define `extern` references to test case objects which live
+in other `.cpp` files. These are required for the above meta assertions if the
+test cases are defined in another file:
 
 * `externTest()`
 * `externTesting()`
