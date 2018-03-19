@@ -1,5 +1,7 @@
 # AUnit - Unit Testing Framework for Arduino Platforms
 
+Version: v0.3.0 (2018-03-19)
+
 ## Summary
 
 **AUnit** (rhymes with "JUnit") is a unit testing framework based
@@ -16,8 +18,9 @@ AUnit was created to solve 2 problems with ArduinoUnit:
   [ArduinoUnit#70](https://github.com/mmurdoch/arduinounit/issues/70).
 * ArduinoUnit does not compile on the ESP8266 platform (see
   [ArduinoUni#68](https://github.com/mmurdoch/arduinounit/issues/68),
-  [ArduinoUni#57](https://github.com/mmurdoch/arduinounit/pull/57), and
-  [ArduinoUni#55](https://github.com/mmurdoch/arduinounit/issues/55)).
+  [ArduinoUni#57](https://github.com/mmurdoch/arduinounit/pull/57),
+  [ArduinoUni#55](https://github.com/mmurdoch/arduinounit/issues/55),
+  [ArduinoUni#54](https://github.com/mmurdoch/arduinounit/issues/54)).
 
 In contrast:
 * AUnit consumes as much as 66% *less* flash memory than ArduinoUnit on the
@@ -31,11 +34,16 @@ convert to AUnit:
 * `#include <ArduinoUnit.h>` -> `#include <AUnit.h>`
 * `Test::run()` -> `aunit::TestRunner::run()`
 
-Almost all of the frequently used macros are compatible between ArduinoUnit and
+Essentially all of the various macros are compatible between ArduinoUnit and
 AUnit:
 * `test()`
 * `testing()`
 * `assertXxx()`
+* Meta Assertions
+    * `checkTestXxx()`
+    * `assertTestXxx()`
+* `externTest()`
+* `externTesting()`
 
 AUnit supports exclude and include filters:
 * `TestRunner::exclude()`
@@ -48,15 +56,19 @@ Here are the features which have not been ported over from ArduinoUnit:
 * ArduinoUnit supports multiple `*` wildcards in its `exclude()` and `include()`
   methods. AUnit supports only a single `*` wildcard and it must occur at the
   end if present.
-* Various "Meta Assertions" from ArduinoUnit (i.e. `checkTestXxx()` and
-  `assertTestXxx()`) have not been implemented.
 
 ### Added Features
 
-Here are some features in AUnit, not available in ArduinoUnit:
+Here are the features in AUnit which are not available in ArduinoUnit:
 
 * The `TestRunner` supports a configurable timeout parameter which
-  can prevent `testing()` test cases from running forever.
+  can prevent `testing()` test cases from running forever. The following
+  methods and macros are available in AUnit to support this feature:
+    * `Test::expire()`
+    * `assertTestExpire()`
+    * `assertTestNotExpire()`
+    * `checkTestExpire()`
+    * `checkTestNotExpire()`
 * AUnit works on the ESP8266 platform.
 
 ### Beta Status
@@ -67,14 +79,16 @@ it currently in "beta stage" until more  users have tested it.
 
 ## Installation
 
-The library is available in the Arduino IDE Library Manager. Search for "unit
-test" or "AUnit", select "AUnit", then click the "Install" button.
+The latest stable release is available in the Arduino IDE Library Manager.
+Search for "unit test" or "AUnit", select "AUnit", then click the "Install"
+button.
 
-The library can also be installed by cloning the
-[GitHub repository](https://github.com/bxparks/AUnit), then
-manually copying over the contents to the `./libraries` directory used
-by the Arduino IDE. (The result is a directory named `./libraries/AUnit`.)
-See the Preferences menu for the location of the Arduino sketch directory.
+The development version can be installed by cloning the
+[GitHub repository](https://github.com/bxparks/AUnit), checking out the
+`develop` branch, then manually copying over the contents to the `./libraries`
+directory used by the Arduino IDE. (The result is a directory named
+`./libraries/AUnit`.) See the Preferences menu for the location of the Arduino
+sketch directory. The `master` branch contains the stable release.
 
 Using either installation method, you may need to restart the Arduino IDE to
 pick up the new library.
@@ -310,9 +324,7 @@ The following boolean asserts are also available:
 
 ### Meta Assertions
 
-***ArduinoUnit Compatibility***: _Not implemented in AUnit._
-
-The following methods from ArduinoUnit are not implemented:
+The following methods from ArduinoUnit have also been implemented:
 
 * `checkTestDone(name)`
 * `checkTestNotDone(name)`
@@ -322,6 +334,8 @@ The following methods from ArduinoUnit are not implemented:
 * `checkTestNotFail(name)`
 * `checkTestSkip(name)`
 * `checkTestNotSkip(name)`
+* `checkTestExpire(name)` [&ast;]
+* `checkTestNotExpire(name)` [&ast;]
 * `assertTestDone(name)`
 * `assertTestNotDone(name)`
 * `assertTestPass(name)`
@@ -330,14 +344,38 @@ The following methods from ArduinoUnit are not implemented:
 * `assertTestNotFail(name)`
 * `assertTestSkip(name)`
 * `assertTestNotSkip(name)`
+* `assertTestExpire(name)` [&ast;]
+* `assertTestNotExpire(name)` [&ast;]
 
-The following macros are not implemented because they are only needed
-by the Meta Assertions:
+The `checkTestXxx()` methods check the status of the test named `name`
+and returns a `bool`. The execution continues even if `false`.
+
+The `assertTestXxx()` methods stops the unit test if the status check
+returns `false`, and prints assertion messages that look like this:
+```
+Assertion passed: Test slow_pass is done, file AUnitTest.ino, line 366.
+Assertion passed: Test slow_pass is not failed, file AUnitTest.ino, line 372.
+Assertion passed: Test slow_skip is skipped, file AUnitTest.ino, line 448.
+```
+
+The following macros define `extern` references to test case objects which live
+in other `.cpp` files. These are required for the above meta assertions if the
+test cases are defined in another file:
 
 * `externTest()`
 * `externTesting()`
 
-***ArduinoUnit Compatibility***: _Not implemented in AUnit._
+***ArduinoUnit Compatibility***: _The methods marked by [&ast;] are only
+available in AUnit. Also, the assertion messages are different. ArduinoUnit
+reuses the format used by the `assertXxx()` macros, so prints something like
+the following:_
+```
+Assertion passed: (test_slow_skip_instance.state=2) >= (Test::DONE_SKIP=2), file
+AUnitTest.ino, line 439.
+```
+
+_AUnit has a separate message handler to print a customized message for the
+assertTestXxx() meta assertion macros._
 
 ### Status Indicator Methods
 
@@ -348,9 +386,10 @@ status reason).
 * `pass()` - test passed
 * `fail()` - test failed
 * `skip()` - test skipped
-* `expire()`  - test timed out
+* `expire()`  - test timed out [&ast;]
 
-***ArduinoUnit Compatibility***: _`expire()` is available only in AUnit._
+***ArduinoUnit Compatibility***: _The method(s) marked by [&ast;] are only
+available in AUnit._
 
 ### Overridable Methods
 
@@ -627,11 +666,11 @@ Teensy LC (static)         |    8192 |        2980 |        2780 |
 Teensy 3.2 (flash)         |  262144 |       51236 |       36300 |
 Teensy 3.2 (static)        |   65536 |        5328 |        5236 |
 ---------------------------+---------+-------------+-------------|
-ESP8266 - ESP-12E (flash)  | 1044464 |    does not |      267479 |
-ESP8266 - ESP-12E (static) |   81920 |     compile |       34564 |
+ESP8266 - ESP-12E (flash)  | 1044464 |    does not |      266748 |
+ESP8266 - ESP-12E (static) |   81920 |     compile |       33128 |
 ---------------------------+---------+-------------+-------------|
-ESP8266 - ESP-01 (flash)   |  499696 |    does not |      267359 |
-ESP8266 - ESP-01 (static)  |   47356 |     compile |       34564 |
+ESP8266 - ESP-01 (flash)   |  499696 |    does not |      266748 |
+ESP8266 - ESP-01 (static)  |   47356 |     compile |       33128 |
 ---------------------------+---------+-------------+-------------|
 ```
 
@@ -647,7 +686,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 This library was developed and tested using:
 * [Arduino IDE 1.8.5](https://www.arduino.cc/en/Main/Software)
 * [Teensyduino 1.41](https://www.pjrc.com/teensy/td_download.html)
-* [ESP8266 Arduino Core 2.4.0](https://arduino-esp8266.readthedocs.io/en/2.4.0-rc2/)
+* [ESP8266 Arduino Core 2.4.1](https://arduino-esp8266.readthedocs.io/en/2.4.1/)
 
 I used MacOS 10.13.3 for most of my development.
 

@@ -1,5 +1,8 @@
 # Changelog
 
+* v0.3.0 (2018-03-19)
+    * Implement all remaining macros from ArduinoUnit:
+      assertTestXxx(), checkTestXxx(), externTest(), externTesting().
 * v0.2.0 (2018-03-16)
     * TestRunner can time out long running tests. Default time out is 10
       seconds, but is configurable using TestRunner::setTimeout().

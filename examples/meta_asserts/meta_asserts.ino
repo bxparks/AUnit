@@ -1,0 +1,202 @@
+#line 2 "meta_asserts.ino"
+
+// Originally derived from the README.md in
+// https://github.com/mmurdoch/arduinounit/ but is now very different.
+
+#define USE_AUNIT 0
+
+#if USE_AUNIT == 1
+#include <AUnit.h>
+using aunit::TestRunner;
+using aunit::Verbosity;
+#else
+#include <ArduinoUnit.h>
+#define assertTestExpire(x)
+#define assertTestNotExpire(x)
+#define checkTestExpire(x) true
+#define checkTestNotExpire(x) true
+#endif
+
+testing(slow_pass) { if (millis() > 1000) pass(); }
+
+testing(slow_fail) { if (millis() > 1000) fail(); }
+
+testing(slow_skip) { if (millis() > 1000) skip(); }
+
+#if USE_AUNIT == 1
+testing(slow_expire) { if (millis() > 1000) expire(); }
+#endif
+
+testing(slow_pass_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDone(slow_pass);
+    assertTrue(checkTestNotDone(slow_pass));
+
+    assertTestNotPass(slow_pass);
+    assertTrue(checkTestNotPass(slow_pass));
+
+    assertTestNotFail(slow_pass);
+    assertTrue(checkTestNotFail(slow_pass));
+
+    assertTestNotSkip(slow_pass);
+    assertTrue(checkTestNotSkip(slow_pass));
+
+    assertTestNotExpire(slow_pass);
+    assertTrue(checkTestNotExpire(slow_pass));
+  }
+  if (now > 2000) {
+    assertTestDone(slow_pass);
+    assertTrue(checkTestDone(slow_pass));
+
+    assertTestPass(slow_pass);
+    assertTrue(checkTestPass(slow_pass));
+
+    assertTestNotFail(slow_pass);
+    assertTrue(checkTestNotFail(slow_pass));
+
+    assertTestNotSkip(slow_pass);
+    assertTrue(checkTestNotSkip(slow_pass));
+
+    assertTestNotExpire(slow_pass);
+    assertTrue(checkTestNotExpire(slow_pass));
+
+    pass();
+  }
+}
+
+testing(slow_fail_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDone(slow_fail);
+    assertTrue(checkTestNotDone(slow_fail));
+
+    assertTestNotPass(slow_fail);
+    assertTrue(checkTestNotPass(slow_fail));
+
+    assertTestNotFail(slow_fail);
+    assertTrue(checkTestNotFail(slow_fail));
+
+    assertTestNotSkip(slow_fail);
+    assertTrue(checkTestNotSkip(slow_fail));
+
+    assertTestNotExpire(slow_fail);
+    assertTrue(checkTestNotExpire(slow_fail));
+  }
+  if (now > 2000) {
+    assertTestDone(slow_fail);
+    assertTrue(checkTestDone(slow_fail));
+
+    assertTestNotPass(slow_fail);
+    assertTrue(checkTestNotPass(slow_fail));
+
+    assertTestFail(slow_fail);
+    assertTrue(checkTestFail(slow_fail));
+
+    assertTestNotSkip(slow_fail);
+    assertTrue(checkTestNotSkip(slow_fail));
+
+    assertTestNotExpire(slow_fail);
+    assertTrue(checkTestNotExpire(slow_fail));
+
+    pass();
+  }
+}
+
+testing(slow_skip_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDone(slow_skip);
+    assertTrue(checkTestNotDone(slow_skip));
+
+    assertTestNotPass(slow_skip);
+    assertTrue(checkTestNotPass(slow_skip));
+
+    assertTestNotFail(slow_skip);
+    assertTrue(checkTestNotFail(slow_skip));
+
+    assertTestNotSkip(slow_skip);
+    assertTrue(checkTestNotSkip(slow_skip));
+
+    assertTestNotExpire(slow_skip);
+    assertTrue(checkTestNotExpire(slow_skip));
+  }
+  if (now > 2000) {
+    assertTestDone(slow_skip);
+    assertTrue(checkTestDone(slow_skip));
+
+    assertTestNotPass(slow_skip);
+    assertTrue(checkTestNotPass(slow_skip));
+
+    assertTestNotFail(slow_skip);
+    assertTrue(checkTestNotFail(slow_skip));
+
+    assertTestSkip(slow_skip);
+    assertTrue(checkTestSkip(slow_skip));
+
+    assertTestNotExpire(slow_skip);
+    assertTrue(checkTestNotExpire(slow_skip));
+
+    pass();
+  }
+}
+
+#if USE_AUNIT == 1
+testing(slow_expire_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDone(slow_expire);
+    assertTrue(checkTestNotDone(slow_expire));
+
+    assertTestNotPass(slow_expire);
+    assertTrue(checkTestNotPass(slow_expire));
+
+    assertTestNotFail(slow_expire);
+    assertTrue(checkTestNotFail(slow_expire));
+
+    assertTestNotSkip(slow_expire);
+    assertTrue(checkTestNotSkip(slow_expire));
+
+    assertTestNotExpire(slow_expire);
+    assertTrue(checkTestNotExpire(slow_expire));
+  }
+  if (now > 2000) {
+    assertTestDone(slow_expire);
+    assertTrue(checkTestDone(slow_expire));
+
+    assertTestNotPass(slow_expire);
+    assertTrue(checkTestNotPass(slow_expire));
+
+    assertTestNotFail(slow_expire);
+    assertTrue(checkTestNotFail(slow_expire));
+
+    assertTestNotSkip(slow_expire);
+    assertTrue(checkTestNotSkip(slow_expire));
+
+    assertTestExpire(slow_expire);
+    assertTrue(checkTestExpire(slow_expire));
+
+    pass();
+  }
+}
+#endif
+
+void setup() {
+  Serial.begin(74880); // 74880 is default for some ESP8266 boards
+  while(!Serial); // for the Arduino Leonardo/Micro only
+}
+
+void loop() {
+#if USE_AUNIT == 1
+  // Should get the following summary output:
+  // TestRunner summary:
+  //    5 passed, 1 failed, 1 skipped, 1 timed out, out of 8 test(s).
+  //
+  //TestRunner::setVerbosity(Verbosity::kAll);
+  TestRunner::run();
+#else
+  // Should get the following summary output:
+  // Test summary: 4 passed, 1 failed, and 1 skipped, out of 6 test(s).
+  Test::run();
+#endif
+}

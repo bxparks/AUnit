@@ -24,21 +24,7 @@ SOFTWARE.
 */
 
 #include <WString.h>
-
-// If ArduinoUnit is used, this unit test no longer fits in a 32kB
-// Arduino UNO or Nano.
-#define USE_AUNIT 1
-
-#if USE_AUNIT == 1
-#include <AUnit.h>
-using namespace aunit;
-#else
-#include <ArduinoUnit.h>
-#endif
-
-#ifndef FPSTR
-#define FPSTR(pstr_pointer) (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
-#endif
+#include "AUnitTest.h"
 
 signed char sc = 4;
 signed char sd = 5;
@@ -97,6 +83,9 @@ test(type_mismatch) {
 }
 
 #if USE_AUNIT == 1
+
+using aunit::compareString;
+using aunit::compareStringN;
 
 test(compareString) {
   assertEqual(compareString(a, a), 0);
@@ -323,45 +312,183 @@ test(flashString) {
   assertMoreOrEqual(hh, gg);
 }
 
-testing(looping_skip) {
-  static int count = 0;
-  // a successful assetXxx() should not terminate a testing() early
-  assertLess(count, 3);
-  count++;
-  if (count >= 3) {
-    skip();
-  }
-}
-
-testing(looping_fail) {
-  static int count = 0;
-  // a successful assetXxx() should not terminate a testing() early
-  assertLess(count, 3);
-  count++;
-  if (count >= 3) {
-    fail();
-  }
-}
-
-testing(looping_pass) {
-  static int count = 0;
-  // a successful assetXxx() should not terminate a testing() early
-  assertLess(count, 3);
-  count++;
-  if (count >= 3) {
-    pass();
-  }
-}
-
-testing(looping_until) {
+testing(timeout_after_10_seconds) {
   static unsigned long startTime  = millis();
 
-  // complete the test in 20 secons.
+  // complete the test in 20 seconds.
   unsigned long now = millis();
   if (now >= startTime + 20000) {
     pass();
   }
 }
+
+// Test that the externTesting() and externTest() macros work.
+externTesting(slow_pass);
+externTesting(slow_fail);
+externTesting(slow_skip);
+#if USE_AUNIT == 1
+externTesting(slow_expire);
+#endif
+externTest(external);
+
+// Check 10 times if the test(external) passes. Requires externTest().
+testing(external_monitor) {
+  static int count = 10;
+  if (count > 0) {
+    if (checkTestPass(external)) {
+      pass();
+    }
+    count++;
+  } else {
+    fail();
+  }
+}
+
+testing(slow_pass_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDone(slow_pass);
+    assertTrue(checkTestNotDone(slow_pass));
+
+    assertTestNotPass(slow_pass);
+    assertTrue(checkTestNotPass(slow_pass));
+
+    assertTestNotFail(slow_pass);
+    assertTrue(checkTestNotFail(slow_pass));
+
+    assertTestNotSkip(slow_pass);
+    assertTrue(checkTestNotSkip(slow_pass));
+
+    assertTestNotExpire(slow_pass);
+    assertTrue(checkTestNotExpire(slow_pass));
+  }
+  if (now > 2000) {
+    assertTestDone(slow_pass);
+    assertTrue(checkTestDone(slow_pass));
+
+    assertTestPass(slow_pass);
+    assertTrue(checkTestPass(slow_pass));
+
+    assertTestNotFail(slow_pass);
+    assertTrue(checkTestNotFail(slow_pass));
+
+    assertTestNotSkip(slow_pass);
+    assertTrue(checkTestNotSkip(slow_pass));
+
+    assertTestNotExpire(slow_pass);
+    assertTrue(checkTestNotExpire(slow_pass));
+
+    pass();
+  }
+}
+
+testing(slow_fail_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDone(slow_fail);
+    assertTrue(checkTestNotDone(slow_fail));
+
+    assertTestNotPass(slow_fail);
+    assertTrue(checkTestNotPass(slow_fail));
+
+    assertTestNotFail(slow_fail);
+    assertTrue(checkTestNotFail(slow_fail));
+
+    assertTestNotSkip(slow_fail);
+    assertTrue(checkTestNotSkip(slow_fail));
+
+    assertTestNotExpire(slow_fail);
+    assertTrue(checkTestNotExpire(slow_fail));
+  }
+  if (now > 2000) {
+    assertTestDone(slow_fail);
+    assertTrue(checkTestDone(slow_fail));
+
+    assertTestNotPass(slow_fail);
+    assertTrue(checkTestNotPass(slow_fail));
+
+    assertTestFail(slow_fail);
+    assertTrue(checkTestFail(slow_fail));
+
+    assertTestNotSkip(slow_fail);
+    assertTrue(checkTestNotSkip(slow_fail));
+
+    assertTestNotExpire(slow_fail);
+    assertTrue(checkTestNotExpire(slow_fail));
+
+    pass();
+  }
+}
+
+testing(slow_skip_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDone(slow_skip);
+    assertTrue(checkTestNotDone(slow_skip));
+
+    assertTestNotPass(slow_skip);
+    assertTrue(checkTestNotPass(slow_skip));
+
+    assertTestNotFail(slow_skip);
+    assertTrue(checkTestNotFail(slow_skip));
+
+    assertTestNotSkip(slow_skip);
+    assertTestNotExpire(slow_skip);
+  }
+  if (now > 2000) {
+    assertTestDone(slow_skip);
+    assertTrue(checkTestDone(slow_skip));
+
+    assertTestNotPass(slow_skip);
+    assertTrue(checkTestNotPass(slow_skip));
+
+    assertTestNotFail(slow_skip);
+    assertTrue(checkTestNotFail(slow_skip));
+
+    assertTestSkip(slow_skip);
+    assertTrue(checkTestSkip(slow_skip));
+
+    assertTestNotExpire(slow_skip);
+    pass();
+  }
+}
+
+#if USE_AUNIT == 1
+testing(slow_expire_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDone(slow_expire);
+    assertTrue(checkTestNotDone(slow_expire));
+
+    assertTestNotPass(slow_expire);
+    assertTrue(checkTestNotPass(slow_expire));
+
+    assertTestNotFail(slow_expire);
+    assertTrue(checkTestNotFail(slow_expire));
+
+    assertTestNotSkip(slow_expire);
+    assertTrue(checkTestNotSkip(slow_expire));
+
+    assertTestNotExpire(slow_expire);
+  }
+  if (now > 2000) {
+    assertTestDone(slow_expire);
+    assertTrue(checkTestDone(slow_expire));
+
+    assertTestNotPass(slow_expire);
+    assertTrue(checkTestNotPass(slow_expire));
+
+    assertTestNotFail(slow_expire);
+    assertTrue(checkTestNotFail(slow_expire));
+
+    assertTestNotSkip(slow_expire);
+    assertTrue(checkTestNotSkip(slow_expire));
+
+    assertTestExpire(slow_expire);
+    pass();
+  }
+}
+#endif
 
 void setup() {
   Serial.begin(74880); // 74880 is the default for some ESP8266 boards
