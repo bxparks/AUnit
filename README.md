@@ -1,6 +1,6 @@
 # AUnit - Unit Testing Framework for Arduino Platforms
 
-Version: v0.2.0 (2018-03-16)
+Version: v0.3.0 (2018-03-19)
 
 ## Summary
 
