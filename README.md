@@ -347,6 +347,17 @@ The following methods from ArduinoUnit have also been implemented:
 * `assertTestExpire(name)` [&ast;]
 * `assertTestNotExpire(name)` [&ast;]
 
+The `checkTestXxx()` methods check the status of the test named `name`
+and returns a `bool`. The execution continues even if `false`.
+
+The `assertTestXxx()` methods stops the unit test if the status check
+returns `false`, and prints assertion messages that look like this:
+```
+Assertion passed: Test slow_pass is done, file AUnitTest.ino, line 366.
+Assertion passed: Test slow_pass is not failed, file AUnitTest.ino, line 372.
+Assertion passed: Test slow_skip is skipped, file AUnitTest.ino, line 448.
+```
+
 The following macros define `extern` references to test case objects which live
 in other `.cpp` files. These are required for the above meta assertions if the
 test cases are defined in another file:
@@ -354,7 +365,17 @@ test cases are defined in another file:
 * `externTest()`
 * `externTesting()`
 
-***ArduinoUnit Compatibility***: _[&ast;] only in AUnit._
+***ArduinoUnit Compatibility***: _The methods marked by [&ast;] are only
+available in AUnit. Also, the assertion messages are different. ArduinoUnit
+reuses the format used by the `assertXxx()` macros, so prints something like
+the following:_
+```
+Assertion passed: (test_slow_skip_instance.state=2) >= (Test::DONE_SKIP=2), file
+AUnitTest.ino, line 439.
+```
+
+_AUnit has a separate message handler to print a customized message for the
+assertTestXxx() meta assertion macros._
 
 ### Status Indicator Methods
 
@@ -367,7 +388,8 @@ status reason).
 * `skip()` - test skipped
 * `expire()`  - test timed out [&ast;]
 
-***ArduinoUnit Compatibility***: _[&ast;] only in AUnit._
+***ArduinoUnit Compatibility***: _The method(s) marked by [&ast;] are only
+available in AUnit._
 
 ### Overridable Methods
 
