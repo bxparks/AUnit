@@ -36,16 +36,21 @@ namespace aunit {
  */
 class Verbosity {
   public:
-    static const uint8_t kTestRunSummary = 0x01;
-    static const uint8_t kTestFailed = 0x02;
+    // basic flags
+    static const uint8_t kAssertionPassed = 0x01;
+    static const uint8_t kAssertionFailed = 0x02;
     static const uint8_t kTestPassed = 0x04;
-    static const uint8_t kTestSkipped = 0x08;
-    static const uint8_t kTestAll = 0x0F;
-    static const uint8_t kAssertionFailed = 0x10;
-    static const uint8_t kAssertionPassed = 0x20;
-    static const uint8_t kAssertionAll = 0x30;
-    static const uint8_t kDefault = (
-        kAssertionFailed | kTestAll);
+    static const uint8_t kTestFailed = 0x08;
+    static const uint8_t kTestSkipped = 0x10;
+    static const uint8_t kTestExpired = 0x20;
+    static const uint8_t kTestRunSummary = 0x40;
+
+    // compound flags
+    static const uint8_t kAssertionAll = (kAssertionPassed | kAssertionFailed);
+    static const uint8_t kTestAll =
+        (kTestPassed | kTestFailed | kTestSkipped | kTestExpired);
+    static const uint8_t kDefault =
+        (kAssertionFailed | kTestAll | kTestRunSummary);
     static const uint8_t kAll = 0xFF;
     static const uint8_t kNone = 0x00;
 

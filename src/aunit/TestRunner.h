@@ -67,7 +67,7 @@ class TestRunner {
       getRunner()->setVerbosityFlag(verbosity);
     }
 
-    /** Determine the current verbosity. */
+    /** Returns true if ANY of the bit flags of 'verbosity' is set. */
     static bool isVerbosity(uint8_t verbosity) {
       return getRunner()->isVerbosityFlag(verbosity);
     }

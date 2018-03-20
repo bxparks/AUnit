@@ -1,9 +1,9 @@
 #line 2 "meta_asserts.ino"
 
-// Originally derived from the README.md in
-// https://github.com/mmurdoch/arduinounit/ but is now very different.
+// Adapted from code fragment in the README.md in
+// https://github.com/mmurdoch/arduinounit/
 
-#define USE_AUNIT 0
+#define USE_AUNIT 1
 
 #if USE_AUNIT == 1
 #include <AUnit.h>
@@ -184,6 +184,7 @@ testing(slow_expire_monitor) {
 void setup() {
   Serial.begin(74880); // 74880 is default for some ESP8266 boards
   while(!Serial); // for the Arduino Leonardo/Micro only
+  delay(1000); // wait for stability on some boards to prevent garbage Serial
 }
 
 void loop() {

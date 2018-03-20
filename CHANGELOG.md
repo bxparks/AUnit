@@ -1,5 +1,8 @@
 # Changelog
 
+* v0.3.1 (2018-03-20)
+    * Add support for Verbosity::kTestExpired.
+    * Clean up code in examples/ directory and add documentation in README.md.
 * v0.3.0 (2018-03-19)
     * Implement all remaining macros from ArduinoUnit:
       assertTestXxx(), checkTestXxx(), externTest(), externTesting().

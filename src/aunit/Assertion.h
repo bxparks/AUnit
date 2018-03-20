@@ -61,42 +61,6 @@ SOFTWARE.
 
 namespace aunit {
 
-// This can be a template function because it is accessed only through the
-// various assertXxx() methods. Those assertXxx() methods are explicitly
-// overloaded for the various types that we want to support.
-//
-// Prints something like the following:
-// Assertion failed: (5) == (6), file Test.ino, line 820.
-// Assertion passed: (6) == (6), file Test.ino, line 820.
-template <typename A, typename B>
-void printAssertionMessage(bool ok, const char* file, uint16_t line,
-    const A& lhs, const char *opName, const B& rhs) {
-
-  bool isOutput =
-      (ok && TestRunner::isVerbosity(Verbosity::kAssertionPassed)) ||
-      (!ok && TestRunner::isVerbosity(Verbosity::kAssertionFailed));
-  if (!isOutput) return;
-
-  // Don't use F() strings here because flash memory strings are not deduped by
-  // the compiler, so each template instantiation of this method causes a
-  // duplication of all the strings below. See
-  // https://github.com/mmurdoch/arduinounit/issues/70
-  // for more info.
-  Printer::getPrinter()->print("Assertion ");
-  Printer::getPrinter()->print(ok ? "passed" : "failed");
-  Printer::getPrinter()->print(": (");
-  Printer::getPrinter()->print(lhs);
-  Printer::getPrinter()->print(") ");
-  Printer::getPrinter()->print(opName);
-  Printer::getPrinter()->print(" (");
-  Printer::getPrinter()->print(rhs);
-  Printer::getPrinter()->print("), file ");
-  Printer::getPrinter()->print(file);
-  Printer::getPrinter()->print(", line ");
-  Printer::getPrinter()->print(line);
-  Printer::getPrinter()->println('.');
-}
-
 // For the same reason as the compareXxx() methods, we use explicit overloaded
 // functions, instead of using template specialization. And just as before, I
 // was unable to use a template function for primitive integer types, because it

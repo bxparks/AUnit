@@ -1,6 +1,6 @@
 # AUnit - Unit Testing Framework for Arduino Platforms
 
-Version: v0.3.0 (2018-03-19)
+Version: 0.3.1 (2018-03-20)
 
 ## Summary
 
@@ -23,7 +23,7 @@ AUnit was created to solve 2 problems with ArduinoUnit:
   [ArduinoUni#54](https://github.com/mmurdoch/arduinounit/issues/54)).
 
 In contrast:
-* AUnit consumes as much as 66% *less* flash memory than ArduinoUnit on the
+* AUnit consumes as much as 65% *less* flash memory than ArduinoUnit on the
   AVR platform. On Teensy-ARM, the savings can be as much as 30%.
 * AUnit has been tested on AVR, Teensy-ARM and ESP8266.
 
@@ -98,6 +98,21 @@ pick up the new library.
 In this section, information about differences between AUnit and ArduinoUnit
 will appear in a note marked by ***ArduinoUnit Compatibility***.
 
+### Examples
+
+The `examples/` directory has a number of examples:
+
+* `advanced` - how to subclass `Test` and `TestOnce` manually
+* `basic` - using the `test()` macro
+* `continuous` - using the `testing()` macro
+* `filter` - how to filter tests using `TestRunner::include()` and
+  `TestRunner::exclude()`
+* `meta_asserts` - how to use `assertTestXxx()` and `checkTestXxx`
+
+In the `tests/` directory:
+
+* `AUnitTest` - the unit test for `AUnit` itself has a large number of examples
+
 ### Header and Namespace
 
 To prevent name clashes with other libraries and code, all classes in the AUnit
@@ -121,7 +136,7 @@ in the global namespace, so it is usually not necessary to import the entire
 `aunit` namespace.
 
 ***ArduinoUnit Compatibility***: _I have found that the following macros are
-useful during the transition:_
+useful during the transition from ArduinoUnit to AUnit_
 ```
 #define USE_AUNIT 1
 
@@ -356,7 +371,10 @@ returns `false`, and prints assertion messages that look like this:
 Assertion passed: Test slow_pass is done, file AUnitTest.ino, line 366.
 Assertion passed: Test slow_pass is not failed, file AUnitTest.ino, line 372.
 Assertion passed: Test slow_skip is skipped, file AUnitTest.ino, line 448.
+Assertion passed: Test slow_skip is not timed out, file AUnitTest.ino, line 451.
 ```
+(The human readable version of being `expired` will always be `timed out` or
+`not timed out` on the `Serial` output.)
 
 The following macros define `extern` references to test case objects which live
 in other `.cpp` files. These are required for the above meta assertions if the
@@ -509,21 +527,23 @@ The names of the bit field flags are different from ArduinoUnit to avoid name
 collisions with other `#define` macros which have global scope. AUnit uses
 static constants of the `Verbosity` utility class:
 
-* `Verbosity::kTestRunSummary`
-* `Verbosity::kTestFailed`
-* `Verbosity::kTestPassed`
-* `Verbosity::kTestSkipped`
-* `Verbosity::kTestAll`
-* `Verbosity::kAssertionFailed`
 * `Verbosity::kAssertionPassed`
-* `Verbosity::kAssertionAll`
-* `Verbosity::kDefault`, equivalent to setting the following
-    * `(Verbosity::kAssertionFailed | Verbosity::kTestAll)`
+* `Verbosity::kAssertionFailed`
+* `Verbosity::kTestPassed`
+* `Verbosity::kTestFailed`
+* `Verbosity::kTestSkipped`
+* `Verbosity::kTestExpired`
+* `Verbosity::kTestRunSummary`
+* `Verbosity::kAssertionAll` - enables all assert messages
+* `Verbosity::kTestAll`
+    * same as `(kTestPassed | kTestFailed | kTestSkipped | kTestExpired)`
+* `Verbosity::kDefault`
+    * same as `(kAssertionFailed | kTestAll | kTestRunSummary )`
 * `Verbosity::kAll` - enables all messages
 * `Verbosity::kNone` - disables all messages
 
 ***ArduinoUnit Compatibility***:
-_The following ArduinoUnit variables do not exist:_`
+_The following ArduinoUnit variables do not exist:_
 * `Test::verbosity`
 * `Test::min_verbosity`
 * `Test::max_verbosity`
@@ -543,6 +563,7 @@ The bit field constants have slightly different names:_
 * `TEST_VERBOSITY_ALL` -> `Verbosity::kAll`
 * `TEST_VERBOSITY_NONE` -> `Verbosity::kNone`
 * {no equivalent} <- `Verbosity::kDefault`
+* {no equivalent} <- `Verbosity::kTestExpired`
 
 ### Line Number Mismatch
 
@@ -648,7 +669,7 @@ A timeout value of `0` means an infinite timeout, which means that the
 
 ## Benchmarks
 
-AUnit consumes as much as 66% less flash memory than ArduinoUnit on an AVR
+AUnit consumes as much as 65% less flash memory than ArduinoUnit on an AVR
 platform (e.g. Arduino UNO, Nano), and 30% less flash on the Teensy-ARM platform
 (e.g. Teensy LC ). Here are the resource consumption (flash and static) numbers
 from an actual unit test sketch containing 26 test cases using 331 `assertXxx()`
@@ -657,24 +678,24 @@ microcontrollers:
 ```
 Platform (resource)        |     Max | ArduinoUnit |       AUnit |
 ---------------------------+---------+-------------+-------------|
-Arduino Nano (flash)       |   30720 |       54038 |       18666 |
+Arduino Nano (flash)       |   30720 |       54038 |       18818 |
 Arduino Nano (static)      |    2048 |        1061 |         918 |
 ---------------------------+---------+-------------+-------------|
-Teensy LC (flash)          |   63488 |       36196 |       25228 |
+Teensy LC (flash)          |   63488 |       36196 |       25240 |
 Teensy LC (static)         |    8192 |        2980 |        2780 |
 ---------------------------+---------+-------------+-------------|
-Teensy 3.2 (flash)         |  262144 |       51236 |       36300 |
+Teensy 3.2 (flash)         |  262144 |       51236 |       36236 |
 Teensy 3.2 (static)        |   65536 |        5328 |        5236 |
 ---------------------------+---------+-------------+-------------|
-ESP8266 - ESP-12E (flash)  | 1044464 |    does not |      266748 |
+ESP8266 - ESP-12E (flash)  | 1044464 |    does not |      266796 |
 ESP8266 - ESP-12E (static) |   81920 |     compile |       33128 |
 ---------------------------+---------+-------------+-------------|
-ESP8266 - ESP-01 (flash)   |  499696 |    does not |      266748 |
+ESP8266 - ESP-01 (flash)   |  499696 |    does not |      266796 |
 ESP8266 - ESP-01 (static)  |   47356 |     compile |       33128 |
 ---------------------------+---------+-------------+-------------|
 ```
 
-Not all unit test sketches will experience a savings of 66% of flash memory with
+Not all unit test sketches will experience a savings of 65% of flash memory with
 AUnit, but a savings of 30-50% seems to be common.
 
 ## Changelog
