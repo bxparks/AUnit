@@ -512,6 +512,9 @@ void setup() {
 
 void loop() {
 #if USE_AUNIT == 1
+  // Should get something like:
+  // TestRunner summary:
+  //    18 passed, 1 failed, 1 skipped, 2 timed out, out of 22 test(s).
   TestRunner::run();
 #else
   Test::run();

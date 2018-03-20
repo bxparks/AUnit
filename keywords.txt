@@ -102,14 +102,15 @@ compareNotEqual	KEYWORD2
 #######################################
 
 # public constants from Verbosity.h
-kTestRunSummary	LITERAL1
-kTestFailed	LITERAL1
-kTestPassed	LITERAL1
-kTestSkipped	LITERAL1
-kTestAll	LITERAL1
-kAssertionFailed	LITERAL1
 kAssertionPassed	LITERAL1
+kAssertionFailed	LITERAL1
+kTestPassed	LITERAL1
+kTestFailed	LITERAL1
+kTestSkipped	LITERAL1
+kTestExpired	LITERAL1
+kTestRunSummary	LITERAL1
 kAssertionAll	LITERAL1
+kTestAll	LITERAL1
 kDefault	LITERAL1
 kAll	LITERAL1
 kNone	LITERAL1

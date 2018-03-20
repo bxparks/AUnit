@@ -176,10 +176,7 @@ uint16_t TestRunner::countTests() {
 }
 
 void TestRunner::resolveTest(Test* testCase) {
-  bool isOutput = isVerbosity(
-      Verbosity::kTestFailed | Verbosity::kTestSkipped |
-      Verbosity::kTestPassed);
-  if (!isOutput) return;
+  if (!isVerbosity(Verbosity::kTestAll)) return;
 
   Printer::getPrinter()->print(F("Test "));
   Printer::print(testCase->getName());
