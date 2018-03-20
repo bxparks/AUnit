@@ -98,6 +98,21 @@ pick up the new library.
 In this section, information about differences between AUnit and ArduinoUnit
 will appear in a note marked by ***ArduinoUnit Compatibility***.
 
+### Examples
+
+The `examples/` directory has a number of examples:
+
+* `advanced` - how to subclass `Test` and `TestOnce` manually
+* `basic` - using the `test()` macro
+* `continuous` - using the `testing()` macro
+* `filter` - how to filter tests using `TestRunner::include()` and
+  `TestRunner::exclude()`
+* `meta_asserts` - how to use `assertTestXxx()` and `checkTestXxx`
+
+In the `tests/` directory:
+
+* `AUnitTest` - the unit test for `AUnit` tself has a large number of examples
+
 ### Header and Namespace
 
 To prevent name clashes with other libraries and code, all classes in the AUnit
@@ -121,7 +136,7 @@ in the global namespace, so it is usually not necessary to import the entire
 `aunit` namespace.
 
 ***ArduinoUnit Compatibility***: _I have found that the following macros are
-useful during the transition:_
+useful during the transition from ArduinoUnit to AUnit_
 ```
 #define USE_AUNIT 1
 

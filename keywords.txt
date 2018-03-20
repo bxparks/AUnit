@@ -34,6 +34,17 @@ setStatus	KEYWORD2
 setPassOrFail	KEYWORD2
 getNext	KEYWORD2
 #
+isDone	KEYWORD2
+isNotDone	KEYWORD2
+isPassed	KEYWORD2
+isNotPassed	KEYWORD2
+isFailed	KEYWORD2
+isNotFailed	KEYWORD2
+isSkipped	KEYWORD2
+isNotSkipped	KEYWORD2
+isExpired	KEYWORD2
+isNotExpired	KEYWORD2
+#
 # Protected methods from Test.h
 skip	KEYWORD2
 pass	KEYWORD2
@@ -41,7 +52,7 @@ fail	KEYWORD2
 # TestOnce
 once	KEYWORD2
 
-# Macros from Assertion.h
+# Public macros from Assertion.h
 assertEqual	KEYWORD2
 assertNotEqual	KEYWORD2
 assertLess	KEYWORD2
@@ -50,6 +61,28 @@ assertMore	KEYWORD2
 assertMoreOrEqual	KEYWORD2
 assertTrue	KEYWORD2
 assertFalse	KEYWORD2
+
+# Public macros from MetaAssertion.h
+checkTestDone	KEYWORD2
+checkTestNotDone	KEYWORD2
+checkTestPass	KEYWORD2
+checkTestNotPass	KEYWORD2
+checkTestFail	KEYWORD2
+checkTestNotFail	KEYWORD2
+checkTestSkip	KEYWORD2
+checkTestNotSkip	KEYWORD2
+checkTestExpire	KEYWORD2
+checkTestNotExpireDone	KEYWORD2
+assertTestDone	KEYWORD2
+assertTestNotDone	KEYWORD2
+assertTestPass	KEYWORD2
+assertTestNotPass	KEYWORD2
+assertTestFail	KEYWORD2
+assertTestNotFail	KEYWORD2
+assertTestSkip	KEYWORD2
+assertTestNotSkip	KEYWORD2
+assertTestExpire	KEYWORD2
+assertTestNotExpireDone	KEYWORD2
 
 # Overloaded functions from Compare.h
 compareString	KEYWORD2
