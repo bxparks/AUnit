@@ -371,7 +371,10 @@ returns `false`, and prints assertion messages that look like this:
 Assertion passed: Test slow_pass is done, file AUnitTest.ino, line 366.
 Assertion passed: Test slow_pass is not failed, file AUnitTest.ino, line 372.
 Assertion passed: Test slow_skip is skipped, file AUnitTest.ino, line 448.
+Assertion passed: Test slow_skip is not timed out, file AUnitTest.ino, line 451.
 ```
+(The human readable version of being `expired` will always be `timed out` or
+`not timed out` on the `Serial` output.)
 
 The following macros define `extern` references to test case objects which live
 in other `.cpp` files. These are required for the above meta assertions if the
