@@ -1,6 +1,6 @@
 # AUnit - Unit Testing Framework for Arduino Platforms
 
-Version: 0.3.0 (2018-03-19)
+Version: 0.3.1 (2018-03-19)
 
 ## Summary
 
@@ -524,16 +524,18 @@ The names of the bit field flags are different from ArduinoUnit to avoid name
 collisions with other `#define` macros which have global scope. AUnit uses
 static constants of the `Verbosity` utility class:
 
-* `Verbosity::kTestRunSummary`
-* `Verbosity::kTestFailed`
-* `Verbosity::kTestPassed`
-* `Verbosity::kTestSkipped`
-* `Verbosity::kTestAll`
-* `Verbosity::kAssertionFailed`
 * `Verbosity::kAssertionPassed`
-* `Verbosity::kAssertionAll`
-* `Verbosity::kDefault`, equivalent to setting the following
-    * `(Verbosity::kAssertionFailed | Verbosity::kTestAll)`
+* `Verbosity::kAssertionFailed`
+* `Verbosity::kTestPassed`
+* `Verbosity::kTestFailed`
+* `Verbosity::kTestSkipped`
+* `Verbosity::kTestExpired`
+* `Verbosity::kTestRunSummary`
+* `Verbosity::kAssertionAll` - enables all assert messages
+* `Verbosity::kTestAll`
+    * same as `(kTestPassed | kTestFailed | kTestSkipped | kTestExpired)`
+* `Verbosity::kDefault`
+    * same as `(kAssertionFailed | kTestAll | kTestRunSummary )`
 * `Verbosity::kAll` - enables all messages
 * `Verbosity::kNone` - disables all messages
 
@@ -558,6 +560,7 @@ The bit field constants have slightly different names:_
 * `TEST_VERBOSITY_ALL` -> `Verbosity::kAll`
 * `TEST_VERBOSITY_NONE` -> `Verbosity::kNone`
 * {no equivalent} <- `Verbosity::kDefault`
+* {no equivalent} <- `Verbosity::kTestExpired`
 
 ### Line Number Mismatch
 
