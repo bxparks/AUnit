@@ -493,6 +493,7 @@ testing(slow_expire_monitor) {
 void setup() {
   Serial.begin(74880); // 74880 is the default for some ESP8266 boards
   while (! Serial); // Wait until Serial is ready - Leonardo
+  delay(1000); // Wait for stability on some boards, otherwise garage on Serial
 
 #if USE_AUNIT == 1
   //TestRunner::setVerbosity(Verbosity::kAll);
