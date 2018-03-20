@@ -543,7 +543,7 @@ static constants of the `Verbosity` utility class:
 * `Verbosity::kNone` - disables all messages
 
 ***ArduinoUnit Compatibility***:
-_The following ArduinoUnit variables do not exist:_`
+_The following ArduinoUnit variables do not exist:_
 * `Test::verbosity`
 * `Test::min_verbosity`
 * `Test::max_verbosity`
