@@ -111,7 +111,7 @@ The `examples/` directory has a number of examples:
 
 In the `tests/` directory:
 
-* `AUnitTest` - the unit test for `AUnit` tself has a large number of examples
+* `AUnitTest` - the unit test for `AUnit` itself has a large number of examples
 
 ### Header and Namespace
 
