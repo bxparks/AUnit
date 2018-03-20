@@ -53,17 +53,18 @@ void printAssertionTestStatusMessage(bool ok, const char* file, uint16_t line,
   // TODO: Merge the common strings between this and printAssertionMesssage()
   // into PROGMEM strings manually and reused them. It's not too bad even with
   // these c-strings, because the compiler will dedupe them.
-  Printer::getPrinter()->print("Assertion ");
-  Printer::getPrinter()->print(ok ? "passed" : "failed");
-  Printer::getPrinter()->print(": Test ");
-  Printer::getPrinter()->print(testName);
-  Printer::getPrinter()->print(' ');
+  Print* printer = Printer::getPrinter();
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": Test ");
+  printer->print(testName);
+  printer->print(' ');
   printStatusString(statusName);
-  Printer::getPrinter()->print(", file ");
-  Printer::getPrinter()->print(file);
-  Printer::getPrinter()->print(", line ");
-  Printer::getPrinter()->print(line);
-  Printer::getPrinter()->println('.');
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
 }
 
 bool assertionTestStatus(const char* file, uint16_t line, 

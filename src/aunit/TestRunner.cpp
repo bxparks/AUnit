@@ -178,33 +178,35 @@ uint16_t TestRunner::countTests() {
 void TestRunner::resolveTest(Test* testCase) {
   if (!isVerbosity(Verbosity::kTestAll)) return;
 
-  Printer::getPrinter()->print(F("Test "));
+  Print* printer = Printer::getPrinter();
+  printer->print(F("Test "));
   Printer::print(testCase->getName());
   if (testCase->getStatus() == Test::kStatusSkipped) {
-    Printer::getPrinter()->println(F(" skipped."));
+    printer->println(F(" skipped."));
   } else if (testCase->getStatus() == Test::kStatusFailed) {
-    Printer::getPrinter()->println(F(" failed."));
+    printer->println(F(" failed."));
   } else if (testCase->getStatus ()== Test::kStatusPassed) {
-    Printer::getPrinter()->println(F(" passed."));
+    printer->println(F(" passed."));
   } else if (testCase->getStatus ()== Test::kStatusExpired) {
-    Printer::getPrinter()->println(F(" timed out."));
+    printer->println(F(" timed out."));
   }
 }
 
 void TestRunner::resolveRun() {
   if (!isVerbosity(Verbosity::kTestRunSummary)) return;
 
-  Printer::getPrinter()->print(F("TestRunner summary: "));
-  Printer::getPrinter()->print(mPassedCount);
-  Printer::getPrinter()->print(F(" passed, "));
-  Printer::getPrinter()->print(mFailedCount);
-  Printer::getPrinter()->print(F(" failed, "));
-  Printer::getPrinter()->print(mSkippedCount);
-  Printer::getPrinter()->print(F(" skipped, "));
-  Printer::getPrinter()->print(mExpiredCount);
-  Printer::getPrinter()->print(F(" timed out, out of "));
-  Printer::getPrinter()->print(mCount);
-  Printer::getPrinter()->println(F(" test(s)."));
+  Print* printer = Printer::getPrinter();
+  printer->print(F("TestRunner summary: "));
+  printer->print(mPassedCount);
+  printer->print(F(" passed, "));
+  printer->print(mFailedCount);
+  printer->print(F(" failed, "));
+  printer->print(mSkippedCount);
+  printer->print(F(" skipped, "));
+  printer->print(mExpiredCount);
+  printer->print(F(" timed out, out of "));
+  printer->print(mCount);
+  printer->println(F(" test(s)."));
 
   mIsResolved = true;
 }
@@ -212,12 +214,13 @@ void TestRunner::resolveRun() {
 void TestRunner::listTests() {
   setupRunner();
 
-  Printer::getPrinter()->print("TestRunner test count: ");
-  Printer::getPrinter()->println(mCount);
+  Print* printer = Printer::getPrinter();
+  printer->print(F("TestRunner test count: "));
+  printer->println(mCount);
   for (Test** p = Test::getRoot(); (*p) != nullptr; p = (*p)->getNext()) {
-    Printer::getPrinter()->print(F("Test "));
+    printer->print(F("Test "));
     Printer::print((*p)->getName());
-    Printer::getPrinter()->println(F(" found."));
+    printer->println(F(" found."));
   }
 }
 
