@@ -118,6 +118,9 @@ class TestRunner {
     /** Print out the known tests. For debugging only. */
     void listTests();
 
+    /** Print out message at the start of the run. */
+    void printStartRunner();
+
     /** Print out the summary of the entire test suite. */
     void resolveRun();
 
@@ -149,6 +152,7 @@ class TestRunner {
 
     bool mIsResolved;
     bool mIsSetup;
+    bool mIsRunning;
     uint8_t mVerbosity;
     uint16_t mCount;
     uint16_t mPassedCount;

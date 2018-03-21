@@ -496,16 +496,20 @@ void setup() {
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
 
 #if USE_AUNIT == 1
+  // These are useful for debugging.
   //TestRunner::setVerbosity(Verbosity::kAll);
-  TestRunner::exclude("looping_f*");
-  TestRunner::list();
+  //TestRunner::setVerbosity(Verbosity::kTestRunSummary);
+  //TestRunner::list();
 
   // If set to something really small, like 1, all tests are incomplete.
-  // If set to 0, infinite timeout, some testing() may accidentally run forever.
-  // Default is 10000 ms.
+  // If set to 0, infinite timeout, some testing() may accidentally run
+  // forever. Default is 10000 ms.
   //TestRunner::setTimeout(25000);
+
+  TestRunner::exclude("looping_f*");
 #else
   //Test::min_verbosity = TEST_VERBOSITY_ALL;
+
   Test::exclude("looping_f*");
 #endif
 }

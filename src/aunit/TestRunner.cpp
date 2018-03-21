@@ -68,6 +68,7 @@ TestRunner::TestRunner():
     mCurrent(nullptr),
     mIsResolved(false),
     mIsSetup(false),
+    mIsRunning(false),
     mVerbosity(Verbosity::kDefault),
     mCount(0),
     mPassedCount(0),
@@ -77,6 +78,12 @@ TestRunner::TestRunner():
 
 void TestRunner::runTest() {
   setupRunner();
+
+  // Print initial header if this is the first run.
+  if (!mIsRunning) {
+    printStartRunner();
+    mIsRunning = true;
+  }
 
   // If no more test cases, then print out summary of run.
   if (*Test::getRoot() == nullptr) {
@@ -175,6 +182,15 @@ uint16_t TestRunner::countTests() {
   return count;
 }
 
+void TestRunner::printStartRunner() {
+  if (!isVerbosity(Verbosity::kTestRunSummary)) return;
+
+  Print* printer = Printer::getPrinter();
+  printer->print(F("TestRunner started on "));
+  printer->print(mCount);
+  printer->println(F(" test(s)."));
+}
+
 void TestRunner::resolveTest(Test* testCase) {
   if (!isVerbosity(Verbosity::kTestAll)) return;
 
@@ -185,9 +201,9 @@ void TestRunner::resolveTest(Test* testCase) {
     printer->println(F(" skipped."));
   } else if (testCase->getStatus() == Test::kStatusFailed) {
     printer->println(F(" failed."));
-  } else if (testCase->getStatus ()== Test::kStatusPassed) {
+  } else if (testCase->getStatus() == Test::kStatusPassed) {
     printer->println(F(" passed."));
-  } else if (testCase->getStatus ()== Test::kStatusExpired) {
+  } else if (testCase->getStatus() == Test::kStatusExpired) {
     printer->println(F(" timed out."));
   }
 }
@@ -216,7 +232,8 @@ void TestRunner::listTests() {
 
   Print* printer = Printer::getPrinter();
   printer->print(F("TestRunner test count: "));
-  printer->println(mCount);
+  printer->print(mCount);
+  printer->println('.');
   for (Test** p = Test::getRoot(); (*p) != nullptr; p = (*p)->getNext()) {
     printer->print(F("Test "));
     Printer::print((*p)->getName());
