@@ -25,6 +25,13 @@ SOFTWARE.
 // Significant portions of the design and implementation of this file came from
 // https://github.com/mmurdoch/arduinounit/blob/master/src/ArduinoUnit.h
 
+/**
+ * @file Test.h
+ *
+ * Various macros (test(), testing(), externTest(), externTesting()) are
+ * defined in this header.
+ */
+
 #ifndef AUNIT_TEST_H
 #define AUNIT_TEST_H
 
@@ -39,7 +46,7 @@ class __FlashStringHelper;
 // constructor definition out from an inline function into a normal function
 // defined outside of the class declaration..
 
-// Macro to define a test that will be run only once.
+/** Macro to define a test that will be run only once. */
 #define test(name) struct test_ ## name : aunit::TestOnce {\
   test_ ## name();\
   virtual void once() override;\
@@ -47,9 +54,11 @@ class __FlashStringHelper;
 test_ ## name :: test_ ## name() : TestOnce(F(#name)) {}\
 void test_ ## name :: once()
 
-// Macro to define a test that will run repeatly upon each iteration of the
-// global loop() method, stopping when the something calls Test::pass(),
-// Test::fail() or Test::skip().
+/**
+ * Macro to define a test that will run repeatly upon each iteration of the
+ * global loop() method, stopping when the something calls Test::pass(),
+ * Test::fail() or Test::skip().
+ */
 #define testing(name) struct test_ ## name : aunit::Test {\
   test_ ## name();\
   virtual void loop() override;\
@@ -57,19 +66,23 @@ void test_ ## name :: once()
 test_ ## name :: test_ ## name() : Test(F(#name)) {}\
 void test_ ## name :: loop()
 
-// Create an extern reference to a test() test case object defined elsewhere.
-// This is only necessary if you use assertTestXxx() or checkTestXxx() when the
-// test is in another file (or defined after the assertion on it).
+/**
+ * Create an extern reference to a test() test case object defined elsewhere.
+ * This is only necessary if you use assertTestXxx() or checkTestXxx() when the
+ * test is in another file (or defined after the assertion on it).
+ */
 #define externTest(name) struct test_ ## name : aunit::TestOnce {\
   test_ ## name();\
   void once();\
 };\
 extern test_##name test_##name##_instance
 
-// Create an extern reference to a testing() test case object defined
-// elsewhere.  This is only necessary if you use assertTestXxx() or
-// checkTestXxx() when the test is in another file (or defined after the
-// assertion on it).
+/**
+ * Create an extern reference to a testing() test case object defined
+ * elsewhere.  This is only necessary if you use assertTestXxx() or
+ * checkTestXxx() when the test is in another file (or defined after the
+ * assertion on it).
+ */
 #define externTesting(name) struct test_ ## name : aunit::Test {\
   test_ ## name();\
   void loop();\
