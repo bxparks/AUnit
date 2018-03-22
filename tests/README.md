@@ -1,7 +1,7 @@
 # Unit Tests
 
 It may seem that we have a circular referencing problem (or a tautology) by
-using AUnit to write unit tests for itself. It could be argued that we're can't
+using AUnit to write unit tests for itself. It could be argued that we can't
 really be sure that the code is actually testing anything since the same bug
 could be validating itself. But I built `AUnitTest` incrementally in layers,
 first validating the first layer of primitive functions (e.g.
