@@ -40,7 +40,7 @@ class Verbosity {
     static const uint8_t kAssertionPassed = 0x01;
 
     /** Print assertXxx() failed message. */
-    static const uint8_t kAssertionFailed = 0x01;
+    static const uint8_t kAssertionFailed = 0x02;
 
     /** Print test passed  message. */
     static const uint8_t kTestPassed = 0x04;
