@@ -5,46 +5,23 @@
 
 namespace aunit {
 
-// Print a human readable string fragment from the method name:
-// "isDone" -> "is done"
-// "isNotDone" ->"is not done"
-// ...
-// "isExpired" ->"is timed out" (*)
-// "isNotExpired" ->"is not timed out" (*)
+// Moving these strings into PROGMEM saves 162 bytes of flash memory (from
+// elimination of a function) and 130 bytes of static memory,
 //
-// (*) - The internal "expired" state is consistently known as "timed out"
-// externally. Doing a string compare is a bit inefficient in terms of CPU
-// cycle, but these are unit tests, we don't need to be super fast.
-//
-// I can think of 2 alternatives to do this internal to external mapping:
-// 1) provide the human-readable mapping in the various assertTestXxx()
-// macros,
-// 2) maybe use a pointer to member functions and do a switch on that here.
-// Either of those seems more complex than this little hack.
-void printStatusString(const char* statusName) {
-  const char* p;
-  if (compareEqual(statusName, F("isExpired"))) {
-    p = "isTimedOut"; // can't use F() here without a lot of work
-  } else if (compareEqual(statusName, F("isNotExpired"))) {
-    p = "isNotTimedOut"; // can't use F() here without a lot of work
-  } else {
-    p = statusName;
-  }
-
-  for (; *p != '\0'; p++) {
-    char c = *p;
-    if (!isupper(c)) {
-      Printer::getPrinter()->print(c);
-    } else {
-      Printer::getPrinter()->print(' ');
-      c = tolower(c);
-      Printer::getPrinter()->print(c);
-    }
-  }
-}
+// TODO: Move these into the Assertion class in a future refactoring.
+const char kMessageIsDone[] PROGMEM = "is done";
+const char kMessageIsNotDone[] PROGMEM = "is not done";
+const char kMessageIsPassed[] PROGMEM = "is passed";
+const char kMessageIsNotPassed[] PROGMEM = "is not passed";
+const char kMessageIsFailed[] PROGMEM = "is failed";
+const char kMessageIsNotFailed[] PROGMEM = "is not failed";
+const char kMessageIsSkipped[] PROGMEM = "is skipped";
+const char kMessageIsNotSkipped[] PROGMEM = "is not skipped";
+const char kMessageIsExpired[] PROGMEM = "is timed out";
+const char kMessageIsNotExpired[] PROGMEM = "is not timed out";
 
 void printAssertionTestStatusMessage(bool ok, const char* file, uint16_t line,
-    const char* testName, const char* statusName) {
+    const char* testName, const __FlashStringHelper* statusMessage) {
   bool isOutput =
       (ok && TestRunner::isVerbosity(Verbosity::kAssertionPassed)) ||
       (!ok && TestRunner::isVerbosity(Verbosity::kAssertionFailed));
@@ -59,7 +36,7 @@ void printAssertionTestStatusMessage(bool ok, const char* file, uint16_t line,
   printer->print(": Test ");
   printer->print(testName);
   printer->print(' ');
-  printStatusString(statusName);
+  printer->print(statusMessage);
   printer->print(", file ");
   printer->print(file);
   printer->print(", line ");
@@ -68,8 +45,8 @@ void printAssertionTestStatusMessage(bool ok, const char* file, uint16_t line,
 }
 
 bool assertionTestStatus(const char* file, uint16_t line, 
-    const char* testName, const char* statusName, bool ok) {
-  printAssertionTestStatusMessage(ok, file, line, testName, statusName);
+    const char* testName, const __FlashStringHelper* statusMessage, bool ok) {
+  printAssertionTestStatusMessage(ok, file, line, testName, statusMessage);
   TestRunner::setPassOrFail(ok);
   return ok;
 }

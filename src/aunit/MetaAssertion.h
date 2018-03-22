@@ -38,6 +38,8 @@ SOFTWARE.
 #include "Printer.h"
 #include "TestRunner.h"
 
+class __FlashStringHelper;
+
 // Meta tests, same syntax as ArduinoUnit for compatibility.
 // The checkTestXxx() macros return a boolean, and execution continues.
 
@@ -75,50 +77,73 @@ SOFTWARE.
 // fail(), and returns from the current test case.
 
 /** Assert that test 'name' is done. */
-#define assertTestDone(name) assertTestStatus(name, isDone)
+#define assertTestDone(name) \
+  assertTestStatus(name, isDone, aunit::kMessageIsDone)
 
 /** Assert that test 'name' is not done. */
-#define assertTestNotDone(name) assertTestStatus(name, isNotDone)
+#define assertTestNotDone(name) \
+    assertTestStatus(name, isNotDone, aunit::kMessageIsNotDone)
 
 /** Assert that test 'name' has passed. */
-#define assertTestPass(name) assertTestStatus(name, isPassed)
+#define assertTestPass(name) \
+    assertTestStatus(name, isPassed, aunit::kMessageIsPassed)
 
 /** Assert that test 'name' has not passed. */
-#define assertTestNotPass(name) assertTestStatus(name, isNotPassed)
+#define assertTestNotPass(name) \
+    assertTestStatus(name, isNotPassed, aunit::kMessageIsNotPassed)
 
 /** Assert that test 'name' has failed. */
-#define assertTestFail(name) assertTestStatus(name, isFailed)
+#define assertTestFail(name) \
+    assertTestStatus(name, isFailed, aunit::kMessageIsFailed)
 
 /** Assert that test 'name' has not failed. */
-#define assertTestNotFail(name) assertTestStatus(name, isNotFailed)
+#define assertTestNotFail(name) \
+    assertTestStatus(name, isNotFailed, aunit::kMessageIsNotFailed)
 
 /** Assert that test 'name' has been skipped. */
-#define assertTestSkip(name) assertTestStatus(name, isSkipped)
+#define assertTestSkip(name) \
+    assertTestStatus(name, isSkipped, aunit::kMessageIsSkipped)
 
 /** Assert that test 'name' has not been skipped. */
-#define assertTestNotSkip(name) assertTestStatus(name, isNotSkipped)
+#define assertTestNotSkip(name) \
+    assertTestStatus(name, isNotSkipped, aunit::kMessageIsNotSkipped)
 
 /** Assert that test 'name' has timed out. */
-#define assertTestExpire(name) assertTestStatus(name, isExpired)
+#define assertTestExpire(name) \
+    assertTestStatus(name, isExpired, aunit::kMessageIsExpired)
 
 /** Assert that test 'name' has not timed out. */
-#define assertTestNotExpire(name) assertTestStatus(name, isNotExpired)
+#define assertTestNotExpire(name) \
+    assertTestStatus(name, isNotExpired, aunit::kMessageIsNotExpired)
 
 /** Internal helper macro, shouldn't be called directly by users. */
-#define assertTestStatus(name,method) do {\
+#define assertTestStatus(name,method,message) do {\
   if (!aunit::assertionTestStatus(\
-      __FILE__,__LINE__,#name,#method,test_##name##_instance.method()))\
+      __FILE__,__LINE__,#name,FPSTR(message),test_##name##_instance.method()))\
     return;\
 } while (false)
 
 namespace aunit {
+
+// Human-readable strings for various meta-asssertion failures.
+// TODO: Move these into a utility class called 'MetaAssertion'.
+extern const char kMessageIsDone[];
+extern const char kMessageIsNotDone[];
+extern const char kMessageIsPassed[];
+extern const char kMessageIsNotPassed[];
+extern const char kMessageIsFailed[];
+extern const char kMessageIsNotFailed[];
+extern const char kMessageIsSkipped[];
+extern const char kMessageIsNotSkipped[];
+extern const char kMessageIsExpired[];
+extern const char kMessageIsNotExpired[];
 
 /**
  * Set the status of the current test based on 'ok, and  print assertion
  * message if requested.
  */
 bool assertionTestStatus(const char* file, uint16_t line, 
-    const char* testName, const char* statusName, bool ok);
+    const char* testName, const __FlashStringHelper* statusMessage, bool ok);
 
 }
 
