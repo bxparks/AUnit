@@ -672,25 +672,27 @@ A timeout value of `0` means an infinite timeout, which means that the
 AUnit consumes as much as 65% less flash memory than ArduinoUnit on an AVR
 platform (e.g. Arduino UNO, Nano), and 30% less flash on the Teensy-ARM platform
 (e.g. Teensy LC ). Here are the resource consumption (flash and static) numbers
-from an actual unit test sketch containing 26 test cases using 331 `assertXxx()`
-statements, compiled using AUnit and ArduinoUnit on 4 different
+from
+[AceButtonTest](https://github.com/bxparks/AceButton/tree/develop/tests/AceButtonTest)
+containing 26 test cases using 331 `assertXxx()`
+statements, compiled using AUnit and ArduinoUnit on 5 different
 microcontrollers:
 ```
 Platform (resource)        |     Max | ArduinoUnit |       AUnit |
 ---------------------------+---------+-------------+-------------|
-Arduino Nano (flash)       |   30720 |       54038 |       18818 |
-Arduino Nano (static)      |    2048 |        1061 |         918 |
+Arduino Nano (flash)       |   30720 |       54038 |       18928 |
+Arduino Nano (static)      |    2048 |        1061 |         917 |
 ---------------------------+---------+-------------+-------------|
-Teensy LC (flash)          |   63488 |       36196 |       25240 |
+Teensy LC (flash)          |   63488 |       36196 |       26496 |
 Teensy LC (static)         |    8192 |        2980 |        2780 |
 ---------------------------+---------+-------------+-------------|
-Teensy 3.2 (flash)         |  262144 |       51236 |       36236 |
+Teensy 3.2 (flash)         |  262144 |       51236 |       37920 |
 Teensy 3.2 (static)        |   65536 |        5328 |        5236 |
 ---------------------------+---------+-------------+-------------|
-ESP8266 - ESP-12E (flash)  | 1044464 |    does not |      266796 |
+ESP8266 - ESP-12E (flash)  | 1044464 |    does not |      268236 |
 ESP8266 - ESP-12E (static) |   81920 |     compile |       33128 |
 ---------------------------+---------+-------------+-------------|
-ESP8266 - ESP-01 (flash)   |  499696 |    does not |      266796 |
+ESP8266 - ESP-01 (flash)   |  499696 |    does not |      268236 |
 ESP8266 - ESP-01 (static)  |   47356 |     compile |       33128 |
 ---------------------------+---------+-------------+-------------|
 ```
