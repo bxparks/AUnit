@@ -22,6 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+/**
+@mainpage AUnit Library
+
+This is the Doxygen documentation for the
+<a href="https://github.com/bxparks/AUnit">AUnit Library</a>.
+*/
+
 #ifndef AUNIT_AUNIT_H
 #define AUNIT_AUNIT_H
 

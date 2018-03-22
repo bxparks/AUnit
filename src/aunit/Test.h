@@ -78,15 +78,33 @@ extern test_##name test_##name##_instance
 
 namespace aunit {
 
+/**
+ * Base class of all test cases. The test() and testing() macros define
+ * subclasses of Test or TestOnce (respectively), and allow the code following
+ * the macros in '{}' to become the body of the loop() and once() methods of
+ * the two classes (respectively).
+ */
 class Test {
   public:
     // Don't change the order of Passed, Failed, Skipped or Expired without
     // looking at the isDone() method.
+
+    /** Test is new, needs to be setup. */
     static const uint8_t kStatusNew = 0;
+
+    /** Test is set up. */
     static const uint8_t kStatusSetup = 1;
+
+    /** Test has passed, or pass() was called. */
     static const uint8_t kStatusPassed = 2;
+
+    /** Test has failed, or failed() was called. */
     static const uint8_t kStatusFailed = 3;
+
+    /** Test is skipped, through the exclude() method or skip() was called. */
     static const uint8_t kStatusSkipped = 4;
+
+    /** Test has timed out, or expire() called. */
     static const uint8_t kStatusExpired = 5;
 
     /**
