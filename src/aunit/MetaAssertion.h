@@ -125,9 +125,15 @@ class __FlashStringHelper;
 
 namespace aunit {
 
+/**
+ * Class that extends the Assertion class to support the checkTestXxx() and
+ * assertTestXxx() macros that look at the status of the named test.
+ */
 class MetaAssertion: public Assertion {
   protected:
-    // Human-readable strings for various meta-asssertion failures.
+    // Human-readable strings for various meta-asssertion messages.
+    // They need to be protected, not private, because they are used by
+    // subclasses through the test() and testing() macros.
     static const char kMessageDone[];
     static const char kMessageNotDone[];
     static const char kMessagePassed[];
