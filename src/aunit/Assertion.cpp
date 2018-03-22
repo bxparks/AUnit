@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 #include "Assertion.h"
+#include "TestRunner.h" // seems like a circular reference but ok from cpp file
 
 namespace aunit {
 
@@ -63,7 +64,7 @@ void printAssertionMessage(bool ok, const char* file, uint16_t line,
   printer->println('.');
 }
 
-bool assertion(const char* file, uint16_t line, bool lhs,
+bool Assertion::assertion(const char* file, uint16_t line, bool lhs,
     const char* opName, bool (*op)(bool lhs, bool rhs),
     bool rhs) {
   bool ok = op(lhs, rhs);
@@ -72,7 +73,7 @@ bool assertion(const char* file, uint16_t line, bool lhs,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line, char lhs,
+bool Assertion::assertion(const char* file, uint16_t line, char lhs,
     const char* opName, bool (*op)(char lhs, char rhs),
     char rhs) {
   bool ok = op(lhs, rhs);
@@ -81,7 +82,7 @@ bool assertion(const char* file, uint16_t line, char lhs,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line, int lhs,
+bool Assertion::assertion(const char* file, uint16_t line, int lhs,
     const char* opName, bool (*op)(int lhs, int rhs),
     int rhs) {
   bool ok = op(lhs, rhs);
@@ -90,7 +91,7 @@ bool assertion(const char* file, uint16_t line, int lhs,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line, unsigned int lhs,
+bool Assertion::assertion(const char* file, uint16_t line, unsigned int lhs,
     const char* opName, bool (*op)(unsigned int lhs, unsigned int rhs),
     unsigned int rhs) {
   bool ok = op(lhs, rhs);
@@ -99,7 +100,7 @@ bool assertion(const char* file, uint16_t line, unsigned int lhs,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line, long lhs,
+bool Assertion::assertion(const char* file, uint16_t line, long lhs,
     const char* opName, bool (*op)(long lhs, long rhs),
     long rhs) {
   bool ok = op(lhs, rhs);
@@ -108,7 +109,7 @@ bool assertion(const char* file, uint16_t line, long lhs,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line, unsigned long lhs,
+bool Assertion::assertion(const char* file, uint16_t line, unsigned long lhs,
     const char* opName, bool (*op)(unsigned long lhs, unsigned long rhs),
     unsigned long rhs) {
   bool ok = op(lhs, rhs);
@@ -117,7 +118,7 @@ bool assertion(const char* file, uint16_t line, unsigned long lhs,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line, double lhs,
+bool Assertion::assertion(const char* file, uint16_t line, double lhs,
     const char* opName, bool (*op)(double lhs, double rhs),
     double rhs) {
   bool ok = op(lhs, rhs);
@@ -126,7 +127,7 @@ bool assertion(const char* file, uint16_t line, double lhs,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line, const char* lhs,
+bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
     const char* opName, bool (*op)(const char* lhs, const char* rhs),
     const char* rhs) {
   bool ok = op(lhs, rhs);
@@ -135,7 +136,7 @@ bool assertion(const char* file, uint16_t line, const char* lhs,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line, const char* lhs,
+bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
     const char *opName, bool (*op)(const char* lhs, const String& rhs),
     const String& rhs) {
   bool ok = op(lhs, rhs);
@@ -144,7 +145,7 @@ bool assertion(const char* file, uint16_t line, const char* lhs,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line, const char* lhs,
+bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
     const char *opName,
     bool (*op)(const char* lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs) {
@@ -154,7 +155,7 @@ bool assertion(const char* file, uint16_t line, const char* lhs,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line, const String& lhs,
+bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
     const char *opName, bool (*op)(const String& lhs, const char* rhs),
     const char* rhs) {
   bool ok = op(lhs, rhs);
@@ -163,7 +164,7 @@ bool assertion(const char* file, uint16_t line, const String& lhs,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line, const String& lhs,
+bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
     const char *opName, bool (*op)(const String& lhs, const String& rhs),
     const String& rhs) {
   bool ok = op(lhs, rhs);
@@ -172,7 +173,7 @@ bool assertion(const char* file, uint16_t line, const String& lhs,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line, const String& lhs,
+bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
     const char *opName,
     bool (*op)(const String& lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs) {
@@ -182,7 +183,7 @@ bool assertion(const char* file, uint16_t line, const String& lhs,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line,
+bool Assertion::assertion(const char* file, uint16_t line,
     const __FlashStringHelper* lhs, const char *opName,
     bool (*op)(const __FlashStringHelper* lhs, const char* rhs),
     const char* rhs) {
@@ -192,7 +193,7 @@ bool assertion(const char* file, uint16_t line,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line,
+bool Assertion::assertion(const char* file, uint16_t line,
     const __FlashStringHelper* lhs, const char *opName,
     bool (*op)(const __FlashStringHelper* lhs, const String& rhs),
     const String& rhs) {
@@ -202,7 +203,7 @@ bool assertion(const char* file, uint16_t line,
   return ok;
 }
 
-bool assertion(const char* file, uint16_t line,
+bool Assertion::assertion(const char* file, uint16_t line,
     const __FlashStringHelper* lhs, const char *opName,
     bool (*op)(const __FlashStringHelper* lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs) {

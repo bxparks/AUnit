@@ -37,6 +37,7 @@ SOFTWARE.
 
 #include <stdint.h>
 #include "FCString.h"
+#include "MetaAssertion.h"
 
 class __FlashStringHelper;
 
@@ -97,7 +98,7 @@ namespace aunit {
  * the macros in '{}' to become the body of the loop() and once() methods of
  * the two classes (respectively).
  */
-class Test {
+class Test: public MetaAssertion {
   public:
     // Don't change the order of Passed, Failed, Skipped or Expired without
     // looking at the isDone() method.
@@ -140,6 +141,9 @@ class Test {
      * Test::getRoot()..
      */
     explicit Test(const __FlashStringHelper* name);
+
+    /** Empty virtual destructor. */
+    virtual ~Test() {}
 
     /**
      * Optional method that performs any initialization. The assertXxx() macros,
@@ -239,6 +243,9 @@ class TestOnce: public Test {
     /** Constructor. */
     explicit TestOnce(const __FlashStringHelper* name):
         Test(name) {}
+
+    /** Empty virtual destructor. */
+    virtual ~TestOnce() {}
 
     /**
      * Calls the user-provided once() method. If no other assertXxx() macros set
