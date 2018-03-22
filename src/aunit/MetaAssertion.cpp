@@ -46,9 +46,6 @@ const char MetaAssertion::kMessageNotExpired[] PROGMEM = "not timed out";
 void MetaAssertion::printAssertionTestStatusMessage(
     bool ok, const char* file, uint16_t line,
     const char* testName, const __FlashStringHelper* statusMessage) {
-
-  if (!Assertion::isOutputEnabled(ok)) return;
-
   // Trying to move these strings into PROGMEM actually makes the flash memory
   // consumption bigger. The compile/linker will dedupe these c-strings.
   Print* printer = Printer::getPrinter();
@@ -67,7 +64,9 @@ void MetaAssertion::printAssertionTestStatusMessage(
 
 bool MetaAssertion::assertionTestStatus(const char* file, uint16_t line,
     const char* testName, const __FlashStringHelper* statusMessage, bool ok) {
-  printAssertionTestStatusMessage(ok, file, line, testName, statusMessage);
+  if (isOutputEnabled(ok)) {
+    printAssertionTestStatusMessage(ok, file, line, testName, statusMessage);
+  }
   TestRunner::setPassOrFail(ok);
   return ok;
 }

@@ -130,9 +130,9 @@ class MetaAssertion: public Assertion {
     // Human-readable strings for various meta-asssertion failures.
     static const char kMessageDone[];
     static const char kMessageNotDone[];
-    //static const char kMessagePassed[]; // defined in Assertion.h
+    static const char kMessagePassed[];
     static const char kMessageNotPassed[];
-    //static const char kMessageFailed[]; // defined in Assertion.h
+    static const char kMessageFailed[];
     static const char kMessageNotFailed[];
     static const char kMessageSkipped[];
     static const char kMessageNotSkipped[];

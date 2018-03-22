@@ -96,11 +96,6 @@ namespace aunit {
  */
 class Assertion {
   public:
-    // Human-readable strings for various meta-asssertion failures.
-    static const char kMessageAssertion[];
-    static const char kMessagePassed[];
-    static const char kMessageFailed[];
-
     /** Returns true if an assertion message should be printed. */
     static bool isOutputEnabled(bool ok);
 
