@@ -28,7 +28,9 @@ SOFTWARE.
 /**
  * @file Assertion.h
  *
- * Various assertXxx() macros are defined in this header.
+ * Various assertXxx() macros are defined in this header. They all go through
+ * another helper macro called assertOp(), eventually calling one of the
+ * methods on the Assertion class.
  */
 
 #ifndef AUNIT_ASSERTION_H
@@ -37,9 +39,6 @@ SOFTWARE.
 #include <Arduino.h>  // definition of Print
 #include "Printer.h"
 #include "Verbosity.h"
-#include "TestRunner.h"
-
-// Various assertXxx() macros, implemented using the assertOp() macro.
 
 /** Assert that arg1 is equal to arg2. */
 #define assertEqual(arg1,arg2) assertOp(arg1,aunit::compareEqual,"==",arg2)
@@ -70,88 +69,116 @@ SOFTWARE.
 
 /** Internal helper macro, shouldn't be called directly by users. */
 #define assertOp(arg1,op,opName,arg2) do {\
-  if (!aunit::assertion(__FILE__,__LINE__,(arg1),opName,op,(arg2)))\
+  if (!assertion(__FILE__,__LINE__,(arg1),opName,op,(arg2)))\
     return;\
 } while (false)
 
+// Defined in ESP8266, not defined in AVR or Teensy
+#ifndef FPSTR
+#define FPSTR(pstr_pointer) \
+    (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
+#endif
+
+class __FlashStringHelper;
+
 namespace aunit {
 
-// For the same reason as the compareXxx() methods, we use explicit overloaded
-// functions, instead of using template specialization. And just as before, I
-// was unable to use a template function for primitive integer types, because it
-// interfered with the resolution of assertion(char*, char*). The wrong function
-// would be called.
-//
-// These are all internal helpers, should not be called directly by users.
+/**
+ * Base class that provides the various overloaded assertion() functions.
+ * For the same reason as the compareXxx() methods, we use explicit overloaded
+ * functions, instead of using template specialization. And just as before, I
+ * was unable to use a template function for primitive integer types, because it
+ * interfered with the resolution of assertion(char*, char*). The wrong function
+ * would be called.
+ *
+ * The assertion() methods are internal helpers, they should not be called
+ * directly by users.
+ */
+class Assertion {
+  public:
+    /** Returns true if an assertion message should be printed. */
+    static bool isOutputEnabled(bool ok);
 
-bool assertion(const char* file, uint16_t line, bool lhs,
-    const char* opName, bool (*op)(bool lhs, bool rhs),
-    bool rhs);
+  protected:
+    /** Empty constructor. */
+    Assertion() {}
 
-bool assertion(const char* file, uint16_t line, char lhs,
-    const char* opName, bool (*op)(char lhs, char rhs),
-    char rhs);
+    bool assertion(const char* file, uint16_t line, bool lhs,
+        const char* opName, bool (*op)(bool lhs, bool rhs),
+        bool rhs);
 
-bool assertion(const char* file, uint16_t line, int lhs,
-    const char* opName, bool (*op)(int lhs, int rhs),
-    int rhs);
+    bool assertion(const char* file, uint16_t line, char lhs,
+        const char* opName, bool (*op)(char lhs, char rhs),
+        char rhs);
 
-bool assertion(const char* file, uint16_t line, unsigned int lhs,
-    const char* opName, bool (*op)(unsigned int lhs, unsigned int rhs),
-    unsigned int rhs);
+    bool assertion(const char* file, uint16_t line, int lhs,
+        const char* opName, bool (*op)(int lhs, int rhs),
+        int rhs);
 
-bool assertion(const char* file, uint16_t line, long lhs,
-    const char* opName, bool (*op)(long lhs, long rhs),
-    long rhs);
+    bool assertion(const char* file, uint16_t line, unsigned int lhs,
+        const char* opName, bool (*op)(unsigned int lhs, unsigned int rhs),
+        unsigned int rhs);
 
-bool assertion(const char* file, uint16_t line, unsigned long lhs,
-    const char* opName, bool (*op)(unsigned long lhs, unsigned long rhs),
-    unsigned long rhs);
+    bool assertion(const char* file, uint16_t line, long lhs,
+        const char* opName, bool (*op)(long lhs, long rhs),
+        long rhs);
 
-bool assertion(const char* file, uint16_t line, double lhs,
-    const char* opName, bool (*op)(double lhs, double rhs),
-    double rhs);
+    bool assertion(const char* file, uint16_t line, unsigned long lhs,
+        const char* opName, bool (*op)(unsigned long lhs, unsigned long rhs),
+        unsigned long rhs);
 
-bool assertion(const char* file, uint16_t line, const char* lhs,
-    const char* opName, bool (*op)(const char* lhs, const char* rhs),
-    const char* rhs);
+    bool assertion(const char* file, uint16_t line, double lhs,
+        const char* opName, bool (*op)(double lhs, double rhs),
+        double rhs);
 
-bool assertion(const char* file, uint16_t line, const char* lhs,
-    const char *opName, bool (*op)(const char* lhs, const String& rhs),
-    const String& rhs);
+    bool assertion(const char* file, uint16_t line, const char* lhs,
+        const char* opName, bool (*op)(const char* lhs, const char* rhs),
+        const char* rhs);
 
-bool assertion(const char* file, uint16_t line, const char* lhs,
-    const char *opName,
-    bool (*op)(const char* lhs, const __FlashStringHelper* rhs),
-    const __FlashStringHelper* rhs);
+    bool assertion(const char* file, uint16_t line, const char* lhs,
+        const char *opName, bool (*op)(const char* lhs, const String& rhs),
+        const String& rhs);
 
-bool assertion(const char* file, uint16_t line, const String& lhs,
-    const char *opName, bool (*op)(const String& lhs, const char* rhs),
-    const char* rhs);
+    bool assertion(const char* file, uint16_t line, const char* lhs,
+        const char *opName,
+        bool (*op)(const char* lhs, const __FlashStringHelper* rhs),
+        const __FlashStringHelper* rhs);
 
-bool assertion(const char* file, uint16_t line, const String& lhs,
-    const char *opName, bool (*op)(const String& lhs, const String& rhs),
-    const String& rhs);
+    bool assertion(const char* file, uint16_t line, const String& lhs,
+        const char *opName, bool (*op)(const String& lhs, const char* rhs),
+        const char* rhs);
 
-bool assertion(const char* file, uint16_t line, const String& lhs,
-    const char *opName,
-    bool (*op)(const String& lhs, const __FlashStringHelper* rhs),
-    const __FlashStringHelper* rhs);
+    bool assertion(const char* file, uint16_t line, const String& lhs,
+        const char *opName, bool (*op)(const String& lhs, const String& rhs),
+        const String& rhs);
 
-bool assertion(const char* file, uint16_t line,
-    const __FlashStringHelper* lhs, const char *opName,
-    bool (*op)(const __FlashStringHelper* lhs, const char* rhs),
-    const char* rhs);
+    bool assertion(const char* file, uint16_t line, const String& lhs,
+        const char *opName,
+        bool (*op)(const String& lhs, const __FlashStringHelper* rhs),
+        const __FlashStringHelper* rhs);
 
-bool assertion(const char* file, uint16_t line,
-    const __FlashStringHelper* lhs, const char *opName,
-    bool (*op)(const __FlashStringHelper* lhs, const String& rhs),
-    const String& rhs);
+    bool assertion(const char* file, uint16_t line,
+        const __FlashStringHelper* lhs, const char *opName,
+        bool (*op)(const __FlashStringHelper* lhs, const char* rhs),
+        const char* rhs);
 
-bool assertion(const char* file, uint16_t line,
-    const __FlashStringHelper* lhs, const char *opName,
-    bool (*op)(const __FlashStringHelper* lhs, const __FlashStringHelper* rhs),
-    const __FlashStringHelper* rhs);
+    bool assertion(const char* file, uint16_t line,
+        const __FlashStringHelper* lhs, const char *opName,
+        bool (*op)(const __FlashStringHelper* lhs, const String& rhs),
+        const String& rhs);
+
+    bool assertion(const char* file, uint16_t line,
+        const __FlashStringHelper* lhs, const char *opName,
+        bool (*op)(const __FlashStringHelper* lhs,
+        const __FlashStringHelper* rhs),
+        const __FlashStringHelper* rhs);
+
+  private:
+    // Disable copy-constructor and assignment operator
+    Assertion(const Assertion&) = delete;
+    Assertion& operator=(const Assertion&) = delete;
+
+};
 
 }
 

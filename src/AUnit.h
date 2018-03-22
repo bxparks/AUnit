@@ -35,10 +35,10 @@ SOFTWARE.
 #include "aunit/Verbosity.h"
 #include "aunit/Compare.h"
 #include "aunit/Printer.h"
-#include "aunit/Test.h"
-#include "aunit/TestRunner.h"
 #include "aunit/Assertion.h"
 #include "aunit/MetaAssertion.h"
+#include "aunit/Test.h"
+#include "aunit/TestRunner.h"
 
 // Version format: 010203 == "1.2.3"
 #define AUNIT_VERSION 000303

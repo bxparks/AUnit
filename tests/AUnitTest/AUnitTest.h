@@ -20,6 +20,8 @@ using aunit::Verbosity;
 
 #endif
 
+/*
 #ifndef FPSTR
 #define FPSTR(pstr_pointer) (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
 #endif
+*/

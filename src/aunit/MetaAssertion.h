@@ -36,7 +36,7 @@ SOFTWARE.
 
 #include <Arduino.h>  // definition of Print
 #include "Printer.h"
-#include "TestRunner.h"
+#include "Assertion.h"
 
 class __FlashStringHelper;
 
@@ -78,72 +78,89 @@ class __FlashStringHelper;
 
 /** Assert that test 'name' is done. */
 #define assertTestDone(name) \
-  assertTestStatus(name, isDone, aunit::kMessageIsDone)
+  assertTestStatus(name, isDone, kMessageDone)
 
 /** Assert that test 'name' is not done. */
 #define assertTestNotDone(name) \
-    assertTestStatus(name, isNotDone, aunit::kMessageIsNotDone)
+    assertTestStatus(name, isNotDone, kMessageNotDone)
 
 /** Assert that test 'name' has passed. */
 #define assertTestPass(name) \
-    assertTestStatus(name, isPassed, aunit::kMessageIsPassed)
+    assertTestStatus(name, isPassed, kMessagePassed)
 
 /** Assert that test 'name' has not passed. */
 #define assertTestNotPass(name) \
-    assertTestStatus(name, isNotPassed, aunit::kMessageIsNotPassed)
+    assertTestStatus(name, isNotPassed, kMessageNotPassed)
 
 /** Assert that test 'name' has failed. */
 #define assertTestFail(name) \
-    assertTestStatus(name, isFailed, aunit::kMessageIsFailed)
+    assertTestStatus(name, isFailed, kMessageFailed)
 
 /** Assert that test 'name' has not failed. */
 #define assertTestNotFail(name) \
-    assertTestStatus(name, isNotFailed, aunit::kMessageIsNotFailed)
+    assertTestStatus(name, isNotFailed, kMessageNotFailed)
 
 /** Assert that test 'name' has been skipped. */
 #define assertTestSkip(name) \
-    assertTestStatus(name, isSkipped, aunit::kMessageIsSkipped)
+    assertTestStatus(name, isSkipped, kMessageSkipped)
 
 /** Assert that test 'name' has not been skipped. */
 #define assertTestNotSkip(name) \
-    assertTestStatus(name, isNotSkipped, aunit::kMessageIsNotSkipped)
+    assertTestStatus(name, isNotSkipped, kMessageNotSkipped)
 
 /** Assert that test 'name' has timed out. */
 #define assertTestExpire(name) \
-    assertTestStatus(name, isExpired, aunit::kMessageIsExpired)
+    assertTestStatus(name, isExpired, kMessageExpired)
 
 /** Assert that test 'name' has not timed out. */
 #define assertTestNotExpire(name) \
-    assertTestStatus(name, isNotExpired, aunit::kMessageIsNotExpired)
+    assertTestStatus(name, isNotExpired, kMessageNotExpired)
 
 /** Internal helper macro, shouldn't be called directly by users. */
 #define assertTestStatus(name,method,message) do {\
-  if (!aunit::assertionTestStatus(\
+  if (!assertionTestStatus(\
       __FILE__,__LINE__,#name,FPSTR(message),test_##name##_instance.method()))\
     return;\
 } while (false)
 
 namespace aunit {
 
-// Human-readable strings for various meta-asssertion failures.
-// TODO: Move these into a utility class called 'MetaAssertion'.
-extern const char kMessageIsDone[];
-extern const char kMessageIsNotDone[];
-extern const char kMessageIsPassed[];
-extern const char kMessageIsNotPassed[];
-extern const char kMessageIsFailed[];
-extern const char kMessageIsNotFailed[];
-extern const char kMessageIsSkipped[];
-extern const char kMessageIsNotSkipped[];
-extern const char kMessageIsExpired[];
-extern const char kMessageIsNotExpired[];
+class MetaAssertion: public Assertion {
+  protected:
+    // Human-readable strings for various meta-asssertion failures.
+    static const char kMessageDone[];
+    static const char kMessageNotDone[];
+    static const char kMessagePassed[];
+    static const char kMessageNotPassed[];
+    static const char kMessageFailed[];
+    static const char kMessageNotFailed[];
+    static const char kMessageSkipped[];
+    static const char kMessageNotSkipped[];
+    static const char kMessageExpired[];
+    static const char kMessageNotExpired[];
 
-/**
- * Set the status of the current test based on 'ok, and  print assertion
- * message if requested.
- */
-bool assertionTestStatus(const char* file, uint16_t line, 
-    const char* testName, const __FlashStringHelper* statusMessage, bool ok);
+    /** Empty constructor. */
+    MetaAssertion() {}
+
+    /**
+     * Set the status of the current test based on 'ok, and  print assertion
+     * message if requested.
+     */
+    bool assertionTestStatus(const char* file, uint16_t line,
+        const char* testName, const __FlashStringHelper* statusMessage,
+        bool ok);
+
+    /** Print the meta assertion passed or failed message. */
+    void printAssertionTestStatusMessage(
+        bool ok, const char* file, uint16_t line,
+        const char* testName, const __FlashStringHelper* statusMessage);
+
+  private:
+    // Disable copy-constructor and assignment operator
+    MetaAssertion(const MetaAssertion&) = delete;
+    MetaAssertion& operator=(const MetaAssertion&) = delete;
+
+};
 
 }
 
