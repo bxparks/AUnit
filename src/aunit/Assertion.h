@@ -101,6 +101,9 @@ class Assertion {
     static const char kMessagePassed[];
     static const char kMessageFailed[];
 
+    /** Returns true if an assertion message should be printed. */
+    static bool isOutputEnabled(bool ok);
+
   protected:
     /** Empty constructor. */
     Assertion() {}

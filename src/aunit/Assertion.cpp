@@ -22,14 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "Assertion.h"
 #include "TestRunner.h" // seems like a circular reference but ok from cpp file
+#include "Assertion.h"
 
 namespace aunit {
 
-const char Assertion::kMessageAssertion[] PROGMEM = "Assertion";
-const char Assertion::kMessagePassed[] PROGMEM = "passed";
-const char Assertion::kMessageFailed[] PROGMEM = "failed";
 
 // This can be a template function because it is accessed only through the
 // various assertXxx() methods. Those assertXxx() methods are explicitly
@@ -42,10 +39,7 @@ template <typename A, typename B>
 void printAssertionMessage(bool ok, const char* file, uint16_t line,
     const A& lhs, const char *opName, const B& rhs) {
 
-  bool isOutput =
-      (ok && TestRunner::isVerbosity(Verbosity::kAssertionPassed)) ||
-      (!ok && TestRunner::isVerbosity(Verbosity::kAssertionFailed));
-  if (!isOutput) return;
+  if (!Assertion::isOutputEnabled(ok)) return;
 
   // Don't use F() strings here because flash memory strings are not deduped by
   // the compiler, so each template instantiation of this method causes a
@@ -53,10 +47,8 @@ void printAssertionMessage(bool ok, const char* file, uint16_t line,
   // https://github.com/mmurdoch/arduinounit/issues/70
   // for more info.
   Print* printer = Printer::getPrinter();
-  printer->print(FPSTR(Assertion::kMessageAssertion));
-  printer->print(' ');
-  printer->print(FPSTR(ok ? Assertion::kMessagePassed
-                          : Assertion::kMessageFailed));
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
   printer->print(": (");
   printer->print(lhs);
   printer->print(") ");
@@ -64,11 +56,17 @@ void printAssertionMessage(bool ok, const char* file, uint16_t line,
   printer->print(" (");
   printer->print(rhs);
   printer->print(')');
+  // reuse string in MataAssertion::printAssertionTestStatusMessage()
   printer->print(", file ");
   printer->print(file);
   printer->print(", line ");
   printer->print(line);
   printer->println('.');
+}
+
+bool Assertion::isOutputEnabled(bool ok) {
+  return (ok && TestRunner::isVerbosity(Verbosity::kAssertionPassed)) ||
+      (!ok && TestRunner::isVerbosity(Verbosity::kAssertionFailed));
 }
 
 bool Assertion::assertion(const char* file, uint16_t line, bool lhs,
