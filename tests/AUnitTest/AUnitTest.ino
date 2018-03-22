@@ -511,12 +511,13 @@ testing(slow_expire_monitor) {
 // Test creating custom parent classes manually.
 // ------------------------------------------------------
 
-class MyTestOnce: public TestOnce {
+class CustomTestOnce: public TestOnce {
   public:
-    MyTestOnce(const char *name):
+    CustomTestOnce(const char *name):
         TestOnce(name) {
     }
 
+  protected:
     virtual void setup() override {
       n = random(6);
     }
@@ -529,10 +530,97 @@ class MyTestOnce: public TestOnce {
     int n;
 };
 
-MyTestOnce myTestOnce1("myTestOnce1");
-MyTestOnce myTestOnce2("myTestOnce2");
-MyTestOnce myTestOnce3("myTestOnce3");
+CustomTestOnce myTestOnce1("customTestOnce1");
+CustomTestOnce myTestOnce2("customTestOnce2");
 
+#if USE_AUNIT == 1
+
+// ------------------------------------------------------
+// Test creating custom TestOnce test using test_f() macro.
+// ------------------------------------------------------
+
+class CustomOnceFixture: public TestOnce {
+  protected:
+    CustomOnceFixture(const __FlashStringHelper *name):
+        TestOnce(name) {
+    }
+
+    virtual void setup() override {
+      n = random(6);
+    }
+
+    void assertCommon() {
+      assertMore(n, 6);
+    }
+
+  private:
+    int n;
+};
+
+test_f(CustomOnceFixture, customOnceF1) {
+  assertCommon();
+}
+
+test_f(CustomOnceFixture, customOnceF2) {
+  assertCommon();
+}
+
+// ------------------------------------------------------
+// Test creating custom Test test using testing_f() macro.
+// ------------------------------------------------------
+
+class CustomLoopFixture: public Test {
+  protected:
+    CustomLoopFixture(const __FlashStringHelper *name):
+        Test(name) {
+    }
+
+    virtual void setup() override {
+      n = random(6);
+    }
+
+    void assertCommon() {
+      assertMore(n, 6);
+    }
+
+  private:
+    int n;
+};
+
+testing_f(CustomLoopFixture, customLoopF1) {
+  assertCommon();
+}
+
+testing_f(CustomLoopFixture, customLoopF2) {
+  assertCommon();
+}
+
+// Check that in the case of picking the wrong class for the test_f() or the
+// testing_f() macros, the compiler gives an error.
+
+// Test a testing_f() macro with a TestOnce class.
+// Compiler error because testing_f() overrides a loop() which exists in
+// TestOnce, but TestOnce expects a once() which isn't provided.
+/*
+testing_f(CustomOnceFixture, crossedTesting) {
+  assertCommon();
+}
+*/
+
+// Test a test_f() macro with a Test class.
+// Compiler error because test_f() overrides a once() method, which doesn't
+// exist in Test class.
+/*
+test_f(CustomLoopFixture, crossedLooping) {
+  assertCommon();
+}
+*/
+
+#endif
+
+// ------------------------------------------------------
+// The main body.
+// ------------------------------------------------------
 
 void setup() {
   Serial.begin(74880); // 74880 is the default for some ESP8266 boards

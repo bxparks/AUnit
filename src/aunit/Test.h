@@ -67,6 +67,24 @@ void test_ ## name :: once()
 test_ ## name :: test_ ## name() : Test(F(#name)) {}\
 void test_ ## name :: loop()
 
+/** Create a test that is derived from a custom TestOnce class. */
+#define test_f(test_class, name) \
+struct test_class ## _ ## name : test_class {\
+  test_class ## _ ## name();\
+  virtual void once() override;\
+} test_class ## _ ## name ## _instance;\
+test_class ## _ ## name :: test_class ## _ ## name() : test_class(F(#name)) {}\
+void test_class ## _ ## name :: once()
+
+/** Create a test that is derived from a custom Test class. */
+#define testing_f(test_class, name) \
+struct test_class ## _ ## name : test_class {\
+  test_class ## _ ## name();\
+  virtual void loop() override;\
+} test_class ## _ ## name ## _instance;\
+test_class ## _ ## name :: test_class ## _ ## name() : test_class(F(#name)) {}\
+void test_class ## _ ## name :: loop()
+
 /**
  * Create an extern reference to a test() test case object defined elsewhere.
  * This is only necessary if you use assertTestXxx() or checkTestXxx() when the
