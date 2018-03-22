@@ -1,5 +1,7 @@
 # Changelog
 
+* 0.3.3 (2018-03-22)
+    * Fix typo in kAssertionFailed flag introduced in 0.3.1.
 * 0.3.2 (2018-03-22)
     * Publish doxygen docs using GitHub Pages.
 * 0.3.1 (2018-03-20)
