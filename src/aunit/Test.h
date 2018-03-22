@@ -142,9 +142,6 @@ class Test: public MetaAssertion {
      */
     explicit Test(const __FlashStringHelper* name);
 
-    /** Empty virtual destructor. */
-    virtual ~Test() {}
-
     /**
      * Optional method that performs any initialization. The assertXxx() macros,
      * as well as  pass(), fail() and skip() functions can be called in here.
@@ -243,9 +240,6 @@ class TestOnce: public Test {
     /** Constructor. */
     explicit TestOnce(const __FlashStringHelper* name):
         Test(name) {}
-
-    /** Empty virtual destructor. */
-    virtual ~TestOnce() {}
 
     /**
      * Calls the user-provided once() method. If no other assertXxx() macros set

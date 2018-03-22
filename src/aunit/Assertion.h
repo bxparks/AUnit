@@ -103,9 +103,6 @@ class Assertion {
     /** Empty constructor. */
     Assertion() {}
 
-    /** Empty virtual destructor. */
-    virtual ~Assertion() {}
-
     bool assertion(const char* file, uint16_t line, bool lhs,
         const char* opName, bool (*op)(bool lhs, bool rhs),
         bool rhs);
@@ -180,6 +177,7 @@ class Assertion {
     // Disable copy-constructor and assignment operator
     Assertion(const Assertion&) = delete;
     Assertion& operator=(const Assertion&) = delete;
+
 };
 
 }

@@ -142,9 +142,6 @@ class MetaAssertion: public Assertion {
     /** Empty constructor. */
     MetaAssertion() {}
 
-    /** Empty virtual destructor. */
-    virtual ~MetaAssertion() {}
-
     /**
      * Set the status of the current test based on 'ok, and  print assertion
      * message if requested.
@@ -162,6 +159,7 @@ class MetaAssertion: public Assertion {
     // Disable copy-constructor and assignment operator
     MetaAssertion(const MetaAssertion&) = delete;
     MetaAssertion& operator=(const MetaAssertion&) = delete;
+
 };
 
 }
