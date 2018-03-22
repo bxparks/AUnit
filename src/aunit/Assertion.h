@@ -93,6 +93,9 @@ namespace aunit {
  *
  * The assertion() methods are internal helpers, they should not be called
  * directly by users.
+ *
+ * Having the Test class inherit from Assertion will allow end-users to
+ * override certain virtual methods in the future.
  */
 class Assertion {
   public:
@@ -102,6 +105,15 @@ class Assertion {
   protected:
     /** Empty constructor. */
     Assertion() {}
+
+    // NOTE: Don't create a virtual destructor. That's the normal best practice
+    // for classes that will be used polymorphically. However, this class will
+    // never be deleted polymorphically (i.e. through its pointer) so it
+    // doesn't need a virtual destructor. In fact, adding it causes flash and
+    // static memory to increase dramatically because each test() and testing()
+    // macro creates a new subclass. AceButtonTest flash memory increases from
+    // 18928 to 20064 bytes, and static memory increases from 917 to 1055
+    // bytes.
 
     bool assertion(const char* file, uint16_t line, bool lhs,
         const char* opName, bool (*op)(bool lhs, bool rhs),
@@ -177,7 +189,6 @@ class Assertion {
     // Disable copy-constructor and assignment operator
     Assertion(const Assertion&) = delete;
     Assertion& operator=(const Assertion&) = delete;
-
 };
 
 }
