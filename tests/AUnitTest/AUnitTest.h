@@ -5,8 +5,7 @@
 #if USE_AUNIT == 1
 
 #include <AUnit.h>
-using aunit::TestRunner;
-using aunit::Verbosity;
+using namespace aunit;
 
 #else
 

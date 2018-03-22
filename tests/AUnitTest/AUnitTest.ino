@@ -49,6 +49,10 @@ const __FlashStringHelper* ff = FPSTR(FF_PROGMEM);
 const __FlashStringHelper* gg = FPSTR(GG_PROGMEM);
 const __FlashStringHelper* hh = FPSTR(HH_PROGMEM);
 
+// ------------------------------------------------------
+// Test the test() macro.
+// ------------------------------------------------------
+
 test(type_mismatch) {
   unsigned short ushortValue = 5;
   unsigned int uintValue = 5;
@@ -83,9 +87,6 @@ test(type_mismatch) {
 }
 
 #if USE_AUNIT == 1
-
-using aunit::compareString;
-using aunit::compareStringN;
 
 test(compareString) {
   assertEqual(compareString(a, a), 0);
@@ -324,6 +325,10 @@ test(flashString) {
   assertMoreOrEqual(hh, gg);
 }
 
+// ------------------------------------------------------
+// Test the testing() macro.
+// ------------------------------------------------------
+
 testing(timeout_after_10_seconds) {
   static unsigned long startTime  = millis();
 
@@ -501,6 +506,33 @@ testing(slow_expire_monitor) {
   }
 }
 #endif
+
+// ------------------------------------------------------
+// Test creating custom parent classes manually.
+// ------------------------------------------------------
+
+class MyTestOnce: public TestOnce {
+  public:
+    MyTestOnce(const char *name):
+        TestOnce(name) {
+    }
+
+    virtual void setup() override {
+      n = random(6);
+    }
+
+    virtual void once() override {
+      assertLessOrEqual(n, 6);
+    }
+
+  private:
+    int n;
+};
+
+MyTestOnce myTestOnce1("myTestOnce1");
+MyTestOnce myTestOnce2("myTestOnce2");
+MyTestOnce myTestOnce3("myTestOnce3");
+
 
 void setup() {
   Serial.begin(74880); // 74880 is the default for some ESP8266 boards
