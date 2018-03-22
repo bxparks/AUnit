@@ -41,6 +41,6 @@ SOFTWARE.
 #include "aunit/MetaAssertion.h"
 
 // Version format: 010203 == "1.2.3"
-#define AUNIT_VERSION 000302
+#define AUNIT_VERSION 000303
 
 #endif
