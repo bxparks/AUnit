@@ -73,6 +73,12 @@ SOFTWARE.
     return;\
 } while (false)
 
+// Defined in ESP8266, not defined in AVR or Teensy
+#ifndef FPSTR
+#define FPSTR(pstr_pointer) \
+    (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
+#endif
+
 class __FlashStringHelper;
 
 namespace aunit {
@@ -89,6 +95,12 @@ namespace aunit {
  * directly by users.
  */
 class Assertion {
+  public:
+    // Human-readable strings for various meta-asssertion failures.
+    static const char kMessageAssertion[];
+    static const char kMessagePassed[];
+    static const char kMessageFailed[];
+
   protected:
     /** Empty constructor. */
     Assertion() {}

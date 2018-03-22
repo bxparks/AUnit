@@ -78,43 +78,43 @@ class __FlashStringHelper;
 
 /** Assert that test 'name' is done. */
 #define assertTestDone(name) \
-  assertTestStatus(name, isDone, kMessageIsDone)
+  assertTestStatus(name, isDone, kMessageDone)
 
 /** Assert that test 'name' is not done. */
 #define assertTestNotDone(name) \
-    assertTestStatus(name, isNotDone, kMessageIsNotDone)
+    assertTestStatus(name, isNotDone, kMessageNotDone)
 
 /** Assert that test 'name' has passed. */
 #define assertTestPass(name) \
-    assertTestStatus(name, isPassed, kMessageIsPassed)
+    assertTestStatus(name, isPassed, kMessagePassed)
 
 /** Assert that test 'name' has not passed. */
 #define assertTestNotPass(name) \
-    assertTestStatus(name, isNotPassed, kMessageIsNotPassed)
+    assertTestStatus(name, isNotPassed, kMessageNotPassed)
 
 /** Assert that test 'name' has failed. */
 #define assertTestFail(name) \
-    assertTestStatus(name, isFailed, kMessageIsFailed)
+    assertTestStatus(name, isFailed, kMessageFailed)
 
 /** Assert that test 'name' has not failed. */
 #define assertTestNotFail(name) \
-    assertTestStatus(name, isNotFailed, kMessageIsNotFailed)
+    assertTestStatus(name, isNotFailed, kMessageNotFailed)
 
 /** Assert that test 'name' has been skipped. */
 #define assertTestSkip(name) \
-    assertTestStatus(name, isSkipped, kMessageIsSkipped)
+    assertTestStatus(name, isSkipped, kMessageSkipped)
 
 /** Assert that test 'name' has not been skipped. */
 #define assertTestNotSkip(name) \
-    assertTestStatus(name, isNotSkipped, kMessageIsNotSkipped)
+    assertTestStatus(name, isNotSkipped, kMessageNotSkipped)
 
 /** Assert that test 'name' has timed out. */
 #define assertTestExpire(name) \
-    assertTestStatus(name, isExpired, kMessageIsExpired)
+    assertTestStatus(name, isExpired, kMessageExpired)
 
 /** Assert that test 'name' has not timed out. */
 #define assertTestNotExpire(name) \
-    assertTestStatus(name, isNotExpired, kMessageIsNotExpired)
+    assertTestStatus(name, isNotExpired, kMessageNotExpired)
 
 /** Internal helper macro, shouldn't be called directly by users. */
 #define assertTestStatus(name,method,message) do {\
@@ -128,16 +128,16 @@ namespace aunit {
 class MetaAssertion: public Assertion {
   protected:
     // Human-readable strings for various meta-asssertion failures.
-    static const char kMessageIsDone[];
-    static const char kMessageIsNotDone[];
-    static const char kMessageIsPassed[];
-    static const char kMessageIsNotPassed[];
-    static const char kMessageIsFailed[];
-    static const char kMessageIsNotFailed[];
-    static const char kMessageIsSkipped[];
-    static const char kMessageIsNotSkipped[];
-    static const char kMessageIsExpired[];
-    static const char kMessageIsNotExpired[];
+    static const char kMessageDone[];
+    static const char kMessageNotDone[];
+    //static const char kMessagePassed[]; // defined in Assertion.h
+    static const char kMessageNotPassed[];
+    //static const char kMessageFailed[]; // defined in Assertion.h
+    static const char kMessageNotFailed[];
+    static const char kMessageSkipped[];
+    static const char kMessageNotSkipped[];
+    static const char kMessageExpired[];
+    static const char kMessageNotExpired[];
 
     /** Empty constructor. */
     MetaAssertion() {}

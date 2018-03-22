@@ -8,18 +8,14 @@ namespace aunit {
 
 // Moving these strings into PROGMEM saves 162 bytes of flash memory (from
 // elimination of a function) and 130 bytes of static memory,
-//
-// TODO: Move these into the Assertion class in a future refactoring.
-const char MetaAssertion::kMessageIsDone[] PROGMEM = "is done";
-const char MetaAssertion::kMessageIsNotDone[] PROGMEM = "is not done";
-const char MetaAssertion::kMessageIsPassed[] PROGMEM = "is passed";
-const char MetaAssertion::kMessageIsNotPassed[] PROGMEM = "is not passed";
-const char MetaAssertion::kMessageIsFailed[] PROGMEM = "is failed";
-const char MetaAssertion::kMessageIsNotFailed[] PROGMEM = "is not failed";
-const char MetaAssertion::kMessageIsSkipped[] PROGMEM = "is skipped";
-const char MetaAssertion::kMessageIsNotSkipped[] PROGMEM = "is not skipped";
-const char MetaAssertion::kMessageIsExpired[] PROGMEM = "is timed out";
-const char MetaAssertion::kMessageIsNotExpired[] PROGMEM = "is not timed out";
+const char MetaAssertion::kMessageDone[] PROGMEM = "done";
+const char MetaAssertion::kMessageNotDone[] PROGMEM = "not done";
+const char MetaAssertion::kMessageNotPassed[] PROGMEM = "not passed";
+const char MetaAssertion::kMessageNotFailed[] PROGMEM = "not failed";
+const char MetaAssertion::kMessageSkipped[] PROGMEM = "skipped";
+const char MetaAssertion::kMessageNotSkipped[] PROGMEM = "not skipped";
+const char MetaAssertion::kMessageExpired[] PROGMEM = "timed out";
+const char MetaAssertion::kMessageNotExpired[] PROGMEM = "not timed out";
 
 void MetaAssertion::printAssertionTestStatusMessage(
     bool ok, const char* file, uint16_t line,
@@ -33,11 +29,13 @@ void MetaAssertion::printAssertionTestStatusMessage(
   // into PROGMEM strings manually and reused them. It's not too bad even with
   // these c-strings, because the compiler will dedupe them.
   Print* printer = Printer::getPrinter();
-  printer->print("Assertion ");
-  printer->print(ok ? "passed" : "failed");
+  printer->print(FPSTR(kMessageAssertion));
+  printer->print(' ');
+  printer->print(FPSTR(ok ? Assertion::kMessagePassed
+                          : Assertion::kMessageFailed));
   printer->print(": Test ");
   printer->print(testName);
-  printer->print(' ');
+  printer->print(" is ");
   printer->print(statusMessage);
   printer->print(", file ");
   printer->print(file);

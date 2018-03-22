@@ -27,6 +27,10 @@ SOFTWARE.
 
 namespace aunit {
 
+const char Assertion::kMessageAssertion[] PROGMEM = "Assertion";
+const char Assertion::kMessagePassed[] PROGMEM = "passed";
+const char Assertion::kMessageFailed[] PROGMEM = "failed";
+
 // This can be a template function because it is accessed only through the
 // various assertXxx() methods. Those assertXxx() methods are explicitly
 // overloaded for the various types that we want to support.
@@ -49,15 +53,18 @@ void printAssertionMessage(bool ok, const char* file, uint16_t line,
   // https://github.com/mmurdoch/arduinounit/issues/70
   // for more info.
   Print* printer = Printer::getPrinter();
-  printer->print("Assertion ");
-  printer->print(ok ? "passed" : "failed");
+  printer->print(FPSTR(Assertion::kMessageAssertion));
+  printer->print(' ');
+  printer->print(FPSTR(ok ? Assertion::kMessagePassed
+                          : Assertion::kMessageFailed));
   printer->print(": (");
   printer->print(lhs);
   printer->print(") ");
   printer->print(opName);
   printer->print(" (");
   printer->print(rhs);
-  printer->print("), file ");
+  printer->print(')');
+  printer->print(", file ");
   printer->print(file);
   printer->print(", line ");
   printer->print(line);
