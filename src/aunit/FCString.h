@@ -52,6 +52,8 @@ class FCString {
     static const uint8_t kCStringType = 0;
     static const uint8_t kFStringType = 1;
 
+    FCString() {}
+
     explicit FCString(const char* s):
         mStringType(kCStringType) {
       mString.cstring = s;
@@ -74,7 +76,7 @@ class FCString {
       const __FlashStringHelper* fstring;
     } mString;
 
-    const uint8_t mStringType;
+    uint8_t mStringType;
 };
 
 }

@@ -38,6 +38,11 @@ Test** Test::getRoot() {
   return &root;
 }
 
+Test::Test():
+  mStatus(kStatusNew),
+  mNext(nullptr) {
+}
+
 Test::Test(const char* name):
     mName(name),
     mStatus(kStatusNew),

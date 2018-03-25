@@ -7,6 +7,34 @@
 #include <AUnit.h>
 using namespace aunit;
 
+class CustomOnceFixture: public TestOnce {
+  protected:
+    virtual void setup() override {
+      n = random(6);
+    }
+
+    void assertCommon() {
+      assertLess(n, 6);
+    }
+
+  private:
+    int n;
+};
+
+class CustomLoopFixture: public Test {
+  protected:
+    virtual void setup() override {
+      n = random(6);
+    }
+
+    void assertCommon() {
+      assertLess(n, 6);
+    }
+
+  private:
+    int n;
+};
+
 #else
 
 #include <ArduinoUnit.h>
@@ -18,9 +46,3 @@ using namespace aunit;
 #define checkTestNotExpire(x) true
 
 #endif
-
-/*
-#ifndef FPSTR
-#define FPSTR(pstr_pointer) (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
-#endif
-*/

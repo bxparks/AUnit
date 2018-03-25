@@ -325,10 +325,6 @@ test(flashString) {
   assertMoreOrEqual(hh, gg);
 }
 
-// ------------------------------------------------------
-// Test the testing() macro.
-// ------------------------------------------------------
-
 testing(timeout_after_10_seconds) {
   static unsigned long startTime  = millis();
 
@@ -339,27 +335,16 @@ testing(timeout_after_10_seconds) {
   }
 }
 
-// Test that the externTesting() and externTest() macros work.
+// ------------------------------------------------------
+// Test externTesting() macro and meta assertions.
+// ------------------------------------------------------
+
 externTesting(slow_pass);
 externTesting(slow_fail);
 externTesting(slow_skip);
 #if USE_AUNIT == 1
 externTesting(slow_expire);
 #endif
-externTest(external);
-
-// Check 10 times if the test(external) passes. Requires externTest().
-testing(external_monitor) {
-  static int count = 10;
-  if (count > 0) {
-    if (checkTestPass(external)) {
-      pass();
-    }
-    count++;
-  } else {
-    fail();
-  }
-}
 
 testing(slow_pass_monitor) {
   unsigned long now = millis();
@@ -507,9 +492,11 @@ testing(slow_expire_monitor) {
 }
 #endif
 
-// ------------------------------------------------------
-// Test creating custom parent classes manually.
-// ------------------------------------------------------
+// -------------------------------------------------------------------------
+// Test creating custom parent classes manually, as supported by ArduinoUnit,
+// also supported by AUnit for compatibility. (I think I should deprecate
+// that after testF() and testingF() are released.)
+// -------------------------------------------------------------------------
 
 class CustomTestOnce: public TestOnce {
   public:
@@ -535,86 +522,207 @@ CustomTestOnce myTestOnce2("customTestOnce2");
 
 #if USE_AUNIT == 1
 
-// ------------------------------------------------------
-// Test creating custom TestOnce test using test_f() macro.
-// ------------------------------------------------------
+// -------------------------------------------------------------------------
+// Validate the testF() and testingF() macros.
+// -------------------------------------------------------------------------
 
-class CustomOnceFixture: public TestOnce {
-  protected:
-    CustomOnceFixture(const __FlashStringHelper *name):
-        TestOnce(name) {
-    }
-
-    virtual void setup() override {
-      n = random(6);
-    }
-
-    void assertCommon() {
-      assertMore(n, 6);
-    }
-
-  private:
-    int n;
-};
-
-test_f(CustomOnceFixture, customOnceF1) {
+testF(CustomOnceFixture, customOnceFixture1) {
   assertCommon();
 }
 
-test_f(CustomOnceFixture, customOnceF2) {
+testF(CustomOnceFixture, customOnceFixture2) {
   assertCommon();
 }
 
-// ------------------------------------------------------
-// Test creating custom Test test using testing_f() macro.
-// ------------------------------------------------------
-
-class CustomLoopFixture: public Test {
-  protected:
-    CustomLoopFixture(const __FlashStringHelper *name):
-        Test(name) {
-    }
-
-    virtual void setup() override {
-      n = random(6);
-    }
-
-    void assertCommon() {
-      assertMore(n, 6);
-    }
-
-  private:
-    int n;
-};
-
-testing_f(CustomLoopFixture, customLoopF1) {
+testingF(CustomLoopFixture, customLoopFixture1) {
   assertCommon();
+  pass();
 }
 
-testing_f(CustomLoopFixture, customLoopF2) {
+testingF(CustomLoopFixture, customLoopFixture2) {
   assertCommon();
+  pass();
 }
 
-// Check that in the case of picking the wrong class for the test_f() or the
-// testing_f() macros, the compiler gives an error.
+// Check that in the case of picking the wrong class for the testF() or the
+// testingF() macros, the compiler gives an error.
 
-// Test a testing_f() macro with a TestOnce class.
-// Compiler error because testing_f() overrides a loop() which exists in
+// Test a testingF() macro with a TestOnce class.
+// Compiler error because testingF() overrides a loop() which exists in
 // TestOnce, but TestOnce expects a once() which isn't provided.
 /*
-testing_f(CustomOnceFixture, crossedTesting) {
+testingF(CustomOnceFixture, crossedTesting) {
   assertCommon();
 }
 */
 
-// Test a test_f() macro with a Test class.
-// Compiler error because test_f() overrides a once() method, which doesn't
+// Test a testF() macro with a Test class.
+// Compiler error because testF() overrides a once() method, which doesn't
 // exist in Test class.
 /*
-test_f(CustomLoopFixture, crossedLooping) {
+testF(CustomLoopFixture, crossedLooping) {
   assertCommon();
 }
 */
+
+// -------------------------------------------------------------------------
+// Verify that externTestF() and externTestingF() work.
+// -------------------------------------------------------------------------
+
+externTestF(CustomOnceFixture, fixture_external);
+
+testing(fixture_external_monitor) {
+  assertTestDone(fixture_external);
+}
+
+externTestingF(CustomLoopFixture, fixture_slow_pass);
+externTestingF(CustomLoopFixture, fixture_slow_fail);
+externTestingF(CustomLoopFixture, fixture_slow_skip);
+externTestingF(CustomLoopFixture, fixture_slow_expire);
+
+testing(fixture_slow_pass_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDone(fixture_slow_pass);
+    assertTrue(checkTestNotDone(fixture_slow_pass));
+
+    assertTestNotPass(fixture_slow_pass);
+    assertTrue(checkTestNotPass(fixture_slow_pass));
+
+    assertTestNotFail(fixture_slow_pass);
+    assertTrue(checkTestNotFail(fixture_slow_pass));
+
+    assertTestNotSkip(fixture_slow_pass);
+    assertTrue(checkTestNotSkip(fixture_slow_pass));
+
+    assertTestNotExpire(fixture_slow_pass);
+    assertTrue(checkTestNotExpire(fixture_slow_pass));
+  }
+  if (now > 2000) {
+    assertTestDone(fixture_slow_pass);
+    assertTrue(checkTestDone(fixture_slow_pass));
+
+    assertTestPass(fixture_slow_pass);
+    assertTrue(checkTestPass(fixture_slow_pass));
+
+    assertTestNotFail(fixture_slow_pass);
+    assertTrue(checkTestNotFail(fixture_slow_pass));
+
+    assertTestNotSkip(fixture_slow_pass);
+    assertTrue(checkTestNotSkip(fixture_slow_pass));
+
+    assertTestNotExpire(fixture_slow_pass);
+    assertTrue(checkTestNotExpire(fixture_slow_pass));
+
+    pass();
+  }
+}
+
+testing(fixture_slow_fail_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDone(fixture_slow_fail);
+    assertTrue(checkTestNotDone(fixture_slow_fail));
+
+    assertTestNotPass(fixture_slow_fail);
+    assertTrue(checkTestNotPass(fixture_slow_fail));
+
+    assertTestNotFail(fixture_slow_fail);
+    assertTrue(checkTestNotFail(fixture_slow_fail));
+
+    assertTestNotSkip(fixture_slow_fail);
+    assertTrue(checkTestNotSkip(fixture_slow_fail));
+
+    assertTestNotExpire(fixture_slow_fail);
+    assertTrue(checkTestNotExpire(fixture_slow_fail));
+  }
+  if (now > 2000) {
+    assertTestDone(fixture_slow_fail);
+    assertTrue(checkTestDone(fixture_slow_fail));
+
+    assertTestNotPass(fixture_slow_fail);
+    assertTrue(checkTestNotPass(fixture_slow_fail));
+
+    assertTestFail(fixture_slow_fail);
+    assertTrue(checkTestFail(fixture_slow_fail));
+
+    assertTestNotSkip(fixture_slow_fail);
+    assertTrue(checkTestNotSkip(fixture_slow_fail));
+
+    assertTestNotExpire(fixture_slow_fail);
+    assertTrue(checkTestNotExpire(fixture_slow_fail));
+
+    pass();
+  }
+}
+
+testing(fixture_slow_skip_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDone(fixture_slow_skip);
+    assertTrue(checkTestNotDone(fixture_slow_skip));
+
+    assertTestNotPass(fixture_slow_skip);
+    assertTrue(checkTestNotPass(fixture_slow_skip));
+
+    assertTestNotFail(fixture_slow_skip);
+    assertTrue(checkTestNotFail(fixture_slow_skip));
+
+    assertTestNotSkip(fixture_slow_skip);
+    assertTestNotExpire(fixture_slow_skip);
+  }
+  if (now > 2000) {
+    assertTestDone(fixture_slow_skip);
+    assertTrue(checkTestDone(fixture_slow_skip));
+
+    assertTestNotPass(fixture_slow_skip);
+    assertTrue(checkTestNotPass(fixture_slow_skip));
+
+    assertTestNotFail(fixture_slow_skip);
+    assertTrue(checkTestNotFail(fixture_slow_skip));
+
+    assertTestSkip(fixture_slow_skip);
+    assertTrue(checkTestSkip(fixture_slow_skip));
+
+    assertTestNotExpire(fixture_slow_skip);
+    pass();
+  }
+}
+
+testing(fixture_slow_expire_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDone(fixture_slow_expire);
+    assertTrue(checkTestNotDone(fixture_slow_expire));
+
+    assertTestNotPass(fixture_slow_expire);
+    assertTrue(checkTestNotPass(fixture_slow_expire));
+
+    assertTestNotFail(fixture_slow_expire);
+    assertTrue(checkTestNotFail(fixture_slow_expire));
+
+    assertTestNotSkip(fixture_slow_expire);
+    assertTrue(checkTestNotSkip(fixture_slow_expire));
+
+    assertTestNotExpire(fixture_slow_expire);
+  }
+  if (now > 2000) {
+    assertTestDone(fixture_slow_expire);
+    assertTrue(checkTestDone(fixture_slow_expire));
+
+    assertTestNotPass(fixture_slow_expire);
+    assertTrue(checkTestNotPass(fixture_slow_expire));
+
+    assertTestNotFail(fixture_slow_expire);
+    assertTrue(checkTestNotFail(fixture_slow_expire));
+
+    assertTestNotSkip(fixture_slow_expire);
+    assertTrue(checkTestNotSkip(fixture_slow_expire));
+
+    assertTestExpire(fixture_slow_expire);
+    pass();
+  }
+}
 
 #endif
 
@@ -649,7 +757,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    19 passed, 2 failed, 1 skipped, 2 timed out, out of 24 test(s).
+  //    30 passed, 3 failed, 2 skipped, 4 timed out, out of 39 test(s).
   TestRunner::run();
 #else
   Test::run();
