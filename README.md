@@ -49,6 +49,11 @@ AUnit supports exclude and include filters:
 * `TestRunner::exclude()`
 * `TestRunner::include()`
 
+The various assertion and test status messages can be enabled or disabled using
+the `Verbosity` flags on per test basis:
+* `enableVerbosity()`
+* `disableVerbosity()`
+
 ### Missing Features
 
 Here are the features which have not been ported over from ArduinoUnit:
@@ -503,8 +508,8 @@ ArduinoUnit._
 
 ### Controlling the Verbosity
 
-The verbosity of the test results can be controlled using the the
-`setVerbosity()` method:
+The default verbosity of the test results can be controlled using the
+`TestRunner::setVerbosity()` method:
 ```
 #include <AUnit.h>
 using aunit::TestRunner;
@@ -517,15 +522,26 @@ void setup() {
 }
 ```
 
-The verbosity rules are more primitive (and simpler) than ArduinoUnit. Each
-flag below is a bit field that controls whether certain messages are enabled
-or disabled. There is no concept of a "minimum" or "maximum" verbosity. Also,
-the verbosity of an individual test case cannot be independently controlled, the
-`TestRunner` verbosity setting applies to all tests.
+Every test is assigned this default verbosity just before its `Test::setup()`
+is called. A unit test can choose to modify the verbosity calling one of the
+following methods:
 
-The names of the bit field flags are different from ArduinoUnit to avoid name
-collisions with other `#define` macros which have global scope. AUnit uses
-static constants of the `Verbosity` utility class:
+* `void enableVerbosity(uint8_t verbosity);`
+    * enables the given verbosity, retaining all the others
+* `void disableVerbosity(uint8_t verbosity);`
+    * disables the given verbosity, retaining all the others
+
+at the beginning of the test definition, like this:
+
+```
+test(enable_assertion_passed_messages) {
+  enableVerbosity(Verbosity::kAssertionPassed);
+  ...
+}
+```
+
+The values of `verbosity` are defined by the static constants of the `Verbosity`
+utility class:
 
 * `Verbosity::kAssertionPassed`
 * `Verbosity::kAssertionFailed`
@@ -544,13 +560,10 @@ static constants of the `Verbosity` utility class:
 
 ***ArduinoUnit Compatibility***:
 _The following ArduinoUnit variables do not exist:_
-* `Test::verbosity`
 * `Test::min_verbosity`
 * `Test::max_verbosity`
 
-_In AUnit, verbosity can be set only at the `TestRunner` level. Verbosity cannot
-be set at the test case (i.e. `Test` or `TestOnce` class) level individually.
-The bit field constants have slightly different names:_
+_The bit field constants have slightly different names:_
 
 * `TEST_VERBOSITY_TESTS_SUMMARY` -> `Verbosity::kTestRunSummary`
 * `TEST_VERBOSITY_TESTS_FAILED` -> `Verbosity::kTestFailed`

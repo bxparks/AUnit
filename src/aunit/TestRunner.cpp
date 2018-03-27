@@ -103,6 +103,9 @@ void TestRunner::runTest() {
   // (*mCurrent)->loop(), then changes the test case's mStatus.
   switch ((*mCurrent)->getStatus()) {
     case Test::kStatusNew:
+      // Transfer the verbosity of the TestRunner to the Test.
+      (*mCurrent)->enableVerbosity(mVerbosity);
+
       (*mCurrent)->setup();
 
       // support assertXxx() statements inside the setup() method
@@ -120,7 +123,7 @@ void TestRunner::runTest() {
         // again() virtual method dispatched from Test::loop(), analogous to
         // once(). But let's keep the code here for now.
         unsigned long now = millis();
-        if (mTimeout > 0 && now >= mStartTime + mTimeout) {
+        if (mTimeout > 0 && now >= mStartTime + 1000L * mTimeout) {
           (*mCurrent)->expire();
         } else {
           (*mCurrent)->loop();
@@ -241,7 +244,7 @@ void TestRunner::listTests() {
   }
 }
 
-void TestRunner::setRunnerTimeout(unsigned long timeout) {
+void TestRunner::setRunnerTimeout(TimeoutType timeout) {
   mTimeout = timeout;
 }
 

@@ -291,6 +291,12 @@ test(assertTrue) {
   assertFalse(false);
 }
 
+test(enableVerbosity) {
+  enableVerbosity(Verbosity::kAssertionPassed);
+  assertTrue(true);
+  assertFalse(false);
+}
+
 test(flashString) {
   assertEqual(ff, ff);
   assertEqual(gg, gg);
@@ -501,10 +507,9 @@ void setup() {
   //TestRunner::setVerbosity(Verbosity::kTestRunSummary);
   //TestRunner::list();
 
-  // If set to something really small, like 1, all tests are incomplete.
   // If set to 0, infinite timeout, some testing() may accidentally run
-  // forever. Default is 10000 ms.
-  //TestRunner::setTimeout(25000);
+  // forever. Default is 10 s.
+  //TestRunner::setTimeout(25);
 
   TestRunner::exclude("looping_f*");
 #else
@@ -518,7 +523,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    18 passed, 1 failed, 1 skipped, 2 timed out, out of 22 test(s).
+  //    19 passed, 1 failed, 1 skipped, 2 timed out, out of 23 test(s).
   TestRunner::run();
 #else
   Test::run();

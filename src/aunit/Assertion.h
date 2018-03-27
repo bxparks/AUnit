@@ -36,7 +36,6 @@ SOFTWARE.
 #ifndef AUNIT_ASSERTION_H
 #define AUNIT_ASSERTION_H
 
-#include <Arduino.h>  // definition of Print
 #include "Printer.h"
 #include "Verbosity.h"
 
@@ -95,16 +94,30 @@ namespace aunit {
  * directly by users.
  *
  * Having the Test class inherit from Assertion will allow end-users to
- * override certain virtual methods in the future.
+ * override certain methods in the future.
  */
 class Assertion {
   public:
-    /** Returns true if an assertion message should be printed. */
-    static bool isOutputEnabled(bool ok);
+    /** Enable the given verbosity of the current test. */
+    void enableVerbosity(uint8_t verbosity) { mVerbosity |= verbosity; }
+
+    /** Disable the given verbosity of the current test. */
+    void disableVerbosity(uint8_t verbosity) { mVerbosity &= verbosity; }
+
+    /** Get the verbosity of the current test. */
+    uint8_t getVerbosity() { return mVerbosity; }
+
+    /** Determine if the given verbosity is enabled. */
+    bool isVerbosity(uint8_t verbosity) { return mVerbosity & verbosity; }
 
   protected:
     /** Empty constructor. */
-    Assertion() {}
+    Assertion():
+        mVerbosity(0)
+    {}
+
+    /** Returns true if an assertion message should be printed. */
+    bool isOutputEnabled(bool ok);
 
     // NOTE: Don't create a virtual destructor. That's the normal best practice
     // for classes that will be used polymorphically. However, this class will
@@ -189,6 +202,8 @@ class Assertion {
     // Disable copy-constructor and assignment operator
     Assertion(const Assertion&) = delete;
     Assertion& operator=(const Assertion&) = delete;
+
+    uint8_t mVerbosity;
 };
 
 }
