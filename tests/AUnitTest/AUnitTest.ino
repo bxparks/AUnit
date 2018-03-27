@@ -507,10 +507,9 @@ void setup() {
   //TestRunner::setVerbosity(Verbosity::kTestRunSummary);
   //TestRunner::list();
 
-  // If set to something really small, like 1, all tests are incomplete.
   // If set to 0, infinite timeout, some testing() may accidentally run
-  // forever. Default is 10000 ms.
-  //TestRunner::setTimeout(25000);
+  // forever. Default is 10 s.
+  //TestRunner::setTimeout(25);
 
   TestRunner::exclude("looping_f*");
 #else
