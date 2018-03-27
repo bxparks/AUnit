@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include <Arduino.h>  // definition of Print
 #include "TestRunner.h" // seems like a circular reference but ok from cpp file
 #include "Assertion.h"
 
@@ -63,8 +64,8 @@ void printAssertionMessage(bool ok, const char* file, uint16_t line,
 }
 
 bool Assertion::isOutputEnabled(bool ok) {
-  return (ok && TestRunner::isVerbosity(Verbosity::kAssertionPassed)) ||
-      (!ok && TestRunner::isVerbosity(Verbosity::kAssertionFailed));
+  return (ok && isVerbosity(Verbosity::kAssertionPassed)) ||
+      (!ok && isVerbosity(Verbosity::kAssertionFailed));
 }
 
 bool Assertion::assertion(const char* file, uint16_t line, bool lhs,
