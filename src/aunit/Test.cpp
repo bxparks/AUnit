@@ -28,6 +28,9 @@ SOFTWARE.
 
 namespace aunit {
 
+static const char TEST_STRING[] PROGMEM = "Test ";
+static const __FlashStringHelper* TEST_STRING_F = FPSTR(TEST_STRING);
+
 // Use a static variable inside a function to solve the static initialization
 // ordering problem.
 Test** Test::getRoot() {
@@ -72,6 +75,33 @@ void Test::insert() {
   }
   mNext = *p;
   *p = this;
+}
+
+void Test::resolve() {
+  if (!isVerbosity(Verbosity::kTestAll)) return;
+
+  Print* printer = Printer::getPrinter();
+  if (mStatus == Test::kStatusPassed
+      && isVerbosity(Verbosity::kTestPassed)) {
+    printer->print(TEST_STRING_F);
+    Printer::print(mName);
+    printer->println(F(" passed."));
+  } else if (mStatus == Test::kStatusFailed
+      && isVerbosity(Verbosity::kTestFailed)) {
+    printer->print(TEST_STRING_F);
+    Printer::print(mName);
+    printer->println(F(" failed."));
+  } else if (mStatus == Test::kStatusSkipped
+      && isVerbosity(Verbosity::kTestSkipped)) {
+    printer->print(TEST_STRING_F);
+    Printer::print(mName);
+    printer->println(F(" skipped."));
+  } else if (mStatus == Test::kStatusExpired
+      && isVerbosity(Verbosity::kTestExpired)) {
+    printer->print(TEST_STRING_F);
+    Printer::print(mName);
+    printer->println(F(" timed out."));
+  }
 }
 
 void TestOnce::loop() {

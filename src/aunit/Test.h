@@ -155,6 +155,9 @@ class Test: public MetaAssertion {
      */
     virtual void loop() = 0;
 
+    /** Print out the summary of the current test. */
+    void resolve();
+
     /** Get the name of the test. */
     const FCString& getName() { return mName; }
 

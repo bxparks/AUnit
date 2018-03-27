@@ -120,9 +120,6 @@ class TestRunner {
     /** Print out the summary of the entire test suite. */
     void resolveRun();
 
-    /** Print out the summary of the current test. */
-    void resolveTest(Test* testCase);
-
     /** Perform any TestRunner initialization. */
     void setupRunner();
 

@@ -141,25 +141,25 @@ void TestRunner::runTest() {
       break;
     case Test::kStatusSkipped:
       mSkippedCount++;
-      resolveTest((*mCurrent));
+      (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
       break;
     case Test::kStatusPassed:
       mPassedCount++;
-      resolveTest((*mCurrent));
+      (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
       break;
     case Test::kStatusFailed:
       mFailedCount++;
-      resolveTest((*mCurrent));
+      (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
       break;
     case Test::kStatusExpired:
       mExpiredCount++;
-      resolveTest((*mCurrent));
+      (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
       break;
@@ -192,23 +192,6 @@ void TestRunner::printStartRunner() {
   printer->print(F("TestRunner started on "));
   printer->print(mCount);
   printer->println(F(" test(s)."));
-}
-
-void TestRunner::resolveTest(Test* testCase) {
-  if (!isVerbosity(Verbosity::kTestAll)) return;
-
-  Print* printer = Printer::getPrinter();
-  printer->print(F("Test "));
-  Printer::print(testCase->getName());
-  if (testCase->getStatus() == Test::kStatusSkipped) {
-    printer->println(F(" skipped."));
-  } else if (testCase->getStatus() == Test::kStatusFailed) {
-    printer->println(F(" failed."));
-  } else if (testCase->getStatus() == Test::kStatusPassed) {
-    printer->println(F(" passed."));
-  } else if (testCase->getStatus() == Test::kStatusExpired) {
-    printer->println(F(" timed out."));
-  }
 }
 
 void TestRunner::resolveRun() {

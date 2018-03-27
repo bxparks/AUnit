@@ -291,10 +291,16 @@ test(assertTrue) {
   assertFalse(false);
 }
 
-test(enableVerbosity) {
+test(verbosity_assertionFailed_only) {
   enableVerbosity(Verbosity::kAssertionPassed);
+  disableVerbosity(Verbosity::kTestPassed);
   assertTrue(true);
-  assertFalse(false);
+}
+
+test(verbosity_testFailed_only) {
+  enableVerbosity(Verbosity::kTestFailed);
+  disableVerbosity(Verbosity::kAssertionFailed);
+  assertTrue(false);
 }
 
 test(flashString) {
@@ -523,7 +529,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    19 passed, 1 failed, 1 skipped, 2 timed out, out of 23 test(s).
+  //    19 passed, 2 failed, 1 skipped, 2 timed out, out of 24 test(s).
   TestRunner::run();
 #else
   Test::run();
