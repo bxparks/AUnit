@@ -68,6 +68,36 @@ test_ ## name :: test_ ## name() : Test(F(#name)) {}\
 void test_ ## name :: loop()
 
 /**
+ * Create a test that is derived from a custom TestOnce class.
+ * The name of the instance is generated with the same rule as test() macro
+ * which allows meta-assertions (assertTestXxx()) to work on these as well.
+ */
+#define testF(test_class, name) \
+struct test_class ## _ ## name : test_class {\
+  test_class ## _ ## name();\
+  virtual void once() override;\
+} test_ ## name ## _instance;\
+test_class ## _ ## name :: test_class ## _ ## name() {\
+  init(F(#name));\
+}\
+void test_class ## _ ## name :: once()
+
+/**
+ * Create a test that is derived from a custom Test class.
+ * The name of the instance is generated with the same rule as testing() macro
+ * which allows meta-assertions (assertTestXxx()) to work on these as well.
+ */
+#define testingF(test_class, name) \
+struct test_class ## _ ## name : test_class {\
+  test_class ## _ ## name();\
+  virtual void loop() override;\
+} test_ ## name ## _instance;\
+test_class ## _ ## name :: test_class ## _ ## name() {\
+  init(F(#name));\
+}\
+void test_class ## _ ## name :: loop()
+
+/**
  * Create an extern reference to a test() test case object defined elsewhere.
  * This is only necessary if you use assertTestXxx() or checkTestXxx() when the
  * test is in another file (or defined after the assertion on it).
@@ -89,6 +119,31 @@ extern test_##name test_##name##_instance
   void loop();\
 };\
 extern test_##name test_##name##_instance
+
+/**
+ * Create an extern reference to a testF() test case object defined elsewhere.
+ * This is only necessary if you use assertTestXxx() or checkTestXxx() when the
+ * test is in another file (or defined after the assertion on it).
+ */
+#define externTestF(test_class, name) \
+struct test_class ## _ ## name : test_class {\
+  test_class ## _ ## name();\
+  virtual void once() override;\
+};\
+extern test_class ## _ ## name test_##name##_instance
+
+/**
+ * Create an extern reference to a testingF() test case object defined
+ * elsewhere.  This is only necessary if you use assertTestXxx() or
+ * checkTestXxx() when the test is in another file (or defined after the
+ * assertion on it).
+ */
+#define externTestingF(test_class, name) \
+struct test_class ## _ ## name : test_class {\
+  test_class ## _ ## name();\
+  virtual void loop() override;\
+};\
+extern test_class ## _ ## name test_##name##_instance
 
 namespace aunit {
 
@@ -127,6 +182,9 @@ class Test: public MetaAssertion {
      * other static contexts.
      */
     static Test** getRoot();
+
+    /** Empty constructor. The name will be set later. */
+    Test();
 
     /**
      * Constructor taking the name of the given test case. Also performs
@@ -220,6 +278,16 @@ class Test: public MetaAssertion {
     /** Mark the test as passed. */
     void pass() { mStatus = kStatusPassed; }
 
+    void init(const char* name) {
+      mName = FCString(name);
+      insert();
+    }
+
+    void init(const __FlashStringHelper* name) {
+      mName = FCString(name);
+      insert();
+    }
+
   private:
     // Disable copy-constructor and assignment operator
     Test(const Test&) = delete;
@@ -228,7 +296,7 @@ class Test: public MetaAssertion {
     /** Insert into the linked list. */
     void insert();
 
-    const FCString mName;
+    FCString mName;
     uint8_t mStatus;
     Test* mNext;
 };
@@ -236,6 +304,8 @@ class Test: public MetaAssertion {
 /** Similar to Test but performs the loop() method only once. */
 class TestOnce: public Test {
   public:
+    TestOnce() {}
+
     /** Constructor. */
     explicit TestOnce(const char* name):
         Test(name) {}

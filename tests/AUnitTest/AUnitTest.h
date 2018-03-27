@@ -5,8 +5,35 @@
 #if USE_AUNIT == 1
 
 #include <AUnit.h>
-using aunit::TestRunner;
-using aunit::Verbosity;
+using namespace aunit;
+
+class CustomOnceFixture: public TestOnce {
+  protected:
+    virtual void setup() override {
+      n = random(6);
+    }
+
+    void assertCommon() {
+      assertLess(n, 6);
+    }
+
+  private:
+    int n;
+};
+
+class CustomLoopFixture: public Test {
+  protected:
+    virtual void setup() override {
+      n = random(6);
+    }
+
+    void assertCommon() {
+      assertLess(n, 6);
+    }
+
+  private:
+    int n;
+};
 
 #else
 
@@ -18,10 +45,10 @@ using aunit::Verbosity;
 #define checkTestExpire(x) true
 #define checkTestNotExpire(x) true
 
+// Defined in ESP8266, not defined in AVR or Teensy
+#ifndef FPSTR
+#define FPSTR(pstr_pointer) \
+    (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
 #endif
 
-/*
-#ifndef FPSTR
-#define FPSTR(pstr_pointer) (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
 #endif
-*/
