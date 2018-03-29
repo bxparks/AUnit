@@ -492,10 +492,10 @@ testing(slow_expire_monitor) {
 }
 #endif
 
+#if USE_AUNIT == 0
 // -------------------------------------------------------------------------
-// Test creating custom parent classes manually, as supported by ArduinoUnit,
-// also supported by AUnit for compatibility. (I think I should deprecate
-// that after testF() and testingF() are released.)
+// Test creating custom parent classes manually as supported by ArduinoUnit,
+// Unsupported in favor of testF() and testingF() in AUnit.
 // -------------------------------------------------------------------------
 
 class CustomTestOnce: public TestOnce {
@@ -519,6 +519,8 @@ class CustomTestOnce: public TestOnce {
 
 CustomTestOnce myTestOnce1("customTestOnce1");
 CustomTestOnce myTestOnce2("customTestOnce2");
+
+#endif
 
 #if USE_AUNIT == 1
 
@@ -757,7 +759,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    30 passed, 3 failed, 2 skipped, 4 timed out, out of 39 test(s).
+  //    28 passed, 3 failed, 2 skipped, 4 timed out, out of 37 test(s).
   TestRunner::run();
 #else
   Test::run();

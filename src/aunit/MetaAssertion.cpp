@@ -22,6 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#ifdef ESP8266
+#include <pgmspace.h>
+#else
+#include <avr/pgmspace.h>
+#endif
+
+#include <Arduino.h>  // definition of Print
 #include "Printer.h"
 #include "Verbosity.h"
 #include "Compare.h"

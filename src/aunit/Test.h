@@ -25,125 +25,18 @@ SOFTWARE.
 // Significant portions of the design and implementation of this file came from
 // https://github.com/mmurdoch/arduinounit/blob/master/src/ArduinoUnit.h
 
-/**
- * @file Test.h
- *
- * Various macros (test(), testing(), externTest(), externTesting()) are
- * defined in this header.
- */
-
 #ifndef AUNIT_TEST_H
 #define AUNIT_TEST_H
 
 #include <stdint.h>
 #include "FCString.h"
-#include "MetaAssertion.h"
+#include "Verbosity.h"
 
-class __FlashStringHelper;
-
-// On the ESP8266 platform, The F() string cannot be placed in an inline
-// context, because it interferes with other PROGMEM strings. See
-// https://github.com/esp8266/Arduino/issues/3369. The solution was to move the
-// constructor definition out from an inline function into a normal function
-// defined outside of the class declaration..
-
-/** Macro to define a test that will be run only once. */
-#define test(name) struct test_ ## name : aunit::TestOnce {\
-  test_ ## name();\
-  virtual void once() override;\
-} test_ ## name ## _instance;\
-test_ ## name :: test_ ## name() : TestOnce(F(#name)) {}\
-void test_ ## name :: once()
-
-/**
- * Macro to define a test that will run repeatly upon each iteration of the
- * global loop() method, stopping when the something calls Test::pass(),
- * Test::fail() or Test::skip().
- */
-#define testing(name) struct test_ ## name : aunit::Test {\
-  test_ ## name();\
-  virtual void loop() override;\
-} test_ ## name ## _instance;\
-test_ ## name :: test_ ## name() : Test(F(#name)) {}\
-void test_ ## name :: loop()
-
-/**
- * Create a test that is derived from a custom TestOnce class.
- * The name of the instance is generated with the same rule as test() macro
- * which allows meta-assertions (assertTestXxx()) to work on these as well.
- */
-#define testF(test_class, name) \
-struct test_class ## _ ## name : test_class {\
-  test_class ## _ ## name();\
-  virtual void once() override;\
-} test_ ## name ## _instance;\
-test_class ## _ ## name :: test_class ## _ ## name() {\
-  init(F(#name));\
-}\
-void test_class ## _ ## name :: once()
-
-/**
- * Create a test that is derived from a custom Test class.
- * The name of the instance is generated with the same rule as testing() macro
- * which allows meta-assertions (assertTestXxx()) to work on these as well.
- */
-#define testingF(test_class, name) \
-struct test_class ## _ ## name : test_class {\
-  test_class ## _ ## name();\
-  virtual void loop() override;\
-} test_ ## name ## _instance;\
-test_class ## _ ## name :: test_class ## _ ## name() {\
-  init(F(#name));\
-}\
-void test_class ## _ ## name :: loop()
-
-/**
- * Create an extern reference to a test() test case object defined elsewhere.
- * This is only necessary if you use assertTestXxx() or checkTestXxx() when the
- * test is in another file (or defined after the assertion on it).
- */
-#define externTest(name) struct test_ ## name : aunit::TestOnce {\
-  test_ ## name();\
-  void once();\
-};\
-extern test_##name test_##name##_instance
-
-/**
- * Create an extern reference to a testing() test case object defined
- * elsewhere.  This is only necessary if you use assertTestXxx() or
- * checkTestXxx() when the test is in another file (or defined after the
- * assertion on it).
- */
-#define externTesting(name) struct test_ ## name : aunit::Test {\
-  test_ ## name();\
-  void loop();\
-};\
-extern test_##name test_##name##_instance
-
-/**
- * Create an extern reference to a testF() test case object defined elsewhere.
- * This is only necessary if you use assertTestXxx() or checkTestXxx() when the
- * test is in another file (or defined after the assertion on it).
- */
-#define externTestF(test_class, name) \
-struct test_class ## _ ## name : test_class {\
-  test_class ## _ ## name();\
-  virtual void once() override;\
-};\
-extern test_class ## _ ## name test_##name##_instance
-
-/**
- * Create an extern reference to a testingF() test case object defined
- * elsewhere.  This is only necessary if you use assertTestXxx() or
- * checkTestXxx() when the test is in another file (or defined after the
- * assertion on it).
- */
-#define externTestingF(test_class, name) \
-struct test_class ## _ ## name : test_class {\
-  test_class ## _ ## name();\
-  virtual void loop() override;\
-};\
-extern test_class ## _ ## name test_##name##_instance
+// Defined in ESP8266, not defined in AVR or Teensy
+#ifndef FPSTR
+#define FPSTR(pstr_pointer) \
+    (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
+#endif
 
 namespace aunit {
 
@@ -153,7 +46,7 @@ namespace aunit {
  * the macros in '{}' to become the body of the loop() and once() methods of
  * the two classes (respectively).
  */
-class Test: public MetaAssertion {
+class Test {
   public:
     // Don't change the order of Passed, Failed, Skipped or Expired without
     // looking at the isDone() method.
@@ -185,20 +78,6 @@ class Test: public MetaAssertion {
 
     /** Empty constructor. The name will be set later. */
     Test();
-
-    /**
-     * Constructor taking the name of the given test case. Also performs
-     * self-registration into the linked list of all test cases defined by
-     * Test::getRoot().
-     */
-    explicit Test(const char* name);
-
-    /**
-     * Constructor taking the name of the given test case. Also performs
-     * self-registration into the linked list of all test cases defined by
-     * Test::getRoot()..
-     */
-    explicit Test(const __FlashStringHelper* name);
 
     /**
      * Optional method that performs any initialization. The assertXxx() macros,
@@ -271,6 +150,12 @@ class Test: public MetaAssertion {
     /** Mark the test as expired (i.e. timed out). */
     void expire() { mStatus = kStatusExpired; }
 
+    /** Enable the given verbosity of the current test. */
+    void enableVerbosity(uint8_t verbosity) { mVerbosity |= verbosity; }
+
+    /** Disable the given verbosity of the current test. */
+    void disableVerbosity(uint8_t verbosity) { mVerbosity &= ~verbosity; }
+
   protected:
     /** Mark the test as failed. */
     void fail() { mStatus = kStatusFailed; }
@@ -281,13 +166,22 @@ class Test: public MetaAssertion {
     void init(const char* name) {
       mName = FCString(name);
       mStatus = kStatusNew;
+      mVerbosity = 0;
       insert();
     }
 
     void init(const __FlashStringHelper* name) {
       mName = FCString(name);
+      mStatus = kStatusNew;
+      mVerbosity = 0;
       insert();
     }
+
+    /** Determine if any of the given verbosity is enabled. */
+    bool isVerbosity(uint8_t verbosity) { return mVerbosity & verbosity; }
+
+    /** Get the verbosity. */
+    uint8_t getVerbosity() { return mVerbosity; }
 
   private:
     // Disable copy-constructor and assignment operator
@@ -299,37 +193,10 @@ class Test: public MetaAssertion {
 
     FCString mName;
     uint8_t mStatus;
+    uint8_t mVerbosity;
     Test* mNext;
 };
 
-/** Similar to Test but performs the loop() method only once. */
-class TestOnce: public Test {
-  public:
-    TestOnce() {}
-
-    /** Constructor. */
-    explicit TestOnce(const char* name):
-        Test(name) {}
-
-    /** Constructor. */
-    explicit TestOnce(const __FlashStringHelper* name):
-        Test(name) {}
-
-    /**
-     * Calls the user-provided once() method. If no other assertXxx() macros set
-     * the internal status, then this calls pass() to make sure that this test
-     * case will be called only once from Test::run().
-     */
-    virtual void loop() override;
-
-    /** User-provided test case. */
-    virtual void once() = 0;
-
-  private:
-    // Disable copy-constructor and assignment operator
-    TestOnce(const TestOnce&) = delete;
-    TestOnce& operator=(const TestOnce&) = delete;
-};
-
 }
+
 #endif

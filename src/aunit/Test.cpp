@@ -22,9 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#ifdef ESP8266
+#include <pgmspace.h>
+#else
+#include <avr/pgmspace.h>
+#endif
+
 #include <Arduino.h>  // for declaration of 'Serial' on Teensy and others
-#include "Test.h"
+#include "Verbosity.h"
+#include "Printer.h"
 #include "Compare.h"
+#include "Test.h"
 
 namespace aunit {
 
@@ -40,21 +48,8 @@ Test** Test::getRoot() {
 
 Test::Test():
   mStatus(kStatusNew),
+  mVerbosity(Verbosity::kNone),
   mNext(nullptr) {
-}
-
-Test::Test(const char* name):
-    mName(name),
-    mStatus(kStatusNew),
-    mNext(nullptr) {
-  insert();
-}
-
-Test::Test(const __FlashStringHelper* name):
-    mName(name),
-    mStatus(kStatusNew),
-    mNext(nullptr) {
-  insert();
 }
 
 // Resolve the status as kStatusFailed only if ok == false. Otherwise, keep the
@@ -106,13 +101,6 @@ void Test::resolve() {
     printer->print(TEST_STRING_F);
     Printer::print(mName);
     printer->println(F(" timed out."));
-  }
-}
-
-void TestOnce::loop() {
-  once();
-  if (getStatus() == kStatusSetup) {
-    pass();
   }
 }
 

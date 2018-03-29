@@ -22,28 +22,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/**
- * @mainpage AUnit Library
- *
- * This is the Doxygen documentation for the
- * <a href="https://github.com/bxparks/AUnit">AUnit Library</a>.
- */
+#ifndef AUNIT_TEST_AGAIN_H
+#define AUNIT_TEST_AGAIN_H
 
-#ifndef AUNIT_AUNIT_H
-#define AUNIT_AUNIT_H
+#include <stdint.h>
+#include "FCString.h"
+#include "MetaAssertion.h"
 
-#include "aunit/Verbosity.h"
-#include "aunit/Compare.h"
-#include "aunit/Printer.h"
-#include "aunit/Test.h"
-#include "aunit/Assertion.h"
-#include "aunit/MetaAssertion.h"
-#include "aunit/TestOnce.h"
-#include "aunit/TestAgain.h"
-#include "aunit/TestRunner.h"
-#include "aunit/TestMacro.h"
+class __FlashStringHelper;
 
-// Version format: 010203 == "1.2.3"
-#define AUNIT_VERSION 000303
+namespace aunit {
+
+/** Similar to TestOnce but performs the user-defined test multiple times. */
+class TestAgain: public MetaAssertion {
+  public:
+    /** Constructor. */
+    TestAgain() {}
+
+    /**
+     * Calls the user-provided again() method multiple times until the user
+     * code explicitly resolves the test using pass(), fail(), skip() or
+     * expire().
+     */
+    virtual void loop() override;
+
+    /** User-provided test case. */
+    virtual void again() = 0;
+
+  private:
+    // Disable copy-constructor and assignment operator
+    TestAgain(const TestAgain&) = delete;
+    TestAgain& operator=(const TestAgain&) = delete;
+};
+
+}
 
 #endif

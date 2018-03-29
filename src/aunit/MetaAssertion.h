@@ -34,7 +34,6 @@ SOFTWARE.
 #ifndef AUNIT_META_ASSERTION_H
 #define AUNIT_META_ASSERTION_H
 
-#include <Arduino.h>  // definition of Print
 #include "Printer.h"
 #include "Assertion.h"
 

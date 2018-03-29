@@ -1,9 +1,13 @@
+#ifndef AUNIT_AUNIT_TEST_H
+#define AUNIT_AUNIT_TEST_H
+
 // If ArduinoUnit is used, this unit test no longer fits in a 32kB
 // Arduino UNO or Nano.
 #define USE_AUNIT 1
 
 #if USE_AUNIT == 1
 
+#include <Arduino.h> // random()
 #include <AUnit.h>
 using namespace aunit;
 
@@ -21,7 +25,7 @@ class CustomOnceFixture: public TestOnce {
     int n;
 };
 
-class CustomLoopFixture: public Test {
+class CustomLoopFixture: public TestAgain {
   protected:
     virtual void setup() override {
       n = random(6);
@@ -49,6 +53,8 @@ class CustomLoopFixture: public Test {
 #ifndef FPSTR
 #define FPSTR(pstr_pointer) \
     (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
+#endif
+
 #endif
 
 #endif

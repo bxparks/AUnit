@@ -22,28 +22,42 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/**
- * @mainpage AUnit Library
- *
- * This is the Doxygen documentation for the
- * <a href="https://github.com/bxparks/AUnit">AUnit Library</a>.
- */
+// Significant portions of the design and implementation of this file came from
+// https://github.com/mmurdoch/arduinounit/blob/master/src/ArduinoUnit.h
 
-#ifndef AUNIT_AUNIT_H
-#define AUNIT_AUNIT_H
+#ifndef AUNIT_TEST_ONCE_H
+#define AUNIT_TEST_ONCE_H
 
-#include "aunit/Verbosity.h"
-#include "aunit/Compare.h"
-#include "aunit/Printer.h"
-#include "aunit/Test.h"
-#include "aunit/Assertion.h"
-#include "aunit/MetaAssertion.h"
-#include "aunit/TestOnce.h"
-#include "aunit/TestAgain.h"
-#include "aunit/TestRunner.h"
-#include "aunit/TestMacro.h"
+#include <stdint.h>
+#include "FCString.h"
+#include "MetaAssertion.h"
 
-// Version format: 010203 == "1.2.3"
-#define AUNIT_VERSION 000303
+class __FlashStringHelper;
+
+namespace aunit {
+
+/** Similar to TestAgain but performs user-defined test only once. */
+class TestOnce: public MetaAssertion {
+  public:
+    /** Constructor. */
+    TestOnce() {}
+
+    /**
+     * Calls the user-provided once() method. If no other assertXxx() macros set
+     * the internal status, then this calls pass() to make sure that this test
+     * case will be called only once from Test::run().
+     */
+    virtual void loop() override;
+
+    /** User-provided test case. */
+    virtual void once() = 0;
+
+  private:
+    // Disable copy-constructor and assignment operator
+    TestOnce(const TestOnce&) = delete;
+    TestOnce& operator=(const TestOnce&) = delete;
+};
+
+}
 
 #endif

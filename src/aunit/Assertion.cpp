@@ -24,6 +24,7 @@ SOFTWARE.
 
 #include <Arduino.h>  // definition of Print
 #include "TestRunner.h" // seems like a circular reference but ok from cpp file
+#include "Printer.h"
 #include "Assertion.h"
 
 namespace aunit {

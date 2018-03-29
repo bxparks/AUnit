@@ -36,8 +36,7 @@ SOFTWARE.
 #ifndef AUNIT_ASSERTION_H
 #define AUNIT_ASSERTION_H
 
-#include "Printer.h"
-#include "Verbosity.h"
+#include "Test.h"
 
 /** Assert that arg1 is equal to arg2. */
 #define assertEqual(arg1,arg2) assertOp(arg1,aunit::compareEqual,"==",arg2)
@@ -72,13 +71,8 @@ SOFTWARE.
     return;\
 } while (false)
 
-// Defined in ESP8266, not defined in AVR or Teensy
-#ifndef FPSTR
-#define FPSTR(pstr_pointer) \
-    (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
-#endif
-
 class __FlashStringHelper;
+class String;
 
 namespace aunit {
 
@@ -96,25 +90,10 @@ namespace aunit {
  * Having the Test class inherit from Assertion will allow end-users to
  * override certain methods in the future.
  */
-class Assertion {
-  public:
-    /** Enable the given verbosity of the current test. */
-    void enableVerbosity(uint8_t verbosity) { mVerbosity |= verbosity; }
-
-    /** Disable the given verbosity of the current test. */
-    void disableVerbosity(uint8_t verbosity) { mVerbosity &= ~verbosity; }
-
+class Assertion: public Test {
   protected:
     /** Empty constructor. */
-    Assertion():
-        mVerbosity(0)
-    {}
-
-    /** Determine if any of the given verbosity is enabled. */
-    bool isVerbosity(uint8_t verbosity) { return mVerbosity & verbosity; }
-
-    /** Get the verbosity. */
-    uint8_t getVerbosity() { return mVerbosity; }
+    Assertion() {}
 
     /** Returns true if an assertion message should be printed. */
     bool isOutputEnabled(bool ok);
@@ -202,8 +181,6 @@ class Assertion {
     // Disable copy-constructor and assignment operator
     Assertion(const Assertion&) = delete;
     Assertion& operator=(const Assertion&) = delete;
-
-    uint8_t mVerbosity;
 };
 
 }
