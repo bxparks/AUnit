@@ -20,22 +20,22 @@ testing(slow_expire) { if (millis() > 1000) expire(); }
 
 testF(CustomOnceFixture, fixture_external) {}
 
-testingF(CustomLoopFixture, fixture_slow_pass) {
+testingF(CustomAgainFixture, fixture_slow_pass) {
   assertCommon();
   if (millis() > 1000) pass();
 }
 
-testingF(CustomLoopFixture, fixture_slow_fail) {
+testingF(CustomAgainFixture, fixture_slow_fail) {
   assertCommon();
   if (millis() > 1000) fail();
 }
 
-testingF(CustomLoopFixture, fixture_slow_skip) {
+testingF(CustomAgainFixture, fixture_slow_skip) {
   assertCommon();
   if (millis() > 1000) skip();
 }
 
-testingF(CustomLoopFixture, fixture_slow_expire) {
+testingF(CustomAgainFixture, fixture_slow_expire) {
   assertCommon();
   if (millis() > 1000) expire();
 }

@@ -1,3 +1,5 @@
+#line 2 "AUnitTest.h"
+
 #ifndef AUNIT_AUNIT_TEST_H
 #define AUNIT_AUNIT_TEST_H
 
@@ -21,11 +23,15 @@ class CustomOnceFixture: public TestOnce {
       assertLess(n, 6);
     }
 
+    void assertFailing() {
+      assertEqual(1, 2);
+    }
+
   private:
     int n;
 };
 
-class CustomLoopFixture: public TestAgain {
+class CustomAgainFixture: public TestAgain {
   protected:
     virtual void setup() override {
       n = random(6);

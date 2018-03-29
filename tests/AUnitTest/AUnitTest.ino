@@ -533,15 +533,11 @@ testF(CustomOnceFixture, customOnceFixture1) {
 }
 
 testF(CustomOnceFixture, customOnceFixture2) {
-  assertCommon();
+  assertFailing();
+  assertTrue(false);  // should bail out early because of prev failure
 }
 
-testingF(CustomLoopFixture, customLoopFixture1) {
-  assertCommon();
-  pass();
-}
-
-testingF(CustomLoopFixture, customLoopFixture2) {
+testingF(CustomAgainFixture, customAgainFixture) {
   assertCommon();
   pass();
 }
@@ -549,23 +545,22 @@ testingF(CustomLoopFixture, customLoopFixture2) {
 // Check that in the case of picking the wrong class for the testF() or the
 // testingF() macros, the compiler gives an error.
 
-// Test a testingF() macro with a TestOnce class.
-// Compiler error because testingF() overrides a loop() which exists in
-// TestOnce, but TestOnce expects a once() which isn't provided.
-/*
-testingF(CustomOnceFixture, crossedTesting) {
+#if 0
+// Test a testingF() macro with a TestOnce class. Should get compiler error
+// because testingF() overrides an again() method which doesn't exist in
+// TestOnce.
+testingF(CustomOnceFixture, crossedOnce) {
   assertCommon();
 }
-*/
+#endif
 
-// Test a testF() macro with a Test class.
-// Compiler error because testF() overrides a once() method, which doesn't
-// exist in Test class.
-/*
-testF(CustomLoopFixture, crossedLooping) {
+#if 0
+// Test a testF() macro with a TestAgain class. Should get compiler error
+// because testF() overrides a once() method which doesn't exist in TestAgain.
+testF(CustomAgainFixture, crossedAgain) {
   assertCommon();
 }
-*/
+#endif
 
 // -------------------------------------------------------------------------
 // Verify that externTestF() and externTestingF() work.
@@ -577,10 +572,10 @@ testing(fixture_external_monitor) {
   assertTestDone(fixture_external);
 }
 
-externTestingF(CustomLoopFixture, fixture_slow_pass);
-externTestingF(CustomLoopFixture, fixture_slow_fail);
-externTestingF(CustomLoopFixture, fixture_slow_skip);
-externTestingF(CustomLoopFixture, fixture_slow_expire);
+externTestingF(CustomAgainFixture, fixture_slow_pass);
+externTestingF(CustomAgainFixture, fixture_slow_fail);
+externTestingF(CustomAgainFixture, fixture_slow_skip);
+externTestingF(CustomAgainFixture, fixture_slow_expire);
 
 testing(fixture_slow_pass_monitor) {
   unsigned long now = millis();
@@ -759,7 +754,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    28 passed, 3 failed, 2 skipped, 4 timed out, out of 37 test(s).
+  //    26 passed, 4 failed, 2 skipped, 4 timed out, out of 36 test(s).
   TestRunner::run();
 #else
   Test::run();

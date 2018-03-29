@@ -77,18 +77,23 @@ class String;
 namespace aunit {
 
 /**
- * Base class that provides the various overloaded assertion() functions.
+ * An Assertion class is a subclass of Test and provides various overloaded
+ * assertion() functions. Having this class inherit from Test allows it to
+ * have access to the mVerbosity setting, as well as the test's current
+ * mStatus. (An earlier implementation inverted the class hierarchy between
+ * Assertion and Test). That allows every assertion() method to bail out early
+ * if it detects the result of a previous assertion() in mStatus. This delayed
+ * bailout may happen if the assertXxx() macro was called from inside a helper
+ * method of a fixture class used by testF() or testingF() macros.
+ *
  * For the same reason as the compareXxx() methods, we use explicit overloaded
  * functions, instead of using template specialization. And just as before, I
- * was unable to use a template function for primitive integer types, because it
- * interfered with the resolution of assertion(char*, char*). The wrong function
- * would be called.
+ * was unable to use a template function for primitive integer types, because
+ * it interfered with the resolution of assertion(char*, char*). The wrong
+ * function would be called.
  *
  * The assertion() methods are internal helpers, they should not be called
  * directly by users.
- *
- * Having the Test class inherit from Assertion will allow end-users to
- * override certain methods in the future.
  */
 class Assertion: public Test {
   protected:
