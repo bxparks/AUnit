@@ -71,6 +71,7 @@ void MetaAssertion::printAssertionTestStatusMessage(
 
 bool MetaAssertion::assertionTestStatus(const char* file, uint16_t line,
     const char* testName, const __FlashStringHelper* statusMessage, bool ok) {
+  if (isDone()) return false;
   if (isOutputEnabled(ok)) {
     printAssertionTestStatusMessage(ok, file, line, testName, statusMessage);
   }
