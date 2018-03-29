@@ -71,36 +71,6 @@ test_ ## name :: test_ ## name() {\
 void test_ ## name :: again()
 
 /**
- * Create a test that is derived from a custom TestOnce class.
- * The name of the instance is generated with the same rule as test() macro
- * which allows meta-assertions (assertTestXxx()) to work on these as well.
- */
-#define testF(test_class, name) \
-struct test_class ## _ ## name : test_class {\
-  test_class ## _ ## name();\
-  virtual void once() override;\
-} test_ ## name ## _instance;\
-test_class ## _ ## name :: test_class ## _ ## name() {\
-  init(F(#name));\
-}\
-void test_class ## _ ## name :: once()
-
-/**
- * Create a test that is derived from a custom TestAgain class.
- * The name of the instance is generated with the same rule as testing() macro
- * which allows meta-assertions (assertTestXxx()) to work on these as well.
- */
-#define testingF(test_class, name) \
-struct test_class ## _ ## name : test_class {\
-  test_class ## _ ## name();\
-  virtual void again() override;\
-} test_ ## name ## _instance;\
-test_class ## _ ## name :: test_class ## _ ## name() {\
-  init(F(#name));\
-}\
-void test_class ## _ ## name :: again()
-
-/**
  * Create an extern reference to a test() test case object defined elsewhere.
  * This is only necessary if you use assertTestXxx() or checkTestXxx() when the
  * test is in another file (or defined after the assertion on it).
@@ -124,6 +94,36 @@ extern test_##name test_##name##_instance
 extern test_##name test_##name##_instance
 
 /**
+ * Create a test that is derived from a custom TestOnce class.
+ * The name of the instance is prefixed by '{test_class}_' to avoid
+ * name collisions with similarly named tests using other fixtures.
+ */
+#define testF(test_class, name) \
+struct test_class ## _ ## name : test_class {\
+  test_class ## _ ## name();\
+  virtual void once() override;\
+} test_class ## _ ## name ## _instance;\
+test_class ## _ ## name :: test_class ## _ ## name() {\
+  init(F(#name));\
+}\
+void test_class ## _ ## name :: once()
+
+/**
+ * Create a test that is derived from a custom TestAgain class.
+ * The name of the instance is prefixed by '{test_class}_' to avoid
+ * name collisions with similarly named tests using other fixtures.
+ */
+#define testingF(test_class, name) \
+struct test_class ## _ ## name : test_class {\
+  test_class ## _ ## name();\
+  virtual void again() override;\
+} test_class ## _ ## name ## _instance;\
+test_class ## _ ## name :: test_class ## _ ## name() {\
+  init(F(#name));\
+}\
+void test_class ## _ ## name :: again()
+
+/**
  * Create an extern reference to a testF() test case object defined elsewhere.
  * This is only necessary if you use assertTestXxx() or checkTestXxx() when the
  * test is in another file (or defined after the assertion on it).
@@ -133,7 +133,7 @@ struct test_class ## _ ## name : test_class {\
   test_class ## _ ## name();\
   virtual void once() override;\
 };\
-extern test_class ## _ ## name test_##name##_instance
+extern test_class ## _ ## name test_class##_##name##_instance
 
 /**
  * Create an extern reference to a testingF() test case object defined
@@ -146,6 +146,6 @@ struct test_class ## _ ## name : test_class {\
   test_class ## _ ## name();\
   virtual void again() override;\
 };\
-extern test_class ## _ ## name test_##name##_instance
+extern test_class ## _ ## name test_class##_##name##_instance
 
 #endif

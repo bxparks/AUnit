@@ -569,7 +569,7 @@ testF(CustomAgainFixture, crossedAgain) {
 externTestF(CustomOnceFixture, fixture_external);
 
 testing(fixture_external_monitor) {
-  assertTestDone(fixture_external);
+  assertTestDoneF(CustomOnceFixture, fixture_external);
 }
 
 externTestingF(CustomAgainFixture, fixture_slow_pass);
@@ -580,36 +580,36 @@ externTestingF(CustomAgainFixture, fixture_slow_expire);
 testing(fixture_slow_pass_monitor) {
   unsigned long now = millis();
   if (now < 1000) {
-    assertTestNotDone(fixture_slow_pass);
-    assertTrue(checkTestNotDone(fixture_slow_pass));
+    assertTestNotDoneF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_pass));
 
-    assertTestNotPass(fixture_slow_pass);
-    assertTrue(checkTestNotPass(fixture_slow_pass));
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_pass));
 
-    assertTestNotFail(fixture_slow_pass);
-    assertTrue(checkTestNotFail(fixture_slow_pass));
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_pass));
 
-    assertTestNotSkip(fixture_slow_pass);
-    assertTrue(checkTestNotSkip(fixture_slow_pass));
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_pass));
 
-    assertTestNotExpire(fixture_slow_pass);
-    assertTrue(checkTestNotExpire(fixture_slow_pass));
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotExpireF(CustomAgainFixture, fixture_slow_pass));
   }
   if (now > 2000) {
-    assertTestDone(fixture_slow_pass);
-    assertTrue(checkTestDone(fixture_slow_pass));
+    assertTestDoneF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_pass));
 
-    assertTestPass(fixture_slow_pass);
-    assertTrue(checkTestPass(fixture_slow_pass));
+    assertTestPassF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestPassF(CustomAgainFixture, fixture_slow_pass));
 
-    assertTestNotFail(fixture_slow_pass);
-    assertTrue(checkTestNotFail(fixture_slow_pass));
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_pass));
 
-    assertTestNotSkip(fixture_slow_pass);
-    assertTrue(checkTestNotSkip(fixture_slow_pass));
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_pass));
 
-    assertTestNotExpire(fixture_slow_pass);
-    assertTrue(checkTestNotExpire(fixture_slow_pass));
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotExpireF(CustomAgainFixture, fixture_slow_pass));
 
     pass();
   }
@@ -618,36 +618,36 @@ testing(fixture_slow_pass_monitor) {
 testing(fixture_slow_fail_monitor) {
   unsigned long now = millis();
   if (now < 1000) {
-    assertTestNotDone(fixture_slow_fail);
-    assertTrue(checkTestNotDone(fixture_slow_fail));
+    assertTestNotDoneF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_fail));
 
-    assertTestNotPass(fixture_slow_fail);
-    assertTrue(checkTestNotPass(fixture_slow_fail));
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_fail));
 
-    assertTestNotFail(fixture_slow_fail);
-    assertTrue(checkTestNotFail(fixture_slow_fail));
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_fail));
 
-    assertTestNotSkip(fixture_slow_fail);
-    assertTrue(checkTestNotSkip(fixture_slow_fail));
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_fail));
 
-    assertTestNotExpire(fixture_slow_fail);
-    assertTrue(checkTestNotExpire(fixture_slow_fail));
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotExpireF(CustomAgainFixture, fixture_slow_fail));
   }
   if (now > 2000) {
-    assertTestDone(fixture_slow_fail);
-    assertTrue(checkTestDone(fixture_slow_fail));
+    assertTestDoneF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_fail));
 
-    assertTestNotPass(fixture_slow_fail);
-    assertTrue(checkTestNotPass(fixture_slow_fail));
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_fail));
 
-    assertTestFail(fixture_slow_fail);
-    assertTrue(checkTestFail(fixture_slow_fail));
+    assertTestFailF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestFailF(CustomAgainFixture, fixture_slow_fail));
 
-    assertTestNotSkip(fixture_slow_fail);
-    assertTrue(checkTestNotSkip(fixture_slow_fail));
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_fail));
 
-    assertTestNotExpire(fixture_slow_fail);
-    assertTrue(checkTestNotExpire(fixture_slow_fail));
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotExpireF(CustomAgainFixture, fixture_slow_fail));
 
     pass();
   }
@@ -656,32 +656,32 @@ testing(fixture_slow_fail_monitor) {
 testing(fixture_slow_skip_monitor) {
   unsigned long now = millis();
   if (now < 1000) {
-    assertTestNotDone(fixture_slow_skip);
-    assertTrue(checkTestNotDone(fixture_slow_skip));
+    assertTestNotDoneF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_skip));
 
-    assertTestNotPass(fixture_slow_skip);
-    assertTrue(checkTestNotPass(fixture_slow_skip));
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_skip));
 
-    assertTestNotFail(fixture_slow_skip);
-    assertTrue(checkTestNotFail(fixture_slow_skip));
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_skip));
 
-    assertTestNotSkip(fixture_slow_skip);
-    assertTestNotExpire(fixture_slow_skip);
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_skip);
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_skip);
   }
   if (now > 2000) {
-    assertTestDone(fixture_slow_skip);
-    assertTrue(checkTestDone(fixture_slow_skip));
+    assertTestDoneF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_skip));
 
-    assertTestNotPass(fixture_slow_skip);
-    assertTrue(checkTestNotPass(fixture_slow_skip));
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_skip));
 
-    assertTestNotFail(fixture_slow_skip);
-    assertTrue(checkTestNotFail(fixture_slow_skip));
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_skip));
 
-    assertTestSkip(fixture_slow_skip);
-    assertTrue(checkTestSkip(fixture_slow_skip));
+    assertTestSkipF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestSkipF(CustomAgainFixture, fixture_slow_skip));
 
-    assertTestNotExpire(fixture_slow_skip);
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_skip);
     pass();
   }
 }
@@ -689,34 +689,34 @@ testing(fixture_slow_skip_monitor) {
 testing(fixture_slow_expire_monitor) {
   unsigned long now = millis();
   if (now < 1000) {
-    assertTestNotDone(fixture_slow_expire);
-    assertTrue(checkTestNotDone(fixture_slow_expire));
+    assertTestNotDoneF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_expire));
 
-    assertTestNotPass(fixture_slow_expire);
-    assertTrue(checkTestNotPass(fixture_slow_expire));
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_expire));
 
-    assertTestNotFail(fixture_slow_expire);
-    assertTrue(checkTestNotFail(fixture_slow_expire));
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_expire));
 
-    assertTestNotSkip(fixture_slow_expire);
-    assertTrue(checkTestNotSkip(fixture_slow_expire));
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_expire));
 
-    assertTestNotExpire(fixture_slow_expire);
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_expire);
   }
   if (now > 2000) {
-    assertTestDone(fixture_slow_expire);
-    assertTrue(checkTestDone(fixture_slow_expire));
+    assertTestDoneF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_expire));
 
-    assertTestNotPass(fixture_slow_expire);
-    assertTrue(checkTestNotPass(fixture_slow_expire));
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_expire));
 
-    assertTestNotFail(fixture_slow_expire);
-    assertTrue(checkTestNotFail(fixture_slow_expire));
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_expire));
 
-    assertTestNotSkip(fixture_slow_expire);
-    assertTrue(checkTestNotSkip(fixture_slow_expire));
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_expire));
 
-    assertTestExpire(fixture_slow_expire);
+    assertTestExpireF(CustomAgainFixture, fixture_slow_expire);
     pass();
   }
 }
