@@ -78,9 +78,6 @@ class TestRunner {
     /** Set the output printer. */
     static void setPrinter(Print* printer);
 
-    /** Set the pass/fail status of the current test. */
-    static void setPassOrFail(bool ok) { getRunner()->setTestPassOrFail(ok); }
-
     /**
      * Set test runner timeout across all tests, in seconds. Set to 0 for
      * infinite timeout. Useful for preventing testing() test cases that never
@@ -131,9 +128,6 @@ class TestRunner {
 
     /** Set the status of the tests which match the pattern. */
     void setStatusMatchingPattern(const char* pattern, uint8_t status);
-
-    /** Set the pass/fail status of the current test. */
-    void setTestPassOrFail(bool ok) { (*mCurrent)->setPassOrFail(ok); }
 
     /** Set the test runner timeout. */
     void setRunnerTimeout(TimeoutType seconds);

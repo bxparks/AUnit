@@ -74,7 +74,7 @@ bool MetaAssertion::assertionTestStatus(const char* file, uint16_t line,
   if (isOutputEnabled(ok)) {
     printAssertionTestStatusMessage(ok, file, line, testName, statusMessage);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 

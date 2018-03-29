@@ -77,7 +77,7 @@ bool Assertion::assertion(const char* file, uint16_t line, bool lhs,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -89,7 +89,7 @@ bool Assertion::assertion(const char* file, uint16_t line, char lhs,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -101,7 +101,7 @@ bool Assertion::assertion(const char* file, uint16_t line, int lhs,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -113,7 +113,7 @@ bool Assertion::assertion(const char* file, uint16_t line, unsigned int lhs,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -125,7 +125,7 @@ bool Assertion::assertion(const char* file, uint16_t line, long lhs,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -137,7 +137,7 @@ bool Assertion::assertion(const char* file, uint16_t line, unsigned long lhs,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -149,7 +149,7 @@ bool Assertion::assertion(const char* file, uint16_t line, double lhs,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -161,7 +161,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -173,7 +173,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -186,7 +186,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -198,7 +198,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -210,7 +210,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -223,7 +223,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -236,7 +236,7 @@ bool Assertion::assertion(const char* file, uint16_t line,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -249,7 +249,7 @@ bool Assertion::assertion(const char* file, uint16_t line,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
@@ -262,7 +262,7 @@ bool Assertion::assertion(const char* file, uint16_t line,
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
   }
-  TestRunner::setPassOrFail(ok);
+  setPassOrFail(ok);
   return ok;
 }
 
