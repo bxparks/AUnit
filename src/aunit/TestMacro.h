@@ -104,7 +104,7 @@ struct test_class ## _ ## name : test_class {\
   virtual void once() override;\
 } test_class ## _ ## name ## _instance;\
 test_class ## _ ## name :: test_class ## _ ## name() {\
-  init(F(#name));\
+  init(F(#test_class "_" #name));\
 }\
 void test_class ## _ ## name :: once()
 
@@ -119,7 +119,7 @@ struct test_class ## _ ## name : test_class {\
   virtual void again() override;\
 } test_class ## _ ## name ## _instance;\
 test_class ## _ ## name :: test_class ## _ ## name() {\
-  init(F(#name));\
+  init(F(#test_class "_" #name));\
 }\
 void test_class ## _ ## name :: again()
 

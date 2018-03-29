@@ -32,39 +32,42 @@ SOFTWARE.
 #include <AUnit.h>
 using namespace aunit;
 
-class BaseTest: public TestOnce {
+test(configure) {}
+test(display) {}
+
+class CustomOnce: public TestOnce {
 };
 
-class ATest: public BaseTest {
+testF(CustomOnce, configure) {}
+testF(CustomOnce, display) {}
+
+class CustomAgain: public TestAgain {
 };
 
-class BTest: public ATest {
-};
-
-testF(ATest, setPattern_setBrightness) {}
-testF(ATest, writeDigitPin) {}
-testF(ATest, writeSegmentPin) {}
-testF(ATest, configure) {}
-testF(ATest, displayCurrentField_one_dark) {}
-testF(ATest, displayCurrentField_repeated_segment_pattern) {}
-testF(BTest, mod_configure) {}
-testF(BTest, mod_displayCurrentField_one_dark) {}
-test(incrementMod) {}
-test(calcPulseFraction) {}
-test(calcBlinkState) {}
+testingF(CustomAgain, configure) { pass(); }
+testingF(CustomAgain, display) { pass(); }
 
 void setup() {
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
   Serial.begin(74880); // 74880 is the default for some ESP8266 boards
   while (! Serial); // Wait until Serial is ready - Leonardo
 
+  // Verify that the names of these tests don't collide and can be
+  // independently selected. Name of test = "{test_class}_{name}".
   TestRunner::list();
   TestRunner::exclude("*");
   TestRunner::list();
-  TestRunner::include("mod_*");
+  TestRunner::include("CustomAgain*");
+  TestRunner::list();
+  TestRunner::include("CustomOnce_dis*");
+  TestRunner::list();
+  TestRunner::include("configure");
   TestRunner::list();
 }
 
 void loop() {
+  // Should get:
+  // TestRunner summary:
+  //    4 passed, 0 failed, 2 skipped, 0 timed out, out of 6 test(s).
   TestRunner::run();
 }
