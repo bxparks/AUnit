@@ -280,6 +280,7 @@ class Test: public MetaAssertion {
 
     void init(const char* name) {
       mName = FCString(name);
+      mStatus = kStatusNew;
       insert();
     }
 

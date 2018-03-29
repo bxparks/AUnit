@@ -62,7 +62,7 @@ class TestRunner {
      * Currently supports only a trailing '*'. For example, include("flash*").
      */
     static void include(const char* pattern) {
-      getRunner()->setStatusMatchingPattern(pattern, Test::kStatusSetup);
+      getRunner()->setStatusMatchingPattern(pattern, Test::kStatusNew);
     }
 
     /** Set the verbosity flag. */

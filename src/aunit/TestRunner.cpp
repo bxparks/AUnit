@@ -218,12 +218,12 @@ void TestRunner::listTests() {
 
   Print* printer = Printer::getPrinter();
   printer->print(F("TestRunner test count: "));
-  printer->print(mCount);
-  printer->println('.');
+  printer->println(mCount);
   for (Test** p = Test::getRoot(); (*p) != nullptr; p = (*p)->getNext()) {
     printer->print(F("Test "));
     Printer::print((*p)->getName());
-    printer->println(F(" found."));
+    printer->print(F("; status: "));
+    printer->println((*p)->getStatus());
   }
 }
 
