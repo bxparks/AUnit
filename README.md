@@ -4,15 +4,15 @@ Version: 0.3.3 (2018-03-22)
 
 ## Summary
 
-**AUnit** (rhymes with "JUnit") is a unit testing framework based
-on the venerable [ArduinoUnit](https://github.com/mmurdoch/arduinounit)
-framework. It is almost a drop-in replacement for the API implemented by
-ArduinoUnit version 2.2. Just like ArduinoUnit, the unit tests run directly on
-the microcontrollers themselves, not on emulators or simulators. The test
-results are printed on the `Serial` object by default, but can be redirected to
-another `Print` object.
+**AUnit** (rhymes with "JUnit") is a unit testing framework inspired
+by [ArduinoUnit](https://github.com/mmurdoch/arduinounit)
+and [Google Test](https://github.com/google/googletest/).
+It is almost a drop-in replacement for the API implemented by ArduinoUnit 2.2.
+Just like ArduinoUnit, the unit tests run directly on the microcontrollers
+themselves, not on emulators or simulators. The test results are printed on the
+`Serial` object by default, but can be redirected to another `Print` object.
 
-AUnit was created to solve 2 problems with ArduinoUnit:
+AUnit was created to solve 3 problems with ArduinoUnit:
 * ArduinoUnit consumes too much flash memory on an AVR platform (e.g.
   Arduino UNO, Nano) as explained in
   [ArduinoUnit#70](https://github.com/mmurdoch/arduinounit/issues/70).
@@ -21,11 +21,14 @@ AUnit was created to solve 2 problems with ArduinoUnit:
   [ArduinoUni#57](https://github.com/mmurdoch/arduinounit/pull/57),
   [ArduinoUni#55](https://github.com/mmurdoch/arduinounit/issues/55),
   [ArduinoUni#54](https://github.com/mmurdoch/arduinounit/issues/54)).
+* ArduinoUnit does not provide an easy way to create tests using fixtures,
+  equivalent to the `TEST_F()` macro in Google Test.
 
 In contrast:
 * AUnit consumes as much as 65% *less* flash memory than ArduinoUnit on the
   AVR platform. On Teensy-ARM, the savings can be as much as 30%.
 * AUnit has been tested on AVR, Teensy-ARM and ESP8266.
+* AUnit implements the `testF()` and `testingF()` macros to use fixtures.
 
 ### Supported or Compatible Features
 
@@ -69,11 +72,20 @@ Here are the features in AUnit which are not available in ArduinoUnit:
 * The `TestRunner` supports a configurable timeout parameter which
   can prevent `testing()` test cases from running forever. The following
   methods and macros are available in AUnit to support this feature:
+    * `TestRunner::setTimeout(seconds)`
     * `Test::expire()`
     * `assertTestExpire()`
     * `assertTestNotExpire()`
     * `checkTestExpire()`
     * `checkTestNotExpire()`
+* AUnit adds support for test fixtures using the "F" variations of existing
+  macros:
+    * `testF()`
+    * `testingF()`
+    * `assertTestXxxF()`
+    * `checkTestXxxF()`
+    * `externTestF()`
+    * `externTestingF()`
 * AUnit works on the ESP8266 platform.
 
 ### Beta Status
@@ -112,7 +124,8 @@ The `examples/` directory has a number of examples:
 * `continuous` - using the `testing()` macro
 * `filter` - how to filter tests using `TestRunner::include()` and
   `TestRunner::exclude()`
-* `meta_asserts` - how to use `assertTestXxx()` and `checkTestXxx`
+* `fixture` - how to use the `testF()` macro with test fixtures
+* `meta_asserts` - how to use `assertTestXxx()` and `checkTestXxx()`
 
 In the `tests/` directory:
 
@@ -140,39 +153,23 @@ Similar to ArduinoUnit, many of the "functions" in this framework (e.g.
 in the global namespace, so it is usually not necessary to import the entire
 `aunit` namespace.
 
-***ArduinoUnit Compatibility***: _I have found that the following macros are
-useful during the transition from ArduinoUnit to AUnit_
-```
-#define USE_AUNIT 1
-
-#if USE_AUNIT == 1
-#include <AUnit.h>
-#else
-#include <ArduinoUnit.h>
-#endif
-
-...
-
-void loop() {
-#if USE_AUNIT == 1
-  aunit::TestRunner::run();
-#else
-  Test::run();
-#endif
-}
-```
-
 ### Defining the Tests
 
 The usage of **AUnit** is basically identical to **ArduinoUnit**. The following
-macros are used to create a subclass of one of the two test classes (`Test` or
-`TestOnce`):
+macros are used to create a test:
 
-* `test()`
-* `testing()`
+* `test(name) {...}` - creates a subclass of `TestOnce`
+* `testing(name) {...}` - creates a subclass of `TestAgain`
+* `testF(classname, name) {...}` - creates a subclass of `classname`
+* `testingF(classname, name) {...}` - creates a subclass of `classname`
 
-and the code in `{ }` following these macros becomes the body of the `looping()`
-or `once()` methods of the two base test classes.
+The code in `{ }` following these macros becomes the body of a method in a
+subclass derived from the base class indicated above. The `test()` and `testF()`
+macros place the code body into the `TestOnce::once()` method. The `testing()`
+and `testingF()` macros place the code body into the `TestAgain::again()`
+method. The name of the subclass is a concatenation of the string `"test_` and
+the `name` (for `test()` and `testing()`) the `classname` and the `name` (for
+`testF()` and testing()`).
 
 The argument to these macros are the name of the test case, and is used to
 generate a name for the subclass. (The name is available within the test code
@@ -209,6 +206,43 @@ testing(looping_test) {
   }
 }
 
+class CustomTestOnce: public TestOnce {
+  protected:
+    virtual void setup() {
+      ...common setup code...
+    }
+
+    void assertBigStuff() {
+      ... common higher level assertions ...
+      assertEqual(c, d);
+      ...
+    }
+};
+
+testF(CustomTestOnce, example_test) {
+  ...
+  assertBigStuff();
+  ...
+}
+
+class CustomTestAgain: public TestAgain {
+  protected:
+    virtual void setup() override {
+      ...
+    }
+
+    void assertHelper() {
+      assertEqual(c, c);
+      ...
+    }
+};
+
+testingF(CustomTestAgain, examle_test) {
+  ...
+  assertBigStuff();
+  ...
+}
+
 void setup() {
   Serial.begin(74880); // 74880 is the default for some ESP8266 boards
   while (! Serial); // Wait until Serial is ready - Leonardo
@@ -222,8 +256,10 @@ void loop() {
 }
 ```
 
-***ArduinoUnit Compatibility***: _The basic structure of the
-unit test is identical to ArduinoUnit._
+***ArduinoUnit Compatibility***: _The basic structure of the unit test is
+identical to ArduinoUnit. AUnit adds the `testF()` and `testingF`() macros which
+are not available in ArduinoUnit. The `Test` class in ArduinoUnit has been
+replaced with the `TestAgain` class in AUnit._
 
 ### Binary Assertions
 
@@ -342,6 +378,141 @@ The following boolean asserts are also available:
 
 ***ArduinoUnit Compatibility***: _These are identical to ArduinoUnit._
 
+### Test Fixtures
+
+When the unit tests become more complex, using test fixtures will allow you to
+place common data objects and methods into a class that can be shared among
+multiple test cases. This concept matches very closely to the the test fixtures
+in
+[Google Test](https://github.com/google/googletest/blob/master/googletest/docs/Primer.md).
+
+To create a test fixture:
+1. Derives a new class from either `TestOnce` (if you want to run the test just
+   once), or `TestAgain` (if you want to run the test repeatedly).
+1. Add any data objects inside the class.
+1. Add a `void setup() {...}` method to perform any common
+   initialization code. Be sure to call the parent's `setup()` method in the
+   first line to chain any `setup()` methods defined by the parents. There may
+   be multiple parent classes.
+1. Add any additional shared methods into this new class.
+
+To define your tests, use the `testF()` macro like this:
+```
+class CustomTestOnce: public TestOnce {
+  protected:
+    virtual void setup() override {
+      TestOnce::setup(); // chain the parent's setup()
+      ... setup code ...
+    }
+
+    void assertCustomStuff() {
+      ... common code ...
+    }
+
+    int sharedValue;
+};
+
+testF(CustomTestOnce, calculate) {
+  ... test code here ...
+}
+```
+No constructor for `CustomTestOnce` needs to be defined.
+
+Underneath the covers, the `testF()` macro creates a subclass named
+`CustomTestOnce_calculate` which inherits from `TestOnce` class. The test code
+becomes the body of the `CustomTestOnce_calculate::once()` method. The name of
+this test has the class name prepended, so it is `CustomTestOnce_calculate`,
+which prevents name collision with other `testF()` tests with the same
+name using a different test fixture class.
+
+To define a continuous test, use the `testingF()` macro like this:
+```
+class CustomTestAgain: public TestAgain {
+  protected:
+    virtual void setup() override {
+      TestOnce::setup(); // chain the parent's setup()
+      ... setup code ...
+    }
+
+    void assertCustomStuff() {
+      ... common code ...
+    }
+
+    int sharedValue;
+};
+
+testingF(CustomTestAgain, calculate) {
+  ... test code here ...
+}
+```
+
+Similarly, the `testingF()` macro creates a subclass named
+`CustomTestAgain_calculate`, and the test code becomes the body of the
+`CustomTestAgain_calculate::again()` method.
+
+See `examples/fixtures/fixtures.ino` to see a working example of the `testF()`
+macro.
+
+***ArduinoUnit Compatibility***: _The `testF()` and `testingF()` macros
+are available only in AUnit (and Google Test), not ArduinoUnit._
+
+### Early Return and Delayed Assertions
+
+AUnit (like ArduinoUnit and Google Test) does not use C++ exceptions. Instead,
+the various `assertXxx()` macros perform an early `return` if the condition
+evaluates to `false`. That means that the assertions can only bail out of the
+current method, not the calling method. If you are using test fixtures, and
+create a shared custom assert function, e.g. the `assertCustomStuff()` method
+above, any `assertXxx()` statements in shared method will bail out of that
+method only. The statement after the `assertCustomStuff()` will continue to
+execute.
+
+In other words, in the following example, if the `assertCustomStuff()` fails,
+then doStuff()` inside `testF()` will execute:
+
+```
+class CustomTestOnce: public TestOnce {
+  protected:
+    virtual void setup() override {
+      TestOnce::setup(); // chain the parent's setup()
+      ... setup code ...
+    }
+
+    void assertCustomStuff() {
+      assertEqual(sharedValue, 3);
+
+      // This will not execute if the assertEqual() failed.
+      assertLess(...);
+    }
+
+    int sharedValue;
+};
+
+testF(CustomTestOnce, calculate) {
+  assertCustomStuff();
+
+  // This will execute even if assertCustomStuff() failed.
+  doStuff();
+
+  // This will immediately exit this method if assertCustomStuff() failed.
+  assertTrue(true);
+
+  // This will NOT execute if assertCustomStuff() failed.
+  doMoreStuff();
+}
+```
+
+AUnit tries to mitigate this problem by having every `assertXxx()` macro
+perform a check to see if a previous assert statement raise an error condition
+for the test. If so, then the assert macro immediately exits. In the code above,
+`doMoreStuff()` will not execute, because the `assertNotEqual()` will immidately
+exit upon detecting the failure of `assertCustomStuff()`.
+
+Google Test has a
+[ASSERT_NO_FATAL_FAILURE( statement)](https://github.com/google/googletest/blob/master/googletest/docs/AdvancedGuide.md)
+macro that can guard against this possibility. AUnit does not have that macro,
+but we get the equivalent effect by doing a `assertTrue(true)` shown above.
+
 ### Meta Assertions
 
 The following methods from ArduinoUnit have also been implemented:
@@ -387,6 +558,8 @@ test cases are defined in another file:
 
 * `externTest()`
 * `externTesting()`
+* `externTestF()`
+* `externTestingF()`
 
 ***ArduinoUnit Compatibility***: _The methods marked by [&ast;] are only
 available in AUnit. Also, the assertion messages are different. ArduinoUnit
@@ -419,8 +592,12 @@ available in AUnit._
 The following methods are defined at the `Test` base class level:
 
 * `setup()`
-* `loop()`
+
+The `TestOnce` class defines:
 * `once()`
+
+The `TestAgain` class defines:
+* `again()`
 
 ***ArduinoUnit Compatibility***: _These are identifcal to ArduinoUnit._
 
@@ -655,7 +832,7 @@ which accidentally runs forever because the code forgets to call an explicit
 `pass()`, `fail()` or `skip()`.
 
 The `TestRunner` in AUnit applies a time out value to all the test cases that it
-runs. The default time out is 10000 milliseconds (10 seconds). Currently, the
+runs. The default time out is 10 seconds. Currently, the
 time out value is global to all test cases, individual test time out values
 cannot be set independently. If a test does not finish before that time, then
 the test is marked as `timed out` (internally implemented by the
@@ -665,20 +842,100 @@ Test looping_until timed out.
 ```
 
 The time out value can be changed by calling the static
-`TestRunner::setTimeout()` method. Here is an example that sets the timeout to 1
-second instead:
+`TestRunner::setTimeout()` method. Here is an example that sets the timeout to
+30 seconds instead:
 ```
 void setup() {
   ...
-  TestRunner::setTimeout(1000);
+  TestRunner::setTimeout(30);
   ...
 }
 ```
 
 A timeout value of `0` means an infinite timeout, which means that the
-`testing()` test case may run forever.
+`testing()` test case may run forever. To conserve static memory, the value of
+the timeout is stored as a single byte `uint8_t`, so the maximum timeout is 255
+seconds or 4m15s. (It could be argued that a test taking longer than this is not
+really a unit test but an integration test, and should probably use a different
+framework, but let me know if you truly need a timeout of greater than 4m15s).
 
 ***ArduinoUnit Compatibility***: _Only available in AUnit._
+
+## Tips
+
+Collection of useful tidbits.
+
+### Debugging Assertions in Fixtures
+
+When using test fixtures with the `testF()` and testingF()` macros, it's often
+useful to create helper assertions, such as the `assertCustomStuff()` below.
+Debugging such assertion statements can be tricky. I've found that turning on
+messages for successful assertions (with a
+`enableVerbosity(Verbosity::kAssertionPassed)`) statement can be very helpful:
+
+```
+class CustomTestOnce: public TestOnce {
+  protected:
+    virtual void setup() override {
+      TestOnce::setup(); // chain the parent's setup()
+      ... setup code ...
+    }
+
+    void assertCustomStuff() {
+      assertEqual(...);
+      ...
+      for (...) {
+        ...
+        assertEqual(...);
+        ...
+      }
+    }
+
+    int sharedValue;
+};
+
+testF(CustomTestOnce, calculate) {
+  enableVerbosity(Verbosity::kAssertionPassed);
+
+  ... test code here ...
+  assertCustomStuff();
+}
+```
+
+### Class Name Differences
+
+To support test fixtures in a more natural way, the class hierarchy
+in AUnit is slightly different than ArduinoUnit. In ArduinoUnit we have a
+two level hierarchy:
+```
+  Test ::loop()
+    ^
+    |
+ TestOnce ::once()
+ ```
+
+In AUnit, the functionality that supports the `testing()` macro has been
+migrated to a separate class called `TestAgain`, like this:
+
+```
+       Test ::loop()
+         ^
+         |
+      Assertion
+         ^
+         |
+     MetaAssertion
+        ^  ^
+       /    \
+      /      \
+TestAgain  TestOnce
+::again()  ::once()
+```
+
+Placing the `Assertion` and `MetaAssertion` classes inside the `Test` hierarchy
+allows those assertion statements to have access to the internal states of the
+`Test` instance, which makes certain functions (like the early return upon
+delayed failure) slightly easier to implement.
 
 ## Benchmarks
 
@@ -730,6 +987,7 @@ The library has been verified to work on the following hardware:
 
 * Arduino Nano clone (16 MHz ATmega328P)
 * Arduino UNO R3 clone (16 MHz ATmega328P)
+* Arduino Pro Mini clone (16 MHz ATmega328P)
 * Teensy LC (48 MHz ARM Cortex-M0+)
 * Teensy 3.2 (72 MHz ARM Cortex-M4)
 * NodeMCU 1.0 clone (ESP-12E module, 80MHz ESP8266)
