@@ -3,18 +3,12 @@
 // Adapted from:
 // https://github.com/mmurdoch/arduinounit/blob/master/examples/continuous/continuous.ino
 
-#define USE_AUNIT 1
-
-#if USE_AUNIT == 1
 #include <AUnit.h>
-#else
-#include <ArduinoUnit.h>
-#endif
 
 // test-once test named "once"
 test(once) {
-  int x=1;
-  assertLessOrEqual(x,1);
+  int x = 1;
+  assertLessOrEqual(x, 1);
 }
 
 // test-until-skip-pass-or-fail test named "continuous"
@@ -33,14 +27,8 @@ void setup() {
 }
 
 void loop() {
-#if USE_AUNIT == 1
   // Should get:
   // TestRunner summary:
   //    2 passed, 0 failed, 0 skipped, 0 timed out, out of 2 test(s).
   aunit::TestRunner::run();
-#else
-  // Should get:
-  // Test summary: 2 passed, 0 failed, and 0 skipped, out of 2 test(s).
-  Test::run();
-#endif
 }

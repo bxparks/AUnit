@@ -3,13 +3,7 @@
 // Adapted from:
 // https://github.com/mmurdoch/arduinounit/blob/master/examples/basic/basic.ino
 
-#define USE_AUNIT 1
-
-#if USE_AUNIT == 1
 #include <AUnit.h>
-#else
-#include <ArduinoUnit.h>
-#endif
 
 test(correct) {
   int x = 1;
@@ -28,14 +22,8 @@ void setup() {
 }
 
 void loop() {
-#if USE_AUNIT == 1
   // Should get:
   // TestRunner summary:
   //    1 passed, 1 failed, 0 skipped, 0 timed out, out of 2 test(s).
   aunit::TestRunner::run();
-#else
-  // Should get:
-  // Test summary: 1 passed, 1 failed, and 0 skipped, out of 2 test(s).
-  Test::run();
-#endif
 }

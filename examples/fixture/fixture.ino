@@ -1,4 +1,4 @@
-#line 2 "fixtures.ino"
+#line 2 "fixture.ino"
 
 #include <stdarg.h>
 #include <AUnit.h>
