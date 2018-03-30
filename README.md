@@ -468,7 +468,7 @@ method only. The statement after the `assertCustomStuff()` will continue to
 execute.
 
 In other words, in the following example, if the `assertCustomStuff()` fails,
-then doStuff()` inside `testF()` will execute:
+then `doStuff()` inside `testF()` will execute:
 
 ```
 class CustomTestOnce: public TestOnce {
@@ -599,7 +599,9 @@ The `TestOnce` class defines:
 The `TestAgain` class defines:
 * `again()`
 
-***ArduinoUnit Compatibility***: _These are identifcal to ArduinoUnit._
+***ArduinoUnit Compatibility***: _These are functionally the same as ArduinoUnit
+except with different class names. Instead of `Test` use `TestAgain`, Instead
+of `Test::loop`, use `TestAgain::again()`._
 
 ### Running the Tests
 
@@ -945,7 +947,7 @@ platform (e.g. Arduino UNO, Nano), and 30% less flash on the Teensy-ARM platform
 from
 [AceButtonTest](https://github.com/bxparks/AceButton/tree/develop/tests/AceButtonTest)
 containing 26 test cases using 331 `assertXxx()`
-statements, compiled using AUnit and ArduinoUnit on 5 different
+statements, compiled using AUnit and ArduinoUnit 2.2 on 5 different
 microcontrollers:
 ```
 Platform (resource)        |     Max | ArduinoUnit |       AUnit |
