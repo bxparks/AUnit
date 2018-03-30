@@ -1,5 +1,21 @@
 var searchData=
 [
-  ['list',['list',['../classaunit_1_1TestRunner.html#a979b87827821d30f0388dfcf5aad82dd',1,'aunit::TestRunner']]],
-  ['loop',['loop',['../classaunit_1_1Test.html#a15a9b4bc1f4f3ab23a995bab0cd18276',1,'aunit::Test::loop()'],['../classaunit_1_1TestOnce.html#a51ca2dbc08c87e4d2691e86d728efdf0',1,'aunit::TestOnce::loop()']]]
+  ['kall',['kAll',['../classaunit_1_1Verbosity.html#ab978160bc129ac405049e3eae65090cd',1,'aunit::Verbosity']]],
+  ['kassertionall',['kAssertionAll',['../classaunit_1_1Verbosity.html#a0cd6d4f516852a511f60a926559842f0',1,'aunit::Verbosity']]],
+  ['kassertionfailed',['kAssertionFailed',['../classaunit_1_1Verbosity.html#a97218568d7a5cc9056fb5c79f405ac4c',1,'aunit::Verbosity']]],
+  ['kassertionpassed',['kAssertionPassed',['../classaunit_1_1Verbosity.html#addbf202990aff674bd58626ae6f192d5',1,'aunit::Verbosity']]],
+  ['kdefault',['kDefault',['../classaunit_1_1Verbosity.html#a13fcfa047e24fac22c2bcc5b6d37e60d',1,'aunit::Verbosity']]],
+  ['knone',['kNone',['../classaunit_1_1Verbosity.html#a1cf2e379f5420ec272c2b410b6c2323d',1,'aunit::Verbosity']]],
+  ['kstatusexpired',['kStatusExpired',['../classaunit_1_1Test.html#a80a20f0e267db30cf06419272468eed6',1,'aunit::Test']]],
+  ['kstatusfailed',['kStatusFailed',['../classaunit_1_1Test.html#a47f8d53598baaedf210951e14caf25e3',1,'aunit::Test']]],
+  ['kstatusnew',['kStatusNew',['../classaunit_1_1Test.html#a453bcb5c4d2bc1788a87075ad1724135',1,'aunit::Test']]],
+  ['kstatuspassed',['kStatusPassed',['../classaunit_1_1Test.html#a5c8d37f2f2418a3223a972345c0d4263',1,'aunit::Test']]],
+  ['kstatussetup',['kStatusSetup',['../classaunit_1_1Test.html#a2fe73f804844ab2a0ffe3b73812b8a99',1,'aunit::Test']]],
+  ['kstatusskipped',['kStatusSkipped',['../classaunit_1_1Test.html#aa5053bd59bb037bc60c0df76ba5b5a32',1,'aunit::Test']]],
+  ['ktestall',['kTestAll',['../classaunit_1_1Verbosity.html#acc9c36f204db0a4dde88b7e65c5da1aa',1,'aunit::Verbosity']]],
+  ['ktestexpired',['kTestExpired',['../classaunit_1_1Verbosity.html#abb0e033d9a7b14f1ce359c8097b606e5',1,'aunit::Verbosity']]],
+  ['ktestfailed',['kTestFailed',['../classaunit_1_1Verbosity.html#a0725e532136af0b31d3b7e7866392e91',1,'aunit::Verbosity']]],
+  ['ktestpassed',['kTestPassed',['../classaunit_1_1Verbosity.html#a48a74a239d845794ecc52ef911203130',1,'aunit::Verbosity']]],
+  ['ktestrunsummary',['kTestRunSummary',['../classaunit_1_1Verbosity.html#a2e445ccd89e9e4f53b1bc658c353bcea',1,'aunit::Verbosity']]],
+  ['ktestskipped',['kTestSkipped',['../classaunit_1_1Verbosity.html#aaf6df783b6954f73fca8b77fc53c6e35',1,'aunit::Verbosity']]]
 ];

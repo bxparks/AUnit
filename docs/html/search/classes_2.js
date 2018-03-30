@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['test',['Test',['../classaunit_1_1Test.html',1,'aunit']]],
-  ['testonce',['TestOnce',['../classaunit_1_1TestOnce.html',1,'aunit']]],
-  ['testrunner',['TestRunner',['../classaunit_1_1TestRunner.html',1,'aunit']]]
+  ['metaassertion',['MetaAssertion',['../classaunit_1_1MetaAssertion.html',1,'aunit']]]
 ];
