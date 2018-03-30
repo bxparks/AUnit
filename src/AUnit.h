@@ -43,7 +43,7 @@ SOFTWARE.
 #include "aunit/TestRunner.h"
 #include "aunit/TestMacro.h"
 
-// Version format: 010203 == "1.2.3"
-#define AUNIT_VERSION 000303
+// Version format: xxyyzz == "xx.yy.zz"
+#define AUNIT_VERSION 000400
 
 #endif

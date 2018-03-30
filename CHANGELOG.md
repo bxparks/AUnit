@@ -1,5 +1,15 @@
 # Changelog
 
+* 0.4.0 (2018-03-30)
+    * Implement `testF()` and `testingF()` macros for using test fixtures.
+    * Added `examples/fixture/` sample code.
+    * Removed support for manual `Test` and `TestOnce` test instances. Use
+      `testF()` and `testingF()` macros instead.
+    * Renamed `Test` and `TestOnce` class hierarchy into `TestAgain` and
+      `TestOnce` respectively, and made them siblings not parent/child.
+    * Implement early return upon delayed failure (assertions check the test
+      status and return early).
+    * Add ability to control verbosity on a per-test basis.
 * 0.3.3 (2018-03-22)
     * Fix typo in kAssertionFailed flag introduced in 0.3.1.
 * 0.3.2 (2018-03-22)
