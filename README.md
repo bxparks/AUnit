@@ -167,9 +167,9 @@ The code in `{ }` following these macros becomes the body of a method in a
 subclass derived from the base class indicated above. The `test()` and `testF()`
 macros place the code body into the `TestOnce::once()` method. The `testing()`
 and `testingF()` macros place the code body into the `TestAgain::again()`
-method. The name of the subclass is a concatenation of the string `"test_` and
+method. The name of the subclass is a concatenation of the string `"test_"` and
 the `name` (for `test()` and `testing()`) the `classname` and the `name` (for
-`testF()` and testing()`).
+`testF()` and `testing()`).
 
 The argument to these macros are the name of the test case, and is used to
 generate a name for the subclass. (The name is available within the test code
