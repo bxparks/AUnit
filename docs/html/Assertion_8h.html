@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.3.1</span>
+   &#160;<span id="projectnumber">0.4.0</span>
    </div>
-   <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit.</div>
+   <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
  </tr>
  </tbody>
@@ -68,8 +68,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">Assertion.h File Reference</div>  </div>
 </div><!--header-->
@@ -77,20 +77,15 @@ $(function() {
 
 <p>Various assertXxx() macros are defined in this header.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
-<code>#include &quot;Printer.h&quot;</code><br />
-<code>#include &quot;Verbosity.h&quot;</code><br />
-<code>#include &quot;TestRunner.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;Test.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Assertion.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="Assertion_8h__incl.png" border="0" usemap="#_2Users_2brian_2dev_2AUnit_2src_2aunit_2Assertion_8h" alt=""/></div>
 <map name="_2Users_2brian_2dev_2AUnit_2src_2aunit_2Assertion_8h" id="_2Users_2brian_2dev_2AUnit_2src_2aunit_2Assertion_8h">
-<area shape="rect" id="node3" href="Printer_8h_source.html" title="Printer.h" alt="" coords="108,92,179,117"/>
-<area shape="rect" id="node4" href="Verbosity_8h_source.html" title="Verbosity.h" alt="" coords="173,165,260,191"/>
-<area shape="rect" id="node6" href="TestRunner_8h_source.html" title="TestRunner.h" alt="" coords="253,92,353,117"/>
-<area shape="rect" id="node7" href="Test_8h.html" title="Various macros (test(), testing(), externTest(), externTesting()) are defined in this header..." alt="" coords="333,165,390,191"/>
-<area shape="rect" id="node8" href="FCString_8h_source.html" title="FCString.h" alt="" coords="385,239,470,264"/>
+<area shape="rect" id="node2" href="Test_8h_source.html" title="Test.h" alt="" coords="54,92,111,117"/>
+<area shape="rect" id="node4" href="FCString_8h_source.html" title="FCString.h" alt="" coords="40,165,125,191"/>
+<area shape="rect" id="node5" href="Verbosity_8h_source.html" title="Verbosity.h" alt="" coords="149,165,235,191"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -99,12 +94,25 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="center"><img src="Assertion_8h__dep__incl.png" border="0" usemap="#_2Users_2brian_2dev_2AUnit_2src_2aunit_2Assertion_8hdep" alt=""/></div>
 <map name="_2Users_2brian_2dev_2AUnit_2src_2aunit_2Assertion_8hdep" id="_2Users_2brian_2dev_2AUnit_2src_2aunit_2Assertion_8hdep">
 <area shape="rect" id="node2" href="Assertion_8cpp_source.html" title="/Users/brian/dev/AUnit\l/src/aunit/Assertion.cpp" alt="" coords="5,92,165,131"/>
-<area shape="rect" id="node3" href="AUnit_8h_source.html" title="/Users/brian/dev/AUnit\l/src/AUnit.h" alt="" coords="189,92,344,131"/>
+<area shape="rect" id="node3" href="MetaAssertion_8h.html" title="Various assertTestXxx() and checkTestXxx() macros are defined in this header. " alt="" coords="510,92,685,131"/>
+<area shape="rect" id="node8" href="AUnit_8h_source.html" title="/Users/brian/dev/AUnit\l/src/AUnit.h" alt="" coords="477,352,632,391"/>
+<area shape="rect" id="node4" href="MetaAssertion_8cpp_source.html" title="/Users/brian/dev/AUnit\l/src/aunit/MetaAssertion.cpp" alt="" coords="699,179,888,217"/>
+<area shape="rect" id="node5" href="TestAgain_8h_source.html" title="/Users/brian/dev/AUnit\l/src/aunit/TestAgain.h" alt="" coords="341,179,496,217"/>
+<area shape="rect" id="node9" href="TestOnce_8h_source.html" title="/Users/brian/dev/AUnit\l/src/aunit/TestOnce.h" alt="" coords="520,179,675,217"/>
+<area shape="rect" id="node6" href="TestAgain_8cpp_source.html" title="/Users/brian/dev/AUnit\l/src/aunit/TestAgain.cpp" alt="" coords="240,265,403,304"/>
+<area shape="rect" id="node7" href="TestMacro_8h.html" title="Various macros (test(), testing(), externTest(), externTesting()) are defined in this header..." alt="" coords="477,265,632,304"/>
+<area shape="rect" id="node10" href="TestOnce_8cpp_source.html" title="/Users/brian/dev/AUnit\l/src/aunit/TestOnce.cpp" alt="" coords="706,265,867,304"/>
 </map>
 </div>
 </div>
 <p><a href="Assertion_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Assertion.html">aunit::Assertion</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An <a class="el" href="classaunit_1_1Assertion.html" title="An Assertion class is a subclass of Test and provides various overloaded assertion() functions...">Assertion</a> class is a subclass of <a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> and provides various overloaded assertion() functions.  <a href="classaunit_1_1Assertion.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a8ef465d33a5a36963dd24190de055d2d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Assertion_8h.html#a8ef465d33a5a36963dd24190de055d2d">assertEqual</a>(arg1,  arg2)&#160;&#160;&#160;<a class="el" href="Assertion_8h.html#a16ec739be49cf667aafe05b630f87939">assertOp</a>(arg1,aunit::compareEqual,&quot;==&quot;,arg2)</td></tr>
@@ -134,60 +142,10 @@ Macros</h2></td></tr>
 <tr class="memitem:a16ec739be49cf667aafe05b630f87939"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Assertion_8h.html#a16ec739be49cf667aafe05b630f87939">assertOp</a>(arg1,  op,  opName,  arg2)</td></tr>
 <tr class="memdesc:a16ec739be49cf667aafe05b630f87939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal helper macro, shouldn't be called directly by users.  <a href="#a16ec739be49cf667aafe05b630f87939">More...</a><br /></td></tr>
 <tr class="separator:a16ec739be49cf667aafe05b630f87939"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ae815f3407a55f839dbf6427534d6d2d3"><td class="memItemLeft" align="right" valign="top"><a id="ae815f3407a55f839dbf6427534d6d2d3"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, bool lhs, const char *opName, bool(*op)(bool lhs, bool rhs), bool rhs)</td></tr>
-<tr class="separator:ae815f3407a55f839dbf6427534d6d2d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d5666407094fa66298fc9e454d8140e"><td class="memItemLeft" align="right" valign="top"><a id="a0d5666407094fa66298fc9e454d8140e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, char lhs, const char *opName, bool(*op)(char lhs, char rhs), char rhs)</td></tr>
-<tr class="separator:a0d5666407094fa66298fc9e454d8140e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f13925c95485869693de823f20e2b8c"><td class="memItemLeft" align="right" valign="top"><a id="a7f13925c95485869693de823f20e2b8c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, int lhs, const char *opName, bool(*op)(int lhs, int rhs), int rhs)</td></tr>
-<tr class="separator:a7f13925c95485869693de823f20e2b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92f175027b3b84ac03eae54e68605060"><td class="memItemLeft" align="right" valign="top"><a id="a92f175027b3b84ac03eae54e68605060"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, unsigned int lhs, const char *opName, bool(*op)(unsigned int lhs, unsigned int rhs), unsigned int rhs)</td></tr>
-<tr class="separator:a92f175027b3b84ac03eae54e68605060"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38099522442859a96e302cc1cf7bcead"><td class="memItemLeft" align="right" valign="top"><a id="a38099522442859a96e302cc1cf7bcead"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, long lhs, const char *opName, bool(*op)(long lhs, long rhs), long rhs)</td></tr>
-<tr class="separator:a38099522442859a96e302cc1cf7bcead"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c26488f2d145349a288a43f4599946f"><td class="memItemLeft" align="right" valign="top"><a id="a3c26488f2d145349a288a43f4599946f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, unsigned long lhs, const char *opName, bool(*op)(unsigned long lhs, unsigned long rhs), unsigned long rhs)</td></tr>
-<tr class="separator:a3c26488f2d145349a288a43f4599946f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a694c5c4ca61c75c84bf035f16b2db3af"><td class="memItemLeft" align="right" valign="top"><a id="a694c5c4ca61c75c84bf035f16b2db3af"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, double lhs, const char *opName, bool(*op)(double lhs, double rhs), double rhs)</td></tr>
-<tr class="separator:a694c5c4ca61c75c84bf035f16b2db3af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a558ac4b864185dd4e3c2d69078bb2e37"><td class="memItemLeft" align="right" valign="top"><a id="a558ac4b864185dd4e3c2d69078bb2e37"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, const char *lhs, const char *opName, bool(*op)(const char *lhs, const char *rhs), const char *rhs)</td></tr>
-<tr class="separator:a558ac4b864185dd4e3c2d69078bb2e37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3736429acd7bf1c02ef74d44ed38af7"><td class="memItemLeft" align="right" valign="top"><a id="af3736429acd7bf1c02ef74d44ed38af7"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, const char *lhs, const char *opName, bool(*op)(const char *lhs, const String &amp;rhs), const String &amp;rhs)</td></tr>
-<tr class="separator:af3736429acd7bf1c02ef74d44ed38af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa415f1079ff03be65b8cabf8fe9817e2"><td class="memItemLeft" align="right" valign="top"><a id="aa415f1079ff03be65b8cabf8fe9817e2"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, const char *lhs, const char *opName, bool(*op)(const char *lhs, const __FlashStringHelper *rhs), const __FlashStringHelper *rhs)</td></tr>
-<tr class="separator:aa415f1079ff03be65b8cabf8fe9817e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a429105b837a58367c3235aaefcd5e94c"><td class="memItemLeft" align="right" valign="top"><a id="a429105b837a58367c3235aaefcd5e94c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, const String &amp;lhs, const char *opName, bool(*op)(const String &amp;lhs, const char *rhs), const char *rhs)</td></tr>
-<tr class="separator:a429105b837a58367c3235aaefcd5e94c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04d98180d64b1c7170b17390ec89ba25"><td class="memItemLeft" align="right" valign="top"><a id="a04d98180d64b1c7170b17390ec89ba25"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, const String &amp;lhs, const char *opName, bool(*op)(const String &amp;lhs, const String &amp;rhs), const String &amp;rhs)</td></tr>
-<tr class="separator:a04d98180d64b1c7170b17390ec89ba25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5889bedd3f5fc191c4ee0b3282ce6e8"><td class="memItemLeft" align="right" valign="top"><a id="ab5889bedd3f5fc191c4ee0b3282ce6e8"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, const String &amp;lhs, const char *opName, bool(*op)(const String &amp;lhs, const __FlashStringHelper *rhs), const __FlashStringHelper *rhs)</td></tr>
-<tr class="separator:ab5889bedd3f5fc191c4ee0b3282ce6e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9258de92ce208e82dc2bc37c94d10e7"><td class="memItemLeft" align="right" valign="top"><a id="ac9258de92ce208e82dc2bc37c94d10e7"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, const __FlashStringHelper *lhs, const char *opName, bool(*op)(const __FlashStringHelper *lhs, const char *rhs), const char *rhs)</td></tr>
-<tr class="separator:ac9258de92ce208e82dc2bc37c94d10e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c3ad6151f441cd5eb36f6b3f1ae00a8"><td class="memItemLeft" align="right" valign="top"><a id="a2c3ad6151f441cd5eb36f6b3f1ae00a8"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, const __FlashStringHelper *lhs, const char *opName, bool(*op)(const __FlashStringHelper *lhs, const String &amp;rhs), const String &amp;rhs)</td></tr>
-<tr class="separator:a2c3ad6151f441cd5eb36f6b3f1ae00a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99fd1814466e5f7d4d33a03741d69e0b"><td class="memItemLeft" align="right" valign="top"><a id="a99fd1814466e5f7d4d33a03741d69e0b"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> (const char *file, uint16_t line, const __FlashStringHelper *lhs, const char *opName, bool(*op)(const __FlashStringHelper *lhs, const __FlashStringHelper *rhs), const __FlashStringHelper *rhs)</td></tr>
-<tr class="separator:a99fd1814466e5f7d4d33a03741d69e0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Various assertXxx() macros are defined in this header. </p>
+<p>They all go through another helper macro called <a class="el" href="Assertion_8h.html#a16ec739be49cf667aafe05b630f87939" title="Internal helper macro, shouldn&#39;t be called directly by users. ">assertOp()</a>, eventually calling one of the methods on the Assertion class. </p>
 
 <p class="definition">Definition in file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
@@ -219,7 +177,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> 
 
 <p>Assert that arg1 is equal to arg2. </p>
 
-<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00045">45</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00042">42</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
 
 </div>
 </div>
@@ -241,7 +199,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> 
 
 <p>Assert that arg is false. </p>
 
-<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00069">69</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00066">66</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
 
 </div>
 </div>
@@ -273,7 +231,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> 
 
 <p>Assert that arg1 is less than arg2. </p>
 
-<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00052">52</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00049">49</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
 
 </div>
 </div>
@@ -305,7 +263,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> 
 
 <p>Assert that arg1 is less than or equal to arg2. </p>
 
-<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00058">58</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00055">55</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
 
 </div>
 </div>
@@ -337,7 +295,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> 
 
 <p>Assert that arg1 is more than arg2. </p>
 
-<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00055">55</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00052">52</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
 
 </div>
 </div>
@@ -369,7 +327,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> 
 
 <p>Assert that arg1 is more than or equal to arg2. </p>
 
-<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00062">62</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00059">59</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
 
 </div>
 </div>
@@ -401,7 +359,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> 
 
 <p>Assert that arg1 is not equal to arg2. </p>
 
-<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00048">48</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00045">45</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
 
 </div>
 </div>
@@ -442,10 +400,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> 
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  if (!aunit::assertion(__FILE__,__LINE__,(arg1),opName,op,(arg2)))\</div><div class="line">    return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  if (!assertion(__FILE__,__LINE__,(arg1),opName,op,(arg2)))\</div><div class="line">    return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div></div><!-- fragment -->
 <p>Internal helper macro, shouldn't be called directly by users. </p>
 
-<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00072">72</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00069">69</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
 
 </div>
 </div>
@@ -467,7 +425,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::assertion</b> 
 
 <p>Assert that arg is true. </p>
 
-<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00066">66</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Assertion_8h_source.html#l00063">63</a> of file <a class="el" href="Assertion_8h_source.html">Assertion.h</a>.</p>
 
 </div>
 </div>

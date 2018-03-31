@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['verbosity',['Verbosity',['../classaunit_1_1Verbosity.html',1,'aunit']]]
+  ['printer',['Printer',['../classaunit_1_1Printer.html',1,'aunit']]]
 ];

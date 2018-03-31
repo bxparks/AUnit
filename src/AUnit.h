@@ -36,11 +36,14 @@ SOFTWARE.
 #include "aunit/Compare.h"
 #include "aunit/Printer.h"
 #include "aunit/Test.h"
-#include "aunit/TestRunner.h"
 #include "aunit/Assertion.h"
 #include "aunit/MetaAssertion.h"
+#include "aunit/TestOnce.h"
+#include "aunit/TestAgain.h"
+#include "aunit/TestRunner.h"
+#include "aunit/TestMacro.h"
 
-// Version format: 010203 == "1.2.3"
-#define AUNIT_VERSION 000303
+// Version format: xxyyzz == "xx.yy.zz"
+#define AUNIT_VERSION 000400
 
 #endif

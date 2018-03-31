@@ -1,5 +1,9 @@
 var searchData=
 [
-  ['list',['list',['../classaunit_1_1TestRunner.html#a979b87827821d30f0388dfcf5aad82dd',1,'aunit::TestRunner']]],
-  ['loop',['loop',['../classaunit_1_1Test.html#a15a9b4bc1f4f3ab23a995bab0cd18276',1,'aunit::Test::loop()'],['../classaunit_1_1TestOnce.html#a51ca2dbc08c87e4d2691e86d728efdf0',1,'aunit::TestOnce::loop()']]]
+  ['getname',['getName',['../classaunit_1_1Test.html#ad7793d784a10ad5bde87d8e21e33bc89',1,'aunit::Test']]],
+  ['getnext',['getNext',['../classaunit_1_1Test.html#ac166f92c4945d675b4e289db1bb7d217',1,'aunit::Test']]],
+  ['getprinter',['getPrinter',['../classaunit_1_1Printer.html#ae3783da78df10b7abff74826904ce5c4',1,'aunit::Printer']]],
+  ['getroot',['getRoot',['../classaunit_1_1Test.html#a33f9f14097b77edc19e8298022ecbe60',1,'aunit::Test']]],
+  ['getstatus',['getStatus',['../classaunit_1_1Test.html#a30c8ffa6526ea3efa1e552e261774716',1,'aunit::Test']]],
+  ['getverbosity',['getVerbosity',['../classaunit_1_1Test.html#a92a847829527808fd09bd9a526b57ad3',1,'aunit::Test']]]
 ];

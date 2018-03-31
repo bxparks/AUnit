@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.3.1</span>
+   &#160;<span id="projectnumber">0.4.0</span>
    </div>
-   <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit.</div>
+   <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
  </tr>
  </tbody>
@@ -75,16 +75,18 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Similar to <a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> but performs the <a class="el" href="classaunit_1_1TestOnce.html#a51ca2dbc08c87e4d2691e86d728efdf0" title="Calls the user-provided once() method. ">loop()</a> method only once.  
+<p>Similar to <a class="el" href="classaunit_1_1TestAgain.html" title="Similar to TestOnce but performs the user-defined test multiple times. ">TestAgain</a> but performs user-defined test only once.  
  <a href="classaunit_1_1TestOnce.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="Test_8h_source.html">Test.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="TestOnce_8h_source.html">TestOnce.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for aunit::TestOnce:</div>
 <div class="dyncontent">
 <div class="center"><img src="classaunit_1_1TestOnce__inherit__graph.png" border="0" usemap="#aunit_1_1TestOnce_inherit__map" alt="Inheritance graph"/></div>
 <map name="aunit_1_1TestOnce_inherit__map" id="aunit_1_1TestOnce_inherit__map">
-<area shape="rect" id="node2" href="classaunit_1_1Test.html" title="Base class of all test cases. " alt="" coords="21,5,103,31"/>
+<area shape="rect" id="node2" href="classaunit_1_1MetaAssertion.html" title="Class that extends the Assertion class to support the checkTestXxx() and assertTestXxx() macros that ..." alt="" coords="5,152,148,177"/>
+<area shape="rect" id="node3" href="classaunit_1_1Assertion.html" title="An Assertion class is a subclass of Test and provides various overloaded assertion() functions..." alt="" coords="20,79,133,104"/>
+<area shape="rect" id="node4" href="classaunit_1_1Test.html" title="Base class of all test cases. " alt="" coords="36,5,118,31"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -92,18 +94,17 @@ Collaboration diagram for aunit::TestOnce:</div>
 <div class="dyncontent">
 <div class="center"><img src="classaunit_1_1TestOnce__coll__graph.png" border="0" usemap="#aunit_1_1TestOnce_coll__map" alt="Collaboration graph"/></div>
 <map name="aunit_1_1TestOnce_coll__map" id="aunit_1_1TestOnce_coll__map">
-<area shape="rect" id="node2" href="classaunit_1_1Test.html" title="Base class of all test cases. " alt="" coords="21,5,103,31"/>
+<area shape="rect" id="node2" href="classaunit_1_1MetaAssertion.html" title="Class that extends the Assertion class to support the checkTestXxx() and assertTestXxx() macros that ..." alt="" coords="5,152,148,177"/>
+<area shape="rect" id="node3" href="classaunit_1_1Assertion.html" title="An Assertion class is a subclass of Test and provides various overloaded assertion() functions..." alt="" coords="20,79,133,104"/>
+<area shape="rect" id="node4" href="classaunit_1_1Test.html" title="Base class of all test cases. " alt="" coords="36,5,118,31"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad2e1bc468c9841b0a1b5ceda145b62e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestOnce.html#ad2e1bc468c9841b0a1b5ceda145b62e2">TestOnce</a> (const char *name)</td></tr>
-<tr class="memdesc:ad2e1bc468c9841b0a1b5ceda145b62e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ad2e1bc468c9841b0a1b5ceda145b62e2">More...</a><br /></td></tr>
-<tr class="separator:ad2e1bc468c9841b0a1b5ceda145b62e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf5a2ef476bdf15e152ec602e5732977"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestOnce.html#aaf5a2ef476bdf15e152ec602e5732977">TestOnce</a> (const __FlashStringHelper *name)</td></tr>
-<tr class="memdesc:aaf5a2ef476bdf15e152ec602e5732977"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#aaf5a2ef476bdf15e152ec602e5732977">More...</a><br /></td></tr>
-<tr class="separator:aaf5a2ef476bdf15e152ec602e5732977"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca92b171f709cf401701feb9750d8e64"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestOnce.html#aca92b171f709cf401701feb9750d8e64">TestOnce</a> ()</td></tr>
+<tr class="memdesc:aca92b171f709cf401701feb9750d8e64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#aca92b171f709cf401701feb9750d8e64">More...</a><br /></td></tr>
+<tr class="separator:aca92b171f709cf401701feb9750d8e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51ca2dbc08c87e4d2691e86d728efdf0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestOnce.html#a51ca2dbc08c87e4d2691e86d728efdf0">loop</a> () override</td></tr>
 <tr class="memdesc:a51ca2dbc08c87e4d2691e86d728efdf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the user-provided <a class="el" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1" title="User-provided test case. ">once()</a> method.  <a href="#a51ca2dbc08c87e4d2691e86d728efdf0">More...</a><br /></td></tr>
 <tr class="separator:a51ca2dbc08c87e4d2691e86d728efdf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,15 +112,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a064675c6adcce5ddb8562628e573ccc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">User-provided test case.  <a href="#a064675c6adcce5ddb8562628e573ccc1">More...</a><br /></td></tr>
 <tr class="separator:a064675c6adcce5ddb8562628e573ccc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classaunit_1_1Test"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classaunit_1_1Test')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classaunit_1_1Test.html">aunit::Test</a></td></tr>
-<tr class="memitem:a7a15f7f410f0f12fb82168b20d00399c inherit pub_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a7a15f7f410f0f12fb82168b20d00399c">Test</a> (const char *name)</td></tr>
-<tr class="memdesc:a7a15f7f410f0f12fb82168b20d00399c inherit pub_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor taking the name of the given test case.  <a href="classaunit_1_1Test.html#a7a15f7f410f0f12fb82168b20d00399c">More...</a><br /></td></tr>
-<tr class="separator:a7a15f7f410f0f12fb82168b20d00399c inherit pub_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ded41cada079f15a5f19c8432e702be inherit pub_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a6ded41cada079f15a5f19c8432e702be">Test</a> (const __FlashStringHelper *name)</td></tr>
-<tr class="memdesc:a6ded41cada079f15a5f19c8432e702be inherit pub_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor taking the name of the given test case.  <a href="classaunit_1_1Test.html#a6ded41cada079f15a5f19c8432e702be">More...</a><br /></td></tr>
-<tr class="separator:a6ded41cada079f15a5f19c8432e702be inherit pub_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0550ff015d168b10c3c64540081fb19e inherit pub_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a0550ff015d168b10c3c64540081fb19e">Test</a> ()</td></tr>
+<tr class="memdesc:a0550ff015d168b10c3c64540081fb19e inherit pub_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty constructor.  <a href="classaunit_1_1Test.html#a0550ff015d168b10c3c64540081fb19e">More...</a><br /></td></tr>
+<tr class="separator:a0550ff015d168b10c3c64540081fb19e inherit pub_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad32752b60ecc4cab1149d38c2bb2da7c inherit pub_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#ad32752b60ecc4cab1149d38c2bb2da7c">setup</a> ()</td></tr>
 <tr class="memdesc:ad32752b60ecc4cab1149d38c2bb2da7c inherit pub_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional method that performs any initialization.  <a href="classaunit_1_1Test.html#ad32752b60ecc4cab1149d38c2bb2da7c">More...</a><br /></td></tr>
 <tr class="separator:ad32752b60ecc4cab1149d38c2bb2da7c inherit pub_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7a08fd1e807b989b78d901f2d68ceb5 inherit pub_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#ab7a08fd1e807b989b78d901f2d68ceb5">resolve</a> ()</td></tr>
+<tr class="memdesc:ab7a08fd1e807b989b78d901f2d68ceb5 inherit pub_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print out the summary of the current test.  <a href="classaunit_1_1Test.html#ab7a08fd1e807b989b78d901f2d68ceb5">More...</a><br /></td></tr>
+<tr class="separator:ab7a08fd1e807b989b78d901f2d68ceb5 inherit pub_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7793d784a10ad5bde87d8e21e33bc89 inherit pub_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classaunit_1_1FCString.html">FCString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#ad7793d784a10ad5bde87d8e21e33bc89">getName</a> ()</td></tr>
 <tr class="memdesc:ad7793d784a10ad5bde87d8e21e33bc89 inherit pub_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the test.  <a href="classaunit_1_1Test.html#ad7793d784a10ad5bde87d8e21e33bc89">More...</a><br /></td></tr>
 <tr class="separator:ad7793d784a10ad5bde87d8e21e33bc89 inherit pub_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,6 +172,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aab89c47bfa768b0dbf9eb18a777ac4bc inherit pub_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#aab89c47bfa768b0dbf9eb18a777ac4bc">expire</a> ()</td></tr>
 <tr class="memdesc:aab89c47bfa768b0dbf9eb18a777ac4bc inherit pub_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the test as expired (i.e.  <a href="classaunit_1_1Test.html#aab89c47bfa768b0dbf9eb18a777ac4bc">More...</a><br /></td></tr>
 <tr class="separator:aab89c47bfa768b0dbf9eb18a777ac4bc inherit pub_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3490d139e963b7308e8a201d430bdb8d inherit pub_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a3490d139e963b7308e8a201d430bdb8d">enableVerbosity</a> (uint8_t verbosity)</td></tr>
+<tr class="memdesc:a3490d139e963b7308e8a201d430bdb8d inherit pub_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the given verbosity of the current test.  <a href="classaunit_1_1Test.html#a3490d139e963b7308e8a201d430bdb8d">More...</a><br /></td></tr>
+<tr class="separator:a3490d139e963b7308e8a201d430bdb8d inherit pub_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8089cf50292419b67da102d72d8bdcc inherit pub_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#ac8089cf50292419b67da102d72d8bdcc">disableVerbosity</a> (uint8_t verbosity)</td></tr>
+<tr class="memdesc:ac8089cf50292419b67da102d72d8bdcc inherit pub_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the given verbosity of the current test.  <a href="classaunit_1_1Test.html#ac8089cf50292419b67da102d72d8bdcc">More...</a><br /></td></tr>
+<tr class="separator:ac8089cf50292419b67da102d72d8bdcc inherit pub_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -197,6 +204,72 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a80a20f0e267db30cf06419272468eed6 inherit pub_static_attribs_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a80a20f0e267db30cf06419272468eed6">kStatusExpired</a> = 5</td></tr>
 <tr class="memdesc:a80a20f0e267db30cf06419272468eed6 inherit pub_static_attribs_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> has timed out, or <a class="el" href="classaunit_1_1Test.html#aab89c47bfa768b0dbf9eb18a777ac4bc" title="Mark the test as expired (i.e. ">expire()</a> called.  <a href="classaunit_1_1Test.html#a80a20f0e267db30cf06419272468eed6">More...</a><br /></td></tr>
 <tr class="separator:a80a20f0e267db30cf06419272468eed6 inherit pub_static_attribs_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classaunit_1_1MetaAssertion"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classaunit_1_1MetaAssertion')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classaunit_1_1MetaAssertion.html">aunit::MetaAssertion</a></td></tr>
+<tr class="memitem:aee97b094c31c0a3ce9b07481f8a2d712 inherit pro_methods_classaunit_1_1MetaAssertion"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1MetaAssertion.html#aee97b094c31c0a3ce9b07481f8a2d712">MetaAssertion</a> ()</td></tr>
+<tr class="memdesc:aee97b094c31c0a3ce9b07481f8a2d712 inherit pro_methods_classaunit_1_1MetaAssertion"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty constructor.  <a href="classaunit_1_1MetaAssertion.html#aee97b094c31c0a3ce9b07481f8a2d712">More...</a><br /></td></tr>
+<tr class="separator:aee97b094c31c0a3ce9b07481f8a2d712 inherit pro_methods_classaunit_1_1MetaAssertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d630f7755066f508da44534f5fea825 inherit pro_methods_classaunit_1_1MetaAssertion"><td class="memItemLeft" align="right" valign="top"><a id="a1d630f7755066f508da44534f5fea825"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1MetaAssertion.html#a1d630f7755066f508da44534f5fea825">assertionTestStatus</a> (const char *file, uint16_t line, const char *testName, const __FlashStringHelper *statusMessage, bool ok)</td></tr>
+<tr class="memdesc:a1d630f7755066f508da44534f5fea825 inherit pro_methods_classaunit_1_1MetaAssertion"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the status of the current test based on 'ok, and print assertion message if requested. <br /></td></tr>
+<tr class="separator:a1d630f7755066f508da44534f5fea825 inherit pro_methods_classaunit_1_1MetaAssertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f9c351ee9affc817dc0b640eecf79aa inherit pro_methods_classaunit_1_1MetaAssertion"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1MetaAssertion.html#a5f9c351ee9affc817dc0b640eecf79aa">printAssertionTestStatusMessage</a> (bool ok, const char *file, uint16_t line, const char *testName, const __FlashStringHelper *statusMessage)</td></tr>
+<tr class="memdesc:a5f9c351ee9affc817dc0b640eecf79aa inherit pro_methods_classaunit_1_1MetaAssertion"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the meta assertion passed or failed message.  <a href="classaunit_1_1MetaAssertion.html#a5f9c351ee9affc817dc0b640eecf79aa">More...</a><br /></td></tr>
+<tr class="separator:a5f9c351ee9affc817dc0b640eecf79aa inherit pro_methods_classaunit_1_1MetaAssertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classaunit_1_1Assertion"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classaunit_1_1Assertion')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classaunit_1_1Assertion.html">aunit::Assertion</a></td></tr>
+<tr class="memitem:a5fab4c2c0aae1604036c29b1941aaaca inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Assertion.html#a5fab4c2c0aae1604036c29b1941aaaca">Assertion</a> ()</td></tr>
+<tr class="memdesc:a5fab4c2c0aae1604036c29b1941aaaca inherit pro_methods_classaunit_1_1Assertion"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty constructor.  <a href="classaunit_1_1Assertion.html#a5fab4c2c0aae1604036c29b1941aaaca">More...</a><br /></td></tr>
+<tr class="separator:a5fab4c2c0aae1604036c29b1941aaaca inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac56577e807b88987f06605c104d50451 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Assertion.html#ac56577e807b88987f06605c104d50451">isOutputEnabled</a> (bool ok)</td></tr>
+<tr class="memdesc:ac56577e807b88987f06605c104d50451 inherit pro_methods_classaunit_1_1Assertion"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if an assertion message should be printed.  <a href="classaunit_1_1Assertion.html#ac56577e807b88987f06605c104d50451">More...</a><br /></td></tr>
+<tr class="separator:ac56577e807b88987f06605c104d50451 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65be2ef7001d450ab176e8140c3b09bc inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a65be2ef7001d450ab176e8140c3b09bc"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, bool lhs, const char *opName, bool(*op)(bool lhs, bool rhs), bool rhs)</td></tr>
+<tr class="separator:a65be2ef7001d450ab176e8140c3b09bc inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a267517bf5335ab1849fae3a2125f0c73 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a267517bf5335ab1849fae3a2125f0c73"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, char lhs, const char *opName, bool(*op)(char lhs, char rhs), char rhs)</td></tr>
+<tr class="separator:a267517bf5335ab1849fae3a2125f0c73 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a810439a85a076e2cff121f401890f12c inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a810439a85a076e2cff121f401890f12c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, int lhs, const char *opName, bool(*op)(int lhs, int rhs), int rhs)</td></tr>
+<tr class="separator:a810439a85a076e2cff121f401890f12c inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a568f64f02dc87c9cd61629da6f85f244 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a568f64f02dc87c9cd61629da6f85f244"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, unsigned int lhs, const char *opName, bool(*op)(unsigned int lhs, unsigned int rhs), unsigned int rhs)</td></tr>
+<tr class="separator:a568f64f02dc87c9cd61629da6f85f244 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43436d471a4df31d339752a777f9b7fc inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a43436d471a4df31d339752a777f9b7fc"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, long lhs, const char *opName, bool(*op)(long lhs, long rhs), long rhs)</td></tr>
+<tr class="separator:a43436d471a4df31d339752a777f9b7fc inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac983ee464253fac845ede682176f1beb inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="ac983ee464253fac845ede682176f1beb"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, unsigned long lhs, const char *opName, bool(*op)(unsigned long lhs, unsigned long rhs), unsigned long rhs)</td></tr>
+<tr class="separator:ac983ee464253fac845ede682176f1beb inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9c11503529a03660dfbdee07d58907a inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="aa9c11503529a03660dfbdee07d58907a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, double lhs, const char *opName, bool(*op)(double lhs, double rhs), double rhs)</td></tr>
+<tr class="separator:aa9c11503529a03660dfbdee07d58907a inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4c1fb2325409ce4e4e4da773add92bd inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="ac4c1fb2325409ce4e4e4da773add92bd"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, const char *lhs, const char *opName, bool(*op)(const char *lhs, const char *rhs), const char *rhs)</td></tr>
+<tr class="separator:ac4c1fb2325409ce4e4e4da773add92bd inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ae6b7e2290214ebd44be89a6734a70a inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a1ae6b7e2290214ebd44be89a6734a70a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, const char *lhs, const char *opName, bool(*op)(const char *lhs, const String &amp;rhs), const String &amp;rhs)</td></tr>
+<tr class="separator:a1ae6b7e2290214ebd44be89a6734a70a inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5625bc0a21b4d67b5bef805e05e56b07 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a5625bc0a21b4d67b5bef805e05e56b07"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, const char *lhs, const char *opName, bool(*op)(const char *lhs, const __FlashStringHelper *rhs), const __FlashStringHelper *rhs)</td></tr>
+<tr class="separator:a5625bc0a21b4d67b5bef805e05e56b07 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe61dc9208c0438eadf6dcab1d74e5f8 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="abe61dc9208c0438eadf6dcab1d74e5f8"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, const String &amp;lhs, const char *opName, bool(*op)(const String &amp;lhs, const char *rhs), const char *rhs)</td></tr>
+<tr class="separator:abe61dc9208c0438eadf6dcab1d74e5f8 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acef8a9cee4825ec2758cefa86f725f79 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="acef8a9cee4825ec2758cefa86f725f79"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, const String &amp;lhs, const char *opName, bool(*op)(const String &amp;lhs, const String &amp;rhs), const String &amp;rhs)</td></tr>
+<tr class="separator:acef8a9cee4825ec2758cefa86f725f79 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f93f43bc4adb0b1f3e2c380ebec5c59 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a1f93f43bc4adb0b1f3e2c380ebec5c59"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, const String &amp;lhs, const char *opName, bool(*op)(const String &amp;lhs, const __FlashStringHelper *rhs), const __FlashStringHelper *rhs)</td></tr>
+<tr class="separator:a1f93f43bc4adb0b1f3e2c380ebec5c59 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a548051ee58f9ad342e2bcb17d60edbc0 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a548051ee58f9ad342e2bcb17d60edbc0"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, const __FlashStringHelper *lhs, const char *opName, bool(*op)(const __FlashStringHelper *lhs, const char *rhs), const char *rhs)</td></tr>
+<tr class="separator:a548051ee58f9ad342e2bcb17d60edbc0 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa8038c20143bfc3f5dab02b93640c5a inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="afa8038c20143bfc3f5dab02b93640c5a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, const __FlashStringHelper *lhs, const char *opName, bool(*op)(const __FlashStringHelper *lhs, const String &amp;rhs), const String &amp;rhs)</td></tr>
+<tr class="separator:afa8038c20143bfc3f5dab02b93640c5a inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c8c7238d31b89359c8ef1643e9d24fc inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a6c8c7238d31b89359c8ef1643e9d24fc"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, const __FlashStringHelper *lhs, const char *opName, bool(*op)(const __FlashStringHelper *lhs, const __FlashStringHelper *rhs), const __FlashStringHelper *rhs)</td></tr>
+<tr class="separator:a6c8c7238d31b89359c8ef1643e9d24fc inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classaunit_1_1Test"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classaunit_1_1Test')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classaunit_1_1Test.html">aunit::Test</a></td></tr>
 <tr class="memitem:a64023d7738f6ae94dcaeb4fc4c7ec8b3 inherit pro_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a64023d7738f6ae94dcaeb4fc4c7ec8b3">fail</a> ()</td></tr>
 <tr class="memdesc:a64023d7738f6ae94dcaeb4fc4c7ec8b3 inherit pro_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the test as failed.  <a href="classaunit_1_1Test.html#a64023d7738f6ae94dcaeb4fc4c7ec8b3">More...</a><br /></td></tr>
@@ -204,14 +277,57 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:ae71ded07fd6fc69413f64d3d603e4bd6 inherit pro_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#ae71ded07fd6fc69413f64d3d603e4bd6">pass</a> ()</td></tr>
 <tr class="memdesc:ae71ded07fd6fc69413f64d3d603e4bd6 inherit pro_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the test as passed.  <a href="classaunit_1_1Test.html#ae71ded07fd6fc69413f64d3d603e4bd6">More...</a><br /></td></tr>
 <tr class="separator:ae71ded07fd6fc69413f64d3d603e4bd6 inherit pro_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca963335bb4190b4919cf42a639cec03 inherit pro_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top"><a id="aca963335bb4190b4919cf42a639cec03"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const char *name)</td></tr>
+<tr class="separator:aca963335bb4190b4919cf42a639cec03 inherit pro_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cd4d719b739721388f753464ff13019 inherit pro_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top"><a id="a3cd4d719b739721388f753464ff13019"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __FlashStringHelper *name)</td></tr>
+<tr class="separator:a3cd4d719b739721388f753464ff13019 inherit pro_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acad6ad04fc4bf8f1068fdb5ecda70b79 inherit pro_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#acad6ad04fc4bf8f1068fdb5ecda70b79">isVerbosity</a> (uint8_t verbosity)</td></tr>
+<tr class="memdesc:acad6ad04fc4bf8f1068fdb5ecda70b79 inherit pro_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if any of the given verbosity is enabled.  <a href="classaunit_1_1Test.html#acad6ad04fc4bf8f1068fdb5ecda70b79">More...</a><br /></td></tr>
+<tr class="separator:acad6ad04fc4bf8f1068fdb5ecda70b79 inherit pro_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92a847829527808fd09bd9a526b57ad3 inherit pro_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a92a847829527808fd09bd9a526b57ad3">getVerbosity</a> ()</td></tr>
+<tr class="memdesc:a92a847829527808fd09bd9a526b57ad3 inherit pro_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the verbosity.  <a href="classaunit_1_1Test.html#a92a847829527808fd09bd9a526b57ad3">More...</a><br /></td></tr>
+<tr class="separator:a92a847829527808fd09bd9a526b57ad3 inherit pro_methods_classaunit_1_1Test"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_static_attribs_classaunit_1_1MetaAssertion"><td colspan="2" onclick="javascript:toggleInherit('pro_static_attribs_classaunit_1_1MetaAssertion')"><img src="closed.png" alt="-"/>&#160;Static Protected Attributes inherited from <a class="el" href="classaunit_1_1MetaAssertion.html">aunit::MetaAssertion</a></td></tr>
+<tr class="memitem:a7ed4987a24102b477a01b0ade78cbe84 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memItemLeft" align="right" valign="top"><a id="a7ed4987a24102b477a01b0ade78cbe84"></a>
+static const char&#160;</td><td class="memItemRight" valign="bottom"><b>kMessageDone</b> []</td></tr>
+<tr class="separator:a7ed4987a24102b477a01b0ade78cbe84 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43501ce057dec6cafb768df8aca403f3 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memItemLeft" align="right" valign="top"><a id="a43501ce057dec6cafb768df8aca403f3"></a>
+static const char&#160;</td><td class="memItemRight" valign="bottom"><b>kMessageNotDone</b> [] = &quot;not done&quot;</td></tr>
+<tr class="separator:a43501ce057dec6cafb768df8aca403f3 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39fabd7abb55330bf7d52c3c6bcd94fb inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memItemLeft" align="right" valign="top"><a id="a39fabd7abb55330bf7d52c3c6bcd94fb"></a>
+static const char&#160;</td><td class="memItemRight" valign="bottom"><b>kMessagePassed</b> [] = &quot;passed&quot;</td></tr>
+<tr class="separator:a39fabd7abb55330bf7d52c3c6bcd94fb inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ccc11818fcd2584d2f26d8347af1e64 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memItemLeft" align="right" valign="top"><a id="a1ccc11818fcd2584d2f26d8347af1e64"></a>
+static const char&#160;</td><td class="memItemRight" valign="bottom"><b>kMessageNotPassed</b> [] = &quot;not passed&quot;</td></tr>
+<tr class="separator:a1ccc11818fcd2584d2f26d8347af1e64 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25049c75fbfeb8dc2758342d7ee04345 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memItemLeft" align="right" valign="top"><a id="a25049c75fbfeb8dc2758342d7ee04345"></a>
+static const char&#160;</td><td class="memItemRight" valign="bottom"><b>kMessageFailed</b> [] = &quot;failed&quot;</td></tr>
+<tr class="separator:a25049c75fbfeb8dc2758342d7ee04345 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2fc3d4f4ac35cae3af3d26de3a2751a inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memItemLeft" align="right" valign="top"><a id="aa2fc3d4f4ac35cae3af3d26de3a2751a"></a>
+static const char&#160;</td><td class="memItemRight" valign="bottom"><b>kMessageNotFailed</b> [] = &quot;not failed&quot;</td></tr>
+<tr class="separator:aa2fc3d4f4ac35cae3af3d26de3a2751a inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25319caa1b7984e48d887fd6bfa8f526 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memItemLeft" align="right" valign="top"><a id="a25319caa1b7984e48d887fd6bfa8f526"></a>
+static const char&#160;</td><td class="memItemRight" valign="bottom"><b>kMessageSkipped</b> [] = &quot;skipped&quot;</td></tr>
+<tr class="separator:a25319caa1b7984e48d887fd6bfa8f526 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3df34038a1ae7177d0f495e8ca2c43d4 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memItemLeft" align="right" valign="top"><a id="a3df34038a1ae7177d0f495e8ca2c43d4"></a>
+static const char&#160;</td><td class="memItemRight" valign="bottom"><b>kMessageNotSkipped</b> [] = &quot;not skipped&quot;</td></tr>
+<tr class="separator:a3df34038a1ae7177d0f495e8ca2c43d4 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9d9257166327c09c091a555a200e831 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memItemLeft" align="right" valign="top"><a id="aa9d9257166327c09c091a555a200e831"></a>
+static const char&#160;</td><td class="memItemRight" valign="bottom"><b>kMessageExpired</b> [] = &quot;timed out&quot;</td></tr>
+<tr class="separator:aa9d9257166327c09c091a555a200e831 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08ee69371a50ef5c1e3d622773dfff39 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memItemLeft" align="right" valign="top"><a id="a08ee69371a50ef5c1e3d622773dfff39"></a>
+static const char&#160;</td><td class="memItemRight" valign="bottom"><b>kMessageNotExpired</b> [] = &quot;not timed out&quot;</td></tr>
+<tr class="separator:a08ee69371a50ef5c1e3d622773dfff39 inherit pro_static_attribs_classaunit_1_1MetaAssertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Similar to <a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> but performs the <a class="el" href="classaunit_1_1TestOnce.html#a51ca2dbc08c87e4d2691e86d728efdf0" title="Calls the user-provided once() method. ">loop()</a> method only once. </p>
+<div class="textblock"><p>Similar to <a class="el" href="classaunit_1_1TestAgain.html" title="Similar to TestOnce but performs the user-defined test multiple times. ">TestAgain</a> but performs user-defined test only once. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00233">233</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestOnce_8h_source.html#l00040">40</a> of file <a class="el" href="TestOnce_8h_source.html">TestOnce.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad2e1bc468c9841b0a1b5ceda145b62e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2e1bc468c9841b0a1b5ceda145b62e2">&#9670;&nbsp;</a></span>TestOnce() <span class="overload">[1/2]</span></h2>
+<a id="aca92b171f709cf401701feb9750d8e64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca92b171f709cf401701feb9750d8e64">&#9670;&nbsp;</a></span>TestOnce()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,51 +338,20 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">aunit::TestOnce::TestOnce </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00236">236</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
-
-</div>
-</div>
-<a id="aaf5a2ef476bdf15e152ec602e5732977"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf5a2ef476bdf15e152ec602e5732977">&#9670;&nbsp;</a></span>TestOnce() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">aunit::TestOnce::TestOnce </td>
-          <td>(</td>
-          <td class="paramtype">const __FlashStringHelper *&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00240">240</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestOnce_8h_source.html#l00043">43</a> of file <a class="el" href="TestOnce_8h_source.html">TestOnce.h</a>.</p>
 
 </div>
 </div>
@@ -299,7 +384,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classaunit_1_1Test.html#a15a9b4bc1f4f3ab23a995bab0cd18276">aunit::Test</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8cpp_source.html#l00077">77</a> of file <a class="el" href="Test_8cpp_source.html">Test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestOnce_8cpp_source.html#l00029">29</a> of file <a class="el" href="TestOnce_8cpp_source.html">TestOnce.cpp</a>.</p>
 
 </div>
 </div>
@@ -331,8 +416,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/brian/dev/AUnit/src/aunit/<a class="el" href="Test_8h_source.html">Test.h</a></li>
-<li>/Users/brian/dev/AUnit/src/aunit/<a class="el" href="Test_8cpp_source.html">Test.cpp</a></li>
+<li>/Users/brian/dev/AUnit/src/aunit/<a class="el" href="TestOnce_8h_source.html">TestOnce.h</a></li>
+<li>/Users/brian/dev/AUnit/src/aunit/<a class="el" href="TestOnce_8cpp_source.html">TestOnce.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.3.1</span>
+   &#160;<span id="projectnumber">0.4.0</span>
    </div>
-   <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit.</div>
+   <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
  </tr>
  </tbody>
@@ -68,6 +68,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classaunit_1_1TestRunner-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -75,11 +76,17 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>The class that runs the various test cases defined by the <a class="el" href="Test_8h.html#a191e80e8763446a0e725a8e58fb3380b" title="Macro to define a test that will be run only once. ">test()</a> and <a class="el" href="Test_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> macros.  
+<p>The class that runs the various test cases defined by the <a class="el" href="TestMacro_8h.html#a191e80e8763446a0e725a8e58fb3380b" title="Macro to define a test that will be run only once. ">test()</a> and <a class="el" href="TestMacro_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> macros.  
  <a href="classaunit_1_1TestRunner.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aed1045aa58b7f8f3583d591e42dfc749"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#aed1045aa58b7f8f3583d591e42dfc749">TimeoutType</a></td></tr>
+<tr class="memdesc:aed1045aa58b7f8f3583d591e42dfc749"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integer type of the timeout parameter.  <a href="#aed1045aa58b7f8f3583d591e42dfc749">More...</a><br /></td></tr>
+<tr class="separator:aed1045aa58b7f8f3583d591e42dfc749"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a93bd4a358d76e551c2aaf0d32d2dff10"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#a93bd4a358d76e551c2aaf0d32d2dff10">run</a> ()</td></tr>
@@ -103,19 +110,36 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ac00d7dc7ae426912edce78dc096066ed"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#ac00d7dc7ae426912edce78dc096066ed">setPrinter</a> (Print *printer)</td></tr>
 <tr class="memdesc:ac00d7dc7ae426912edce78dc096066ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the output printer.  <a href="#ac00d7dc7ae426912edce78dc096066ed">More...</a><br /></td></tr>
 <tr class="separator:ac00d7dc7ae426912edce78dc096066ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77100487f79ed9fcbbefb91614df0f5e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#a77100487f79ed9fcbbefb91614df0f5e">setPassOrFail</a> (bool ok)</td></tr>
-<tr class="memdesc:a77100487f79ed9fcbbefb91614df0f5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the pass/fail status of the current test.  <a href="#a77100487f79ed9fcbbefb91614df0f5e">More...</a><br /></td></tr>
-<tr class="separator:a77100487f79ed9fcbbefb91614df0f5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada64b26969ac83fb8b5b62334dd853ca"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#ada64b26969ac83fb8b5b62334dd853ca">setTimeout</a> (long millis)</td></tr>
-<tr class="memdesc:ada64b26969ac83fb8b5b62334dd853ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set test runner timeout across all tests, in millis.  <a href="#ada64b26969ac83fb8b5b62334dd853ca">More...</a><br /></td></tr>
-<tr class="separator:ada64b26969ac83fb8b5b62334dd853ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa22995eb389cd7c5e6e23ccbc7ccbaf6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#aa22995eb389cd7c5e6e23ccbc7ccbaf6">setTimeout</a> (<a class="el" href="classaunit_1_1TestRunner.html#aed1045aa58b7f8f3583d591e42dfc749">TimeoutType</a> seconds)</td></tr>
+<tr class="memdesc:aa22995eb389cd7c5e6e23ccbc7ccbaf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set test runner timeout across all tests, in seconds.  <a href="#aa22995eb389cd7c5e6e23ccbc7ccbaf6">More...</a><br /></td></tr>
+<tr class="separator:aa22995eb389cd7c5e6e23ccbc7ccbaf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The class that runs the various test cases defined by the <a class="el" href="Test_8h.html#a191e80e8763446a0e725a8e58fb3380b" title="Macro to define a test that will be run only once. ">test()</a> and <a class="el" href="Test_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> macros. </p>
+<div class="textblock"><p>The class that runs the various test cases defined by the <a class="el" href="TestMacro_8h.html#a191e80e8763446a0e725a8e58fb3380b" title="Macro to define a test that will be run only once. ">test()</a> and <a class="el" href="TestMacro_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> macros. </p>
 <p>It prints the summary of each test as well as the final summary of the entire run at the end. In the future, it may be possible to allow a different <a class="el" href="classaunit_1_1TestRunner.html" title="The class that runs the various test cases defined by the test() and testing() macros. ">TestRunner</a> to be used. </p>
 
 <p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00041">41</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="aed1045aa58b7f8f3583d591e42dfc749"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed1045aa58b7f8f3583d591e42dfc749">&#9670;&nbsp;</a></span>TimeoutType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint8_t <a class="el" href="classaunit_1_1TestRunner.html#aed1045aa58b7f8f3583d591e42dfc749">aunit::TestRunner::TimeoutType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Integer type of the timeout parameter. </p>
+<p>Seconds. </p>
+
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00044">44</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="ad55fbb77f52eb2c1a2d45536e8c4afba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad55fbb77f52eb2c1a2d45536e8c4afba">&#9670;&nbsp;</a></span>exclude()</h2>
 
@@ -143,7 +167,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Exclude the tests which match the pattern. </p>
 <p>Currently supports only a trailing '*'. For example, exclude("flash*"). </p>
 
-<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00053">53</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00056">56</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
 
 </div>
 </div>
@@ -174,7 +198,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Include the tests which match the pattern. </p>
 <p>Currently supports only a trailing '*'. For example, include("flash*"). </p>
 
-<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00061">61</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00064">64</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
 
 </div>
 </div>
@@ -204,7 +228,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Returns true if ANY of the bit flags of 'verbosity' is set. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00071">71</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00074">74</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
 
 </div>
 </div>
@@ -234,7 +258,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Print out the known tests. </p>
 <p>For debugging only. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00047">47</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00050">50</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
 
 </div>
 </div>
@@ -263,37 +287,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Run all tests using the current runner. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00044">44</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
-
-</div>
-</div>
-<a id="a77100487f79ed9fcbbefb91614df0f5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77100487f79ed9fcbbefb91614df0f5e">&#9670;&nbsp;</a></span>setPassOrFail()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void aunit::TestRunner::setPassOrFail </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>ok</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set the pass/fail status of the current test. </p>
-
-<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00079">79</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00047">47</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
 
 </div>
 </div>
@@ -327,8 +321,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ada64b26969ac83fb8b5b62334dd853ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada64b26969ac83fb8b5b62334dd853ca">&#9670;&nbsp;</a></span>setTimeout()</h2>
+<a id="aa22995eb389cd7c5e6e23ccbc7ccbaf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa22995eb389cd7c5e6e23ccbc7ccbaf6">&#9670;&nbsp;</a></span>setTimeout()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -339,8 +333,8 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static void aunit::TestRunner::setTimeout </td>
           <td>(</td>
-          <td class="paramtype">long&#160;</td>
-          <td class="paramname"><em>millis</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classaunit_1_1TestRunner.html#aed1045aa58b7f8f3583d591e42dfc749">TimeoutType</a>&#160;</td>
+          <td class="paramname"><em>seconds</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -351,11 +345,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Set test runner timeout across all tests, in millis. </p>
-<p>Set to 0 for infinite timeout. Useful for preventing <a class="el" href="Test_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> test cases that never end. This a timeout for the <a class="el" href="classaunit_1_1TestRunner.html" title="The class that runs the various test cases defined by the test() and testing() macros. ">TestRunner</a> itself, not for individual tests.</p>
-<p>It might be usefult to allow timeouts on a per-test basis, but I'm reluctant to do that at the <a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> class level because it would add extra 4 bytes (maybe 2 if we allowed a small maximum) of static memory per test case. The solution might be to allow the end-user to choose to pay for this extra cost if they want to. I think the right way to do that is to add support for test fixtures which is something on the back of my mind. </p>
+<p>Set test runner timeout across all tests, in seconds. </p>
+<p>Set to 0 for infinite timeout. Useful for preventing <a class="el" href="TestMacro_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> test cases that never end. This is a timeout for the <a class="el" href="classaunit_1_1TestRunner.html" title="The class that runs the various test cases defined by the test() and testing() macros. ">TestRunner</a> itself, not for individual tests. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00094">94</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00087">87</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
 
 </div>
 </div>
@@ -385,7 +378,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Set the verbosity flag. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00066">66</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00069">69</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
 
 </div>
 </div>

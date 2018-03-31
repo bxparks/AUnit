@@ -22,11 +22,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#ifdef ESP8266
+#include <pgmspace.h>
+#else
+#include <avr/pgmspace.h>
+#endif
+
 #include <Arduino.h>  // for declaration of 'Serial' on Teensy and others
-#include "Test.h"
+#include "Verbosity.h"
+#include "Printer.h"
 #include "Compare.h"
+#include "Test.h"
 
 namespace aunit {
+
+static const char TEST_STRING[] PROGMEM = "Test ";
+static const __FlashStringHelper* TEST_STRING_F = FPSTR(TEST_STRING);
 
 // Use a static variable inside a function to solve the static initialization
 // ordering problem.
@@ -35,18 +46,10 @@ Test** Test::getRoot() {
   return &root;
 }
 
-Test::Test(const char* name):
-    mName(name),
-    mStatus(kStatusNew),
-    mNext(nullptr) {
-  insert();
-}
-
-Test::Test(const __FlashStringHelper* name):
-    mName(name),
-    mStatus(kStatusNew),
-    mNext(nullptr) {
-  insert();
+Test::Test():
+  mStatus(kStatusNew),
+  mVerbosity(Verbosity::kNone),
+  mNext(nullptr) {
 }
 
 // Resolve the status as kStatusFailed only if ok == false. Otherwise, keep the
@@ -74,10 +77,30 @@ void Test::insert() {
   *p = this;
 }
 
-void TestOnce::loop() {
-  once();
-  if (getStatus() == kStatusSetup) {
-    pass();
+void Test::resolve() {
+  if (!isVerbosity(Verbosity::kTestAll)) return;
+
+  Print* printer = Printer::getPrinter();
+  if (mStatus == Test::kStatusPassed
+      && isVerbosity(Verbosity::kTestPassed)) {
+    printer->print(TEST_STRING_F);
+    Printer::print(mName);
+    printer->println(F(" passed."));
+  } else if (mStatus == Test::kStatusFailed
+      && isVerbosity(Verbosity::kTestFailed)) {
+    printer->print(TEST_STRING_F);
+    Printer::print(mName);
+    printer->println(F(" failed."));
+  } else if (mStatus == Test::kStatusSkipped
+      && isVerbosity(Verbosity::kTestSkipped)) {
+    printer->print(TEST_STRING_F);
+    Printer::print(mName);
+    printer->println(F(" skipped."));
+  } else if (mStatus == Test::kStatusExpired
+      && isVerbosity(Verbosity::kTestExpired)) {
+    printer->print(TEST_STRING_F);
+    Printer::print(mName);
+    printer->println(F(" timed out."));
   }
 }
 

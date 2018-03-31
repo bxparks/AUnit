@@ -3,19 +3,9 @@
 // Adapted from code fragment in the README.md in
 // https://github.com/mmurdoch/arduinounit/
 
-#define USE_AUNIT 1
-
-#if USE_AUNIT == 1
 #include <AUnit.h>
 using aunit::TestRunner;
 using aunit::Verbosity;
-#else
-#include <ArduinoUnit.h>
-#define assertTestExpire(x)
-#define assertTestNotExpire(x)
-#define checkTestExpire(x) true
-#define checkTestNotExpire(x) true
-#endif
 
 testing(slow_pass) { if (millis() > 1000) pass(); }
 
@@ -23,9 +13,7 @@ testing(slow_fail) { if (millis() > 1000) fail(); }
 
 testing(slow_skip) { if (millis() > 1000) skip(); }
 
-#if USE_AUNIT == 1
 testing(slow_expire) { if (millis() > 1000) expire(); }
-#endif
 
 testing(slow_pass_monitor) {
   unsigned long now = millis();
@@ -141,7 +129,6 @@ testing(slow_skip_monitor) {
   }
 }
 
-#if USE_AUNIT == 1
 testing(slow_expire_monitor) {
   unsigned long now = millis();
   if (now < 1000) {
@@ -179,7 +166,6 @@ testing(slow_expire_monitor) {
     pass();
   }
 }
-#endif
 
 void setup() {
   Serial.begin(74880); // 74880 is default for some ESP8266 boards
@@ -188,16 +174,10 @@ void setup() {
 }
 
 void loop() {
-#if USE_AUNIT == 1
   // Should get the following summary output:
   // TestRunner summary:
   //    5 passed, 1 failed, 1 skipped, 1 timed out, out of 8 test(s).
   //
   //TestRunner::setVerbosity(Verbosity::kAll);
   TestRunner::run();
-#else
-  // Should get the following summary output:
-  // Test summary: 4 passed, 1 failed, and 1 skipped, out of 6 test(s).
-  Test::run();
-#endif
 }

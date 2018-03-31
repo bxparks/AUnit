@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.3.1</span>
+   &#160;<span id="projectnumber">0.4.0</span>
    </div>
-   <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit.</div>
+   <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
  </tr>
  </tbody>
@@ -85,7 +85,7 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:addbf202990aff674bd58626ae6f192d5"><td class="memItemLeft" align="right" valign="top">static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Verbosity.html#addbf202990aff674bd58626ae6f192d5">kAssertionPassed</a> = 0x01</td></tr>
 <tr class="memdesc:addbf202990aff674bd58626ae6f192d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print assertXxx() passed message.  <a href="#addbf202990aff674bd58626ae6f192d5">More...</a><br /></td></tr>
 <tr class="separator:addbf202990aff674bd58626ae6f192d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97218568d7a5cc9056fb5c79f405ac4c"><td class="memItemLeft" align="right" valign="top">static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Verbosity.html#a97218568d7a5cc9056fb5c79f405ac4c">kAssertionFailed</a> = 0x01</td></tr>
+<tr class="memitem:a97218568d7a5cc9056fb5c79f405ac4c"><td class="memItemLeft" align="right" valign="top">static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Verbosity.html#a97218568d7a5cc9056fb5c79f405ac4c">kAssertionFailed</a> = 0x02</td></tr>
 <tr class="memdesc:a97218568d7a5cc9056fb5c79f405ac4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print assertXxx() failed message.  <a href="#a97218568d7a5cc9056fb5c79f405ac4c">More...</a><br /></td></tr>
 <tr class="separator:a97218568d7a5cc9056fb5c79f405ac4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48a74a239d845794ecc52ef911203130"><td class="memItemLeft" align="right" valign="top">static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Verbosity.html#a48a74a239d845794ecc52ef911203130">kTestPassed</a> = 0x04</td></tr>
@@ -121,7 +121,7 @@ Static Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Utility class to hold the <a class="el" href="classaunit_1_1Verbosity.html" title="Utility class to hold the Verbosity constants. ">Verbosity</a> constants. </p>
-<p>Current used only by <a class="el" href="classaunit_1_1TestRunner.html" title="The class that runs the various test cases defined by the test() and testing() macros. ">TestRunner</a> but potentially could be used by <a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> and <a class="el" href="classaunit_1_1TestOnce.html" title="Similar to Test but performs the loop() method only once. ">TestOnce</a> in the future, so it seemed better to pull these out into a separate file. </p>
+<p>Current used only by <a class="el" href="classaunit_1_1TestRunner.html" title="The class that runs the various test cases defined by the test() and testing() macros. ">TestRunner</a> but potentially could be used by <a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> and <a class="el" href="classaunit_1_1TestOnce.html" title="Similar to TestAgain but performs user-defined test only once. ">TestOnce</a> in the future, so it seemed better to pull these out into a separate file. </p>
 
 <p class="definition">Definition at line <a class="el" href="Verbosity_8h_source.html#l00037">37</a> of file <a class="el" href="Verbosity_8h_source.html">Verbosity.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
@@ -187,7 +187,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const uint8_t aunit::Verbosity::kAssertionFailed = 0x01</td>
+          <td class="memname">const uint8_t aunit::Verbosity::kAssertionFailed = 0x02</td>
         </tr>
       </table>
   </td>

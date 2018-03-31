@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.3.1</span>
+   &#160;<span id="projectnumber">0.4.0</span>
    </div>
-   <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit.</div>
+   <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
  </tr>
  </tbody>
@@ -87,24 +87,27 @@ Inheritance diagram for aunit::Test:</div>
 <div class="dyncontent">
 <div class="center"><img src="classaunit_1_1Test__inherit__graph.png" border="0" usemap="#aunit_1_1Test_inherit__map" alt="Inheritance graph"/></div>
 <map name="aunit_1_1Test_inherit__map" id="aunit_1_1Test_inherit__map">
-<area shape="rect" id="node2" href="classaunit_1_1TestOnce.html" title="Similar to Test but performs the loop() method only once. " alt="" coords="5,79,119,104"/>
+<area shape="rect" id="node2" href="classaunit_1_1Assertion.html" title="An Assertion class is a subclass of Test and provides various overloaded assertion() functions..." alt="" coords="76,79,189,104"/>
+<area shape="rect" id="node3" href="classaunit_1_1MetaAssertion.html" title="Class that extends the Assertion class to support the checkTestXxx() and assertTestXxx() macros that ..." alt="" coords="61,152,204,177"/>
+<area shape="rect" id="node4" href="classaunit_1_1TestAgain.html" title="Similar to TestOnce but performs the user&#45;defined test multiple times. " alt="" coords="5,225,122,251"/>
+<area shape="rect" id="node5" href="classaunit_1_1TestOnce.html" title="Similar to TestAgain but performs user&#45;defined test only once. " alt="" coords="145,225,259,251"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7a15f7f410f0f12fb82168b20d00399c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a7a15f7f410f0f12fb82168b20d00399c">Test</a> (const char *name)</td></tr>
-<tr class="memdesc:a7a15f7f410f0f12fb82168b20d00399c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor taking the name of the given test case.  <a href="#a7a15f7f410f0f12fb82168b20d00399c">More...</a><br /></td></tr>
-<tr class="separator:a7a15f7f410f0f12fb82168b20d00399c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ded41cada079f15a5f19c8432e702be"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a6ded41cada079f15a5f19c8432e702be">Test</a> (const __FlashStringHelper *name)</td></tr>
-<tr class="memdesc:a6ded41cada079f15a5f19c8432e702be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor taking the name of the given test case.  <a href="#a6ded41cada079f15a5f19c8432e702be">More...</a><br /></td></tr>
-<tr class="separator:a6ded41cada079f15a5f19c8432e702be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0550ff015d168b10c3c64540081fb19e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a0550ff015d168b10c3c64540081fb19e">Test</a> ()</td></tr>
+<tr class="memdesc:a0550ff015d168b10c3c64540081fb19e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty constructor.  <a href="#a0550ff015d168b10c3c64540081fb19e">More...</a><br /></td></tr>
+<tr class="separator:a0550ff015d168b10c3c64540081fb19e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad32752b60ecc4cab1149d38c2bb2da7c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#ad32752b60ecc4cab1149d38c2bb2da7c">setup</a> ()</td></tr>
 <tr class="memdesc:ad32752b60ecc4cab1149d38c2bb2da7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional method that performs any initialization.  <a href="#ad32752b60ecc4cab1149d38c2bb2da7c">More...</a><br /></td></tr>
 <tr class="separator:ad32752b60ecc4cab1149d38c2bb2da7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15a9b4bc1f4f3ab23a995bab0cd18276"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a15a9b4bc1f4f3ab23a995bab0cd18276">loop</a> ()=0</td></tr>
 <tr class="memdesc:a15a9b4bc1f4f3ab23a995bab0cd18276"><td class="mdescLeft">&#160;</td><td class="mdescRight">The user-provided test case function.  <a href="#a15a9b4bc1f4f3ab23a995bab0cd18276">More...</a><br /></td></tr>
 <tr class="separator:a15a9b4bc1f4f3ab23a995bab0cd18276"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7a08fd1e807b989b78d901f2d68ceb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#ab7a08fd1e807b989b78d901f2d68ceb5">resolve</a> ()</td></tr>
+<tr class="memdesc:ab7a08fd1e807b989b78d901f2d68ceb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print out the summary of the current test.  <a href="#ab7a08fd1e807b989b78d901f2d68ceb5">More...</a><br /></td></tr>
+<tr class="separator:ab7a08fd1e807b989b78d901f2d68ceb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7793d784a10ad5bde87d8e21e33bc89"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classaunit_1_1FCString.html">FCString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#ad7793d784a10ad5bde87d8e21e33bc89">getName</a> ()</td></tr>
 <tr class="memdesc:ad7793d784a10ad5bde87d8e21e33bc89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the test.  <a href="#ad7793d784a10ad5bde87d8e21e33bc89">More...</a><br /></td></tr>
 <tr class="separator:ad7793d784a10ad5bde87d8e21e33bc89"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,6 +159,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aab89c47bfa768b0dbf9eb18a777ac4bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#aab89c47bfa768b0dbf9eb18a777ac4bc">expire</a> ()</td></tr>
 <tr class="memdesc:aab89c47bfa768b0dbf9eb18a777ac4bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the test as expired (i.e.  <a href="#aab89c47bfa768b0dbf9eb18a777ac4bc">More...</a><br /></td></tr>
 <tr class="separator:aab89c47bfa768b0dbf9eb18a777ac4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3490d139e963b7308e8a201d430bdb8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a3490d139e963b7308e8a201d430bdb8d">enableVerbosity</a> (uint8_t verbosity)</td></tr>
+<tr class="memdesc:a3490d139e963b7308e8a201d430bdb8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the given verbosity of the current test.  <a href="#a3490d139e963b7308e8a201d430bdb8d">More...</a><br /></td></tr>
+<tr class="separator:a3490d139e963b7308e8a201d430bdb8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8089cf50292419b67da102d72d8bdcc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#ac8089cf50292419b67da102d72d8bdcc">disableVerbosity</a> (uint8_t verbosity)</td></tr>
+<tr class="memdesc:ac8089cf50292419b67da102d72d8bdcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the given verbosity of the current test.  <a href="#ac8089cf50292419b67da102d72d8bdcc">More...</a><br /></td></tr>
+<tr class="separator:ac8089cf50292419b67da102d72d8bdcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -192,76 +201,108 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:ae71ded07fd6fc69413f64d3d603e4bd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#ae71ded07fd6fc69413f64d3d603e4bd6">pass</a> ()</td></tr>
 <tr class="memdesc:ae71ded07fd6fc69413f64d3d603e4bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the test as passed.  <a href="#ae71ded07fd6fc69413f64d3d603e4bd6">More...</a><br /></td></tr>
 <tr class="separator:ae71ded07fd6fc69413f64d3d603e4bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca963335bb4190b4919cf42a639cec03"><td class="memItemLeft" align="right" valign="top"><a id="aca963335bb4190b4919cf42a639cec03"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const char *name)</td></tr>
+<tr class="separator:aca963335bb4190b4919cf42a639cec03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cd4d719b739721388f753464ff13019"><td class="memItemLeft" align="right" valign="top"><a id="a3cd4d719b739721388f753464ff13019"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __FlashStringHelper *name)</td></tr>
+<tr class="separator:a3cd4d719b739721388f753464ff13019"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acad6ad04fc4bf8f1068fdb5ecda70b79"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#acad6ad04fc4bf8f1068fdb5ecda70b79">isVerbosity</a> (uint8_t verbosity)</td></tr>
+<tr class="memdesc:acad6ad04fc4bf8f1068fdb5ecda70b79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if any of the given verbosity is enabled.  <a href="#acad6ad04fc4bf8f1068fdb5ecda70b79">More...</a><br /></td></tr>
+<tr class="separator:acad6ad04fc4bf8f1068fdb5ecda70b79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92a847829527808fd09bd9a526b57ad3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a92a847829527808fd09bd9a526b57ad3">getVerbosity</a> ()</td></tr>
+<tr class="memdesc:a92a847829527808fd09bd9a526b57ad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the verbosity.  <a href="#a92a847829527808fd09bd9a526b57ad3">More...</a><br /></td></tr>
+<tr class="separator:a92a847829527808fd09bd9a526b57ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class of all test cases. </p>
-<p>The <a class="el" href="Test_8h.html#a191e80e8763446a0e725a8e58fb3380b" title="Macro to define a test that will be run only once. ">test()</a> and <a class="el" href="Test_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> macros define subclasses of <a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> or <a class="el" href="classaunit_1_1TestOnce.html" title="Similar to Test but performs the loop() method only once. ">TestOnce</a> (respectively), and allow the code following the macros in '{}' to become the body of the <a class="el" href="classaunit_1_1Test.html#a15a9b4bc1f4f3ab23a995bab0cd18276" title="The user-provided test case function. ">loop()</a> and once() methods of the two classes (respectively). </p>
+<p>The <a class="el" href="TestMacro_8h.html#a191e80e8763446a0e725a8e58fb3380b" title="Macro to define a test that will be run only once. ">test()</a> and <a class="el" href="TestMacro_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> macros define subclasses of <a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> or <a class="el" href="classaunit_1_1TestOnce.html" title="Similar to TestAgain but performs user-defined test only once. ">TestOnce</a> (respectively), and allow the code following the macros in '{}' to become the body of the <a class="el" href="classaunit_1_1Test.html#a15a9b4bc1f4f3ab23a995bab0cd18276" title="The user-provided test case function. ">loop()</a> and once() methods of the two classes (respectively). </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00100">100</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00049">49</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7a15f7f410f0f12fb82168b20d00399c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a15f7f410f0f12fb82168b20d00399c">&#9670;&nbsp;</a></span>Test() <span class="overload">[1/2]</span></h2>
+<a id="a0550ff015d168b10c3c64540081fb19e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0550ff015d168b10c3c64540081fb19e">&#9670;&nbsp;</a></span>Test()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">aunit::Test::Test </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Constructor taking the name of the given test case. </p>
-<p>Also performs self-registration into the linked list of all test cases defined by <a class="el" href="classaunit_1_1Test.html#a33f9f14097b77edc19e8298022ecbe60" title="Get the pointer to the root pointer. ">Test::getRoot()</a>. </p>
+<p>Empty constructor. </p>
+<p>The name will be set later. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8cpp_source.html#l00038">38</a> of file <a class="el" href="Test_8cpp_source.html">Test.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6ded41cada079f15a5f19c8432e702be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ded41cada079f15a5f19c8432e702be">&#9670;&nbsp;</a></span>Test() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">aunit::Test::Test </td>
-          <td>(</td>
-          <td class="paramtype">const __FlashStringHelper *&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor taking the name of the given test case. </p>
-<p>Also performs self-registration into the linked list of all test cases defined by <a class="el" href="classaunit_1_1Test.html#a33f9f14097b77edc19e8298022ecbe60" title="Get the pointer to the root pointer. ">Test::getRoot()</a>.. </p>
-
-<p class="definition">Definition at line <a class="el" href="Test_8cpp_source.html#l00045">45</a> of file <a class="el" href="Test_8cpp_source.html">Test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8cpp_source.html#l00049">49</a> of file <a class="el" href="Test_8cpp_source.html">Test.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac8089cf50292419b67da102d72d8bdcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8089cf50292419b67da102d72d8bdcc">&#9670;&nbsp;</a></span>disableVerbosity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void aunit::Test::disableVerbosity </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>verbosity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Disable the given verbosity of the current test. </p>
+
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00157">157</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+
+</div>
+</div>
+<a id="a3490d139e963b7308e8a201d430bdb8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3490d139e963b7308e8a201d430bdb8d">&#9670;&nbsp;</a></span>enableVerbosity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void aunit::Test::enableVerbosity </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>verbosity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enable the given verbosity of the current test. </p>
+
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00154">154</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+
+</div>
+</div>
 <a id="aab89c47bfa768b0dbf9eb18a777ac4bc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aab89c47bfa768b0dbf9eb18a777ac4bc">&#9670;&nbsp;</a></span>expire()</h2>
 
@@ -288,7 +329,7 @@ Protected Member Functions</h2></td></tr>
 <p>Mark the test as expired (i.e. </p>
 <p>timed out). </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00210">210</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00151">151</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -317,7 +358,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Mark the test as failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00214">214</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00161">161</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -346,7 +387,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Get the name of the test. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00158">158</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00099">99</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -376,7 +417,7 @@ Protected Member Functions</h2></td></tr>
 <p>Return the next pointer as a pointer to the pointer, similar to <a class="el" href="classaunit_1_1Test.html#a33f9f14097b77edc19e8298022ecbe60" title="Get the pointer to the root pointer. ">getRoot()</a>. </p>
 <p>This makes it much easier to manipulate a singly-linked list. Also makes setNext() method unnecessary. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00174">174</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00115">115</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -406,7 +447,7 @@ Protected Member Functions</h2></td></tr>
 <p>Get the pointer to the root pointer. </p>
 <p>Implemented as a function static so fixes the C++ static initialization problem making it safe to use this in other static contexts. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8cpp_source.html#l00033">33</a> of file <a class="el" href="Test_8cpp_source.html">Test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8cpp_source.html#l00044">44</a> of file <a class="el" href="Test_8cpp_source.html">Test.cpp</a>.</p>
 
 </div>
 </div>
@@ -435,7 +476,36 @@ Protected Member Functions</h2></td></tr>
 
 <p>Get the status of the test. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00161">161</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00102">102</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+
+</div>
+</div>
+<a id="a92a847829527808fd09bd9a526b57ad3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92a847829527808fd09bd9a526b57ad3">&#9670;&nbsp;</a></span>getVerbosity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t aunit::Test::getVerbosity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the verbosity. </p>
+
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00184">184</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -464,7 +534,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Return true if test is done (passed, failed, skipped, expired). </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00177">177</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00118">118</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -493,7 +563,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Return true if test is expired. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00201">201</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00142">142</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -522,7 +592,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Return true if test is failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00189">189</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00130">130</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -551,7 +621,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Return true if test is done (passed, failed, skipped, expired). </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00180">180</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00121">121</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -580,7 +650,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Return true if test is expired. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00204">204</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00145">145</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -609,7 +679,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Return true if test is failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00192">192</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00133">133</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -638,7 +708,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Return true if test is passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00186">186</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00127">127</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -667,7 +737,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Return true if test isNot skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00198">198</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00139">139</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -696,7 +766,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Return true if test is passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00183">183</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00124">124</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -725,7 +795,37 @@ Protected Member Functions</h2></td></tr>
 
 <p>Return true if test isNot skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00195">195</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00136">136</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+
+</div>
+</div>
+<a id="acad6ad04fc4bf8f1068fdb5ecda70b79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acad6ad04fc4bf8f1068fdb5ecda70b79">&#9670;&nbsp;</a></span>isVerbosity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool aunit::Test::isVerbosity </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>verbosity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determine if any of the given verbosity is enabled. </p>
+
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00181">181</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -755,7 +855,7 @@ Protected Member Functions</h2></td></tr>
 <p>The user-provided test case function. </p>
 <p>EEach call to Test::run() makes one call to this <a class="el" href="classaunit_1_1Test.html#a15a9b4bc1f4f3ab23a995bab0cd18276" title="The user-provided test case function. ">loop()</a> method. The assertXxx() macros, as well as <a class="el" href="classaunit_1_1Test.html#ae71ded07fd6fc69413f64d3d603e4bd6" title="Mark the test as passed. ">pass()</a>, <a class="el" href="classaunit_1_1Test.html#a64023d7738f6ae94dcaeb4fc4c7ec8b3" title="Mark the test as failed. ">fail()</a> and <a class="el" href="classaunit_1_1Test.html#a8fcf67b6fdec7a1fa364b1b0b07ff1e5" title="Mark the test as skipped. ">skip()</a> functions can be called in here. </p>
 
-<p>Implemented in <a class="el" href="classaunit_1_1TestOnce.html#a51ca2dbc08c87e4d2691e86d728efdf0">aunit::TestOnce</a>.</p>
+<p>Implemented in <a class="el" href="classaunit_1_1TestOnce.html#a51ca2dbc08c87e4d2691e86d728efdf0">aunit::TestOnce</a>, and <a class="el" href="classaunit_1_1TestAgain.html#a21cc4c0ff42a41a38122af58af50c0dd">aunit::TestAgain</a>.</p>
 
 </div>
 </div>
@@ -784,7 +884,28 @@ Protected Member Functions</h2></td></tr>
 
 <p>Mark the test as passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00217">217</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00164">164</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+
+</div>
+</div>
+<a id="ab7a08fd1e807b989b78d901f2d68ceb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7a08fd1e807b989b78d901f2d68ceb5">&#9670;&nbsp;</a></span>resolve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void aunit::Test::resolve </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Print out the summary of the current test. </p>
+
+<p class="definition">Definition at line <a class="el" href="Test_8cpp_source.html#l00080">80</a> of file <a class="el" href="Test_8cpp_source.html">Test.cpp</a>.</p>
 
 </div>
 </div>
@@ -806,7 +927,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Set the status to Passed or Failed depending on ok. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8cpp_source.html#l00054">54</a> of file <a class="el" href="Test_8cpp_source.html">Test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8cpp_source.html#l00057">57</a> of file <a class="el" href="Test_8cpp_source.html">Test.cpp</a>.</p>
 
 </div>
 </div>
@@ -836,7 +957,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Set the status of the test. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00164">164</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00105">105</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -866,7 +987,7 @@ Protected Member Functions</h2></td></tr>
 <p>Optional method that performs any initialization. </p>
 <p>The assertXxx() macros, as well as <a class="el" href="classaunit_1_1Test.html#ae71ded07fd6fc69413f64d3d603e4bd6" title="Mark the test as passed. ">pass()</a>, <a class="el" href="classaunit_1_1Test.html#a64023d7738f6ae94dcaeb4fc4c7ec8b3" title="Mark the test as failed. ">fail()</a> and <a class="el" href="classaunit_1_1Test.html#a8fcf67b6fdec7a1fa364b1b0b07ff1e5" title="Mark the test as skipped. ">skip()</a> functions can be called in here. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00148">148</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00086">86</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -895,7 +1016,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Mark the test as skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00207">207</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00148">148</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -922,7 +1043,7 @@ Protected Member Functions</h2></td></tr>
 
 <p><a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> has timed out, or <a class="el" href="classaunit_1_1Test.html#aab89c47bfa768b0dbf9eb18a777ac4bc" title="Mark the test as expired (i.e. ">expire()</a> called. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00121">121</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00070">70</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -948,7 +1069,7 @@ Protected Member Functions</h2></td></tr>
 
 <p><a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> has failed, or failed() was called. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00115">115</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00064">64</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -974,7 +1095,7 @@ Protected Member Functions</h2></td></tr>
 
 <p><a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> is new, needs to be setup. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00106">106</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00055">55</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -1000,7 +1121,7 @@ Protected Member Functions</h2></td></tr>
 
 <p><a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> has passed, or <a class="el" href="classaunit_1_1Test.html#ae71ded07fd6fc69413f64d3d603e4bd6" title="Mark the test as passed. ">pass()</a> was called. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00112">112</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00061">61</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -1026,7 +1147,7 @@ Protected Member Functions</h2></td></tr>
 
 <p><a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> is set up. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00109">109</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00058">58</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -1052,7 +1173,7 @@ Protected Member Functions</h2></td></tr>
 
 <p><a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> is skipped, through the exclude() method or <a class="el" href="classaunit_1_1Test.html#a8fcf67b6fdec7a1fa364b1b0b07ff1e5" title="Mark the test as skipped. ">skip()</a> was called. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00118">118</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00067">67</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>

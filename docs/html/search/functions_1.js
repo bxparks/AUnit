@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fail',['fail',['../classaunit_1_1Test.html#a64023d7738f6ae94dcaeb4fc4c7ec8b3',1,'aunit::Test']]]
+  ['disableverbosity',['disableVerbosity',['../classaunit_1_1Test.html#ac8089cf50292419b67da102d72d8bdcc',1,'aunit::Test']]]
 ];

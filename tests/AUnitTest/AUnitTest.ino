@@ -49,6 +49,10 @@ const __FlashStringHelper* ff = FPSTR(FF_PROGMEM);
 const __FlashStringHelper* gg = FPSTR(GG_PROGMEM);
 const __FlashStringHelper* hh = FPSTR(HH_PROGMEM);
 
+// ------------------------------------------------------
+// Test the test() macro.
+// ------------------------------------------------------
+
 test(type_mismatch) {
   unsigned short ushortValue = 5;
   unsigned int uintValue = 5;
@@ -83,9 +87,6 @@ test(type_mismatch) {
 }
 
 #if USE_AUNIT == 1
-
-using aunit::compareString;
-using aunit::compareStringN;
 
 test(compareString) {
   assertEqual(compareString(a, a), 0);
@@ -291,6 +292,18 @@ test(assertTrue) {
   assertFalse(false);
 }
 
+test(verbosity_assertionFailed_only) {
+  enableVerbosity(Verbosity::kAssertionPassed);
+  disableVerbosity(Verbosity::kTestPassed);
+  assertTrue(true);
+}
+
+test(verbosity_testFailed_only) {
+  enableVerbosity(Verbosity::kTestFailed);
+  disableVerbosity(Verbosity::kAssertionFailed);
+  assertTrue(false);
+}
+
 test(flashString) {
   assertEqual(ff, ff);
   assertEqual(gg, gg);
@@ -322,27 +335,16 @@ testing(timeout_after_10_seconds) {
   }
 }
 
-// Test that the externTesting() and externTest() macros work.
+// ------------------------------------------------------
+// Test externTesting() macro and meta assertions.
+// ------------------------------------------------------
+
 externTesting(slow_pass);
 externTesting(slow_fail);
 externTesting(slow_skip);
 #if USE_AUNIT == 1
 externTesting(slow_expire);
 #endif
-externTest(external);
-
-// Check 10 times if the test(external) passes. Requires externTest().
-testing(external_monitor) {
-  static int count = 10;
-  if (count > 0) {
-    if (checkTestPass(external)) {
-      pass();
-    }
-    count++;
-  } else {
-    fail();
-  }
-}
 
 testing(slow_pass_monitor) {
   unsigned long now = millis();
@@ -490,6 +492,241 @@ testing(slow_expire_monitor) {
 }
 #endif
 
+#if USE_AUNIT == 0
+// -------------------------------------------------------------------------
+// Test creating custom parent classes manually as supported by ArduinoUnit,
+// Unsupported in favor of testF() and testingF() in AUnit.
+// -------------------------------------------------------------------------
+
+class CustomTestOnce: public TestOnce {
+  public:
+    CustomTestOnce(const char *name):
+        TestOnce(name) {
+    }
+
+  protected:
+    virtual void setup() override {
+      n = random(6);
+    }
+
+    virtual void once() override {
+      assertLessOrEqual(n, 6);
+    }
+
+  private:
+    int n;
+};
+
+CustomTestOnce myTestOnce1("customTestOnce1");
+CustomTestOnce myTestOnce2("customTestOnce2");
+
+#endif
+
+#if USE_AUNIT == 1
+
+// -------------------------------------------------------------------------
+// Validate the testF() and testingF() macros.
+// -------------------------------------------------------------------------
+
+testF(CustomOnceFixture, customOnceFixture1) {
+  assertCommon();
+}
+
+testF(CustomOnceFixture, customOnceFixture2) {
+  assertFailing();
+  assertTrue(false);  // should bail out early because of prev failure
+}
+
+testingF(CustomAgainFixture, customAgainFixture) {
+  assertCommon();
+  pass();
+}
+
+// Check that in the case of picking the wrong class for the testF() or the
+// testingF() macros, the compiler gives an error.
+
+#if 0
+// Test a testingF() macro with a TestOnce class. Should get compiler error
+// because testingF() overrides an again() method which doesn't exist in
+// TestOnce.
+testingF(CustomOnceFixture, crossedOnce) {
+  assertCommon();
+}
+#endif
+
+#if 0
+// Test a testF() macro with a TestAgain class. Should get compiler error
+// because testF() overrides a once() method which doesn't exist in TestAgain.
+testF(CustomAgainFixture, crossedAgain) {
+  assertCommon();
+}
+#endif
+
+// -------------------------------------------------------------------------
+// Verify that externTestF() and externTestingF() work.
+// -------------------------------------------------------------------------
+
+externTestF(CustomOnceFixture, fixture_external);
+
+testing(fixture_external_monitor) {
+  assertTestDoneF(CustomOnceFixture, fixture_external);
+}
+
+externTestingF(CustomAgainFixture, fixture_slow_pass);
+externTestingF(CustomAgainFixture, fixture_slow_fail);
+externTestingF(CustomAgainFixture, fixture_slow_skip);
+externTestingF(CustomAgainFixture, fixture_slow_expire);
+
+testing(fixture_slow_pass_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDoneF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_pass));
+
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_pass));
+
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_pass));
+
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_pass));
+
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotExpireF(CustomAgainFixture, fixture_slow_pass));
+  }
+  if (now > 2000) {
+    assertTestDoneF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_pass));
+
+    assertTestPassF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestPassF(CustomAgainFixture, fixture_slow_pass));
+
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_pass));
+
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_pass));
+
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_pass);
+    assertTrue(checkTestNotExpireF(CustomAgainFixture, fixture_slow_pass));
+
+    pass();
+  }
+}
+
+testing(fixture_slow_fail_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDoneF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_fail));
+
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_fail));
+
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_fail));
+
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_fail));
+
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotExpireF(CustomAgainFixture, fixture_slow_fail));
+  }
+  if (now > 2000) {
+    assertTestDoneF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_fail));
+
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_fail));
+
+    assertTestFailF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestFailF(CustomAgainFixture, fixture_slow_fail));
+
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_fail));
+
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_fail);
+    assertTrue(checkTestNotExpireF(CustomAgainFixture, fixture_slow_fail));
+
+    pass();
+  }
+}
+
+testing(fixture_slow_skip_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDoneF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_skip));
+
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_skip));
+
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_skip));
+
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_skip);
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_skip);
+  }
+  if (now > 2000) {
+    assertTestDoneF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_skip));
+
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_skip));
+
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_skip));
+
+    assertTestSkipF(CustomAgainFixture, fixture_slow_skip);
+    assertTrue(checkTestSkipF(CustomAgainFixture, fixture_slow_skip));
+
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_skip);
+    pass();
+  }
+}
+
+testing(fixture_slow_expire_monitor) {
+  unsigned long now = millis();
+  if (now < 1000) {
+    assertTestNotDoneF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_expire));
+
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_expire));
+
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_expire));
+
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_expire));
+
+    assertTestNotExpireF(CustomAgainFixture, fixture_slow_expire);
+  }
+  if (now > 2000) {
+    assertTestDoneF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_expire));
+
+    assertTestNotPassF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_expire));
+
+    assertTestNotFailF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_expire));
+
+    assertTestNotSkipF(CustomAgainFixture, fixture_slow_expire);
+    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_expire));
+
+    assertTestExpireF(CustomAgainFixture, fixture_slow_expire);
+    pass();
+  }
+}
+
+#endif
+
+// ------------------------------------------------------
+// The main body.
+// ------------------------------------------------------
+
 void setup() {
   Serial.begin(74880); // 74880 is the default for some ESP8266 boards
   while (! Serial); // Wait until Serial is ready - Leonardo
@@ -501,10 +738,9 @@ void setup() {
   //TestRunner::setVerbosity(Verbosity::kTestRunSummary);
   //TestRunner::list();
 
-  // If set to something really small, like 1, all tests are incomplete.
   // If set to 0, infinite timeout, some testing() may accidentally run
-  // forever. Default is 10000 ms.
-  //TestRunner::setTimeout(25000);
+  // forever. Default is 10 s.
+  //TestRunner::setTimeout(25);
 
   TestRunner::exclude("looping_f*");
 #else
@@ -518,7 +754,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    18 passed, 1 failed, 1 skipped, 2 timed out, out of 22 test(s).
+  //    26 passed, 4 failed, 2 skipped, 4 timed out, out of 36 test(s).
   TestRunner::run();
 #else
   Test::run();

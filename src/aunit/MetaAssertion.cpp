@@ -1,65 +1,67 @@
+/*
+MIT License
+
+Copyright (c) 2018 Brian T. Park
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+#ifdef ESP8266
+#include <pgmspace.h>
+#else
+#include <avr/pgmspace.h>
+#endif
+
+#include <Arduino.h>  // definition of Print
 #include "Printer.h"
 #include "Verbosity.h"
 #include "Compare.h"
+#include "TestRunner.h"
 #include "MetaAssertion.h"
 
 namespace aunit {
 
-// Print a human readable string fragment from the method name:
-// "isDone" -> "is done"
-// "isNotDone" ->"is not done"
-// ...
-// "isExpired" ->"is timed out" (*)
-// "isNotExpired" ->"is not timed out" (*)
-//
-// (*) - The internal "expired" state is consistently known as "timed out"
-// externally. Doing a string compare is a bit inefficient in terms of CPU
-// cycle, but these are unit tests, we don't need to be super fast.
-//
-// I can think of 2 alternatives to do this internal to external mapping:
-// 1) provide the human-readable mapping in the various assertTestXxx()
-// macros,
-// 2) maybe use a pointer to member functions and do a switch on that here.
-// Either of those seems more complex than this little hack.
-void printStatusString(const char* statusName) {
-  const char* p;
-  if (compareEqual(statusName, F("isExpired"))) {
-    p = "isTimedOut"; // can't use F() here without a lot of work
-  } else if (compareEqual(statusName, F("isNotExpired"))) {
-    p = "isNotTimedOut"; // can't use F() here without a lot of work
-  } else {
-    p = statusName;
-  }
+// Moving these strings into PROGMEM saves 162 bytes of flash memory (from
+// elimination of a function) and 130 bytes of static memory,
+const char MetaAssertion::kMessageDone[] PROGMEM = "done";
+const char MetaAssertion::kMessageNotDone[] PROGMEM = "not done";
+const char MetaAssertion::kMessagePassed[] PROGMEM = "passed";
+const char MetaAssertion::kMessageNotPassed[] PROGMEM = "not passed";
+const char MetaAssertion::kMessageFailed[] PROGMEM = "failed";
+const char MetaAssertion::kMessageNotFailed[] PROGMEM = "not failed";
+const char MetaAssertion::kMessageSkipped[] PROGMEM = "skipped";
+const char MetaAssertion::kMessageNotSkipped[] PROGMEM = "not skipped";
+const char MetaAssertion::kMessageExpired[] PROGMEM = "timed out";
+const char MetaAssertion::kMessageNotExpired[] PROGMEM = "not timed out";
 
-  for (; *p != '\0'; p++) {
-    char c = *p;
-    if (!isupper(c)) {
-      Printer::getPrinter()->print(c);
-    } else {
-      Printer::getPrinter()->print(' ');
-      c = tolower(c);
-      Printer::getPrinter()->print(c);
-    }
-  }
-}
-
-void printAssertionTestStatusMessage(bool ok, const char* file, uint16_t line,
-    const char* testName, const char* statusName) {
-  bool isOutput =
-      (ok && TestRunner::isVerbosity(Verbosity::kAssertionPassed)) ||
-      (!ok && TestRunner::isVerbosity(Verbosity::kAssertionFailed));
-  if (!isOutput) return;
-
-  // TODO: Merge the common strings between this and printAssertionMesssage()
-  // into PROGMEM strings manually and reused them. It's not too bad even with
-  // these c-strings, because the compiler will dedupe them.
+void MetaAssertion::printAssertionTestStatusMessage(
+    bool ok, const char* file, uint16_t line,
+    const char* testName, const __FlashStringHelper* statusMessage) {
+  // Trying to move these strings into PROGMEM actually makes the flash memory
+  // consumption bigger. The compile/linker will dedupe these c-strings.
   Print* printer = Printer::getPrinter();
   printer->print("Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": Test ");
   printer->print(testName);
-  printer->print(' ');
-  printStatusString(statusName);
+  printer->print(" is ");
+  printer->print(statusMessage);
   printer->print(", file ");
   printer->print(file);
   printer->print(", line ");
@@ -67,10 +69,13 @@ void printAssertionTestStatusMessage(bool ok, const char* file, uint16_t line,
   printer->println('.');
 }
 
-bool assertionTestStatus(const char* file, uint16_t line, 
-    const char* testName, const char* statusName, bool ok) {
-  printAssertionTestStatusMessage(ok, file, line, testName, statusName);
-  TestRunner::setPassOrFail(ok);
+bool MetaAssertion::assertionTestStatus(const char* file, uint16_t line,
+    const char* testName, const __FlashStringHelper* statusMessage, bool ok) {
+  if (isDone()) return false;
+  if (isOutputEnabled(ok)) {
+    printAssertionTestStatusMessage(ok, file, line, testName, statusMessage);
+  }
+  setPassOrFail(ok);
   return ok;
 }
 

@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['test',['Test',['../classaunit_1_1Test.html#a7a15f7f410f0f12fb82168b20d00399c',1,'aunit::Test::Test(const char *name)'],['../classaunit_1_1Test.html#a6ded41cada079f15a5f19c8432e702be',1,'aunit::Test::Test(const __FlashStringHelper *name)']]],
-  ['testonce',['TestOnce',['../classaunit_1_1TestOnce.html#ad2e1bc468c9841b0a1b5ceda145b62e2',1,'aunit::TestOnce::TestOnce(const char *name)'],['../classaunit_1_1TestOnce.html#aaf5a2ef476bdf15e152ec602e5732977',1,'aunit::TestOnce::TestOnce(const __FlashStringHelper *name)']]]
+  ['pass',['pass',['../classaunit_1_1Test.html#ae71ded07fd6fc69413f64d3d603e4bd6',1,'aunit::Test']]],
+  ['print',['print',['../classaunit_1_1Printer.html#a03a14e482e81bd6419ccc24a32c830a9',1,'aunit::Printer']]],
+  ['printassertionteststatusmessage',['printAssertionTestStatusMessage',['../classaunit_1_1MetaAssertion.html#a5f9c351ee9affc817dc0b640eecf79aa',1,'aunit::MetaAssertion']]],
+  ['println',['println',['../classaunit_1_1Printer.html#a0b48afdf76ff7add18a9858418b1cf6e',1,'aunit::Printer']]]
 ];

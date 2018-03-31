@@ -22,9 +22,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.3.1</span>
+   &#160;<span id="projectnumber">0.4.0</span>
    </div>
-   <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit.</div>
+   <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
  </tr>
  </tbody>
@@ -110,7 +110,7 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>kFStr
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A union of (const char*) and (const __FlashStringHelper*) with a discriminator. </p>
-<p>This allows us to treat these 2 strings like a single object. The major reason this class is needed is because the F() cannot be used outside a function, it can only be used inside a function, so we are forced to use normal c-strings instead of F() strings when manually creating <a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> or <a class="el" href="classaunit_1_1TestOnce.html" title="Similar to Test but performs the loop() method only once. ">TestOnce</a> instances.</p>
+<p>This allows us to treat these 2 strings like a single object. The major reason this class is needed is because the F() cannot be used outside a function, it can only be used inside a function, so we are forced to use normal c-strings instead of F() strings when manually creating <a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases. ">Test</a> or <a class="el" href="classaunit_1_1TestOnce.html" title="Similar to TestAgain but performs user-defined test only once. ">TestOnce</a> instances.</p>
 <p>I deliberately decided not to inherit from Printable. While it is convenient to be able to call Print::print() with an instance of this class, the cost is 2 (AVR) or 4 (Teensy-ARM or ESP8266) extra bytes of static memory for the v-table pointer for each instance. But each instance is only 3 (AVR) or 5 (Teensy-ARM or ESP8266) bytes big, so the cost of 50-100 bytes of static memory for a large suite of 25 unit tests does not seem worth the minor convenience. </p>
 
 <p class="definition">Definition at line <a class="el" href="FCString_8h_source.html#l00050">50</a> of file <a class="el" href="FCString_8h_source.html">FCString.h</a>.</p>

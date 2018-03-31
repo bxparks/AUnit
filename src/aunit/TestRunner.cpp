@@ -103,6 +103,9 @@ void TestRunner::runTest() {
   // (*mCurrent)->loop(), then changes the test case's mStatus.
   switch ((*mCurrent)->getStatus()) {
     case Test::kStatusNew:
+      // Transfer the verbosity of the TestRunner to the Test.
+      (*mCurrent)->enableVerbosity(mVerbosity);
+
       (*mCurrent)->setup();
 
       // support assertXxx() statements inside the setup() method
@@ -120,7 +123,7 @@ void TestRunner::runTest() {
         // again() virtual method dispatched from Test::loop(), analogous to
         // once(). But let's keep the code here for now.
         unsigned long now = millis();
-        if (mTimeout > 0 && now >= mStartTime + mTimeout) {
+        if (mTimeout > 0 && now >= mStartTime + 1000L * mTimeout) {
           (*mCurrent)->expire();
         } else {
           (*mCurrent)->loop();
@@ -138,25 +141,25 @@ void TestRunner::runTest() {
       break;
     case Test::kStatusSkipped:
       mSkippedCount++;
-      resolveTest((*mCurrent));
+      (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
       break;
     case Test::kStatusPassed:
       mPassedCount++;
-      resolveTest((*mCurrent));
+      (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
       break;
     case Test::kStatusFailed:
       mFailedCount++;
-      resolveTest((*mCurrent));
+      (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
       break;
     case Test::kStatusExpired:
       mExpiredCount++;
-      resolveTest((*mCurrent));
+      (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
       break;
@@ -191,23 +194,6 @@ void TestRunner::printStartRunner() {
   printer->println(F(" test(s)."));
 }
 
-void TestRunner::resolveTest(Test* testCase) {
-  if (!isVerbosity(Verbosity::kTestAll)) return;
-
-  Print* printer = Printer::getPrinter();
-  printer->print(F("Test "));
-  Printer::print(testCase->getName());
-  if (testCase->getStatus() == Test::kStatusSkipped) {
-    printer->println(F(" skipped."));
-  } else if (testCase->getStatus() == Test::kStatusFailed) {
-    printer->println(F(" failed."));
-  } else if (testCase->getStatus() == Test::kStatusPassed) {
-    printer->println(F(" passed."));
-  } else if (testCase->getStatus() == Test::kStatusExpired) {
-    printer->println(F(" timed out."));
-  }
-}
-
 void TestRunner::resolveRun() {
   if (!isVerbosity(Verbosity::kTestRunSummary)) return;
 
@@ -232,16 +218,16 @@ void TestRunner::listTests() {
 
   Print* printer = Printer::getPrinter();
   printer->print(F("TestRunner test count: "));
-  printer->print(mCount);
-  printer->println('.');
+  printer->println(mCount);
   for (Test** p = Test::getRoot(); (*p) != nullptr; p = (*p)->getNext()) {
     printer->print(F("Test "));
     Printer::print((*p)->getName());
-    printer->println(F(" found."));
+    printer->print(F("; status: "));
+    printer->println((*p)->getStatus());
   }
 }
 
-void TestRunner::setRunnerTimeout(unsigned long timeout) {
+void TestRunner::setRunnerTimeout(TimeoutType timeout) {
   mTimeout = timeout;
 }
 

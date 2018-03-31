@@ -40,6 +40,9 @@ namespace aunit {
  */
 class TestRunner {
   public:
+    /** Integer type of the timeout parameter. Seconds. */
+    typedef uint8_t TimeoutType;
+
     /** Run all tests using the current runner. */
     static void run() { getRunner()->runTest(); }
 
@@ -59,7 +62,7 @@ class TestRunner {
      * Currently supports only a trailing '*'. For example, include("flash*").
      */
     static void include(const char* pattern) {
-      getRunner()->setStatusMatchingPattern(pattern, Test::kStatusSetup);
+      getRunner()->setStatusMatchingPattern(pattern, Test::kStatusNew);
     }
 
     /** Set the verbosity flag. */
@@ -75,29 +78,19 @@ class TestRunner {
     /** Set the output printer. */
     static void setPrinter(Print* printer);
 
-    /** Set the pass/fail status of the current test. */
-    static void setPassOrFail(bool ok) { getRunner()->setTestPassOrFail(ok); }
-
     /**
-     * Set test runner timeout across all tests, in millis. Set to 0 for
+     * Set test runner timeout across all tests, in seconds. Set to 0 for
      * infinite timeout. Useful for preventing testing() test cases that never
-     * end. This a timeout for the TestRunner itself, not for individual tests.
-     *
-     * It might be usefult to allow timeouts on a per-test basis, but I'm
-     * reluctant to do that at the Test class level because it would add extra
-     * 4 bytes (maybe 2 if we allowed a small maximum) of static memory per
-     * test case. The solution might be to allow the end-user to choose to pay
-     * for this extra cost if they want to. I think the right way to do that is
-     * to add support for test fixtures which is something on the back of my
-     * mind.
+     * end. This is a timeout for the TestRunner itself, not for individual
+     * tests.
      */
-    static void setTimeout(long millis) {
-      getRunner()->setRunnerTimeout(millis);
+    static void setTimeout(TimeoutType seconds) {
+      getRunner()->setRunnerTimeout(seconds);
     }
 
   private:
     // 10 second timeout for the runner
-    static const unsigned long kTimeoutDefault = 10000;
+    static const TimeoutType kTimeoutDefault = 10;
 
     /** Return the singleton TestRunner. */
     static TestRunner* getRunner();
@@ -124,9 +117,6 @@ class TestRunner {
     /** Print out the summary of the entire test suite. */
     void resolveRun();
 
-    /** Print out the summary of the current test. */
-    void resolveTest(Test* testCase);
-
     /** Perform any TestRunner initialization. */
     void setupRunner();
 
@@ -139,11 +129,8 @@ class TestRunner {
     /** Set the status of the tests which match the pattern. */
     void setStatusMatchingPattern(const char* pattern, uint8_t status);
 
-    /** Set the pass/fail status of the current test. */
-    void setTestPassOrFail(bool ok) { (*mCurrent)->setPassOrFail(ok); }
-
     /** Set the test runner timeout. */
-    void setRunnerTimeout(unsigned long timeout);
+    void setRunnerTimeout(TimeoutType seconds);
 
     // The current test case is represented by a pointer to a pointer. This
     // allows treating the root node the same as all the other nodes, and
@@ -159,7 +146,7 @@ class TestRunner {
     uint16_t mFailedCount;
     uint16_t mSkippedCount;
     uint16_t mExpiredCount;;
-    unsigned long mTimeout;
+    TimeoutType mTimeout;
     unsigned long mStartTime;
 };
 
