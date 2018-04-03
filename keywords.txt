@@ -8,8 +8,13 @@
 
 Test	KEYWORD1
 TestOnce	KEYWORD1
+TestAgain	KEYWORD1
+Assertion	KEYWORD1
+MetaAssertion	KEYWORD1
 test	KEYWORD1
 testing	KEYWORD1
+testF	KEYWORD1
+testingF	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -23,11 +28,13 @@ include	KEYWORD2
 setVerbosity	KEYWORD2
 isVerbosity	KEYWORD2
 setPrinter	KEYWORD2
+setTimeout	KEYWORD2
 
 # Public methods from Test.h
 getRoot	KEYWORD2
 setup	KEYWORD2
 loop	KEYWORD2
+resolve	KEYWORD2
 getName	KEYWORD2
 getStatus	KEYWORD2
 setStatus	KEYWORD2
@@ -44,12 +51,21 @@ isSkipped	KEYWORD2
 isNotSkipped	KEYWORD2
 isExpired	KEYWORD2
 isNotExpired	KEYWORD2
-#
-# Protected methods from Test.h
 skip	KEYWORD2
+expire	KEYWORD2
+enableVerbosity	KEYWORD2
+disableVerbosity	KEYWORD2
+# Protected methods from Test.h
 pass	KEYWORD2
 fail	KEYWORD2
-# TestOnce
+init	KEYWORD2
+isVerbosity	KEYWORD2
+getVerbosity	KEYWORD2
+
+# TestOnce.h
+once	KEYWORD2
+
+# TestAgain.h
 once	KEYWORD2
 
 # Public macros from Assertion.h
@@ -82,7 +98,28 @@ assertTestNotFail	KEYWORD2
 assertTestSkip	KEYWORD2
 assertTestNotSkip	KEYWORD2
 assertTestExpire	KEYWORD2
-assertTestNotExpireDone	KEYWORD2
+assertTestNotExpire	KEYWORD2
+# F versions
+checkTestDoneF	KEYWORD2
+checkTestNotDoneF	KEYWORD2
+checkTestPassF	KEYWORD2
+checkTestNotPassF	KEYWORD2
+checkTestFailF	KEYWORD2
+checkTestNotFailF	KEYWORD2
+checkTestSkipF	KEYWORD2
+checkTestNotSkipF	KEYWORD2
+checkTestExpireF	KEYWORD2
+checkTestNotExpireDoneF	KEYWORD2
+assertTestDoneF	KEYWORD2
+assertTestNotDoneF	KEYWORD2
+assertTestPassF	KEYWORD2
+assertTestNotPassF	KEYWORD2
+assertTestFailF	KEYWORD2
+assertTestNotFailF	KEYWORD2
+assertTestSkipF	KEYWORD2
+assertTestNotSkipF	KEYWORD2
+assertTestExpireF	KEYWORD2
+assertTestNotExpireF	KEYWORD2
 
 # Overloaded functions from Compare.h
 compareString	KEYWORD2
