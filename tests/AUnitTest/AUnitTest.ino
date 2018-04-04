@@ -88,51 +88,59 @@ test(type_mismatch) {
 
 #if USE_AUNIT == 1
 
+// We use if-statements instead of assertXxx() because compareXxx() is used by
+// the assertXxx() methods. Strictly speaking, it's not necessary because one
+// is a string compare and the other is an integer compare, but this feels
+// conceptually cleaner.
 test(compareString) {
-  assertEqual(compareString(a, a), 0);
-  assertEqual(compareString(a, f), 0);
-  assertEqual(compareString(a, s), 0);
+  if (!(compareString(a, a) == 0)) { fail(); }
+  if (!(compareString(a, f) == 0)) { fail(); }
+  if (!(compareString(a, s) == 0)) { fail(); }
 
-  assertEqual(compareString(f, a), 0);
-  assertEqual(compareString(f, f), 0);
-  assertEqual(compareString(f, s), 0);
+  if (!(compareString(f, a) == 0)) { fail(); }
+  if (!(compareString(f, f) == 0)) { fail(); }
+  if (!(compareString(f, s) == 0)) { fail(); }
 
-  assertEqual(compareString(s, a), 0);
-  assertEqual(compareString(s, f), 0);
-  assertEqual(compareString(s, s), 0);
+  if (!(compareString(s, a) == 0)) { fail(); }
+  if (!(compareString(s, f) == 0)) { fail(); }
+  if (!(compareString(s, s) == 0)) { fail(); }
 
-  assertLess(compareString(a, b), 0);
-  assertLess(compareString(a, g), 0);
-  assertLess(compareString(a, t), 0);
+  if (!(compareString(a, b) < 0)) { fail(); }
+  if (!(compareString(a, g) < 0)) { fail(); }
+  if (!(compareString(a, t) < 0)) { fail(); }
 
-  assertLess(compareString(f, b), 0);
-  assertLess(compareString(f, g), 0);
-  assertLess(compareString(f, t), 0);
+  if (!(compareString(f, b) < 0)) { fail(); }
+  if (!(compareString(f, g) < 0)) { fail(); }
+  if (!(compareString(f, t) < 0)) { fail(); }
 
-  assertLess(compareString(s, b), 0);
-  assertLess(compareString(s, g), 0);
-  assertLess(compareString(s, t), 0);
+  if (!(compareString(s, b) < 0)) { fail(); }
+  if (!(compareString(s, g) < 0)) { fail(); }
+  if (!(compareString(s, t) < 0)) { fail(); }
 }
 
+// We use if-statements instead of assertXxx() because compareXxx() is used by
+// the assertXxx() methods. Strictly speaking, it's not necessary because one
+// is a string compare and the other is an integer compare, but this feels
+// conceptually cleaner.
 test(compareStringN) {
-  assertEqual(compareStringN(ff, "abcde", 5), 0);
-  assertEqual(compareStringN("abcde", ff, 5), 0);
+  if (!(compareStringN(ff, "abcde", 5) == 0)) { fail(); }
+  if (!(compareStringN("abcde", ff, 5) == 0)) { fail(); }
 
-  assertMore(compareStringN(ff, "abcd", 5), 0);
+  if (!(compareStringN(ff, "abcd", 5) > 0)) { fail(); }
   assertLess(compareStringN("abcd", ff, 5), 0);
 
-  assertEqual(compareStringN(ff, "abcd", 4), 0);
-  assertEqual(compareStringN("abcd", ff, 4), 0);
+  if (!(compareStringN(ff, "abcd", 4) == 0)) { fail(); }
+  if (!(compareStringN("abcd", ff, 4) == 0)) { fail(); }
 
-  assertMore(compareStringN(ff, "", 1), 0);
-  assertLess(compareStringN("", ff, 1), 0);
+  if (!(compareStringN(ff, "", 1) > 0)) { fail(); }
+  if (!(compareStringN("", ff, 1) < 0)) { fail(); }
 
-  assertEqual(compareStringN(ff, "", 0), 0);
-  assertEqual(compareStringN("", ff, 0), 0);
+  if (!(compareStringN(ff, "", 0) == 0)) { fail(); }
+  if (!(compareStringN("", ff, 0) == 0)) { fail(); }
 
-  assertEqual(compareStringN(gg, ff, 5), 0);
+  if (!(compareStringN(gg, ff, 5) == 0)) { fail(); }
 
-  assertMore(compareStringN(gg, ff, 6), 0);
+  if (!(compareStringN(gg, ff, 6) > 0)) { fail(); }
 }
 
 #endif
@@ -728,9 +736,9 @@ testing(fixture_slow_expire_monitor) {
 // ------------------------------------------------------
 
 void setup() {
-  Serial.begin(74880); // 74880 is the default for some ESP8266 boards
-  while (! Serial); // Wait until Serial is ready - Leonardo
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
+  Serial.begin(115200); // ESP8266 default of 74880 not supported on Linux
+  while (! Serial); // Wait until Serial is ready - Leonardo/Micro
 
 #if USE_AUNIT == 1
   // These are useful for debugging.
