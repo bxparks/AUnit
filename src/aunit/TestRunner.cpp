@@ -64,6 +64,15 @@ void TestRunner::setStatusMatchingPattern(const char* pattern, uint8_t status) {
   }
 }
 
+void TestRunner::setStatusMatchingPattern(const char* testClass,
+    const char* pattern, uint8_t status) {
+  String fullPattern(testClass);
+  fullPattern.concat('_');
+  fullPattern.concat(pattern);
+
+  setStatusMatchingPattern(fullPattern.c_str(), status);
+}
+
 TestRunner::TestRunner():
     mCurrent(nullptr),
     mIsResolved(false),

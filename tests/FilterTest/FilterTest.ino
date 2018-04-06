@@ -49,25 +49,44 @@ testingF(CustomAgain, display) { pass(); }
 
 void setup() {
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
-  Serial.begin(74880); // 74880 is the default for some ESP8266 boards
+  Serial.begin(115200); // ESP8266 default of 74880 not supported on Linux
   while (! Serial); // Wait until Serial is ready - Leonardo
 
   // Verify that the names of these tests don't collide and can be
-  // independently selected. Name of test = "{test_class}_{name}".
+  // independently selected. Name of test is "{test_class}_{name}", but we can
+  // use the new 2-argument versions of include(testClass, pattern) and
+  // exclude(testClass, pattern) instead.
+
   TestRunner::list();
+
+  Serial.println("exclude(\"*\")");
   TestRunner::exclude("*");
   TestRunner::list();
+
+  Serial.println("include(\"configure*\")");
+  TestRunner::include("configure");
+  TestRunner::list();
+
+  Serial.println("include(\"CustomAgain*\")");
   TestRunner::include("CustomAgain*");
   TestRunner::list();
-  TestRunner::include("CustomOnce_dis*");
+
+  Serial.println("exclude(\"CustomAgain\", \"*\")");
+  TestRunner::exclude("CustomAgain", "*");
   TestRunner::list();
-  TestRunner::include("configure");
+
+  Serial.println("include(\"CustomAgain\", \"display\")");
+  TestRunner::include("CustomAgain", "display");
+  TestRunner::list();
+
+  Serial.println("include(\"CustomOnce_dis*\")");
+  TestRunner::include("CustomOnce_dis*");
   TestRunner::list();
 }
 
 void loop() {
-  // Should get:
+  // Should get something like:
   // TestRunner summary:
-  //    4 passed, 0 failed, 2 skipped, 0 timed out, out of 6 test(s).
+  //    3 passed, 0 failed, 3 skipped, 0 timed out, out of 6 test(s).
   TestRunner::run();
 }

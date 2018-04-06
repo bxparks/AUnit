@@ -58,11 +58,33 @@ class TestRunner {
     }
 
     /**
+     * Exclude the tests which match the pattern given by (testClass + "_" +
+     * pattern), the same concatenation rule used by the testF() macro.
+     * Currently supports only a trailing '*'. For example,
+     * exclude("CustomTest", "flash*").
+     */
+    static void exclude(const char* testClass, const char* pattern) {
+      getRunner()->setStatusMatchingPattern(testClass, pattern,
+          Test::kStatusSkipped);
+    }
+
+    /**
      * Include the tests which match the pattern.
      * Currently supports only a trailing '*'. For example, include("flash*").
      */
     static void include(const char* pattern) {
       getRunner()->setStatusMatchingPattern(pattern, Test::kStatusNew);
+    }
+
+    /**
+     * Include the tests which match the pattern given by (testClass + "_" +
+     * pattern), the same concatenation rule used by the testF() macro.
+     * Currently supports only a trailing '*'. For example,
+     * include("CustomTest", "flash*").
+     */
+    static void include(const char* testClass, const char* pattern) {
+      getRunner()->setStatusMatchingPattern(testClass, pattern,
+          Test::kStatusNew);
     }
 
     /** Set the verbosity flag. */
@@ -128,6 +150,13 @@ class TestRunner {
 
     /** Set the status of the tests which match the pattern. */
     void setStatusMatchingPattern(const char* pattern, uint8_t status);
+
+    /**
+     * Set the status of the tests which match the pattern formed by (testClass
+     * + "_" + pattern), the same rule used by testF() and testingF()
+     */
+    void setStatusMatchingPattern(const char* testClass, const char* pattern,
+        uint8_t status);
 
     /** Set the test runner timeout. */
     void setRunnerTimeout(TimeoutType seconds);
