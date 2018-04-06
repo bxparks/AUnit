@@ -89,7 +89,10 @@ Here are the features in AUnit which are not available in ArduinoUnit:
     * `checkTestXxxF()`
     * `externTestF()`
     * `externTestingF()`
-* AUnit works on the ESP8266 platform.
+* AUnit supports the `teardown()` method to clean up test fixtures after
+  the `setup()` method.
+* AUnit is tested on the AVR (8-bit), Teensy ARM (32-bit) , and ESP8266 (32-bit)
+  Arduino platforms.
 * Test filters (`TestRunner::include()` and `TestRunner::exclude()`) support the
   same 2 arguments versions corresponding to `testF()` and `testingF()`
 
