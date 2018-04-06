@@ -1,5 +1,9 @@
 # Changelog
 
+* 0.4.1 (2018-04-06)
+    * Add support for `Test::teardown()` for use in test fixtures.
+    * Add 2-argument versions of `TestRunner::include()` and
+      `TestRunner::exclude()` to match `testF()` and `testingF()`.
 * 0.4.0 (2018-03-30)
     * Implement `testF()` and `testingF()` macros for using test fixtures.
     * Added `examples/fixture/` sample code.
