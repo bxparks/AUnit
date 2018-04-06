@@ -82,8 +82,20 @@ class Test {
     /**
      * Optional method that performs any initialization. The assertXxx() macros,
      * as well as  pass(), fail() and skip() functions can be called in here.
+     * Subclasses that override this should call the parent's setup() method in
+     * the first line so that the setup() methods in the inheritance tree are
+     * properly chained.
      */
     virtual void setup() {}
+
+    /**
+     * Optional method that performs any clean up after the test ends for any
+     * reasons, either passing or otherwise. Subclasses that override this
+     * should call the parent's teardown() method in the last line before
+     * returning, so that the teardown() methods in the inheritance tree are
+     * properly chained.
+     */
+    virtual void teardown() {}
 
     /**
      * The user-provided test case function. EEach call to Test::run() makes one

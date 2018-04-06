@@ -33,6 +33,7 @@ setTimeout	KEYWORD2
 # Public methods from Test.h
 getRoot	KEYWORD2
 setup	KEYWORD2
+teardown	KEYWORD2
 loop	KEYWORD2
 resolve	KEYWORD2
 getName	KEYWORD2

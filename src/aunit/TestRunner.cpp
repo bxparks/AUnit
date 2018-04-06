@@ -66,6 +66,9 @@ void TestRunner::setStatusMatchingPattern(const char* pattern, uint8_t status) {
 
 void TestRunner::setStatusMatchingPattern(const char* testClass,
     const char* pattern, uint8_t status) {
+
+  // Form the effective pattern by concatenating the two. This must match the
+  // algorithm used by testF() and testingF().
   String fullPattern(testClass);
   fullPattern.concat('_');
   fullPattern.concat(pattern);
@@ -150,24 +153,28 @@ void TestRunner::runTest() {
       break;
     case Test::kStatusSkipped:
       mSkippedCount++;
+      (*mCurrent)->teardown();
       (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
       break;
     case Test::kStatusPassed:
       mPassedCount++;
+      (*mCurrent)->teardown();
       (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
       break;
     case Test::kStatusFailed:
       mFailedCount++;
+      (*mCurrent)->teardown();
       (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
       break;
     case Test::kStatusExpired:
       mExpiredCount++;
+      (*mCurrent)->teardown();
       (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();

@@ -36,7 +36,7 @@ Container container;
 
 void setup() {
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
-  Serial.begin(74880); // 74880 is the default for some ESP8266 boards
+  Serial.begin(115200); // ESP8266 default of 74880 not supported on Linux
   while (!Serial); // for the Arduino Leonardo/Micro only
 }
 
@@ -49,6 +49,11 @@ class LogTest: public TestOnce {
     virtual void setup() override {
       TestOnce::setup();
       container.clear();
+    }
+
+    virtual void teardown() override {
+      container.clear();
+      TestOnce::teardown();
     }
 
     // Variable number of arguments so that we can check the entire
