@@ -250,8 +250,8 @@ testingF(CustomTestAgain, example_test) {
 }
 
 void setup() {
-  Serial.begin(74880); // 74880 is the default for some ESP8266 boards
-  while (! Serial); // Wait until Serial is ready - Leonardo
+  Serial.begin(115200);
+  while (! Serial); // Wait until Serial is ready - Leonardo/Micro
 
   TestRunner::exclude("*");
   TestRunner::include("looping*");
