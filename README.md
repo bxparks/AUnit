@@ -196,11 +196,11 @@ Here is a rough outline of an AUnit unit test sketch:
 using namespace aunit;
 
 test(example_test) {
-  ... assertXxx() ...
+  ...assertXxx()...
 }
 
 testing(looping_test) {
-  ... code ...
+  ...code...
   if (...) {
     pass();
   } else if (...) {
@@ -215,17 +215,17 @@ class CustomTestOnce: public TestOnce {
     // optional
     virtual void setup() override {
       TestOnce::setup();
-      ...set up code...
+      ...setup code...
     }
 
     // optional
     virtual void teardown() override {
-      ...tear down code...
+      ...teardown code...
       TestOnce::teardown();
     }
 
     void assertBigStuff() {
-      ... higher level assertions ...
+      ...higher level assertions...
     }
 };
 
@@ -240,12 +240,12 @@ class CustomTestAgain: public TestAgain {
     // optional
     virtual void setup() override {
       TestAgain::setup();
-      ...set up code...
+      ...setup code...
     }
 
     // optional
     virtual void teardown() override {
-      ...tear down code...
+      ...teardown code...
       TestOnce::teardown();
     }
 
@@ -408,30 +408,41 @@ To create a test fixture:
 1. Derives a new class from either `TestOnce` (if you want to run the test just
    once), or `TestAgain` (if you want to run the test repeatedly).
 1. Add any data objects inside the class.
-1. Add a `void setup() {...}` method to perform any common
+1. Optionally add a `virtual void setup() {...}` method to perform any common
    initialization code. Be sure to call the parent's `setup()` method in the
-   first line to chain any `setup()` methods defined by the parents. There may
+   *first* line to chain any `setup()` methods defined by the parents. There may
    be multiple parent classes.
+1. Optionally add a `virtual void teardown() {...}` method to perform any common
+   clean up code. Be sure to call the parent's `teardown()` method in the *last*
+   line to chain any `teardown()` methods defined by the parents. There may be
+   multiple parent classes.
 1. Add any additional shared methods into this new class.
 
 To define your tests, use the `testF()` macro like this:
 ```
 class CustomTestOnce: public TestOnce {
   protected:
+    // optional
     virtual void setup() override {
-      TestOnce::setup(); // chain the parent's setup()
-      ... setup code ...
+      TestOnce::setup();
+      ...setup code...
+    }
+
+    // optional
+    virtual void teardown() override {
+      ...teardown code...
+      TestOnce::teardown();
     }
 
     void assertCustomStuff() {
-      ... common code ...
+      ...common code...
     }
 
     int sharedValue;
 };
 
 testF(CustomTestOnce, calculate) {
-  ... test code here ...
+  ...test code here...
 }
 ```
 No constructor for `CustomTestOnce` needs to be defined.
@@ -447,20 +458,27 @@ To define a continuous test, use the `testingF()` macro like this:
 ```
 class CustomTestAgain: public TestAgain {
   protected:
+    // optional
     virtual void setup() override {
-      TestOnce::setup(); // chain the parent's setup()
-      ... setup code ...
+      TestAgain::setup();
+      ...setup code...
+    }
+
+    // optional
+    virtual void teardown() override {
+      ...teardown code...
+      TestAgain::teardown();
     }
 
     void assertCustomStuff() {
-      ... common code ...
+      ...common code...
     }
 
     int sharedValue;
 };
 
 testingF(CustomTestAgain, calculate) {
-  ... test code here ...
+  ...test code here...
 }
 ```
 
@@ -471,8 +489,9 @@ Similarly, the `testingF()` macro creates a subclass named
 See `examples/fixtures/fixtures.ino` to see a working example of the `testF()`
 macro.
 
-***ArduinoUnit Compatibility***: _The `testF()` and `testingF()` macros
-are available only in AUnit (and Google Test), not ArduinoUnit._
+***ArduinoUnit Compatibility***: _The `testF()` and `testingF()` macros,
+and the `teardown()` virtual method are available only in AUnit (and Google
+Test), not ArduinoUnit._
 
 ### Early Return and Delayed Assertions
 
@@ -491,9 +510,16 @@ then `doStuff()` inside `testF()` will execute:
 ```
 class CustomTestOnce: public TestOnce {
   protected:
+    // optional
     virtual void setup() override {
-      TestOnce::setup(); // chain the parent's setup()
-      ... setup code ...
+      TestOnce::setup();
+      ...setup code...
+    }
+
+    // optional
+    virtual void teardown() override {
+      ...teardown code...
+      TestOnce::teardown();
     }
 
     void assertCustomStuff() {
@@ -610,6 +636,7 @@ available in AUnit._
 The following methods are defined at the `Test` base class level:
 
 * `setup()`
+* `teardown()`
 
 The `TestOnce` class defines:
 * `once()`
@@ -618,8 +645,9 @@ The `TestAgain` class defines:
 * `again()`
 
 ***ArduinoUnit Compatibility***: _These are functionally the same as ArduinoUnit
-except with different class names. Instead of `Test` use `TestAgain`, Instead
-of `Test::loop`, use `TestAgain::again()`._
+except with different class names. Instead of `Test` use `TestAgain`. Instead
+of `Test::loop` use `TestAgain::again()`. ArduinoUnit does not support a
+`teardown()` method._
 
 ### Running the Tests
 
@@ -905,9 +933,16 @@ messages for successful assertions (with a
 ```
 class CustomTestOnce: public TestOnce {
   protected:
+    // optional
     virtual void setup() override {
-      TestOnce::setup(); // chain the parent's setup()
-      ... setup code ...
+      TestOnce::setup();
+      ...setup code...
+    }
+
+    // optional
+    virtual void teardown() override {
+      ...teardown code...
+      TestOnce::teardown();
     }
 
     void assertCustomStuff() {
@@ -926,7 +961,7 @@ class CustomTestOnce: public TestOnce {
 testF(CustomTestOnce, calculate) {
   enableVerbosity(Verbosity::kAssertionPassed);
 
-  ... test code here ...
+  ...test code here...
   assertCustomStuff();
 }
 ```
