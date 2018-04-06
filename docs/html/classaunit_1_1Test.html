@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.4.0</span>
+   &#160;<span id="projectnumber">0.4.1</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -102,6 +102,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad32752b60ecc4cab1149d38c2bb2da7c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#ad32752b60ecc4cab1149d38c2bb2da7c">setup</a> ()</td></tr>
 <tr class="memdesc:ad32752b60ecc4cab1149d38c2bb2da7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional method that performs any initialization.  <a href="#ad32752b60ecc4cab1149d38c2bb2da7c">More...</a><br /></td></tr>
 <tr class="separator:ad32752b60ecc4cab1149d38c2bb2da7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a698169aed6abd479bd5daec7d1a283c4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a698169aed6abd479bd5daec7d1a283c4">teardown</a> ()</td></tr>
+<tr class="memdesc:a698169aed6abd479bd5daec7d1a283c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional method that performs any clean up after the test ends for any reasons, either passing or otherwise.  <a href="#a698169aed6abd479bd5daec7d1a283c4">More...</a><br /></td></tr>
+<tr class="separator:a698169aed6abd479bd5daec7d1a283c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15a9b4bc1f4f3ab23a995bab0cd18276"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a15a9b4bc1f4f3ab23a995bab0cd18276">loop</a> ()=0</td></tr>
 <tr class="memdesc:a15a9b4bc1f4f3ab23a995bab0cd18276"><td class="mdescLeft">&#160;</td><td class="mdescRight">The user-provided test case function.  <a href="#a15a9b4bc1f4f3ab23a995bab0cd18276">More...</a><br /></td></tr>
 <tr class="separator:a15a9b4bc1f4f3ab23a995bab0cd18276"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -269,7 +272,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Disable the given verbosity of the current test. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00157">157</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00169">169</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -299,7 +302,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Enable the given verbosity of the current test. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00154">154</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00166">166</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -329,7 +332,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 <p>Mark the test as expired (i.e. </p>
 <p>timed out). </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00151">151</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00163">163</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -358,7 +361,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Mark the test as failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00161">161</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00173">173</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -387,7 +390,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Get the name of the test. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00099">99</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00111">111</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -417,7 +420,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 <p>Return the next pointer as a pointer to the pointer, similar to <a class="el" href="classaunit_1_1Test.html#a33f9f14097b77edc19e8298022ecbe60" title="Get the pointer to the root pointer. ">getRoot()</a>. </p>
 <p>This makes it much easier to manipulate a singly-linked list. Also makes setNext() method unnecessary. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00115">115</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00127">127</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -476,7 +479,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Get the status of the test. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00102">102</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00114">114</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -505,7 +508,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Get the verbosity. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00184">184</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00196">196</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -534,7 +537,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Return true if test is done (passed, failed, skipped, expired). </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00118">118</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00130">130</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -563,7 +566,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Return true if test is expired. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00142">142</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00154">154</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -592,7 +595,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Return true if test is failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00130">130</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00142">142</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -621,7 +624,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Return true if test is done (passed, failed, skipped, expired). </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00121">121</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00133">133</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -650,7 +653,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Return true if test is expired. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00145">145</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00157">157</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -679,7 +682,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Return true if test is failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00133">133</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00145">145</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -708,7 +711,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Return true if test is passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00127">127</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00139">139</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -737,7 +740,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Return true if test isNot skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00139">139</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00151">151</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -766,7 +769,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Return true if test is passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00124">124</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00136">136</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -795,7 +798,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Return true if test isNot skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00136">136</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00148">148</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -825,7 +828,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Determine if any of the given verbosity is enabled. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00181">181</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00193">193</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -884,7 +887,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Mark the test as passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00164">164</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00176">176</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -957,7 +960,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Set the status of the test. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00105">105</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00117">117</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -985,9 +988,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 </div><div class="memdoc">
 
 <p>Optional method that performs any initialization. </p>
-<p>The assertXxx() macros, as well as <a class="el" href="classaunit_1_1Test.html#ae71ded07fd6fc69413f64d3d603e4bd6" title="Mark the test as passed. ">pass()</a>, <a class="el" href="classaunit_1_1Test.html#a64023d7738f6ae94dcaeb4fc4c7ec8b3" title="Mark the test as failed. ">fail()</a> and <a class="el" href="classaunit_1_1Test.html#a8fcf67b6fdec7a1fa364b1b0b07ff1e5" title="Mark the test as skipped. ">skip()</a> functions can be called in here. </p>
+<p>The assertXxx() macros, as well as <a class="el" href="classaunit_1_1Test.html#ae71ded07fd6fc69413f64d3d603e4bd6" title="Mark the test as passed. ">pass()</a>, <a class="el" href="classaunit_1_1Test.html#a64023d7738f6ae94dcaeb4fc4c7ec8b3" title="Mark the test as failed. ">fail()</a> and <a class="el" href="classaunit_1_1Test.html#a8fcf67b6fdec7a1fa364b1b0b07ff1e5" title="Mark the test as skipped. ">skip()</a> functions can be called in here. Subclasses that override this should call the parent's <a class="el" href="classaunit_1_1Test.html#ad32752b60ecc4cab1149d38c2bb2da7c" title="Optional method that performs any initialization. ">setup()</a> method in the first line so that the <a class="el" href="classaunit_1_1Test.html#ad32752b60ecc4cab1149d38c2bb2da7c" title="Optional method that performs any initialization. ">setup()</a> methods in the inheritance tree are properly chained. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00086">86</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00089">89</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -1016,7 +1019,37 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Mark the test as skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00148">148</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00160">160</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+
+</div>
+</div>
+<a id="a698169aed6abd479bd5daec7d1a283c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a698169aed6abd479bd5daec7d1a283c4">&#9670;&nbsp;</a></span>teardown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void aunit::Test::teardown </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Optional method that performs any clean up after the test ends for any reasons, either passing or otherwise. </p>
+<p>Subclasses that override this should call the parent's <a class="el" href="classaunit_1_1Test.html#a698169aed6abd479bd5daec7d1a283c4" title="Optional method that performs any clean up after the test ends for any reasons, either passing or oth...">teardown()</a> method in the last line before returning, so that the <a class="el" href="classaunit_1_1Test.html#a698169aed6abd479bd5daec7d1a283c4" title="Optional method that performs any clean up after the test ends for any reasons, either passing or oth...">teardown()</a> methods in the inheritance tree are properly chained. </p>
+
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00098">98</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>

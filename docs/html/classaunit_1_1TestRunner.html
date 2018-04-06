@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.4.0</span>
+   &#160;<span id="projectnumber">0.4.1</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -98,9 +98,15 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ad55fbb77f52eb2c1a2d45536e8c4afba"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#ad55fbb77f52eb2c1a2d45536e8c4afba">exclude</a> (const char *pattern)</td></tr>
 <tr class="memdesc:ad55fbb77f52eb2c1a2d45536e8c4afba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exclude the tests which match the pattern.  <a href="#ad55fbb77f52eb2c1a2d45536e8c4afba">More...</a><br /></td></tr>
 <tr class="separator:ad55fbb77f52eb2c1a2d45536e8c4afba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacd40834554b476893701d7492d2d550"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#aacd40834554b476893701d7492d2d550">exclude</a> (const char *testClass, const char *pattern)</td></tr>
+<tr class="memdesc:aacd40834554b476893701d7492d2d550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exclude the tests which match the pattern given by (testClass + "_" + pattern), the same concatenation rule used by the <a class="el" href="TestMacro_8h.html#aec508f58580b7ff712f68ea496c8f897" title="Create a test that is derived from a custom TestOnce class. ">testF()</a> macro.  <a href="#aacd40834554b476893701d7492d2d550">More...</a><br /></td></tr>
+<tr class="separator:aacd40834554b476893701d7492d2d550"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63301f8ab1cbbf1b7cca7a35434b00d2"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#a63301f8ab1cbbf1b7cca7a35434b00d2">include</a> (const char *pattern)</td></tr>
 <tr class="memdesc:a63301f8ab1cbbf1b7cca7a35434b00d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include the tests which match the pattern.  <a href="#a63301f8ab1cbbf1b7cca7a35434b00d2">More...</a><br /></td></tr>
 <tr class="separator:a63301f8ab1cbbf1b7cca7a35434b00d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aca88d9605b34e07cca54c6ab99d6b1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#a8aca88d9605b34e07cca54c6ab99d6b1">include</a> (const char *testClass, const char *pattern)</td></tr>
+<tr class="memdesc:a8aca88d9605b34e07cca54c6ab99d6b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include the tests which match the pattern given by (testClass + "_" + pattern), the same concatenation rule used by the <a class="el" href="TestMacro_8h.html#aec508f58580b7ff712f68ea496c8f897" title="Create a test that is derived from a custom TestOnce class. ">testF()</a> macro.  <a href="#a8aca88d9605b34e07cca54c6ab99d6b1">More...</a><br /></td></tr>
+<tr class="separator:a8aca88d9605b34e07cca54c6ab99d6b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70bcaa3a7c0c2a11266ba2c758f4cfc3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#a70bcaa3a7c0c2a11266ba2c758f4cfc3">setVerbosity</a> (uint8_t verbosity)</td></tr>
 <tr class="memdesc:a70bcaa3a7c0c2a11266ba2c758f4cfc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the verbosity flag.  <a href="#a70bcaa3a7c0c2a11266ba2c758f4cfc3">More...</a><br /></td></tr>
 <tr class="separator:a70bcaa3a7c0c2a11266ba2c758f4cfc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,7 +147,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="ad55fbb77f52eb2c1a2d45536e8c4afba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad55fbb77f52eb2c1a2d45536e8c4afba">&#9670;&nbsp;</a></span>exclude()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad55fbb77f52eb2c1a2d45536e8c4afba">&#9670;&nbsp;</a></span>exclude() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,8 +177,49 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aacd40834554b476893701d7492d2d550"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacd40834554b476893701d7492d2d550">&#9670;&nbsp;</a></span>exclude() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void aunit::TestRunner::exclude </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>testClass</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>pattern</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Exclude the tests which match the pattern given by (testClass + "_" + pattern), the same concatenation rule used by the <a class="el" href="TestMacro_8h.html#aec508f58580b7ff712f68ea496c8f897" title="Create a test that is derived from a custom TestOnce class. ">testF()</a> macro. </p>
+<p>Currently supports only a trailing '*'. For example, exclude("CustomTest", "flash*"). </p>
+
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00066">66</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+
+</div>
+</div>
 <a id="a63301f8ab1cbbf1b7cca7a35434b00d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63301f8ab1cbbf1b7cca7a35434b00d2">&#9670;&nbsp;</a></span>include()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a63301f8ab1cbbf1b7cca7a35434b00d2">&#9670;&nbsp;</a></span>include() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,7 +245,48 @@ Static Public Member Functions</h2></td></tr>
 <p>Include the tests which match the pattern. </p>
 <p>Currently supports only a trailing '*'. For example, include("flash*"). </p>
 
-<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00064">64</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00075">75</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+
+</div>
+</div>
+<a id="a8aca88d9605b34e07cca54c6ab99d6b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8aca88d9605b34e07cca54c6ab99d6b1">&#9670;&nbsp;</a></span>include() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void aunit::TestRunner::include </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>testClass</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>pattern</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Include the tests which match the pattern given by (testClass + "_" + pattern), the same concatenation rule used by the <a class="el" href="TestMacro_8h.html#aec508f58580b7ff712f68ea496c8f897" title="Create a test that is derived from a custom TestOnce class. ">testF()</a> macro. </p>
+<p>Currently supports only a trailing '*'. For example, include("CustomTest", "flash*"). </p>
+
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00085">85</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
 
 </div>
 </div>
@@ -228,7 +316,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Returns true if ANY of the bit flags of 'verbosity' is set. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00074">74</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00096">96</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
 
 </div>
 </div>
@@ -348,7 +436,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Set test runner timeout across all tests, in seconds. </p>
 <p>Set to 0 for infinite timeout. Useful for preventing <a class="el" href="TestMacro_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> test cases that never end. This is a timeout for the <a class="el" href="classaunit_1_1TestRunner.html" title="The class that runs the various test cases defined by the test() and testing() macros. ">TestRunner</a> itself, not for individual tests. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00087">87</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00109">109</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
 
 </div>
 </div>
@@ -378,7 +466,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Set the verbosity flag. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00069">69</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00091">91</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
 
 </div>
 </div>
