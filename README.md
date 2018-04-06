@@ -3,7 +3,7 @@
 A unit testing framework for Arduino platforms inspired by ArduinoUnit and
 Google Test.
 
-Version: 0.4.0 (2018-03-30)
+Version: 0.4.1 (2018-04-06)
 
 ## Summary
 
@@ -250,8 +250,8 @@ testingF(CustomTestAgain, example_test) {
 }
 
 void setup() {
-  Serial.begin(74880); // 74880 is the default for some ESP8266 boards
-  while (! Serial); // Wait until Serial is ready - Leonardo
+  Serial.begin(115200);
+  while (! Serial); // Wait until Serial is ready - Leonardo/Micro
 
   TestRunner::exclude("*");
   TestRunner::include("looping*");

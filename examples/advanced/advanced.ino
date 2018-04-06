@@ -54,9 +54,9 @@ testingF(MyTestAgain, again) {
 }
 
 void setup() {
-  Serial.begin(74880); // 74880 is default for some ESP8266 boards
-  while (!Serial); // for the Arduino Leonardo/Micro only
   delay(1000); // wait for stability on some boards to prevent garbage Serial
+  Serial.begin(115200); // ESP8266 default of 74880 not supported on Linux
+  while (!Serial); // for the Arduino Leonardo/Micro only
 
   TestRunner::setVerbosity(Verbosity::kAll);
 }
@@ -64,6 +64,6 @@ void setup() {
 void loop() {
   // Should get:
   // TestRunner summary:
-  //    5 passed, 1 failed, 2 skipped, 0 timed out, out of 8 test(s).
+  //    3 passed, 1 failed, 0 skipped, 0 timed out, out of 8 test(s).
   TestRunner::run();
 }

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['include',['include',['../classaunit_1_1TestRunner.html#a63301f8ab1cbbf1b7cca7a35434b00d2',1,'aunit::TestRunner']]],
+  ['include',['include',['../classaunit_1_1TestRunner.html#a63301f8ab1cbbf1b7cca7a35434b00d2',1,'aunit::TestRunner::include(const char *pattern)'],['../classaunit_1_1TestRunner.html#a8aca88d9605b34e07cca54c6ab99d6b1',1,'aunit::TestRunner::include(const char *testClass, const char *pattern)']]],
   ['isdone',['isDone',['../classaunit_1_1Test.html#a7e02b5484eae65788f738e50aa44699f',1,'aunit::Test']]],
   ['isexpired',['isExpired',['../classaunit_1_1Test.html#af3e8f6851777d79ac71ebfb7710ffcaf',1,'aunit::Test']]],
   ['isfailed',['isFailed',['../classaunit_1_1Test.html#a56108e7adeb547cc51dbe3ca2343194f',1,'aunit::Test']]],
