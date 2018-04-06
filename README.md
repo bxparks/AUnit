@@ -193,12 +193,10 @@ Here is a rough outline of an AUnit unit test sketch:
 #line 2 AUnitTest.ino
 
 #include <AUnit.h>
-
-using aunit::TestRunner;
+using namespace aunit;
 
 test(example_test) {
-  ... code ...
-  assertEqual(a, b);
+  ... assertXxx() ...
 }
 
 testing(looping_test) {
@@ -214,14 +212,20 @@ testing(looping_test) {
 
 class CustomTestOnce: public TestOnce {
   protected:
-    virtual void setup() {
-      ...common setup code...
+    // optional
+    virtual void setup() override {
+      TestOnce::setup();
+      ...set up code...
+    }
+
+    // optional
+    virtual void teardown() override {
+      ...tear down code...
+      TestOnce::teardown();
     }
 
     void assertBigStuff() {
-      ... common higher level assertions ...
-      assertEqual(c, d);
-      ...
+      ... higher level assertions ...
     }
 };
 
@@ -233,13 +237,20 @@ testF(CustomTestOnce, example_test) {
 
 class CustomTestAgain: public TestAgain {
   protected:
+    // optional
     virtual void setup() override {
-      ...
+      TestAgain::setup();
+      ...set up code...
     }
 
-    void assertHelper() {
-      assertEqual(c, c);
-      ...
+    // optional
+    virtual void teardown() override {
+      ...tear down code...
+      TestOnce::teardown();
+    }
+
+    void assertBigStuff() {
+      ...various assertions...
     }
 };
 
