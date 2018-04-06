@@ -1,4 +1,7 @@
-# AUnit - Unit Testing Framework for Arduino Platforms
+# AUnit
+
+A unit testing framework for Arduino platforms inspired by ArduinoUnit and
+Google Test.
 
 Version: 0.4.0 (2018-03-30)
 
@@ -87,6 +90,8 @@ Here are the features in AUnit which are not available in ArduinoUnit:
     * `externTestF()`
     * `externTestingF()`
 * AUnit works on the ESP8266 platform.
+* Test filters (`TestRunner::include()` and `TestRunner::exclude()`) support the
+  same 2 arguments versions corresponding to `testF()` and `testingF()`
 
 ### Beta Status
 
@@ -130,6 +135,7 @@ The `examples/` directory has a number of examples:
 In the `tests/` directory:
 
 * `AUnitTest` - the unit test for `AUnit` itself has a large number of examples
+* `FilterTest` - manual tests for `include()` and `exclude()` filters
 
 ### Header and Namespace
 
@@ -237,7 +243,7 @@ class CustomTestAgain: public TestAgain {
     }
 };
 
-testingF(CustomTestAgain, examle_test) {
+testingF(CustomTestAgain, example_test) {
   ...
   assertBigStuff();
   ...
@@ -249,6 +255,7 @@ void setup() {
 
   TestRunner::exclude("*");
   TestRunner::include("looping*");
+  TestRunner::include("CustomTestAgain", "example*");
 }
 
 void loop() {
@@ -628,13 +635,15 @@ ArduinoUnit, each call to `Test::run()` will process the entire list of
 currently active test cases. In AUnit, each call to `TestRunner::run()` performs
 only a single test case, then returns._
 
-### Excluding and Including Test Cases
+### Filtering Test Cases
 
-We can `exclude()` or `include()` test cases using a pattern match,
-just like ArduinoUnit. The names are slightly different:
+We can `exclude()` or `include()` test cases using a pattern match:
 
-* `TestRunner::exclude()`
-* `TestRunner::include()`
+* `TestRunner::exclude(pattern)`
+* `TestRunner::exclude(testClass, pattern)`
+* `TestRunner::include(pattern)`
+* `TestRunner::include(testClass, pattern)`
+
 
 These methods are called from the global `setup()` method:
 
@@ -642,14 +651,19 @@ These methods are called from the global `setup()` method:
 void setup() {
   TestRunner::exclude("*");
   TestRunner::include("looping*");
+  TestRunner::exclude("CustomTestAgain", "*");
+  TestRunner::include("CustomTestAgain", "test*");
   ...
 }
 ```
 
+The 2-argument versions of `include()` and `exclude()` correspond to the
+2 arguments of `testF()` and `testingF()`.
+
 ***ArduinoUnit Compatibility***:
 _The equivalent versions in ArduinoUnit are `Test::exclude()` and
-`Test::include()` The matching algorithm in AUnit is not as powerful as one in
-ArduinoUnit. AUnit supports only a single wildcard character `*` and that
+`Test::include()` The matching algorithm in AUnit is not as powerful as the one
+in ArduinoUnit. AUnit supports only a single wildcard character `*` and that
 character can appear only at the end if it is present. For example, the
 following are accepted:_
 
@@ -657,7 +671,9 @@ following are accepted:_
 * `TestRunner::include("f*");`
 * `TestRunner::exclude("flash_*");`
 * `TestRunner::include("looping*");`
-* `TestRunner::include("flashTest");`
+* `TestRunner::include("CustomTestOnce", "flashTest*");`
+
+_AUnit provides 2-argument versions of `include()` and `exclude()`_
 
 ### Output Printer
 
