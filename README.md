@@ -686,7 +686,6 @@ We can `exclude()` or `include()` test cases using a pattern match:
 * `TestRunner::include(pattern)`
 * `TestRunner::include(testClass, pattern)`
 
-
 These methods are called from the global `setup()` method:
 
 ```
@@ -698,6 +697,10 @@ void setup() {
   ...
 }
 ```
+
+Excluded tests bypass their `setup()` and `teardown()` methods and terminate
+immidiately. For the purposes of reporting, however, excluded tests are
+counted as "skipped".
 
 The 2-argument versions of `include()` and `exclude()` correspond to the
 2 arguments of `testF()` and `testingF()`.

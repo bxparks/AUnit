@@ -47,7 +47,8 @@ void TestRunner::setPrinter(Print* printer) {
   Printer::setPrinter(printer);
 }
 
-void TestRunner::setStatusMatchingPattern(const char* pattern, uint8_t status) {
+void TestRunner::setLifeCycleMatchingPattern(const char* pattern,
+    uint8_t lifeCycle) {
   size_t length = strlen(pattern);
   if (length > 0 && pattern[length - 1] == '*') {
     // prefix match
@@ -59,13 +60,13 @@ void TestRunner::setStatusMatchingPattern(const char* pattern, uint8_t status) {
 
   for (Test** p = Test::getRoot(); *p != nullptr; p = (*p)->getNext()) {
     if (compareStringN((*p)->getName(), pattern, length) == 0) {
-      (*p)->setStatus(status);
+      (*p)->setLifeCycle(lifeCycle);
     }
   }
 }
 
-void TestRunner::setStatusMatchingPattern(const char* testClass,
-    const char* pattern, uint8_t status) {
+void TestRunner::setLifeCycleMatchingPattern(const char* testClass,
+    const char* pattern, uint8_t lifeCycle) {
 
   // Form the effective pattern by concatenating the two. This must match the
   // algorithm used by testF() and testingF().
@@ -73,7 +74,7 @@ void TestRunner::setStatusMatchingPattern(const char* testClass,
   fullPattern.concat('_');
   fullPattern.concat(pattern);
 
-  setStatusMatchingPattern(fullPattern.c_str(), status);
+  setLifeCycleMatchingPattern(fullPattern.c_str(), lifeCycle);
 }
 
 TestRunner::TestRunner():
@@ -86,6 +87,7 @@ TestRunner::TestRunner():
     mPassedCount(0),
     mFailedCount(0),
     mSkippedCount(0),
+    mStatusErrorCount(0),
     mTimeout(kTimeoutDefault) {}
 
 void TestRunner::runTest() {
@@ -113,29 +115,28 @@ void TestRunner::runTest() {
 
   // Implement a finite state machine that calls the (*mCurrent)->setup() or
   // (*mCurrent)->loop(), then changes the test case's mStatus.
-  switch ((*mCurrent)->getStatus()) {
-    case Test::kStatusNew:
+  switch ((*mCurrent)->getLifeCycle()) {
+    case Test::kLifeCycleNew:
       // Transfer the verbosity of the TestRunner to the Test.
       (*mCurrent)->enableVerbosity(mVerbosity);
-
       (*mCurrent)->setup();
 
-      // support assertXxx() statements inside the setup() method
-      if ((*mCurrent)->getStatus() == Test::kStatusNew) {
-        (*mCurrent)->setStatus(Test::kStatusSetup);
+      // Support assertXxx() statements inside the setup() method by
+      // moving to the next lifeCycle state if an assertXxx() did not fail
+      // inside the setup().
+      if ((*mCurrent)->getLifeCycle() == Test::kLifeCycleNew) {
+        (*mCurrent)->setLifeCycle(Test::kLifeCycleSetup);
       }
       break;
-    case Test::kStatusExcluded:
-      // If a test is excluded, go directly to skipped, without calling setup()
-      // or teardown(), resolve the test and take the test out of the list.
+    case Test::kLifeCycleExcluded:
+      // If a test is excluded, go directly to LifeCycleDone, without calling
+      // setup() or teardown().
       (*mCurrent)->enableVerbosity(mVerbosity);
-      (*mCurrent)->skip();
+      (*mCurrent)->setStatus(Test::kStatusSkipped);
       mSkippedCount++;
-      (*mCurrent)->resolve();
-      // skip to the next one by taking current test out of the list
-      *mCurrent = *(*mCurrent)->getNext();
+      (*mCurrent)->setLifeCycle(Test::kLifeCycleDone);
       break;
-    case Test::kStatusSetup:
+    case Test::kLifeCycleSetup:
       {
         // Check for timeout. mTimeout == 0 means infinite timeout.
         // NOTE: It feels like this code should go into the Test::loop() method
@@ -150,41 +151,40 @@ void TestRunner::runTest() {
         } else {
           (*mCurrent)->loop();
 
-          // If test status is unresolved (i.e. still in kStatusSetup state)
+          // If test status is unresolved (i.e. still in kLifeCycleNew state)
           // after loop(), then this is a continuous testing() test case, so
           // skip to the next test. Otherwise, stay on the current test so that
           // the next iteration of runTest() can resolve the current test.
-          if ((*mCurrent)->getStatus() == Test::kStatusSetup) {
+          if ((*mCurrent)->getLifeCycle() == Test::kLifeCycleSetup) {
             // skip to the next one, but keep current test in the list
             mCurrent = (*mCurrent)->getNext();
           }
         }
       }
       break;
-    case Test::kStatusSkipped:
-      mSkippedCount++;
+    case Test::kLifeCycleAsserted:
+      switch ((*mCurrent)->getStatus()) {
+        case Test::kStatusSkipped:
+          mSkippedCount++;
+          break;
+        case Test::kStatusPassed:
+          mPassedCount++;
+          break;
+        case Test::kStatusFailed:
+          mFailedCount++;
+          break;
+        case Test::kStatusExpired:
+          mExpiredCount++;
+          break;
+        default:
+          // should never get here
+          mStatusErrorCount++;
+          break;
+      }
       (*mCurrent)->teardown();
-      (*mCurrent)->resolve();
-      // skip to the next one by taking current test out of the list
-      *mCurrent = *(*mCurrent)->getNext();
+      (*mCurrent)->setLifeCycle(Test::kLifeCycleDone);
       break;
-    case Test::kStatusPassed:
-      mPassedCount++;
-      (*mCurrent)->teardown();
-      (*mCurrent)->resolve();
-      // skip to the next one by taking current test out of the list
-      *mCurrent = *(*mCurrent)->getNext();
-      break;
-    case Test::kStatusFailed:
-      mFailedCount++;
-      (*mCurrent)->teardown();
-      (*mCurrent)->resolve();
-      // skip to the next one by taking current test out of the list
-      *mCurrent = *(*mCurrent)->getNext();
-      break;
-    case Test::kStatusExpired:
-      mExpiredCount++;
-      (*mCurrent)->teardown();
+    case Test::kLifeCycleDone:
       (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
