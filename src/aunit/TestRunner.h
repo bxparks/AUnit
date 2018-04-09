@@ -54,7 +54,7 @@ class TestRunner {
      * Currently supports only a trailing '*'. For example, exclude("flash*").
      */
     static void exclude(const char* pattern) {
-      getRunner()->setStatusMatchingPattern(pattern, Test::kStatusSkipped);
+      getRunner()->setStatusMatchingPattern(pattern, Test::kStatusExcluded);
     }
 
     /**
@@ -65,7 +65,7 @@ class TestRunner {
      */
     static void exclude(const char* testClass, const char* pattern) {
       getRunner()->setStatusMatchingPattern(testClass, pattern,
-          Test::kStatusSkipped);
+          Test::kStatusExcluded);
     }
 
     /**

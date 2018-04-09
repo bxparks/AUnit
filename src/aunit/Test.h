@@ -50,24 +50,56 @@ class Test {
   public:
     // Don't change the order of Passed, Failed, Skipped or Expired without
     // looking at the isDone() method.
+    //
+    // The state transition diagram looks like:
+    //
+    //     include()/exclude()
+    //    New <---------> Excluded ----------------------+
+    //     \                                             |
+    //      \                                         Skipped
+    //       \   setup()     assertion()    teardown()   |
+    //        \----------> Setup -----> Skipped ---\     v
+    //                       \\\------> Failed  ----> (out of
+    //                        \\------> Expired ---->   list)
+    //                         \------> Passed  ---/
+    //
+    // The reason this is a bit of a mess is because this came from the
+    // original ArduinoUnit which conflated the test's "running" state from its
+    // "assertion" state. The running states are (New, Setup, Excluded, and
+    // Resolved) while its "assertion" states are (Unknown, Skipped, Failed,
+    // Expired, Passed). In ArduinoUnit, there is no explicit Excluded or
+    // Resolved states, instead the assertion states are overloaded.
+    //
+    // I think I would break too many things if I tried to change this, so I
+    // had to hack on the Excluded state into the existing structure, while
+    // making sure that the setup() and teardown() methods don't get called
+    // when Excluded.
 
     /** Test is new, needs to be setup. */
     static const uint8_t kStatusNew = 0;
 
+    /**
+     * Test is Excluded by an exclude() method. This causes the test to bypass
+     * Setup to bypass setup() method, go to Skipped, then immedicately removes
+     * itself from the linked list, to bypass the teardown() method as well.
+     * The include() method puts the test back into the New state.
+     */
+    static const uint8_t kStatusExcluded = 1;
+
     /** Test is set up. */
-    static const uint8_t kStatusSetup = 1;
+    static const uint8_t kStatusSetup = 2;
 
     /** Test has passed, or pass() was called. */
-    static const uint8_t kStatusPassed = 2;
+    static const uint8_t kStatusPassed = 3;
 
     /** Test has failed, or failed() was called. */
-    static const uint8_t kStatusFailed = 3;
+    static const uint8_t kStatusFailed = 4;
 
     /** Test is skipped, through the exclude() method or skip() was called. */
-    static const uint8_t kStatusSkipped = 4;
+    static const uint8_t kStatusSkipped = 5;
 
     /** Test has timed out, or expire() called. */
-    static const uint8_t kStatusExpired = 5;
+    static const uint8_t kStatusExpired = 6;
 
     /**
      * Get the pointer to the root pointer. Implemented as a function static so

@@ -125,6 +125,16 @@ void TestRunner::runTest() {
         (*mCurrent)->setStatus(Test::kStatusSetup);
       }
       break;
+    case Test::kStatusExcluded:
+      // If a test is excluded, go directly to skipped, without calling setup()
+      // or teardown(), resolve the test and take the test out of the list.
+      (*mCurrent)->enableVerbosity(mVerbosity);
+      (*mCurrent)->skip();
+      mSkippedCount++;
+      (*mCurrent)->resolve();
+      // skip to the next one by taking current test out of the list
+      *mCurrent = *(*mCurrent)->getNext();
+      break;
     case Test::kStatusSetup:
       {
         // Check for timeout. mTimeout == 0 means infinite timeout.

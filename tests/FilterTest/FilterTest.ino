@@ -36,12 +36,26 @@ test(configure) {}
 test(display) {}
 
 class CustomOnce: public TestOnce {
+  virtual void setup() override {
+    Serial.println(F("CustomOnce::setup()"));
+  }
+
+  virtual void teardown() override {
+    Serial.println(F("CustomOnce::teardown()"));
+  }
 };
 
 testF(CustomOnce, configure) {}
 testF(CustomOnce, display) {}
 
 class CustomAgain: public TestAgain {
+  virtual void setup() override {
+    Serial.println(F("CustomAgain::setup()"));
+  }
+
+  virtual void teardown() override {
+    Serial.println(F("CustomAgain::teardown()"));
+  }
 };
 
 testingF(CustomAgain, configure) { pass(); }
@@ -88,5 +102,8 @@ void loop() {
   // Should get something like:
   // TestRunner summary:
   //    3 passed, 0 failed, 3 skipped, 0 timed out, out of 6 test(s).
+  //
+  // Verify that excluded tests do not execute setup() and teardown(). They
+  // go directly into the final Skipped state.
   TestRunner::run();
 }
