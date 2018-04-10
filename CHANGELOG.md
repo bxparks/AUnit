@@ -1,5 +1,7 @@
 # Changelog
 
+* 0.4.2 (2018-04-10)
+    * Fix FSM for excluded tests so that they bypass setup() and teardown().
 * 0.4.1 (2018-04-06)
     * Add support for `Test::teardown()` for use in test fixtures.
     * Add 2-argument versions of `TestRunner::include()` and
