@@ -125,6 +125,15 @@ class Test {
     /** Empty constructor. The name will be set later. */
     Test();
 
+    // NOTE: Don't create a virtual destructor. That's the normal best practice
+    // for classes that will be used polymorphically. However, this class will
+    // never be deleted polymorphically (i.e. through its pointer) so it
+    // doesn't need a virtual destructor. In fact, adding it causes flash and
+    // static memory to increase dramatically because each test() and testing()
+    // macro creates a new subclass. AceButtonTest flash memory increases from
+    // 18928 to 20064 bytes, and static memory increases from 917 to 1055
+    // bytes.
+
     /**
      * Optional method that performs any initialization. The assertXxx() macros,
      * as well as  pass(), fail() and skip() functions can be called in here.

@@ -60,14 +60,20 @@ SOFTWARE.
     assertOp(arg1,aunit::compareMoreOrEqual,">=",arg2)
 
 /** Assert that arg is true. */
-#define assertTrue(arg) assertEqual(arg,true)
+#define assertTrue(arg) assertBool(arg,true)
 
 /** Assert that arg is false. */
-#define assertFalse(arg) assertEqual(arg,false)
+#define assertFalse(arg) assertBool(arg,false)
 
 /** Internal helper macro, shouldn't be called directly by users. */
 #define assertOp(arg1,op,opName,arg2) do {\
   if (!assertion(__FILE__,__LINE__,(arg1),opName,op,(arg2)))\
+    return;\
+} while (false)
+
+/** Internal helper macro, shouldn't be called directly by users. */
+#define assertBool(arg,value) do {\
+  if (!assertionBool(__FILE__,__LINE__,(arg),(value)))\
     return;\
 } while (false)
 
@@ -103,14 +109,8 @@ class Assertion: public Test {
     /** Returns true if an assertion message should be printed. */
     bool isOutputEnabled(bool ok);
 
-    // NOTE: Don't create a virtual destructor. That's the normal best practice
-    // for classes that will be used polymorphically. However, this class will
-    // never be deleted polymorphically (i.e. through its pointer) so it
-    // doesn't need a virtual destructor. In fact, adding it causes flash and
-    // static memory to increase dramatically because each test() and testing()
-    // macro creates a new subclass. AceButtonTest flash memory increases from
-    // 18928 to 20064 bytes, and static memory increases from 917 to 1055
-    // bytes.
+    bool assertionBool(const char* file, uint16_t line, bool arg,
+        bool value);
 
     bool assertion(const char* file, uint16_t line, bool lhs,
         const char* opName, bool (*op)(bool lhs, bool rhs),

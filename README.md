@@ -844,6 +844,31 @@ The error message (if enabled, which is the default) is:
 Assertion failed: (3) == (4), file AUnitTest.ino, line 134.
 ```
 
+Asserts with `bool` values produce customized messages, printing "true" or
+"false" instead of using the Print class default conversion to `int`:
+```
+assertEquals(true, false);
+
+Assertion failed: (true) == (false), file AUnitTest.ino, line 134.
+```
+
+Similarly, the `assertTrue()` and `assertFalse()` macros provide more customized
+messages:
+```
+bool ok = false;
+assertTrue(ok);
+
+Assertion failed: (false) is true, file AUnitTest.ino, line 134.
+```
+
+and
+```
+bool ok = true;
+assertFalse(ok);
+
+Assertion failed: (true) is false, file AUnitTest.ino, line 134.
+```
+
 ***ArduinoUnit Compatibility***:
 _ArduinoUnit captures the arguments of the `assertEqual()` macro
 and prints:_
@@ -854,7 +879,11 @@ Assertion failed: (expected=3) == (counter=4), file AUnitTest.ino, line 134.
 
 _Each capture of the parameter string consumes flash memory space. If the unit
 test has numerous `assertXxx()` statements, the flash memory cost is expensive.
-AUnit omits the parameters to reduce flash memory space by about 33%_
+AUnit omits the parameters to reduce flash memory space by about 33%._
+
+_The messages for asserts with bool values are customized for better clarity
+(partially to compensate for the lack of capture of the string of the actual
+arguments, and are different from ArduinoUnit._
 
 ### Test Summary
 

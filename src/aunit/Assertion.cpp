@@ -38,7 +38,7 @@ namespace aunit {
 // Assertion failed: (5) == (6), file Test.ino, line 820.
 // Assertion passed: (6) == (6), file Test.ino, line 820.
 template <typename A, typename B>
-void printAssertionMessage(bool ok, const char* file, uint16_t line,
+static void printAssertionMessage(bool ok, const char* file, uint16_t line,
     const A& lhs, const char *opName, const B& rhs) {
 
   // Don't use F() strings here because flash memory strings are not deduped by
@@ -64,9 +64,66 @@ void printAssertionMessage(bool ok, const char* file, uint16_t line,
   printer->println('.');
 }
 
+// Special version of (bool, bool) because Arduino Print.h converts
+// bool into int, which prints out "(1) == (0)", which isn't as useful.
+// This prints "(true) == (false)".
+static void printAssertionMessage(bool ok, const char* file, uint16_t line,
+    bool lhs, const char *opName, bool rhs) {
+
+  // Don't use F() strings here. Same reason as above.
+  Print* printer = Printer::getPrinter();
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": (");
+  printer->print(lhs ? "true" : "false");
+  printer->print(") ");
+  printer->print(opName);
+  printer->print(" (");
+  printer->print(rhs ? "true" : "false");
+  printer->print(')');
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
+// Special version for assertTrue(arg) and assertFalse(arg).
+// Prints:
+//    "Assertion passed/failed: (arg) is true"
+//    "Assertion passed/failed: (arg) is false"
+static void printAssertionBoolMessage(bool ok, const char* file, uint16_t line,
+    bool arg, bool value) {
+
+  // Don't use F() strings here. Same reason as above.
+  Print* printer = Printer::getPrinter();
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": (");
+  printer->print(arg ? "true" : "false");
+  printer->print(") is ");
+  printer->print(value ? "true" : "false");
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
 bool Assertion::isOutputEnabled(bool ok) {
   return (ok && isVerbosity(Verbosity::kAssertionPassed)) ||
       (!ok && isVerbosity(Verbosity::kAssertionFailed));
+}
+
+bool Assertion::assertionBool(const char* file, uint16_t line, bool arg,
+    bool value) {
+  if (isDone()) return false;
+  bool ok = (arg == value);
+  if (isOutputEnabled(ok)) {
+    printAssertionBoolMessage(ok, file, line, arg, value);
+  }
+  setPassOrFail(ok);
+  return ok;
 }
 
 bool Assertion::assertion(const char* file, uint16_t line, bool lhs,
