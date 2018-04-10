@@ -47,7 +47,8 @@ Test** Test::getRoot() {
 }
 
 Test::Test():
-  mStatus(kStatusNew),
+  mLifeCycle(kLifeCycleNew),
+  mStatus(kStatusUnknown),
   mVerbosity(Verbosity::kNone),
   mNext(nullptr) {
 }
@@ -56,7 +57,7 @@ Test::Test():
 // status as kStatusSetup to allow testing() test cases to continue.
 void Test::setPassOrFail(bool ok) {
   if (!ok) {
-    mStatus = kStatusFailed;
+    setStatus(kStatusFailed);
   }
 }
 

@@ -54,7 +54,8 @@ class TestRunner {
      * Currently supports only a trailing '*'. For example, exclude("flash*").
      */
     static void exclude(const char* pattern) {
-      getRunner()->setStatusMatchingPattern(pattern, Test::kStatusSkipped);
+      getRunner()->setLifeCycleMatchingPattern(
+          pattern, Test::kLifeCycleExcluded);
     }
 
     /**
@@ -64,8 +65,8 @@ class TestRunner {
      * exclude("CustomTest", "flash*").
      */
     static void exclude(const char* testClass, const char* pattern) {
-      getRunner()->setStatusMatchingPattern(testClass, pattern,
-          Test::kStatusSkipped);
+      getRunner()->setLifeCycleMatchingPattern(testClass, pattern,
+          Test::kLifeCycleExcluded);
     }
 
     /**
@@ -73,7 +74,7 @@ class TestRunner {
      * Currently supports only a trailing '*'. For example, include("flash*").
      */
     static void include(const char* pattern) {
-      getRunner()->setStatusMatchingPattern(pattern, Test::kStatusNew);
+      getRunner()->setLifeCycleMatchingPattern(pattern, Test::kLifeCycleNew);
     }
 
     /**
@@ -83,8 +84,8 @@ class TestRunner {
      * include("CustomTest", "flash*").
      */
     static void include(const char* testClass, const char* pattern) {
-      getRunner()->setStatusMatchingPattern(testClass, pattern,
-          Test::kStatusNew);
+      getRunner()->setLifeCycleMatchingPattern(testClass, pattern,
+          Test::kLifeCycleNew);
     }
 
     /** Set the verbosity flag. */
@@ -149,14 +150,14 @@ class TestRunner {
     bool isVerbosityFlag(uint8_t verbosity) { return mVerbosity & verbosity; }
 
     /** Set the status of the tests which match the pattern. */
-    void setStatusMatchingPattern(const char* pattern, uint8_t status);
+    void setLifeCycleMatchingPattern(const char* pattern, uint8_t lifeCycle);
 
     /**
      * Set the status of the tests which match the pattern formed by (testClass
      * + "_" + pattern), the same rule used by testF() and testingF()
      */
-    void setStatusMatchingPattern(const char* testClass, const char* pattern,
-        uint8_t status);
+    void setLifeCycleMatchingPattern(const char* testClass, const char* pattern,
+        uint8_t lifeCycle);
 
     /** Set the test runner timeout. */
     void setRunnerTimeout(TimeoutType seconds);
@@ -174,7 +175,8 @@ class TestRunner {
     uint16_t mPassedCount;
     uint16_t mFailedCount;
     uint16_t mSkippedCount;
-    uint16_t mExpiredCount;;
+    uint16_t mExpiredCount;
+    uint16_t mStatusErrorCount;
     TimeoutType mTimeout;
     unsigned long mStartTime;
 };

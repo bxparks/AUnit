@@ -47,6 +47,7 @@ testF(CustomOnce, pass) { pass(); }
 testF(CustomOnce, fail) { fail(); }
 testF(CustomOnce, skip) { skip(); }
 testF(CustomOnce, expire) { expire(); }
+testF(CustomOnce, excluded) { fail(); }
 
 class CustomAgain: public TestAgain {
   virtual void setup() override {
@@ -63,23 +64,28 @@ class CustomAgain: public TestAgain {
     
 };
 
-// Verify that no matter how the test ends, the teardown() gets called.
+// Verify that if the test executes, setup() and teardown() get called.
+// But if the test is excluded, neither setup() nor teardown() get called,
+// and the test is reported as "skipped".
 testingF(CustomAgain, pass) { pass(); }
 testingF(CustomAgain, fail) { fail(); }
 testingF(CustomAgain, skip) { skip(); }
 testingF(CustomAgain, expire) { expire(); }
+testingF(CustomAgain, excluded) { fail(); }
 
 void setup() {
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
   Serial.begin(115200); // ESP8266 default of 74880 not supported on Linux
-  while (! Serial); // Wait until Serial is ready - Leonardo
+  while (! Serial); // Wait until Serial is ready - Leonardo/Micro
 
+  TestRunner::exclude("CustomOnce", "excluded");
+  TestRunner::exclude("CustomAgain", "excluded");
   TestRunner::list();
 }
 
 void loop() {
   // Should get something like:
   // TestRunner summary:
-  //     2 passed, 2 failed, 2 skipped, 2 timed out, out of 8 test(s).
+  //     2 passed, 2 failed, 4 skipped, 2 timed out, out of 10 test(s).
   TestRunner::run();
 }

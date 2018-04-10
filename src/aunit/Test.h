@@ -48,26 +48,72 @@ namespace aunit {
  */
 class Test {
   public:
-    // Don't change the order of Passed, Failed, Skipped or Expired without
-    // looking at the isDone() method.
+    // The LifeCycle states are used by TestRunner to determine what a Test
+    // should do. Unlike the assertion Status, the LfeCycle is mostly hidden
+    // from client code. The state transition diagram looks like this:
+    //
+    //        include()/exclude()
+    //       ---------------------> Excluded -----------|
+    //      /                                           v
+    //    New                                        Finished -> (out of list)
+    //      \   setup()     assertion()      teardown() ^
+    //       -----------> Setup ----> Asserted ---------|
+    //
+    // The following are life cycle states, not readily visible to the user.
 
     /** Test is new, needs to be setup. */
-    static const uint8_t kStatusNew = 0;
+    static const uint8_t kLifeCycleNew = 0;
 
-    /** Test is set up. */
-    static const uint8_t kStatusSetup = 1;
+    /**
+     * Test is Excluded by an exclude() method. The setup() and teardown()
+     * methods are bypassed and the test goes directly to kLifeCycleFinished.
+     * For reporting purposes, an excluded test is counted as a "skipped" test.
+     * The include() method puts the test back into the kLifeCycleNew state.
+     */
+    static const uint8_t kLifeCycleExcluded = 1;
+
+    /**
+     * Test has been set up by calling setup() and ready to execute the test
+     * code. TestOnce tests (i.e. test() or testF()) should be in Setup state
+     * only for a single iteration. TestAgain tests (i.e. testing() or
+     * testingF()) will stay in Setup state until explicitly moved to a
+     * different state by the testing code (or the test times out).
+     */
+    static const uint8_t kLifeCycleSetup = 2;
+
+    /**
+     * Test is asserted (using pass(), fail(), expired() or skipped()) and the
+     * getStatus() has been determined. The teardown() method should be called.
+     */
+    static const uint8_t kLifeCycleAsserted = 3;
+
+    /**
+     * The test has completed its life cycle. It should be resolved using
+     * resolve() and removed from the linked list. Note that this is different
+     * than isDone() (i.e. kStatusDone) which indicates that an assertion about
+     * the test has been made.
+     */
+    static const uint8_t kLifeCycleFinished = 4;
+
+    // The assertion Status is the result of an "assertion()". In addition to
+    // the usual pass() and fail(), there are meta-assertions such as skip()
+    // and expire(). When the Status is changed from kStatusUnknown, the
+    // lifeCycle state changes to kLifeCycleAsserted.
+
+    /** Test status is unknown. */
+    static const uint8_t kStatusUnknown = 0;
 
     /** Test has passed, or pass() was called. */
-    static const uint8_t kStatusPassed = 2;
+    static const uint8_t kStatusPassed = 1;
 
-    /** Test has failed, or failed() was called. */
-    static const uint8_t kStatusFailed = 3;
+    /** Test has failed, or fail() was called. */
+    static const uint8_t kStatusFailed = 2;
 
-    /** Test is skipped, through the exclude() method or skip() was called. */
-    static const uint8_t kStatusSkipped = 4;
+    /** Test is skipped through the exclude() method or skip() was called. */
+    static const uint8_t kStatusSkipped = 3;
 
     /** Test has timed out, or expire() called. */
-    static const uint8_t kStatusExpired = 5;
+    static const uint8_t kStatusExpired = 4;
 
     /**
      * Get the pointer to the root pointer. Implemented as a function static so
@@ -110,11 +156,25 @@ class Test {
     /** Get the name of the test. */
     const FCString& getName() { return mName; }
 
+    /** Get the life cycle state of the test. */
+    uint8_t getLifeCycle() { return mLifeCycle; }
+
+    void setLifeCycle(uint8_t state) { mLifeCycle = state; }
+
     /** Get the status of the test. */
     uint8_t getStatus() { return mStatus; }
 
-    /** Set the status of the test. */
-    void setStatus(uint8_t status) { mStatus = status; }
+    /**
+     * Set the status of the test. All changes to getStatus() should happen
+     * through this method because it also changes the getLifeCycle() of the
+     * test.
+     */
+    void setStatus(uint8_t status) {
+      if (status != kStatusUnknown) {
+        setLifeCycle(kLifeCycleAsserted);
+      }
+      mStatus = status;
+    }
 
     /** Set the status to Passed or Failed depending on ok. */
     void setPassOrFail(bool ok);
@@ -126,41 +186,46 @@ class Test {
      */
     Test** getNext() { return &mNext; }
 
-    /** Return true if test is done (passed, failed, skipped, expired). */
-    bool isDone() { return mStatus >= kStatusPassed; }
+    /**
+     * Return true if test has been asserted. Note that this is different than
+     * the internal LifeCycleFinished state. The name isDone() is a carry-over
+     * from ArduinoUnit and might have been named isAsserted() if this library
+     * had been built from scratch.
+     */
+    bool isDone() { return mStatus != kStatusUnknown; }
 
-    /** Return true if test is done (passed, failed, skipped, expired). */
+    /** Return true if test is not has been asserted. */
     bool isNotDone() { return !isDone(); }
 
     /** Return true if test is passed. */
     bool isPassed() { return mStatus == kStatusPassed; }
 
-    /** Return true if test is passed. */
+    /** Return true if test is not passed. */
     bool isNotPassed() { return !isPassed(); }
 
     /** Return true if test is failed. */
     bool isFailed() { return mStatus == kStatusFailed; }
 
-    /** Return true if test is failed. */
+    /** Return true if test is not failed. */
     bool isNotFailed() { return !isFailed(); }
 
-    /** Return true if test isNot skipped. */
+    /** Return true if test is skipped. */
     bool isSkipped() { return mStatus == kStatusSkipped; }
 
-    /** Return true if test isNot skipped. */
+    /** Return true if test is not skipped. */
     bool isNotSkipped() { return !isSkipped(); }
 
     /** Return true if test is expired. */
     bool isExpired() { return mStatus == kStatusExpired; }
 
-    /** Return true if test is expired. */
+    /** Return true if test is not expired. */
     bool isNotExpired() { return !isExpired(); }
 
     /** Mark the test as skipped. */
-    void skip() { mStatus = kStatusSkipped; }
+    void skip() { setStatus(kStatusSkipped); }
 
     /** Mark the test as expired (i.e. timed out). */
-    void expire() { mStatus = kStatusExpired; }
+    void expire() { setStatus(kStatusExpired); }
 
     /** Enable the given verbosity of the current test. */
     void enableVerbosity(uint8_t verbosity) { mVerbosity |= verbosity; }
@@ -170,21 +235,23 @@ class Test {
 
   protected:
     /** Mark the test as failed. */
-    void fail() { mStatus = kStatusFailed; }
+    void fail() { setStatus(kStatusFailed); }
 
     /** Mark the test as passed. */
-    void pass() { mStatus = kStatusPassed; }
+    void pass() { setStatus(kStatusPassed); }
 
     void init(const char* name) {
       mName = FCString(name);
-      mStatus = kStatusNew;
+      mLifeCycle = kLifeCycleNew;
+      mStatus = kStatusUnknown;
       mVerbosity = 0;
       insert();
     }
 
     void init(const __FlashStringHelper* name) {
       mName = FCString(name);
-      mStatus = kStatusNew;
+      mLifeCycle = kLifeCycleNew;
+      mStatus = kStatusUnknown;
       mVerbosity = 0;
       insert();
     }
@@ -204,6 +271,7 @@ class Test {
     void insert();
 
     FCString mName;
+    uint8_t mLifeCycle;
     uint8_t mStatus;
     uint8_t mVerbosity;
     Test* mNext;

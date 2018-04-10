@@ -28,7 +28,7 @@ namespace aunit {
 
 void TestOnce::loop() {
   once();
-  if (getStatus() == kStatusSetup) {
+  if (getStatus() == kStatusUnknown) {
     pass();
   }
 }
