@@ -55,7 +55,7 @@ class Test {
     //        include()/exclude()
     //       ---------------------> Excluded -----------|
     //      /                                           v
-    //    New                                         Done -> (out of list)
+    //    New                                        Finished -> (out of list)
     //      \   setup()     assertion()      teardown() ^
     //       -----------> Setup ----> Asserted ---------|
     //
@@ -66,9 +66,9 @@ class Test {
 
     /**
      * Test is Excluded by an exclude() method. The setup() and teardown()
-     * methods are bypassed and the test goes directly to kLifeCycleDone. For
-     * reporting purposes, an excluded test is counted as a "skipped" test. The
-     * include() method puts the test back into the kLifeCycleNew state.
+     * methods are bypassed and the test goes directly to kLifeCycleFinished.
+     * For reporting purposes, an excluded test is counted as a "skipped" test.
+     * The include() method puts the test back into the kLifeCycleNew state.
      */
     static const uint8_t kLifeCycleExcluded = 1;
 
@@ -89,9 +89,11 @@ class Test {
 
     /**
      * The test has completed its life cycle. It should be resolved using
-     * resolve() and removed from the linked list.
+     * resolve() and removed from the linked list. Note that this is different
+     * than isDone() (i.e. kStatusDone) which indicates that an assertion about
+     * the test has been made.
      */
-    static const uint8_t kLifeCycleDone = 4;
+    static const uint8_t kLifeCycleFinished = 4;
 
     // The assertion Status is the result of an "assertion()". In addition to
     // the usual pass() and fail(), there are meta-assertions such as skip()
@@ -184,10 +186,15 @@ class Test {
      */
     Test** getNext() { return &mNext; }
 
-    /** Return true if test is done.*/
-    bool isDone() { return mLifeCycle == kLifeCycleDone; }
+    /**
+     * Return true if test has been asserted. Note that this is different than
+     * the internal LifeCycleFinished state. The name isDone() is a carry-over
+     * from ArduinoUnit and might have been named isAsserted() if this library
+     * had been built from scratch.
+     */
+    bool isDone() { return mStatus != kStatusUnknown; }
 
-    /** Return true if test is not done. */
+    /** Return true if test is not has been asserted. */
     bool isNotDone() { return !isDone(); }
 
     /** Return true if test is passed. */

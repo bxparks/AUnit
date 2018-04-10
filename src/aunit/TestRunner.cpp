@@ -129,12 +129,12 @@ void TestRunner::runTest() {
       }
       break;
     case Test::kLifeCycleExcluded:
-      // If a test is excluded, go directly to LifeCycleDone, without calling
-      // setup() or teardown().
+      // If a test is excluded, go directly to LifeCycleFinished, without
+      // calling setup() or teardown().
       (*mCurrent)->enableVerbosity(mVerbosity);
       (*mCurrent)->setStatus(Test::kStatusSkipped);
       mSkippedCount++;
-      (*mCurrent)->setLifeCycle(Test::kLifeCycleDone);
+      (*mCurrent)->setLifeCycle(Test::kLifeCycleFinished);
       break;
     case Test::kLifeCycleSetup:
       {
@@ -182,9 +182,9 @@ void TestRunner::runTest() {
           break;
       }
       (*mCurrent)->teardown();
-      (*mCurrent)->setLifeCycle(Test::kLifeCycleDone);
+      (*mCurrent)->setLifeCycle(Test::kLifeCycleFinished);
       break;
-    case Test::kLifeCycleDone:
+    case Test::kLifeCycleFinished:
       (*mCurrent)->resolve();
       // skip to the next one by taking current test out of the list
       *mCurrent = *(*mCurrent)->getNext();
