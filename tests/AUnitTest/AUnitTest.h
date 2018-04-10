@@ -16,7 +16,12 @@ using namespace aunit;
 class CustomOnceFixture: public TestOnce {
   protected:
     virtual void setup() override {
+      TestOnce::setup();
       n = random(6);
+    }
+
+    virtual void teardown() override {
+      TestOnce::teardown();
     }
 
     void assertCommon() {
@@ -34,7 +39,12 @@ class CustomOnceFixture: public TestOnce {
 class CustomAgainFixture: public TestAgain {
   protected:
     virtual void setup() override {
+      TestAgain::setup();
       n = random(6);
+    }
+
+    virtual void teardown() override {
+      TestAgain::teardown();
     }
 
     void assertCommon() {
