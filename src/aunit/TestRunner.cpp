@@ -248,8 +248,8 @@ void TestRunner::listTests() {
   for (Test** p = Test::getRoot(); (*p) != nullptr; p = (*p)->getNext()) {
     printer->print(F("Test "));
     Printer::print((*p)->getName());
-    printer->print(F("; status: "));
-    printer->println((*p)->getStatus());
+    printer->print(F("; lifeCycle: "));
+    printer->println((*p)->getLifeCycle());
   }
 }
 
