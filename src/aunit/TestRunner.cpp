@@ -102,7 +102,9 @@ void TestRunner::runTest() {
   // If no more test cases, then print out summary of run.
   if (*Test::getRoot() == nullptr) {
     if (!mIsResolved) {
+      mEndTime = millis();
       resolveRun();
+      mIsResolved = true;
     }
     return;
   }
@@ -222,8 +224,13 @@ void TestRunner::printStartRunner() {
 
 void TestRunner::resolveRun() {
   if (!isVerbosity(Verbosity::kTestRunSummary)) return;
-
   Print* printer = Printer::getPrinter();
+
+  unsigned long elapsedTime = mEndTime - mStartTime;
+  printer->print(F("TestRunner duration: "));
+  printer->print((float) elapsedTime / 1000);
+  printer->println(" seconds.");
+
   printer->print(F("TestRunner summary: "));
   printer->print(mPassedCount);
   printer->print(F(" passed, "));
@@ -235,8 +242,6 @@ void TestRunner::resolveRun() {
   printer->print(F(" timed out, out of "));
   printer->print(mCount);
   printer->println(F(" test(s)."));
-
-  mIsResolved = true;
 }
 
 void TestRunner::listTests() {
