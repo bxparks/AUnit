@@ -37,6 +37,7 @@ SOFTWARE.
 
 #include <stdint.h>
 #include <Arduino.h> // F() macro
+#include "Flash.h"
 #include "FCString.h"
 #include "TestOnce.h"
 #include "TestAgain.h"

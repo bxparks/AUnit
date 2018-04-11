@@ -23,14 +23,17 @@ SOFTWARE.
 */
 
 /**
- * @mainpage AUnit Library
+ * @file AUnitVerbose.h
  *
- * This is the Doxygen documentation for the
- * <a href="https://github.com/bxparks/AUnit">AUnit Library</a>.
+ * Same as AUnit.h except that the verbose versions of teh various assertXxx()
+ * macros are provided. These capture the strings of the actual arguments in
+ * the assert macros and print more verbose and helpful messages in the same
+ * format used by ArduinoUnit. The cost is 20-25% increase in flash memory to
+ * hold those strings for medium to large unit tests.
  */
 
-#ifndef AUNIT_AUNIT_H
-#define AUNIT_AUNIT_H
+#ifndef AUNIT_AUNIT_VERBOSE_H
+#define AUNIT_AUNIT_VERBOSE_H
 
 #include "aunit/Verbosity.h"
 #include "aunit/Compare.h"
@@ -41,7 +44,7 @@ SOFTWARE.
 #include "aunit/TestOnce.h"
 #include "aunit/TestAgain.h"
 #include "aunit/TestRunner.h"
-#include "aunit/AssertMacros.h" // terse assertXxx() macros
+#include "aunit/AssertVerboseMacros.h" // verbose assertXxx() macros
 #include "aunit/MetaAssertMacros.h"
 #include "aunit/TestMacros.h"
 

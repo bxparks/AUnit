@@ -577,7 +577,9 @@ testF(CustomAgainFixture, crossedAgain) {
 externTestF(CustomOnceFixture, fixture_external);
 
 testing(fixture_external_monitor) {
+  // this will loop forever unless explicitly passed
   assertTestDoneF(CustomOnceFixture, fixture_external);
+  pass();
 }
 
 externTestingF(CustomAgainFixture, fixture_slow_pass);
@@ -742,7 +744,7 @@ void setup() {
 
 #if USE_AUNIT == 1
   // These are useful for debugging.
-  //TestRunner::setVerbosity(Verbosity::kAll);
+  TestRunner::setVerbosity(Verbosity::kAll);
   //TestRunner::setVerbosity(Verbosity::kTestRunSummary);
   //TestRunner::list();
 
@@ -762,7 +764,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    26 passed, 4 failed, 2 skipped, 4 timed out, out of 36 test(s).
+  //    27 passed, 4 failed, 2 skipped, 3 timed out, out of 36 test(s).
   TestRunner::run();
 #else
   Test::run();

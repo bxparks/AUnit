@@ -129,13 +129,7 @@ inlining them because they are almost always used through a function pointer.
 
 #include <string.h>
 #include <WString.h>
-
-#ifdef ESP8266
-#include <pgmspace.h>
-#else
-#include <avr/pgmspace.h>
-#endif
-
+#include "Flash.h"
 #include "Compare.h"
 #include "FCString.h"
 

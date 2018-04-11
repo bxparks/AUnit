@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 #include <Arduino.h>  // definition of Print
-#include "TestRunner.h" // seems like a circular reference but ok from cpp file
+#include "Flash.h"
 #include "Printer.h"
 #include "Assertion.h"
 
@@ -318,6 +318,332 @@ bool Assertion::assertion(const char* file, uint16_t line,
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
     printAssertionMessage(ok, file, line, lhs, opName, rhs);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+// Verbose versions of above which accept the string arguments of the
+// assertXxx() macros, so that the error messages are more verbose.
+
+template <typename A, typename B>
+static void printAssertionMessageVerbose(bool ok, const char* file,
+    uint16_t line, const A& lhs, AUNIT_FLASH_STRING_HELPER lhsString,
+    const char *opName, const B& rhs, AUNIT_FLASH_STRING_HELPER rhsString) {
+
+  // Don't use F() strings here because flash memory strings are not deduped by
+  // the compiler, so each template instantiation of this method causes a
+  // duplication of all the strings below. See
+  // https://github.com/mmurdoch/arduinounit/issues/70
+  // for more info.
+  Print* printer = Printer::getPrinter();
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": (");
+  printer->print(lhsString);
+  printer->print('=');
+  printer->print(lhs);
+  printer->print(") ");
+  printer->print(opName);
+  printer->print(" (");
+  printer->print(rhsString);
+  printer->print('=');
+  printer->print(rhs);
+  printer->print(')');
+  // reuse string in MataAssertion::printAssertionTestStatusMessage()
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
+// Special version of (bool, bool) because Arduino Print.h converts
+// bool into int, which prints out "(1) == (0)", which isn't as useful.
+// This prints "(true) == (false)".
+static void printAssertionMessageVerbose(bool ok, const char* file,
+    uint16_t line, bool lhs, AUNIT_FLASH_STRING_HELPER lhsString,
+    const char *opName, bool rhs, AUNIT_FLASH_STRING_HELPER rhsString) {
+
+  // Don't use F() strings here. Same reason as above.
+  Print* printer = Printer::getPrinter();
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": (");
+  printer->print(lhsString);
+  printer->print('=');
+  printer->print(lhs ? "true" : "false");
+  printer->print(") ");
+  printer->print(opName);
+  printer->print(" (");
+  printer->print(rhsString);
+  printer->print('=');
+  printer->print(rhs ? "true" : "false");
+  printer->print(')');
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
+// Special version for assertTrue(arg) and assertFalse(arg).
+// Prints:
+//    "Assertion passed/failed: (arg) is true"
+//    "Assertion passed/failed: (arg) is false"
+static void printAssertionBoolMessageVerbose(bool ok, const char* file,
+    uint16_t line, bool arg, AUNIT_FLASH_STRING_HELPER argString, bool value) {
+
+  // Don't use F() strings here. Same reason as above.
+  Print* printer = Printer::getPrinter();
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": (");
+  printer->print(argString);
+  printer->print('=');
+  printer->print(arg ? "true" : "false");
+  printer->print(") is ");
+  printer->print(value ? "true" : "false");
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
+bool Assertion::assertionBoolVerbose(const char* file, uint16_t line, bool arg,
+    AUNIT_FLASH_STRING_HELPER argString, bool value) {
+  if (isDone()) return false;
+  bool ok = (arg == value);
+  if (isOutputEnabled(ok)) {
+    printAssertionBoolMessageVerbose(ok, file, line, arg, argString, value);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line, bool lhs,
+    AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+    bool (*op)(bool lhs, bool rhs), bool rhs,
+    AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line, char lhs,
+    AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+    bool (*op)(char lhs, char rhs), char rhs,
+    AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line, int lhs,
+    AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+    bool (*op)(int lhs, int rhs), int rhs,
+    AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line,
+    unsigned int lhs, AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+    bool (*op)(unsigned int lhs, unsigned int rhs),
+    unsigned int rhs, AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line, long lhs,
+    AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+    bool (*op)(long lhs, long rhs), long rhs,
+    AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line,
+    unsigned long lhs, AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+    bool (*op)(unsigned long lhs, unsigned long rhs),
+    unsigned long rhs, AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line, double lhs,
+    AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+    bool (*op)(double lhs, double rhs), double rhs,
+    AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line,
+    const char* lhs, AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+    bool (*op)(const char* lhs, const char* rhs),
+    const char* rhs, AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line,
+    const char* lhs, AUNIT_FLASH_STRING_HELPER lhsString,
+    const char *opName, bool (*op)(const char* lhs, const String& rhs),
+    const String& rhs, AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line,
+    const char* lhs, AUNIT_FLASH_STRING_HELPER lhsString, const char *opName,
+    bool (*op)(const char* lhs, const __FlashStringHelper* rhs),
+    const __FlashStringHelper* rhs, AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line,
+    const String& lhs, AUNIT_FLASH_STRING_HELPER lhsString, const char *opName,
+    bool (*op)(const String& lhs, const char* rhs),
+    const char* rhs, AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line,
+    const String& lhs, AUNIT_FLASH_STRING_HELPER lhsString, const char *opName,
+    bool (*op)(const String& lhs, const String& rhs),
+    const String& rhs, AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line,
+    const String& lhs, AUNIT_FLASH_STRING_HELPER lhsString, const char *opName,
+    bool (*op)(const String& lhs, const __FlashStringHelper* rhs),
+    const __FlashStringHelper* rhs, AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line,
+    const __FlashStringHelper* lhs, AUNIT_FLASH_STRING_HELPER lhsString,
+    const char *opName,
+    bool (*op)(const __FlashStringHelper* lhs, const char* rhs),
+    const char* rhs, AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line,
+    const __FlashStringHelper* lhs, AUNIT_FLASH_STRING_HELPER lhsString,
+    const char *opName,
+    bool (*op)(const __FlashStringHelper* lhs, const String& rhs),
+    const String& rhs, AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line,
+    const __FlashStringHelper* lhs, AUNIT_FLASH_STRING_HELPER lhsString,
+    const char *opName,
+    bool (*op)(const __FlashStringHelper* lhs, const __FlashStringHelper* rhs),
+    const __FlashStringHelper* rhs, AUNIT_FLASH_STRING_HELPER rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
+        rhsString);
   }
   setPassOrFail(ok);
   return ok;

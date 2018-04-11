@@ -10,7 +10,19 @@
 #if USE_AUNIT == 1
 
 #include <Arduino.h> // random()
-#include <AUnit.h>
+
+// AVR:
+//    AUnit.h: flash/static: 29186/1369
+//    AUnitVerbose.h: flash/static: 37352/1373 (too big for ATmega328P)
+// ESP8266:
+//    AUnit.h: flash/static: 276112/33476
+//    AUnitVerbose.h: flash/static: 281464/36100
+// Teensy 3.2:
+//    AUnit.h: flash/static: 43328/5440
+//    AUnitVerbose.h: flash/static: 49820/5440
+//#include <AUnit.h>
+#include <AUnitVerbose.h>
+
 using namespace aunit;
 
 class CustomOnceFixture: public TestOnce {

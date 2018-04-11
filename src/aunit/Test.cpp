@@ -22,13 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifdef ESP8266
-#include <pgmspace.h>
-#else
-#include <avr/pgmspace.h>
-#endif
-
 #include <Arduino.h>  // for declaration of 'Serial' on Teensy and others
+#include "Flash.h"
 #include "Verbosity.h"
 #include "Printer.h"
 #include "Compare.h"
