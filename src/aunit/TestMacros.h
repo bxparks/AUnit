@@ -22,23 +22,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+// Significant portions of the design and implementation of this file came from
+// https://github.com/mmurdoch/arduinounit/blob/master/src/ArduinoUnit.h
+
 /**
- * @file TestMacro.h
+ * @file TestMacros.h
  *
  * Various macros (test(), testing(), externTest(), externTesting()) are
  * defined in this header.
  */
 
-#ifndef AUNIT_TEST_MACRO_H
-#define AUNIT_TEST_MACRO_H
+#ifndef AUNIT_TEST_MACROS_H
+#define AUNIT_TEST_MACROS_H
 
 #include <stdint.h>
 #include <Arduino.h> // F() macro
 #include "FCString.h"
 #include "TestOnce.h"
 #include "TestAgain.h"
-
-class __FlashStringHelper;
 
 // On the ESP8266 platform, The F() string cannot be placed in an inline
 // context, because it interferes with other PROGMEM strings. See

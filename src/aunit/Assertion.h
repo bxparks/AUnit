@@ -22,60 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-// Significant portions of the design and implementation of this file came from
-// https://github.com/mmurdoch/arduinounit/blob/master/src/ArduinoUnit.h
-
-/**
- * @file Assertion.h
- *
- * Various assertXxx() macros are defined in this header. They all go through
- * another helper macro called assertOp(), eventually calling one of the
- * methods on the Assertion class.
- */
-
 #ifndef AUNIT_ASSERTION_H
 #define AUNIT_ASSERTION_H
 
 #include "Test.h"
-
-/** Assert that arg1 is equal to arg2. */
-#define assertEqual(arg1,arg2) assertOp(arg1,aunit::compareEqual,"==",arg2)
-
-/** Assert that arg1 is not equal to arg2. */
-#define assertNotEqual(arg1,arg2) \
-    assertOp(arg1,aunit::compareNotEqual,"!=",arg2)
-
-/** Assert that arg1 is less than arg2. */
-#define assertLess(arg1,arg2) assertOp(arg1,aunit::compareLess,"<",arg2)
-
-/** Assert that arg1 is more than arg2. */
-#define assertMore(arg1,arg2) assertOp(arg1,aunit::compareMore,">",arg2)
-
-/** Assert that arg1 is less than or equal to arg2. */
-#define assertLessOrEqual(arg1,arg2) \
-    assertOp(arg1,aunit::compareLessOrEqual,"<=",arg2)
-
-/** Assert that arg1 is more than or equal to arg2. */
-#define assertMoreOrEqual(arg1,arg2) \
-    assertOp(arg1,aunit::compareMoreOrEqual,">=",arg2)
-
-/** Assert that arg is true. */
-#define assertTrue(arg) assertBool(arg,true)
-
-/** Assert that arg is false. */
-#define assertFalse(arg) assertBool(arg,false)
-
-/** Internal helper macro, shouldn't be called directly by users. */
-#define assertOp(arg1,op,opName,arg2) do {\
-  if (!assertion(__FILE__,__LINE__,(arg1),opName,op,(arg2)))\
-    return;\
-} while (false)
-
-/** Internal helper macro, shouldn't be called directly by users. */
-#define assertBool(arg,value) do {\
-  if (!assertionBool(__FILE__,__LINE__,(arg),(value)))\
-    return;\
-} while (false)
 
 class __FlashStringHelper;
 class String;

@@ -41,7 +41,9 @@ SOFTWARE.
 #include "aunit/TestOnce.h"
 #include "aunit/TestAgain.h"
 #include "aunit/TestRunner.h"
-#include "aunit/TestMacro.h"
+#include "aunit/AssertMacros.h"
+#include "aunit/MetaAssertMacros.h"
+#include "aunit/TestMacros.h"
 
 // Version format: xxyyzz == "xx.yy.zz"
 #define AUNIT_VERSION 000402
