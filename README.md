@@ -72,29 +72,33 @@ Here are the features which have not been ported over from ArduinoUnit:
 
 Here are the features in AUnit which are not available in ArduinoUnit:
 
-* The `TestRunner` supports a configurable timeout parameter which
-  can prevent `testing()` test cases from running forever. The following
-  methods and macros are available in AUnit to support this feature:
+* Configurable timeout parameter to prevent `testing()` test cases from
+  running forever:
     * `TestRunner::setTimeout(seconds)`
     * `Test::expire()`
     * `assertTestExpire()`
     * `assertTestNotExpire()`
     * `checkTestExpire()`
     * `checkTestNotExpire()`
-* AUnit adds support for test fixtures using the "F" variations of existing
-  macros:
+* Test fixtures using the "F" variations of existing macros:
     * `testF()`
     * `testingF()`
     * `assertTestXxxF()`
     * `checkTestXxxF()`
     * `externTestF()`
     * `externTestingF()`
-* AUnit supports the `teardown()` method to clean up test fixtures after
-  the `setup()` method.
-* AUnit is tested on the AVR (8-bit), Teensy ARM (32-bit) , and ESP8266 (32-bit)
-  Arduino platforms.
-* Test filters (`TestRunner::include()` and `TestRunner::exclude()`) support the
-  same 2 arguments versions corresponding to `testF()` and `testingF()`
+* `teardown()` method, mirroring the `setup()`
+    * `teardown()`
+* Tested on the following Arduino platforms:
+    * AVR (8-bit)
+    * Teensy ARM (32-bit)
+    * ESP8266 (32-bit)
+* Test filters support the 2 arguments versions:
+    * `TestRunner::include(testClass, name)` - matching `testF()`
+    * `TestRunner::exclude(testClass, name)` - matching `testingF()`
+* Terse and verbose modes:
+    * `#include <AUnit.h>` - terse messages uses less flash memory
+    * `#include <AUnitVerbose.h>` - verbose messages uses more flash
 
 ### Beta Status
 
@@ -161,6 +165,22 @@ Similar to ArduinoUnit, many of the "functions" in this framework (e.g.
 `test()`, `testing()`, `assertXxx()`) are defined as `#define` macros which live
 in the global namespace, so it is usually not necessary to import the entire
 `aunit` namespace.
+
+### Verbose Mode
+
+By default, AUnit generates terse assertion messages by leaving out
+the string arguments of the various `assertXxx()` macros. If you would like
+to get the same verbose output as ArduinoUnit, use the following header
+instead:
+
+```
+#include <AUnitVerbose.h>
+```
+
+The flash memory consumption on an 8-bit AVR may go up by 20-25% for medium to
+large tests. On Teensy ARM or ESP8266, the increased memory size probably does
+not matter too much because these microcontrollers have far more flash and
+static memory.
 
 ### Defining the Tests
 
@@ -885,6 +905,24 @@ _The messages for asserts with bool values are customized for better clarity
 (partially to compensate for the lack of capture of the string of the actual
 arguments, and are different from ArduinoUnit._
 
+#### Verbose Mode
+
+If you use the verbose header:
+```
+#include <AUnitVerbose.h>
+```
+the assertion message will contain the string fragments of the arguments
+passed into the `assertXxx()` macros, like this:
+
+```
+Assertion failed: (expected=3) == (counter=4), file AUnitTest.ino, line 134.
+Assertion failed: (ok=false) is true, file AUnitTest.ino, line 134.
+```
+
+***ArduinoUnit Compatibility***:
+_The verbose mode produces the same messages as ArduinoUnit, at the cost of
+increased flash memory usage._
+
 ### Test Summary
 
 As each test case finishes, the `TestRunner` prints out the summary of the test
@@ -1038,9 +1076,12 @@ delayed failure) slightly easier to implement.
 
 ## Benchmarks
 
-AUnit consumes as much as 65% less flash memory than ArduinoUnit on an AVR
+AUnit consumes as much as 65% less flash memory than ArduinoUnit 2.2 on an AVR
 platform (e.g. Arduino UNO, Nano), and 30% less flash on the Teensy-ARM platform
-(e.g. Teensy LC ). Here are the resource consumption (flash and static) numbers
+(e.g. Teensy LC ). (ArduinoUnit 2.3 reduces the flash memory by 30% or so, which
+means that AUnit can still consume significantly less flash memory.)
+
+Here are the resource consumption (flash and static) numbers
 from
 [AceButtonTest](https://github.com/bxparks/AceButton/tree/develop/tests/AceButtonTest)
 containing 26 test cases using 331 `assertXxx()`
