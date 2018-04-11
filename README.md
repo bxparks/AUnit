@@ -945,6 +945,7 @@ At the end of the test run, the `TestRunner` prints out the summary
 of all test cases, like this:
 
 ```
+TestRunner duration: 0.05 seconds.
 TestRunner summary: 12 passed, 0 failed, 2 skipped, 1 timed out, out of 15 test(s).
 ```
 
