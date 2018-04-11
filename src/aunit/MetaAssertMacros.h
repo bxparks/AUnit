@@ -122,95 +122,95 @@ SOFTWARE.
 // the name of the fixture class is appended to the instance name.
 
 /** Return true if test 'name' is done. */
-#define checkTestDoneF(test_class,name) \
-    (test_class##_##name##_instance.isDone())
+#define checkTestDoneF(testClass,name) \
+    (testClass##_##name##_instance.isDone())
 
 /** Return true if test 'name' is not done. */
-#define checkTestNotDoneF(test_class,name) \
-    (test_class##_##name##_instance.isNotDone())
+#define checkTestNotDoneF(testClass,name) \
+    (testClass##_##name##_instance.isNotDone())
 
 /** Return true if test 'name' has passed. */
-#define checkTestPassF(test_class,name) \
-    (test_class##_##name##_instance.isPassed())
+#define checkTestPassF(testClass,name) \
+    (testClass##_##name##_instance.isPassed())
 
 /** Return true if test 'name' has not passed. */
-#define checkTestNotPassF(test_class,name) \
-    (test_class##_##name##_instance.isNotPassed())
+#define checkTestNotPassF(testClass,name) \
+    (testClass##_##name##_instance.isNotPassed())
 
 /** Return true if test 'name' has failed. */
-#define checkTestFailF(test_class,name) \
-    (test_class##_##name##_instance.isFailed())
+#define checkTestFailF(testClass,name) \
+    (testClass##_##name##_instance.isFailed())
 
 /** Return true if test 'name' has not failed. */
-#define checkTestNotFailF(test_class,name) \
-    (test_class##_##name##_instance.isNotFailed())
+#define checkTestNotFailF(testClass,name) \
+    (testClass##_##name##_instance.isNotFailed())
 
 /** Return true if test 'name' has been skipped. */
-#define checkTestSkipF(test_class,name) \
-    (test_class##_##name##_instance.isSkipped())
+#define checkTestSkipF(testClass,name) \
+    (testClass##_##name##_instance.isSkipped())
 
 /** Return true if test 'name' has not been skipped. */
-#define checkTestNotSkipF(test_class,name) \
-    (test_class##_##name##_instance.isNotSkipped())
+#define checkTestNotSkipF(testClass,name) \
+    (testClass##_##name##_instance.isNotSkipped())
 
 /** Return true if test 'name' has timed out. */
-#define checkTestExpireF(test_class,name) \
-    (test_class##_##name##_instance.isExpired())
+#define checkTestExpireF(testClass,name) \
+    (testClass##_##name##_instance.isExpired())
 
 /** Return true if test 'name' has not timed out. */
-#define checkTestNotExpireF(test_class,name) \
-    (test_class##_##name##_instance.isNotExpired())
+#define checkTestNotExpireF(testClass,name) \
+    (testClass##_##name##_instance.isNotExpired())
 
 // If the assertTestXxx() macros fail, they generate an optional output, calls
 // fail(), and returns from the current test case.
 
 /** Assert that test 'name' is done. */
-#define assertTestDoneF(test_class,name) \
-  assertTestStatusInternalF(test_class, name, isDone, kMessageDone)
+#define assertTestDoneF(testClass,name) \
+  assertTestStatusInternalF(testClass, name, isDone, kMessageDone)
 
 /** Assert that test 'name' is not done. */
-#define assertTestNotDoneF(test_class,name) \
-    assertTestStatusInternalF(test_class, name, isNotDone, kMessageNotDone)
+#define assertTestNotDoneF(testClass,name) \
+    assertTestStatusInternalF(testClass, name, isNotDone, kMessageNotDone)
 
 /** Assert that test 'name' has passed. */
-#define assertTestPassF(test_class,name) \
-    assertTestStatusInternalF(test_class, name, isPassed, kMessagePassed)
+#define assertTestPassF(testClass,name) \
+    assertTestStatusInternalF(testClass, name, isPassed, kMessagePassed)
 
 /** Assert that test 'name' has not passed. */
-#define assertTestNotPassF(test_class,name) \
-    assertTestStatusInternalF(test_class, name, isNotPassed, kMessageNotPassed)
+#define assertTestNotPassF(testClass,name) \
+    assertTestStatusInternalF(testClass, name, isNotPassed, kMessageNotPassed)
 
 /** Assert that test 'name' has failed. */
-#define assertTestFailF(test_class,name) \
-    assertTestStatusInternalF(test_class, name, isFailed, kMessageFailed)
+#define assertTestFailF(testClass,name) \
+    assertTestStatusInternalF(testClass, name, isFailed, kMessageFailed)
 
 /** Assert that test 'name' has not failed. */
-#define assertTestNotFailF(test_class,name) \
-    assertTestStatusInternalF(test_class, name, isNotFailed, kMessageNotFailed)
+#define assertTestNotFailF(testClass,name) \
+    assertTestStatusInternalF(testClass, name, isNotFailed, kMessageNotFailed)
 
 /** Assert that test 'name' has been skipped. */
-#define assertTestSkipF(test_class,name) \
-    assertTestStatusInternalF(test_class, name, isSkipped, kMessageSkipped)
+#define assertTestSkipF(testClass,name) \
+    assertTestStatusInternalF(testClass, name, isSkipped, kMessageSkipped)
 
 /** Assert that test 'name' has not been skipped. */
-#define assertTestNotSkipF(test_class,name) \
-    assertTestStatusInternalF(test_class, name, isNotSkipped, \
+#define assertTestNotSkipF(testClass,name) \
+    assertTestStatusInternalF(testClass, name, isNotSkipped, \
         kMessageNotSkipped)
 
 /** Assert that test 'name' has timed out. */
-#define assertTestExpireF(test_class,name) \
-    assertTestStatusInternalF(test_class, name, isExpired, kMessageExpired)
+#define assertTestExpireF(testClass,name) \
+    assertTestStatusInternalF(testClass, name, isExpired, kMessageExpired)
 
 /** Assert that test 'name' has not timed out. */
-#define assertTestNotExpireF(test_class,name) \
-    assertTestStatusInternalF(test_class, name, isNotExpired, \
+#define assertTestNotExpireF(testClass,name) \
+    assertTestStatusInternalF(testClass, name, isNotExpired, \
         kMessageNotExpired)
 
 /** Internal helper macro, shouldn't be called directly by users. */
-#define assertTestStatusInternalF(test_class,name,method,message) do {\
+#define assertTestStatusInternalF(testClass,name,method,message) do {\
   if (!assertionTestStatus(\
         __FILE__,__LINE__,#name,FPSTR(message),\
-        test_class##_##name##_instance.method()))\
+        testClass##_##name##_instance.method()))\
     return;\
 } while (false)
 

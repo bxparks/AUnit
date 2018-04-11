@@ -67,7 +67,7 @@ void setup() {
   while (! Serial); // Wait until Serial is ready - Leonardo
 
   // Verify that the names of these tests don't collide and can be
-  // independently selected. Name of test is "{test_class}_{name}", but we can
+  // independently selected. Name of test is "{testClass}_{name}", but we can
   // use the new 2-argument versions of include(testClass, pattern) and
   // exclude(testClass, pattern) instead.
 

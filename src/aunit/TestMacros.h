@@ -97,45 +97,45 @@ extern test_##name test_##name##_instance
 
 /**
  * Create a test that is derived from a custom TestOnce class.
- * The name of the instance is prefixed by '{test_class}_' to avoid
+ * The name of the instance is prefixed by '{testClass}_' to avoid
  * name collisions with similarly named tests using other fixtures.
  */
-#define testF(test_class, name) \
-struct test_class ## _ ## name : test_class {\
-  test_class ## _ ## name();\
+#define testF(testClass, name) \
+struct testClass ## _ ## name : testClass {\
+  testClass ## _ ## name();\
   virtual void once() override;\
-} test_class ## _ ## name ## _instance;\
-test_class ## _ ## name :: test_class ## _ ## name() {\
-  init(F(#test_class "_" #name));\
+} testClass ## _ ## name ## _instance;\
+testClass ## _ ## name :: testClass ## _ ## name() {\
+  init(F(#testClass "_" #name));\
 }\
-void test_class ## _ ## name :: once()
+void testClass ## _ ## name :: once()
 
 /**
  * Create a test that is derived from a custom TestAgain class.
- * The name of the instance is prefixed by '{test_class}_' to avoid
+ * The name of the instance is prefixed by '{testClass}_' to avoid
  * name collisions with similarly named tests using other fixtures.
  */
-#define testingF(test_class, name) \
-struct test_class ## _ ## name : test_class {\
-  test_class ## _ ## name();\
+#define testingF(testClass, name) \
+struct testClass ## _ ## name : testClass {\
+  testClass ## _ ## name();\
   virtual void again() override;\
-} test_class ## _ ## name ## _instance;\
-test_class ## _ ## name :: test_class ## _ ## name() {\
-  init(F(#test_class "_" #name));\
+} testClass ## _ ## name ## _instance;\
+testClass ## _ ## name :: testClass ## _ ## name() {\
+  init(F(#testClass "_" #name));\
 }\
-void test_class ## _ ## name :: again()
+void testClass ## _ ## name :: again()
 
 /**
  * Create an extern reference to a testF() test case object defined elsewhere.
  * This is only necessary if you use assertTestXxx() or checkTestXxx() when the
  * test is in another file (or defined after the assertion on it).
  */
-#define externTestF(test_class, name) \
-struct test_class ## _ ## name : test_class {\
-  test_class ## _ ## name();\
+#define externTestF(testClass, name) \
+struct testClass ## _ ## name : testClass {\
+  testClass ## _ ## name();\
   virtual void once() override;\
 };\
-extern test_class ## _ ## name test_class##_##name##_instance
+extern testClass ## _ ## name testClass##_##name##_instance
 
 /**
  * Create an extern reference to a testingF() test case object defined
@@ -143,11 +143,11 @@ extern test_class ## _ ## name test_class##_##name##_instance
  * checkTestXxx() when the test is in another file (or defined after the
  * assertion on it).
  */
-#define externTestingF(test_class, name) \
-struct test_class ## _ ## name : test_class {\
-  test_class ## _ ## name();\
+#define externTestingF(testClass, name) \
+struct testClass ## _ ## name : testClass {\
+  testClass ## _ ## name();\
   virtual void again() override;\
 };\
-extern test_class ## _ ## name test_class##_##name##_instance
+extern testClass ## _ ## name testClass##_##name##_instance
 
 #endif
