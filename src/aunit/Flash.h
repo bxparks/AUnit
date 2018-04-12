@@ -25,13 +25,14 @@ SOFTWARE.
 /**
  * @file Flash.h
  *
- * Flash strings (using F() macro) on the ESP8266 platform  cannot be placed in
+ * Flash strings (using F() macro) on the ESP8266 platform cannot be placed in
  * an inline context, because it interferes with other PROGMEM strings in
  * non-inline contexts. See https://github.com/esp8266/Arduino/issues/3369. In
  * some cases (e.g. TestMacros.h), we were able to move the F() macro into a
  * non-inline context. But in other cases (e.g. AssertVerboseMacros.h) it is
  * impossible to move these out of inline contexts because we want to support
- * assertXxx() statements inside inlined methods.
+ * assertXxx() statements inside inlined methods. We use normal (const char*)
+ * strings instead of flash strings in those places instead.
  */
 
 #ifndef AUNIT_FLASH_H
@@ -56,10 +57,14 @@ class __FlashStringHelper;
 // non-inlnie contexts. So don't use F() strings on ESP8266.
 #ifdef ESP8266
   #define AUNIT_F(x) (x)
-  #define AUNIT_FLASH_STRING_HELPER const char*
+  namespace aunit {
+  typedef const char* FlashStringType;
+  }
 #else
   #define AUNIT_F(x) F(x)
-  #define AUNIT_FLASH_STRING_HELPER const __FlashStringHelper*
+  namespace aunit {
+  typedef const __FlashStringHelper* FlashStringType;
+  }
 #endif
 
 #endif

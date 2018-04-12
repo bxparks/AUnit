@@ -136,91 +136,91 @@ class Assertion: public Test {
     // Verbose versions of above.
 
     bool assertionBoolVerbose(const char* file, uint16_t line, bool arg,
-        AUNIT_FLASH_STRING_HELPER argString, bool value);
+        FlashStringType argString, bool value);
 
     bool assertionVerbose(const char* file, uint16_t line, bool lhs,
-        AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+        FlashStringType lhsString, const char* opName,
         bool (*op)(bool lhs, bool rhs),
-        bool rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        bool rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line, char lhs,
-        AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+        FlashStringType lhsString, const char* opName,
         bool (*op)(char lhs, char rhs),
-        char rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        char rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line, int lhs,
-        AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+        FlashStringType lhsString, const char* opName,
         bool (*op)(int lhs, int rhs),
-        int rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        int rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line, unsigned int lhs,
-        AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+        FlashStringType lhsString, const char* opName,
         bool (*op)(unsigned int lhs, unsigned int rhs),
-        unsigned int rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        unsigned int rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line, long lhs,
-        AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+        FlashStringType lhsString, const char* opName,
         bool (*op)(long lhs, long rhs),
-        long rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        long rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line, unsigned long lhs,
-        AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+        FlashStringType lhsString, const char* opName,
         bool (*op)(unsigned long lhs, unsigned long rhs),
-        unsigned long rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        unsigned long rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line, double lhs,
-        AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+        FlashStringType lhsString, const char* opName,
         bool (*op)(double lhs, double rhs),
-        double rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        double rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line, const char* lhs,
-        AUNIT_FLASH_STRING_HELPER lhsString, const char* opName,
+        FlashStringType lhsString, const char* opName,
         bool (*op)(const char* lhs, const char* rhs),
-        const char* rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        const char* rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line, const char* lhs,
-        AUNIT_FLASH_STRING_HELPER lhsString, const char *opName,
+        FlashStringType lhsString, const char *opName,
         bool (*op)(const char* lhs, const String& rhs),
-        const String& rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        const String& rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line, const char* lhs,
-        AUNIT_FLASH_STRING_HELPER lhsString, const char *opName,
+        FlashStringType lhsString, const char *opName,
         bool (*op)(const char* lhs, const __FlashStringHelper* rhs),
-        const __FlashStringHelper* rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        const __FlashStringHelper* rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line, const String& lhs,
-        AUNIT_FLASH_STRING_HELPER lhsString, const char *opName,
+        FlashStringType lhsString, const char *opName,
         bool (*op)(const String& lhs, const char* rhs),
-        const char* rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        const char* rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line, const String& lhs,
-        AUNIT_FLASH_STRING_HELPER lhsString, const char *opName,
+        FlashStringType lhsString, const char *opName,
         bool (*op)(const String& lhs, const String& rhs),
-        const String& rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        const String& rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line, const String& lhs,
-        AUNIT_FLASH_STRING_HELPER lhsString, const char *opName,
+        FlashStringType lhsString, const char *opName,
         bool (*op)(const String& lhs, const __FlashStringHelper* rhs),
-        const __FlashStringHelper* rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        const __FlashStringHelper* rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line,
-        const __FlashStringHelper* lhs, AUNIT_FLASH_STRING_HELPER lhsString,
+        const __FlashStringHelper* lhs, FlashStringType lhsString,
         const char *opName,
         bool (*op)(const __FlashStringHelper* lhs, const char* rhs),
-        const char* rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        const char* rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line,
-        const __FlashStringHelper* lhs, AUNIT_FLASH_STRING_HELPER lhsString,
+        const __FlashStringHelper* lhs, FlashStringType lhsString,
         const char *opName,
         bool (*op)(const __FlashStringHelper* lhs, const String& rhs),
-        const String& rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        const String& rhs, FlashStringType rhsString);
 
     bool assertionVerbose(const char* file, uint16_t line,
-        const __FlashStringHelper* lhs, AUNIT_FLASH_STRING_HELPER lhsString,
+        const __FlashStringHelper* lhs, FlashStringType lhsString,
         const char *opName,
         bool (*op)(const __FlashStringHelper* lhs,
         const __FlashStringHelper* rhs),
-        const __FlashStringHelper* rhs, AUNIT_FLASH_STRING_HELPER rhsString);
+        const __FlashStringHelper* rhs, FlashStringType rhsString);
 
   private:
     // Disable copy-constructor and assignment operator
