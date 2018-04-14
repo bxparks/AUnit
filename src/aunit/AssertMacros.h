@@ -38,27 +38,27 @@ SOFTWARE.
 
 /** Assert that arg1 is equal to arg2. */
 #define assertEqual(arg1,arg2) \
-    assertOpInternal(arg1,aunit::compareEqual,"==",arg2)
+    assertOpInternal(arg1,aunit::internal::compareEqual,"==",arg2)
 
 /** Assert that arg1 is not equal to arg2. */
 #define assertNotEqual(arg1,arg2) \
-    assertOpInternal(arg1,aunit::compareNotEqual,"!=",arg2)
+    assertOpInternal(arg1,aunit::internal::compareNotEqual,"!=",arg2)
 
 /** Assert that arg1 is less than arg2. */
 #define assertLess(arg1,arg2) \
-    assertOpInternal(arg1,aunit::compareLess,"<",arg2)
+    assertOpInternal(arg1,aunit::internal::compareLess,"<",arg2)
 
 /** Assert that arg1 is more than arg2. */
 #define assertMore(arg1,arg2) \
-    assertOpInternal(arg1,aunit::compareMore,">",arg2)
+    assertOpInternal(arg1,aunit::internal::compareMore,">",arg2)
 
 /** Assert that arg1 is less than or equal to arg2. */
 #define assertLessOrEqual(arg1,arg2) \
-    assertOpInternal(arg1,aunit::compareLessOrEqual,"<=",arg2)
+    assertOpInternal(arg1,aunit::internal::compareLessOrEqual,"<=",arg2)
 
 /** Assert that arg1 is more than or equal to arg2. */
 #define assertMoreOrEqual(arg1,arg2) \
-    assertOpInternal(arg1,aunit::compareMoreOrEqual,">=",arg2)
+    assertOpInternal(arg1,aunit::internal::compareMoreOrEqual,">=",arg2)
 
 /** Assert that arg is true. */
 #define assertTrue(arg) assertBoolInternal(arg,true)

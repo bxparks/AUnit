@@ -30,6 +30,7 @@ SOFTWARE.
 class __FlashStringHelper;
 
 namespace aunit {
+namespace internal {
 
 /**
  * A union of (const char*) and (const __FlashStringHelper*) with a
@@ -79,6 +80,7 @@ class FCString {
     uint8_t mStringType;
 };
 
+}
 }
 
 #endif

@@ -34,6 +34,7 @@ class String;
 class __FlashStringHelper;
 
 namespace aunit {
+namespace internal {
 
 class FCString;
 
@@ -290,6 +291,7 @@ bool compareNotEqual(const String& a, const String& b);
 
 bool compareNotEqual(const String& a, const __FlashStringHelper* b);
 
+}
 }
 
 #endif

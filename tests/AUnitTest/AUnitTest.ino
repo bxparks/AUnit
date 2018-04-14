@@ -25,6 +25,7 @@ SOFTWARE.
 
 #include <WString.h>
 #include "AUnitTest.h"
+using namespace aunit::internal;
 
 signed char sc = 4;
 signed char sd = 5;
@@ -54,6 +55,7 @@ const __FlashStringHelper* hh = FPSTR(HH_PROGMEM);
 // ------------------------------------------------------
 
 test(type_mismatch) {
+  FCString fcString("abc");
   unsigned short ushortValue = 5;
   unsigned int uintValue = 5;
   unsigned long ulongValue = 5;

@@ -58,12 +58,16 @@ class __FlashStringHelper;
 #ifdef ESP8266
   #define AUNIT_F(x) (x)
   namespace aunit {
+  namespace internal {
   typedef const char* FlashStringType;
+  }
   }
 #else
   #define AUNIT_F(x) F(x)
   namespace aunit {
+  namespace internal {
   typedef const __FlashStringHelper* FlashStringType;
+  }
   }
 #endif
 

@@ -47,13 +47,11 @@ class Test {
     // from client code. The state transition diagram looks like this:
     //
     //        include()/exclude()
-    //       ---------------------> Excluded -----------|
-    //      /                                           v
+    //      |---------------------> Excluded -----------|
+    //      v                                           v
     //    New                                        Finished -> (out of list)
     //      \   setup()     assertion()      teardown() ^
     //       -----------> Setup ----> Asserted ---------|
-    //
-    // The following are life cycle states, not readily visible to the user.
 
     /** Test is new, needs to be setup. */
     static const uint8_t kLifeCycleNew = 0;
@@ -157,7 +155,7 @@ class Test {
     void resolve();
 
     /** Get the name of the test. */
-    const FCString& getName() { return mName; }
+    const internal::FCString& getName() { return mName; }
 
     /** Get the life cycle state of the test. */
     uint8_t getLifeCycle() { return mLifeCycle; }
@@ -244,7 +242,7 @@ class Test {
     void pass() { setStatus(kStatusPassed); }
 
     void init(const char* name) {
-      mName = FCString(name);
+      mName = internal::FCString(name);
       mLifeCycle = kLifeCycleNew;
       mStatus = kStatusUnknown;
       mVerbosity = 0;
@@ -252,7 +250,7 @@ class Test {
     }
 
     void init(const __FlashStringHelper* name) {
-      mName = FCString(name);
+      mName = internal::FCString(name);
       mLifeCycle = kLifeCycleNew;
       mStatus = kStatusUnknown;
       mVerbosity = 0;
@@ -273,7 +271,7 @@ class Test {
     /** Insert into the linked list. */
     void insert();
 
-    FCString mName;
+    internal::FCString mName;
     uint8_t mLifeCycle;
     uint8_t mStatus;
     uint8_t mVerbosity;

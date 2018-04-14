@@ -134,6 +134,9 @@ inlining them because they are almost always used through a function pointer.
 #include "FCString.h"
 
 namespace aunit {
+namespace internal {
+
+class FCString;
 
 // compareString()
 
@@ -652,4 +655,5 @@ bool compareNotEqual(const String& a, const __FlashStringHelper* b) {
   return compareString(a, b) != 0;
 }
 
+}
 }
