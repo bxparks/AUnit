@@ -67,7 +67,7 @@ getVerbosity	KEYWORD2
 once	KEYWORD2
 
 # TestAgain.h
-once	KEYWORD2
+again	KEYWORD2
 
 # Public macros from Assertion.h
 assertEqual	KEYWORD2
@@ -127,6 +127,7 @@ compareString	KEYWORD2
 compareStringN	KEYWORD2
 compareEqual	KEYWORD2
 compareLess	KEYWORD2
+compareMore	KEYWORD2
 compareLessOrEqual	KEYWORD2
 compareMoreOrEqual	KEYWORD2
 compareNotEqual	KEYWORD2
@@ -154,7 +155,7 @@ kAll	LITERAL1
 kNone	LITERAL1
 
 # public constants from Test.h
-kStatusNew	LITERAL1
+kStatusUnknown	LITERAL1
 kStatusSetup	LITERAL1
 kStatusPassed	LITERAL1
 kStatusFailed	LITERAL1
