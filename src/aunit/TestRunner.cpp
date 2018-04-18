@@ -213,6 +213,25 @@ uint16_t TestRunner::countTests() {
   return count;
 }
 
+namespace {
+
+/**
+ * Print the timeMillis as floating point seconds, without using floating point
+ * math. This is the equivalent of 'printer->print((float) timeMillis / 1000)',
+ * but saves 1400-1600 bytes of flash memory and 12 bytes of static memory.
+ */
+void printSeconds(Print* printer, unsigned long timeMillis) {
+  int s = timeMillis / 1000;
+  int ms = timeMillis % 1000;
+  printer->print(s);
+  printer->print('.');
+  if (ms < 100) printer->print('0');
+  if (ms < 10) printer->print('0');
+  printer->print(ms);
+}
+
+}
+
 void TestRunner::printStartRunner() {
   if (!isVerbosity(Verbosity::kTestRunSummary)) return;
 
@@ -228,7 +247,7 @@ void TestRunner::resolveRun() {
 
   unsigned long elapsedTime = mEndTime - mStartTime;
   printer->print(F("TestRunner duration: "));
-  printer->print((float) elapsedTime / 1000);
+  printSeconds(printer, elapsedTime);
   printer->println(" seconds.");
 
   printer->print(F("TestRunner summary: "));
