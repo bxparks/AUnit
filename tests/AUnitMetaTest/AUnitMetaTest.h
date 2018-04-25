@@ -1,7 +1,7 @@
-#line 2 "AUnitTest.h"
+#line 2 "AUnitMetaTest.h"
 
-#ifndef AUNIT_AUNIT_TEST_H
-#define AUNIT_AUNIT_TEST_H
+#ifndef AUNIT_AUNIT_META_TEST_H
+#define AUNIT_AUNIT_META_TEST_H
 
 // If ArduinoUnit is used, this unit test no longer fits in a 32kB
 // Arduino UNO or Nano.
@@ -9,17 +9,6 @@
 
 #if USE_AUNIT == 1
 
-#include <Arduino.h> // random()
-
-// AVR:
-//    AUnit.h: flash/static: 29186/1369
-//    AUnitVerbose.h: flash/static: 37352/1373 (too big for ATmega328P)
-// ESP8266:
-//    AUnit.h: flash/static: 276112/33476
-//    AUnitVerbose.h: flash/static: 281464/36100
-// Teensy 3.2:
-//    AUnit.h: flash/static: 43328/5440
-//    AUnitVerbose.h: flash/static: 49820/5440
 #if defined(__AVR__)
   #include <AUnit.h>
 #else
@@ -32,42 +21,40 @@ class CustomOnceFixture: public TestOnce {
   protected:
     virtual void setup() override {
       TestOnce::setup();
-      n = random(6);
+      subject = 6;
     }
 
     virtual void teardown() override {
       TestOnce::teardown();
     }
 
-    void assertCommon() {
-      assertLess(n, 6);
+    void assertCommon(int m) {
+      assertLess(m, subject);
     }
 
     void assertFailing() {
       assertEqual(1, 2);
     }
 
-  private:
-    int n;
+    int subject;
 };
 
 class CustomAgainFixture: public TestAgain {
   protected:
     virtual void setup() override {
       TestAgain::setup();
-      n = random(6);
+      subject = 6;
     }
 
     virtual void teardown() override {
       TestAgain::teardown();
     }
 
-    void assertCommon() {
-      assertLess(n, 6);
+    void assertCommon(int m) {
+      assertLess(m, subject);
     }
 
-  private:
-    int n;
+    int subject;
 };
 
 #else

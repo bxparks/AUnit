@@ -20,10 +20,9 @@ AUnit was created to solve 3 problems with ArduinoUnit:
   Arduino UNO, Nano) as explained in
   [ArduinoUnit#70](https://github.com/mmurdoch/arduinounit/issues/70).
 * ArduinoUnit does not compile on the ESP8266 platform (see
-  [ArduinoUni#68](https://github.com/mmurdoch/arduinounit/issues/68),
-  [ArduinoUni#57](https://github.com/mmurdoch/arduinounit/pull/57),
-  [ArduinoUni#55](https://github.com/mmurdoch/arduinounit/issues/55),
-  [ArduinoUni#54](https://github.com/mmurdoch/arduinounit/issues/54)).
+  [ArduinoUnit#68](https://github.com/mmurdoch/arduinounit/issues/68),
+  [ArduinoUnit#55](https://github.com/mmurdoch/arduinounit/issues/55),
+  [ArduinoUnit#54](https://github.com/mmurdoch/arduinounit/issues/54)).
 * ArduinoUnit does not provide an easy way to create tests using fixtures,
   equivalent to the `TEST_F()` macro in Google Test.
 
@@ -141,8 +140,11 @@ The `examples/` directory has a number of examples:
 
 In the `tests/` directory:
 
-* `AUnitTest` - the unit test for `AUnit` itself has a large number of examples
+* `AUnitTest` - the unit test for core `AUnit` functions,
+* `AUnitMetaTest` - the unit test for meta assertions and `extern*()` macros
 * `FilterTest` - manual tests for `include()` and `exclude()` filters
+* `SetupAndTeardownTest` - tests to verify that `setup()` and `teardown()` are
+  called properly by the finite state machine
 
 ### Header and Namespace
 
@@ -197,8 +199,8 @@ subclass derived from the base class indicated above. The `test()` and `testF()`
 macros place the code body into the `TestOnce::once()` method. The `testing()`
 and `testingF()` macros place the code body into the `TestAgain::again()`
 method. The name of the subclass is a concatenation of the string `"test_"` and
-the `name` (for `test()` and `testing()`) the `classname` and the `name` (for
-`testF()` and `testing()`).
+the `name` for `test()` and `testing()`, or the concatenation of
+`classname` + `"_"` + `name` for `testF()` and `testing()`.
 
 The argument to these macros are the name of the test case, and is used to
 generate a name for the subclass. (The name is available within the test code
@@ -1122,17 +1124,18 @@ This library was developed and tested using:
 * [Teensyduino 1.41](https://www.pjrc.com/teensy/td_download.html)
 * [ESP8266 Arduino Core 2.4.1](https://arduino-esp8266.readthedocs.io/en/2.4.1/)
 
-I used MacOS 10.13.3 for most of my development.
+I used MacOS 10.13.3 and Ubuntu 17.10 for most of my development.
 
 The library has been verified to work on the following hardware:
 
 * Arduino Nano clone (16 MHz ATmega328P)
 * Arduino UNO R3 clone (16 MHz ATmega328P)
 * Arduino Pro Mini clone (16 MHz ATmega328P)
+* Arduino Pro Micro clone (16 MHz ATmega32U4)
 * Teensy LC (48 MHz ARM Cortex-M0+)
 * Teensy 3.2 (72 MHz ARM Cortex-M4)
-* NodeMCU 1.0 clone (ESP-12E module, 80MHz ESP8266)
-* ESP-01 (ESP-01 module, 80MHz ESP8266)
+* NodeMCU 1.0 clone (ESP-12E module, 80 MHz ESP8266)
+* ESP-01 (ESP-01 module, 80 MHz ESP8266)
 
 ## License
 
