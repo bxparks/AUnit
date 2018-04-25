@@ -1,5 +1,11 @@
 # Changelog
 
+* 0.5.0 (2018-04-25)
+    * Support verbose assertion messages using AUnitVerbose.h. Fixes #8.
+    * Better assertion messages for assertTrue() and assertFalse(). Fixes #17.
+    * Print duration of test runner at the end. Fixes #18.
+    * Extract meta assertion tests to tests/AUnitMetaTest, so that core
+      tests/AUnitTest can fit inside an Arduino Micro.
 * 0.4.2 (2018-04-10)
     * Fix FSM for excluded tests so that they bypass setup() and teardown().
 * 0.4.1 (2018-04-06)

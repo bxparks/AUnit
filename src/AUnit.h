@@ -46,6 +46,6 @@ SOFTWARE.
 #include "aunit/TestMacros.h"
 
 // Version format: xxyyzz == "xx.yy.zz"
-#define AUNIT_VERSION 000402
+#define AUNIT_VERSION 000500
 
 #endif

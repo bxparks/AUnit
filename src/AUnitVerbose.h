@@ -25,7 +25,7 @@ SOFTWARE.
 /**
  * @file AUnitVerbose.h
  *
- * Same as AUnit.h except that the verbose versions of teh various assertXxx()
+ * Same as AUnit.h except that the verbose versions of the various assertXxx()
  * macros are provided. These capture the strings of the actual arguments in
  * the assert macros and print more verbose and helpful messages in the same
  * format used by ArduinoUnit. The cost is 20-25% increase in flash memory to
@@ -49,6 +49,6 @@ SOFTWARE.
 #include "aunit/TestMacros.h"
 
 // Version format: xxyyzz == "xx.yy.zz"
-#define AUNIT_VERSION 000402
+#define AUNIT_VERSION 000500
 
 #endif
