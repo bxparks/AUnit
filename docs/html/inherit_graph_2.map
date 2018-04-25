@@ -1,7 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classaunit_1_1Test.html" title="Base class of all test cases. " alt="" coords="5,31,87,56"/>
-<area shape="rect" id="node2" href="$classaunit_1_1Assertion.html" title="An Assertion class is a subclass of Test and provides various overloaded assertion() functions..." alt="" coords="135,31,249,56"/>
-<area shape="rect" id="node3" href="$classaunit_1_1MetaAssertion.html" title="Class that extends the Assertion class to support the checkTestXxx() and assertTestXxx() macros that ..." alt="" coords="297,31,440,56"/>
-<area shape="rect" id="node4" href="$classaunit_1_1TestAgain.html" title="Similar to TestOnce but performs the user&#45;defined test multiple times. " alt="" coords="488,5,604,31"/>
-<area shape="rect" id="node5" href="$classaunit_1_1TestOnce.html" title="Similar to TestAgain but performs user&#45;defined test only once. " alt="" coords="489,55,603,80"/>
+<area shape="rect" id="node1" href="$classaunit_1_1Test.html" title="Base class of all test cases. " alt="" coords="5,31,89,57"/>
+<area shape="rect" id="node2" href="$classaunit_1_1Assertion.html" title="An Assertion class is a subclass of Test and provides various overloaded assertion() functions..." alt="" coords="137,31,251,57"/>
+<area shape="rect" id="node3" href="$classaunit_1_1MetaAssertion.html" title="Class that extends the Assertion class to support the checkTestXxx() and assertTestXxx() macros that ..." alt="" coords="299,31,441,57"/>
+<area shape="rect" id="node4" href="$classaunit_1_1TestAgain.html" title="Similar to TestOnce but performs the user&#45;defined test multiple times. " alt="" coords="489,5,607,32"/>
+<area shape="rect" id="node5" href="$classaunit_1_1TestOnce.html" title="Similar to TestAgain but performs user&#45;defined test only once. " alt="" coords="491,56,605,83"/>
 </map>
