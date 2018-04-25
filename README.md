@@ -3,7 +3,7 @@
 A unit testing framework for Arduino platforms inspired by ArduinoUnit and
 Google Test.
 
-Version: 0.4.2 (2018-04-10)
+Version: 0.5.0 (2018-04-25)
 
 ## Summary
 
@@ -20,10 +20,9 @@ AUnit was created to solve 3 problems with ArduinoUnit:
   Arduino UNO, Nano) as explained in
   [ArduinoUnit#70](https://github.com/mmurdoch/arduinounit/issues/70).
 * ArduinoUnit does not compile on the ESP8266 platform (see
-  [ArduinoUni#68](https://github.com/mmurdoch/arduinounit/issues/68),
-  [ArduinoUni#57](https://github.com/mmurdoch/arduinounit/pull/57),
-  [ArduinoUni#55](https://github.com/mmurdoch/arduinounit/issues/55),
-  [ArduinoUni#54](https://github.com/mmurdoch/arduinounit/issues/54)).
+  [ArduinoUnit#68](https://github.com/mmurdoch/arduinounit/issues/68),
+  [ArduinoUnit#55](https://github.com/mmurdoch/arduinounit/issues/55),
+  [ArduinoUnit#54](https://github.com/mmurdoch/arduinounit/issues/54)).
 * ArduinoUnit does not provide an easy way to create tests using fixtures,
   equivalent to the `TEST_F()` macro in Google Test.
 
@@ -72,29 +71,33 @@ Here are the features which have not been ported over from ArduinoUnit:
 
 Here are the features in AUnit which are not available in ArduinoUnit:
 
-* The `TestRunner` supports a configurable timeout parameter which
-  can prevent `testing()` test cases from running forever. The following
-  methods and macros are available in AUnit to support this feature:
+* Configurable timeout parameter to prevent `testing()` test cases from
+  running forever:
     * `TestRunner::setTimeout(seconds)`
     * `Test::expire()`
     * `assertTestExpire()`
     * `assertTestNotExpire()`
     * `checkTestExpire()`
     * `checkTestNotExpire()`
-* AUnit adds support for test fixtures using the "F" variations of existing
-  macros:
+* Test fixtures using the "F" variations of existing macros:
     * `testF()`
     * `testingF()`
     * `assertTestXxxF()`
     * `checkTestXxxF()`
     * `externTestF()`
     * `externTestingF()`
-* AUnit supports the `teardown()` method to clean up test fixtures after
-  the `setup()` method.
-* AUnit is tested on the AVR (8-bit), Teensy ARM (32-bit) , and ESP8266 (32-bit)
-  Arduino platforms.
-* Test filters (`TestRunner::include()` and `TestRunner::exclude()`) support the
-  same 2 arguments versions corresponding to `testF()` and `testingF()`
+* `teardown()` method, mirroring the `setup()`
+    * `teardown()`
+* Tested on the following Arduino platforms:
+    * AVR (8-bit)
+    * Teensy ARM (32-bit)
+    * ESP8266 (32-bit)
+* Test filters support the 2 arguments versions:
+    * `TestRunner::include(testClass, name)` - matching `testF()`
+    * `TestRunner::exclude(testClass, name)` - matching `testingF()`
+* Terse and verbose modes:
+    * `#include <AUnit.h>` - terse messages uses less flash memory
+    * `#include <AUnitVerbose.h>` - verbose messages uses more flash
 
 ### Beta Status
 
@@ -137,8 +140,11 @@ The `examples/` directory has a number of examples:
 
 In the `tests/` directory:
 
-* `AUnitTest` - the unit test for `AUnit` itself has a large number of examples
+* `AUnitTest` - the unit test for core `AUnit` functions,
+* `AUnitMetaTest` - the unit test for meta assertions and `extern*()` macros
 * `FilterTest` - manual tests for `include()` and `exclude()` filters
+* `SetupAndTeardownTest` - tests to verify that `setup()` and `teardown()` are
+  called properly by the finite state machine
 
 ### Header and Namespace
 
@@ -162,6 +168,22 @@ Similar to ArduinoUnit, many of the "functions" in this framework (e.g.
 in the global namespace, so it is usually not necessary to import the entire
 `aunit` namespace.
 
+### Verbose Mode
+
+By default, AUnit generates terse assertion messages by leaving out
+the string arguments of the various `assertXxx()` macros. If you would like
+to get the same verbose output as ArduinoUnit, use the following header
+instead:
+
+```
+#include <AUnitVerbose.h>
+```
+
+The flash memory consumption on an 8-bit AVR may go up by 20-25% for medium to
+large tests. On Teensy ARM or ESP8266, the increased memory size probably does
+not matter too much because these microcontrollers have far more flash and
+static memory.
+
 ### Defining the Tests
 
 The usage of **AUnit** is basically identical to **ArduinoUnit**. The following
@@ -177,8 +199,8 @@ subclass derived from the base class indicated above. The `test()` and `testF()`
 macros place the code body into the `TestOnce::once()` method. The `testing()`
 and `testingF()` macros place the code body into the `TestAgain::again()`
 method. The name of the subclass is a concatenation of the string `"test_"` and
-the `name` (for `test()` and `testing()`) the `classname` and the `name` (for
-`testF()` and `testing()`).
+the `name` for `test()` and `testing()`, or the concatenation of
+`classname` + `"_"` + `name` for `testF()` and `testing()`.
 
 The argument to these macros are the name of the test case, and is used to
 generate a name for the subclass. (The name is available within the test code
@@ -844,6 +866,31 @@ The error message (if enabled, which is the default) is:
 Assertion failed: (3) == (4), file AUnitTest.ino, line 134.
 ```
 
+Asserts with `bool` values produce customized messages, printing "true" or
+"false" instead of using the Print class default conversion to `int`:
+```
+assertEquals(true, false);
+
+Assertion failed: (true) == (false), file AUnitTest.ino, line 134.
+```
+
+Similarly, the `assertTrue()` and `assertFalse()` macros provide more customized
+messages:
+```
+bool ok = false;
+assertTrue(ok);
+
+Assertion failed: (false) is true, file AUnitTest.ino, line 134.
+```
+
+and
+```
+bool ok = true;
+assertFalse(ok);
+
+Assertion failed: (true) is false, file AUnitTest.ino, line 134.
+```
+
 ***ArduinoUnit Compatibility***:
 _ArduinoUnit captures the arguments of the `assertEqual()` macro
 and prints:_
@@ -854,7 +901,29 @@ Assertion failed: (expected=3) == (counter=4), file AUnitTest.ino, line 134.
 
 _Each capture of the parameter string consumes flash memory space. If the unit
 test has numerous `assertXxx()` statements, the flash memory cost is expensive.
-AUnit omits the parameters to reduce flash memory space by about 33%_
+AUnit omits the parameters to reduce flash memory space by about 33%._
+
+_The messages for asserts with bool values are customized for better clarity
+(partially to compensate for the lack of capture of the string of the actual
+arguments, and are different from ArduinoUnit._
+
+#### Verbose Mode
+
+If you use the verbose header:
+```
+#include <AUnitVerbose.h>
+```
+the assertion message will contain the string fragments of the arguments
+passed into the `assertXxx()` macros, like this:
+
+```
+Assertion failed: (expected=3) == (counter=4), file AUnitTest.ino, line 134.
+Assertion failed: (ok=false) is true, file AUnitTest.ino, line 134.
+```
+
+***ArduinoUnit Compatibility***:
+_The verbose mode produces the same messages as ArduinoUnit, at the cost of
+increased flash memory usage._
 
 ### Test Summary
 
@@ -878,6 +947,7 @@ At the end of the test run, the `TestRunner` prints out the summary
 of all test cases, like this:
 
 ```
+TestRunner duration: 0.05 seconds.
 TestRunner summary: 12 passed, 0 failed, 2 skipped, 1 timed out, out of 15 test(s).
 ```
 
@@ -1009,9 +1079,12 @@ delayed failure) slightly easier to implement.
 
 ## Benchmarks
 
-AUnit consumes as much as 65% less flash memory than ArduinoUnit on an AVR
+AUnit consumes as much as 65% less flash memory than ArduinoUnit 2.2 on an AVR
 platform (e.g. Arduino UNO, Nano), and 30% less flash on the Teensy-ARM platform
-(e.g. Teensy LC ). Here are the resource consumption (flash and static) numbers
+(e.g. Teensy LC ). (ArduinoUnit 2.3 reduces the flash memory by 30% or so, which
+means that AUnit can still consume significantly less flash memory.)
+
+Here are the resource consumption (flash and static) numbers
 from
 [AceButtonTest](https://github.com/bxparks/AceButton/tree/develop/tests/AceButtonTest)
 containing 26 test cases using 331 `assertXxx()`
@@ -1051,17 +1124,18 @@ This library was developed and tested using:
 * [Teensyduino 1.41](https://www.pjrc.com/teensy/td_download.html)
 * [ESP8266 Arduino Core 2.4.1](https://arduino-esp8266.readthedocs.io/en/2.4.1/)
 
-I used MacOS 10.13.3 for most of my development.
+I used MacOS 10.13.3 and Ubuntu 17.10 for most of my development.
 
 The library has been verified to work on the following hardware:
 
 * Arduino Nano clone (16 MHz ATmega328P)
 * Arduino UNO R3 clone (16 MHz ATmega328P)
 * Arduino Pro Mini clone (16 MHz ATmega328P)
+* Arduino Pro Micro clone (16 MHz ATmega32U4)
 * Teensy LC (48 MHz ARM Cortex-M0+)
 * Teensy 3.2 (72 MHz ARM Cortex-M4)
-* NodeMCU 1.0 clone (ESP-12E module, 80MHz ESP8266)
-* ESP-01 (ESP-01 module, 80MHz ESP8266)
+* NodeMCU 1.0 clone (ESP-12E module, 80 MHz ESP8266)
+* ESP-01 (ESP-01 module, 80 MHz ESP8266)
 
 ## License
 

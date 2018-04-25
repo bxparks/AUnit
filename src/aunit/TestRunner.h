@@ -179,6 +179,7 @@ class TestRunner {
     uint16_t mStatusErrorCount;
     TimeoutType mTimeout;
     unsigned long mStartTime;
+    unsigned long mEndTime;
 };
 
 }

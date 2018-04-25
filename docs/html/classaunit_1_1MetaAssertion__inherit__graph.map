@@ -1,6 +1,6 @@
 <map id="aunit::MetaAssertion" name="aunit::MetaAssertion">
-<area shape="rect" id="node4" href="$classaunit_1_1TestAgain.html" title="Similar to TestOnce but performs the user&#45;defined test multiple times. " alt="" coords="5,225,122,251"/>
-<area shape="rect" id="node5" href="$classaunit_1_1TestOnce.html" title="Similar to TestAgain but performs user&#45;defined test only once. " alt="" coords="145,225,259,251"/>
-<area shape="rect" id="node2" href="$classaunit_1_1Assertion.html" title="An Assertion class is a subclass of Test and provides various overloaded assertion() functions..." alt="" coords="76,79,189,104"/>
-<area shape="rect" id="node3" href="$classaunit_1_1Test.html" title="Base class of all test cases. " alt="" coords="92,5,174,31"/>
+<area shape="rect" id="node4" href="$classaunit_1_1TestAgain.html" title="Similar to TestOnce but performs the user&#45;defined test multiple times. " alt="" coords="5,229,123,256"/>
+<area shape="rect" id="node5" href="$classaunit_1_1TestOnce.html" title="Similar to TestAgain but performs user&#45;defined test only once. " alt="" coords="147,229,261,256"/>
+<area shape="rect" id="node2" href="$classaunit_1_1Assertion.html" title="An Assertion class is a subclass of Test and provides various overloaded assertion() functions..." alt="" coords="77,80,190,107"/>
+<area shape="rect" id="node3" href="$classaunit_1_1Test.html" title="Base class of all test cases. " alt="" coords="91,5,175,32"/>
 </map>

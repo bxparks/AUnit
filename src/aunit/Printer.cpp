@@ -30,16 +30,16 @@ namespace aunit {
 
 Print* Printer::sPrinter = &Serial;
 
-void Printer::print(const FCString& s) {
-  if (s.getType() == FCString::kCStringType) {
+void Printer::print(const internal::FCString& s) {
+  if (s.getType() == internal::FCString::kCStringType) {
     getPrinter()->print(s.getCString());
   } else {
     getPrinter()->print(s.getFString());
   }
 }
 
-void Printer::println(const FCString& s) {
-  if (s.getType() == FCString::kCStringType) {
+void Printer::println(const internal::FCString& s) {
+  if (s.getType() == internal::FCString::kCStringType) {
     getPrinter()->println(s.getCString());
   } else {
     getPrinter()->println(s.getFString());

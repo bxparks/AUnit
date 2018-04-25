@@ -22,54 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-// Significant portions of the design and implementation of this file came from
-// https://github.com/mmurdoch/arduinounit/blob/master/src/ArduinoUnit.h
-
-/**
- * @file Assertion.h
- *
- * Various assertXxx() macros are defined in this header. They all go through
- * another helper macro called assertOp(), eventually calling one of the
- * methods on the Assertion class.
- */
-
 #ifndef AUNIT_ASSERTION_H
 #define AUNIT_ASSERTION_H
 
+#include "Flash.h"
 #include "Test.h"
-
-/** Assert that arg1 is equal to arg2. */
-#define assertEqual(arg1,arg2) assertOp(arg1,aunit::compareEqual,"==",arg2)
-
-/** Assert that arg1 is not equal to arg2. */
-#define assertNotEqual(arg1,arg2) \
-    assertOp(arg1,aunit::compareNotEqual,"!=",arg2)
-
-/** Assert that arg1 is less than arg2. */
-#define assertLess(arg1,arg2) assertOp(arg1,aunit::compareLess,"<",arg2)
-
-/** Assert that arg1 is more than arg2. */
-#define assertMore(arg1,arg2) assertOp(arg1,aunit::compareMore,">",arg2)
-
-/** Assert that arg1 is less than or equal to arg2. */
-#define assertLessOrEqual(arg1,arg2) \
-    assertOp(arg1,aunit::compareLessOrEqual,"<=",arg2)
-
-/** Assert that arg1 is more than or equal to arg2. */
-#define assertMoreOrEqual(arg1,arg2) \
-    assertOp(arg1,aunit::compareMoreOrEqual,">=",arg2)
-
-/** Assert that arg is true. */
-#define assertTrue(arg) assertEqual(arg,true)
-
-/** Assert that arg is false. */
-#define assertFalse(arg) assertEqual(arg,false)
-
-/** Internal helper macro, shouldn't be called directly by users. */
-#define assertOp(arg1,op,opName,arg2) do {\
-  if (!assertion(__FILE__,__LINE__,(arg1),opName,op,(arg2)))\
-    return;\
-} while (false)
 
 class __FlashStringHelper;
 class String;
@@ -103,14 +60,8 @@ class Assertion: public Test {
     /** Returns true if an assertion message should be printed. */
     bool isOutputEnabled(bool ok);
 
-    // NOTE: Don't create a virtual destructor. That's the normal best practice
-    // for classes that will be used polymorphically. However, this class will
-    // never be deleted polymorphically (i.e. through its pointer) so it
-    // doesn't need a virtual destructor. In fact, adding it causes flash and
-    // static memory to increase dramatically because each test() and testing()
-    // macro creates a new subclass. AceButtonTest flash memory increases from
-    // 18928 to 20064 bytes, and static memory increases from 917 to 1055
-    // bytes.
+    bool assertionBool(const char* file, uint16_t line, bool arg,
+        bool value);
 
     bool assertion(const char* file, uint16_t line, bool lhs,
         const char* opName, bool (*op)(bool lhs, bool rhs),
@@ -181,6 +132,95 @@ class Assertion: public Test {
         bool (*op)(const __FlashStringHelper* lhs,
         const __FlashStringHelper* rhs),
         const __FlashStringHelper* rhs);
+
+    // Verbose versions of above.
+
+    bool assertionBoolVerbose(const char* file, uint16_t line, bool arg,
+        internal::FlashStringType argString, bool value);
+
+    bool assertionVerbose(const char* file, uint16_t line, bool lhs,
+        internal::FlashStringType lhsString, const char* opName,
+        bool (*op)(bool lhs, bool rhs),
+        bool rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line, char lhs,
+        internal::FlashStringType lhsString, const char* opName,
+        bool (*op)(char lhs, char rhs),
+        char rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line, int lhs,
+        internal::FlashStringType lhsString, const char* opName,
+        bool (*op)(int lhs, int rhs),
+        int rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line, unsigned int lhs,
+        internal::FlashStringType lhsString, const char* opName,
+        bool (*op)(unsigned int lhs, unsigned int rhs),
+        unsigned int rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line, long lhs,
+        internal::FlashStringType lhsString, const char* opName,
+        bool (*op)(long lhs, long rhs),
+        long rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line, unsigned long lhs,
+        internal::FlashStringType lhsString, const char* opName,
+        bool (*op)(unsigned long lhs, unsigned long rhs),
+        unsigned long rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line, double lhs,
+        internal::FlashStringType lhsString, const char* opName,
+        bool (*op)(double lhs, double rhs),
+        double rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line, const char* lhs,
+        internal::FlashStringType lhsString, const char* opName,
+        bool (*op)(const char* lhs, const char* rhs),
+        const char* rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line, const char* lhs,
+        internal::FlashStringType lhsString, const char *opName,
+        bool (*op)(const char* lhs, const String& rhs),
+        const String& rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line, const char* lhs,
+        internal::FlashStringType lhsString, const char *opName,
+        bool (*op)(const char* lhs, const __FlashStringHelper* rhs),
+        const __FlashStringHelper* rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line, const String& lhs,
+        internal::FlashStringType lhsString, const char *opName,
+        bool (*op)(const String& lhs, const char* rhs),
+        const char* rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line, const String& lhs,
+        internal::FlashStringType lhsString, const char *opName,
+        bool (*op)(const String& lhs, const String& rhs),
+        const String& rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line, const String& lhs,
+        internal::FlashStringType lhsString, const char *opName,
+        bool (*op)(const String& lhs, const __FlashStringHelper* rhs),
+        const __FlashStringHelper* rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line,
+        const __FlashStringHelper* lhs, internal::FlashStringType lhsString,
+        const char *opName,
+        bool (*op)(const __FlashStringHelper* lhs, const char* rhs),
+        const char* rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line,
+        const __FlashStringHelper* lhs, internal::FlashStringType lhsString,
+        const char *opName,
+        bool (*op)(const __FlashStringHelper* lhs, const String& rhs),
+        const String& rhs, internal::FlashStringType rhsString);
+
+    bool assertionVerbose(const char* file, uint16_t line,
+        const __FlashStringHelper* lhs, internal::FlashStringType lhsString,
+        const char *opName,
+        bool (*op)(const __FlashStringHelper* lhs,
+        const __FlashStringHelper* rhs),
+        const __FlashStringHelper* rhs, internal::FlashStringType rhsString);
 
   private:
     // Disable copy-constructor and assignment operator

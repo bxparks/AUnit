@@ -94,7 +94,7 @@ even for primitive integer types.
 Implicit Conversions:
 ---------------------
 For basic primitive types, I depend on some casts to avoid having to define
-some functions. I assume that signed and unsigned intergers smaller or equal
+some functions. I assume that signed and unsigned integers smaller or equal
 to (int) will be converted to an (int) to match compareEqual(int, int).
 
 I provided an explicit compareEqual(char, char) overload because in C++, a
@@ -129,17 +129,14 @@ inlining them because they are almost always used through a function pointer.
 
 #include <string.h>
 #include <WString.h>
-
-#ifdef ESP8266
-#include <pgmspace.h>
-#else
-#include <avr/pgmspace.h>
-#endif
-
+#include "Flash.h"
 #include "Compare.h"
 #include "FCString.h"
 
 namespace aunit {
+namespace internal {
+
+class FCString;
 
 // compareString()
 
@@ -658,4 +655,5 @@ bool compareNotEqual(const String& a, const __FlashStringHelper* b) {
   return compareString(a, b) != 0;
 }
 
+}
 }
