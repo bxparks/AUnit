@@ -1000,7 +1000,7 @@ Collection of useful tidbits.
 
 ### Debugging Assertions in Fixtures
 
-When using test fixtures with the `testF()` and testingF()` macros, it's often
+When using test fixtures with the `testF()` and `testingF()` macros, it's often
 useful to create helper assertions, such as the `assertCustomStuff()` below.
 Debugging such assertion statements can be tricky. I've found that turning on
 messages for successful assertions (with a
