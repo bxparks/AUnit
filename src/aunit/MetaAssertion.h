@@ -59,17 +59,19 @@ class MetaAssertion: public Assertion {
     MetaAssertion() {}
 
     /**
-     * Set the status of the current test based on 'ok, and  print assertion
-     * message if requested.
+     * Set the status of the current test using the 'ok' status from another
+     * test, and print the assertion message if requested.
      */
     bool assertionTestStatus(const char* file, uint16_t line,
         const char* testName, const __FlashStringHelper* statusMessage,
         bool ok);
 
-    /** Print the meta assertion passed or failed message. */
-    void printAssertionTestStatusMessage(
-        bool ok, const char* file, uint16_t line,
-        const char* testName, const __FlashStringHelper* statusMessage);
+    /** Return true if setting of status should print a message. */
+    bool isOutputEnabledForStatus(uint8_t status);
+
+    /** Set the status of the current test to 'status' and print a message. */
+    void setStatusNow(const char* file, uint16_t line, uint8_t status,
+        const __FlashStringHelper* statusString);
 
   private:
     // Disable copy-constructor and assignment operator

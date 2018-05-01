@@ -35,6 +35,8 @@ SOFTWARE.
 #ifndef AUNIT_META_ASSERT_MACROS_H
 #define AUNIT_META_ASSERT_MACROS_H
 
+#include "Flash.h"
+
 // Meta tests, same syntax as ArduinoUnit for compatibility.
 // The checkTestXxx() macros return a boolean, and execution continues.
 
@@ -114,7 +116,7 @@ SOFTWARE.
 /** Internal helper macro, shouldn't be called directly by users. */
 #define assertTestStatusInternal(name,method,message) do {\
   if (!assertionTestStatus(\
-      __FILE__,__LINE__,#name,FPSTR(message),test_##name##_instance.method()))\
+      __FILE__,__LINE__,#name,AUNIT_FPSTR(message),test_##name##_instance.method()))\
     return;\
 } while (false)
 
@@ -208,10 +210,50 @@ SOFTWARE.
 
 /** Internal helper macro, shouldn't be called directly by users. */
 #define assertTestStatusInternalF(testClass,name,method,message) do {\
-  if (!assertionTestStatus(\
-        __FILE__,__LINE__,#name,FPSTR(message),\
-        testClass##_##name##_instance.method()))\
+  if (!assertionTestStatus(__FILE__, __LINE__, #name, AUNIT_FPSTR(message),\
+      testClass##_##name##_instance.method()))\
     return;\
+} while (false)
+
+// Methods that sets the status of the current test, prints a message, and
+// exits immediately.
+
+/**
+ * Fail the current test, return immediately, and print a status message.
+ * Similar to Test::fail() except that this prints a status message.
+ */
+#define failNow() do {\
+  setStatusNow(__FILE__, __LINE__, kStatusFailed, AUNIT_FPSTR(kMessageFailed));\
+  return;\
+} while (false)
+
+/**
+ * Pass the current test, print a status message, and return immediately.
+ * Similar to Test::pass() except that this prints a status message.
+ */
+#define passNow() do {\
+  setStatusNow(__FILE__, __LINE__, kStatusPassed, AUNIT_FPSTR(kMessagePassed));\
+  return;\
+} while (false)
+
+/**
+ * Skip the current test, print a status message, and return immediately.
+ * Similar to Test::skip() except that this prints a status message.
+ */
+#define skipNow() do {\
+  setStatusNow(__FILE__, __LINE__, kStatusSkipped,\
+      AUNIT_FPSTR(kMessageSkipped));\
+  return;\
+} while (false)
+
+/**
+ * Expire the current test, print a status message, and return immediately.
+ * Similar to Test::expire() except that this prints a status message.
+ */
+#define expireNow() do {\
+  setStatusNow(__FILE__, __LINE__, kStatusExpired,\
+      AUNIT_FPSTR(kMessageExpired));\
+  return;\
 } while (false)
 
 #endif

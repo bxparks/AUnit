@@ -47,12 +47,13 @@ SOFTWARE.
 
   #include <ArduinoUnit.h>
 
-  // Defined in ESP8266, not defined in AVR or Teensy
-  #ifndef FPSTR
+#endif
+
+// Defined in ESP8266, not defined in AVR or Teensy, broken in ESP32.
+#if !defined(ESP8266)
+  #undef FPSTR
   #define FPSTR(pstr_pointer) \
       (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
-  #endif
-
 #endif
 
 signed char sc = 4;
@@ -374,6 +375,12 @@ testing(timeout_after_10_seconds) {
   }
 }
 
+// Each of the following should print a message and exit immediately.
+test(failNow) { failNow(); }
+test(passNow) { passNow(); }
+test(skipNow) { skipNow(); }
+test(expireNow) { expireNow(); }
+
 #if USE_AUNIT == 1
 
 // -------------------------------------------------------------------------
@@ -499,7 +506,7 @@ void setup() {
 
 #if USE_AUNIT == 1
   // These are useful for debugging.
-  TestRunner::setVerbosity(Verbosity::kAll);
+  //TestRunner::setVerbosity(Verbosity::kAll);
   //TestRunner::setVerbosity(Verbosity::kTestRunSummary);
   //TestRunner::list();
 #else
@@ -511,7 +518,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    14 passed, 2 failed, 0 skipped, 1 timed out, out of 17 test(s).
+  //    15 passed, 3 failed, 1 skipped, 2 timed out, out of 21 test(s).
   TestRunner::run();
 #else
   // Should get something like:

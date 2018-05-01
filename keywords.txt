@@ -121,6 +121,11 @@ assertTestSkipF	KEYWORD2
 assertTestNotSkipF	KEYWORD2
 assertTestExpireF	KEYWORD2
 assertTestNotExpireF	KEYWORD2
+# status macros
+failNow	KEYWORD2
+passNow	KEYWORD2
+skipNow	KEYWORD2
+expireNow	KEYWORD2
 
 # Overloaded functions from Compare.h
 compareString	KEYWORD2

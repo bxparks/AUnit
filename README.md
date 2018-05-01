@@ -3,7 +3,7 @@
 A unit testing framework for Arduino platforms inspired by ArduinoUnit and
 Google Test.
 
-Version: 0.5.0 (2018-04-25)
+Version: 0.5.1 (2018-05-01)
 
 ## Summary
 
@@ -86,12 +86,18 @@ Here are the features in AUnit which are not available in ArduinoUnit:
     * `checkTestXxxF()`
     * `externTestF()`
     * `externTestingF()`
+* Status setters
+    * `passNow()`
+    * `failNow()`
+    * `skipNow()`
+    * `expireNow()`
 * `teardown()` method, mirroring the `setup()`
     * `teardown()`
 * Tested on the following Arduino platforms:
     * AVR (8-bit)
     * Teensy ARM (32-bit)
     * ESP8266 (32-bit)
+    * ESP32 (32-bit)
 * Test filters support the 2 arguments versions:
     * `TestRunner::include(testClass, name)` - matching `testF()`
     * `TestRunner::exclude(testClass, name)` - matching `testingF()`
@@ -99,11 +105,13 @@ Here are the features in AUnit which are not available in ArduinoUnit:
     * `#include <AUnit.h>` - terse messages uses less flash memory
     * `#include <AUnitVerbose.h>` - verbose messages uses more flash
 
+Every feature of AUnit is unit tested using AUnit itself.
+
 ### Beta Status
 
-Although this library has been extensively tested by me, and I converted my
-[AceButton](https://github.com/bxparks/AceButton) library to use it, I consider
-it currently in "beta stage" until more  users have tested it.
+Although this library has been extensively tested by me, and two of my Arduino
+libraries (AceButton and AceSegment, see Examples below) now use it, I consider
+it currently in "beta stage" until more users have tested it.
 
 ## Installation
 
@@ -146,6 +154,20 @@ In the `tests/` directory:
 * `SetupAndTeardownTest` - tests to verify that `setup()` and `teardown()` are
   called properly by the finite state machine
 
+Perhaps the best way to see AUnit in action through real life examples. I
+currently have 2 Arduino project using AUnit extensively:
+
+* [AceButton](https://github.com/bxparks/AceButton)
+* [AceSegment](https://github.com/bxparks/AceSegment)
+
+Look under the `tests` directory in each project.
+
+The tests for AceButton were originally created using ArduinoUnit 2.2, and I
+have kept those tests backwards compatible. They do not use the new features of
+AUnit.
+
+The tests for AceSegment demonstrate the full power of AUnit better.
+
 ### Header and Namespace
 
 To prevent name clashes with other libraries and code, all classes in the AUnit
@@ -180,8 +202,8 @@ instead:
 ```
 
 The flash memory consumption on an 8-bit AVR may go up by 20-25% for medium to
-large tests. On Teensy ARM or ESP8266, the increased memory size probably does
-not matter too much because these microcontrollers have far more flash and
+large tests. On Teensy ARM, ESP8266 or ESP32, the increased memory size probably
+does not matter too much because these microcontrollers have far more flash and
 static memory.
 
 ### Defining the Tests
@@ -229,9 +251,9 @@ testing(looping_test) {
   if (...) {
     pass();
   } else if (...) {
-    fail();
+    failNow();
   } else {
-    skip();
+    skipNow();
   }
 }
 
@@ -399,8 +421,8 @@ will produce a compiler error:
 unsigned short ushortValue = 5;
 assertEqual(5U, ushortValue);
 ```
-But on Teensy-ARM and ESP8266, a 16-bit (short) can be promoted to a 32-bit
-(int) without loss of precision, so the above will compile just fine. For
+But on Teensy-ARM, ESP8266, and ESP32, a 16-bit (short) can be promoted to a
+32-bit (int) without loss of precision, so the above will compile just fine. For
 portability, the following should be used on all platforms:
 ```
 unsigned short ushortValue = 5;
@@ -644,17 +666,39 @@ assertTestXxx() meta assertion macros._
 
 ### Status Indicator Methods
 
-These methods can be used inside a `test()` or `testing()` macro
-to indicate whether the test has passed or failed (or reached some other
-status reason).
+The following macros can be used inside the body of `test()` or `testing()`
+macro to indicate whether the test has passed or failed (or reached some other
+status). Each macro prints a short message, and returns immediately from the
+test, much like an `assertXxx()` macro that fails.
+
+* `passNow()`  [&ast;]
+* `failNow()` [&ast;]
+* `skipNow()` [&ast;]
+* `expireNow()` [&ast;]
+
+The message looks like:
+```
+Status timed out, file AUnitTest.ino, line 381.
+Status failed, file AUnitTest.ino, line 378.
+Status failed, file AUnitTest.ino, line 378.
+Status skipped, file AUnitTest.ino, line 380.
+```
+
+The above methods are recommended over the following methods on the `Test` class
+because the `xxxNow()` versions print the file and line number of the statement.
+The methods on `Test` are completely silent which makes debugging difficult.
 
 * `pass()` - test passed
 * `fail()` - test failed
 * `skip()` - test skipped
 * `expire()`  - test timed out [&ast;]
 
-***ArduinoUnit Compatibility***: _The method(s) marked by [&ast;] are only
-available in AUnit._
+***ArduinoUnit Compatibility***: _
+_The method(s) marked by [&ast;] are only available in AUnit. For most cases,
+the failNow(), skipNow() and expireNow() methods are recommended over the
+methods from ArduinoUnit which have been carried over for compatibility and for
+internal use. In a testing() loop test, the pass() method may be more useful
+than the passNow() macro._
 
 ### Overridable Methods
 
@@ -1000,7 +1044,7 @@ Collection of useful tidbits.
 
 ### Debugging Assertions in Fixtures
 
-When using test fixtures with the `testF()` and testingF()` macros, it's often
+When using test fixtures with the `testF()` and `testingF()` macros, it's often
 useful to create helper assertions, such as the `assertCustomStuff()` below.
 Debugging such assertion statements can be tricky. I've found that turning on
 messages for successful assertions (with a
@@ -1123,18 +1167,23 @@ This library was developed and tested using:
 * [Arduino IDE 1.8.5](https://www.arduino.cc/en/Main/Software)
 * [Teensyduino 1.41](https://www.pjrc.com/teensy/td_download.html)
 * [ESP8266 Arduino Core 2.4.1](https://arduino-esp8266.readthedocs.io/en/2.4.1/)
+* [arduino-esp32](https://github.com/espressif/arduino-esp32)
 
 I used MacOS 10.13.3 and Ubuntu 17.10 for most of my development.
 
-The library has been verified to work on the following hardware:
+The library is tested on the following hardware before each release:
 
 * Arduino Nano clone (16 MHz ATmega328P)
-* Arduino UNO R3 clone (16 MHz ATmega328P)
-* Arduino Pro Mini clone (16 MHz ATmega328P)
 * Arduino Pro Micro clone (16 MHz ATmega32U4)
-* Teensy LC (48 MHz ARM Cortex-M0+)
 * Teensy 3.2 (72 MHz ARM Cortex-M4)
 * NodeMCU 1.0 clone (ESP-12E module, 80 MHz ESP8266)
+* ESP32 dev board (ESP-WROOM-32 module, 240 MHz dual core Tensilica LX6)
+
+I will occasionally test on the following hardware as a sanity check:
+
+* Arduino UNO R3 clone (16 MHz ATmega328P)
+* Arduino Pro Mini clone (16 MHz ATmega328P)
+* Teensy LC (48 MHz ARM Cortex-M0+)
 * ESP-01 (ESP-01 module, 80 MHz ESP8266)
 
 ## License

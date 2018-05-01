@@ -55,7 +55,7 @@ testing(slow_pass_monitor) {
   static unsigned long start = millis();
 
   unsigned long now = millis();
-  if (now - start < 1000) {
+  if (now - start < 900) {
     assertTestNotDone(slow_pass);
     assertTrue(checkTestNotDone(slow_pass));
 
@@ -71,7 +71,7 @@ testing(slow_pass_monitor) {
     assertTestNotExpire(slow_pass);
     assertTrue(checkTestNotExpire(slow_pass));
   }
-  if (now - start > 2000) {
+  if (now - start > 2100) {
     assertTestDone(slow_pass);
     assertTrue(checkTestDone(slow_pass));
 
@@ -97,7 +97,7 @@ testing(slow_fail_monitor) {
   static unsigned long start = millis();
 
   unsigned long now = millis();
-  if (now - start < 1000) {
+  if (now - start < 900) {
     assertTestNotDone(slow_fail);
     assertTrue(checkTestNotDone(slow_fail));
 
@@ -113,7 +113,7 @@ testing(slow_fail_monitor) {
     assertTestNotExpire(slow_fail);
     assertTrue(checkTestNotExpire(slow_fail));
   }
-  if (now - start > 2000) {
+  if (now - start > 2100) {
     assertTestDone(slow_fail);
     assertTrue(checkTestDone(slow_fail));
 
@@ -139,7 +139,7 @@ testing(slow_skip_monitor) {
   static unsigned long start = millis();
 
   unsigned long now = millis();
-  if (now - start < 1000) {
+  if (now - start < 900) {
     assertTestNotDone(slow_skip);
     assertTrue(checkTestNotDone(slow_skip));
 
@@ -152,7 +152,7 @@ testing(slow_skip_monitor) {
     assertTestNotSkip(slow_skip);
     assertTestNotExpire(slow_skip);
   }
-  if (now - start > 2000) {
+  if (now - start > 2100) {
     assertTestDone(slow_skip);
     assertTrue(checkTestDone(slow_skip));
 
@@ -177,7 +177,7 @@ testing(slow_expire_monitor) {
   static unsigned long start = millis();
 
   unsigned long now = millis();
-  if (now - start < 1000) {
+  if (now - start < 900) {
     assertTestNotDone(slow_expire);
     assertTrue(checkTestNotDone(slow_expire));
 
@@ -192,7 +192,7 @@ testing(slow_expire_monitor) {
 
     assertTestNotExpire(slow_expire);
   }
-  if (now - start > 2000) {
+  if (now - start > 2100) {
     assertTestDone(slow_expire);
     assertTrue(checkTestDone(slow_expire));
 
@@ -228,7 +228,7 @@ testing(fixture_slow_pass_monitor) {
   static unsigned long start = millis();
 
   unsigned long now = millis();
-  if (now - start < 1000) {
+  if (now - start < 900) {
     assertTestNotDoneF(CustomAgainFixture, fixture_slow_pass);
     assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_pass));
 
@@ -244,7 +244,7 @@ testing(fixture_slow_pass_monitor) {
     assertTestNotExpireF(CustomAgainFixture, fixture_slow_pass);
     assertTrue(checkTestNotExpireF(CustomAgainFixture, fixture_slow_pass));
   }
-  if (now - start > 2000) {
+  if (now - start > 2100) {
     assertTestDoneF(CustomAgainFixture, fixture_slow_pass);
     assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_pass));
 
@@ -270,7 +270,7 @@ testing(fixture_slow_fail_monitor) {
   static unsigned long start = millis();
 
   unsigned long now = millis();
-  if (now - start < 1000) {
+  if (now - start < 900) {
     assertTestNotDoneF(CustomAgainFixture, fixture_slow_fail);
     assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_fail));
 
@@ -286,7 +286,7 @@ testing(fixture_slow_fail_monitor) {
     assertTestNotExpireF(CustomAgainFixture, fixture_slow_fail);
     assertTrue(checkTestNotExpireF(CustomAgainFixture, fixture_slow_fail));
   }
-  if (now - start > 2000) {
+  if (now - start > 2100) {
     assertTestDoneF(CustomAgainFixture, fixture_slow_fail);
     assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_fail));
 
@@ -312,7 +312,7 @@ testing(fixture_slow_skip_monitor) {
   static unsigned long start = millis();
 
   unsigned long now = millis();
-  if (now - start < 1000) {
+  if (now - start < 900) {
     assertTestNotDoneF(CustomAgainFixture, fixture_slow_skip);
     assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_skip));
 
@@ -325,7 +325,7 @@ testing(fixture_slow_skip_monitor) {
     assertTestNotSkipF(CustomAgainFixture, fixture_slow_skip);
     assertTestNotExpireF(CustomAgainFixture, fixture_slow_skip);
   }
-  if (now - start > 2000) {
+  if (now - start > 2100) {
     assertTestDoneF(CustomAgainFixture, fixture_slow_skip);
     assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_skip));
 
@@ -348,7 +348,7 @@ testing(fixture_slow_expire_monitor) {
   static unsigned long start = millis();
 
   unsigned long now = millis();
-  if (now - start < 1000) {
+  if (now - start < 900) {
     assertTestNotDoneF(CustomAgainFixture, fixture_slow_expire);
     assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_expire));
 
@@ -363,7 +363,7 @@ testing(fixture_slow_expire_monitor) {
 
     assertTestNotExpireF(CustomAgainFixture, fixture_slow_expire);
   }
-  if (now - start > 2000) {
+  if (now - start > 2100) {
     assertTestDoneF(CustomAgainFixture, fixture_slow_expire);
     assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_expire));
 

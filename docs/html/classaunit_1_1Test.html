@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.5.0</span>
+   &#160;<span id="projectnumber">0.5.1</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -287,7 +287,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Disable the given verbosity of the current test. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00235">235</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00241">241</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -317,7 +317,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Enable the given verbosity of the current test. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00232">232</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00238">238</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -345,9 +345,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 </div><div class="memdoc">
 
 <p>Mark the test as expired (i.e. </p>
-<p>timed out). </p>
+<p>timed out). Use the <a class="el" href="MetaAssertMacros_8h.html#adb9e22211f3853b9542fa577a4c5458a" title="Expire the current test, print a status message, and return immediately. ">expireNow()</a> macro in a unit test to print a diagnostic message and exit immediately. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00229">229</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00235">235</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -375,8 +375,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 </div><div class="memdoc">
 
 <p>Mark the test as failed. </p>
+<p>Use the <a class="el" href="MetaAssertMacros_8h.html#a4fb46902fdc59e86240bbce445f215e9" title="Fail the current test, return immediately, and print a status message. ">failNow()</a> macro in a unit test to print a diagnostic message and exit immediately. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00239">239</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00248">248</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -552,7 +553,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Get the verbosity. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00264">264</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00278">278</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -873,7 +874,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 
 <p>Determine if any of the given verbosity is enabled. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00261">261</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00275">275</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -931,8 +932,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 </div><div class="memdoc">
 
 <p>Mark the test as passed. </p>
+<p>Often used to terminate a <a class="el" href="TestMacros_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> looping test. The <a class="el" href="MetaAssertMacros_8h.html#af1f7998d5fc068d6fca202a2141e9182" title="Pass the current test, print a status message, and return immediately. ">passNow()</a> macro can be used in a unit test to print a diagnostic message and exit immediately. It is expected that <a class="el" href="classaunit_1_1Test.html#ae71ded07fd6fc69413f64d3d603e4bd6" title="Mark the test as passed. ">pass()</a> will be used more often. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00242">242</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00256">256</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
@@ -1064,8 +1066,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (const __Fla
 </div><div class="memdoc">
 
 <p>Mark the test as skipped. </p>
+<p>Use the <a class="el" href="MetaAssertMacros_8h.html#a3fd8b67525add51dfac730887a361628" title="Skip the current test, print a status message, and return immediately. ">skipNow()</a> macro in a unit test to print a diagnostic message and exit immediately. </p>
 
-<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00226">226</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Test_8h_source.html#l00229">229</a> of file <a class="el" href="Test_8h_source.html">Test.h</a>.</p>
 
 </div>
 </div>
