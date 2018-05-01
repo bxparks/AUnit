@@ -374,11 +374,11 @@ testing(timeout_after_10_seconds) {
   }
 }
 
-// Verify that failNow() prints an error message, instead of silently
-// failing the test like fail().
-test(failNow) {
-  failNow();
-}
+// Each of the following should print a message and exit immediately.
+test(failNow) { failNow(); }
+test(passNow) { passNow(); }
+test(skipNow) { skipNow(); }
+test(expireNow) { expireNow(); }
 
 #if USE_AUNIT == 1
 
@@ -517,7 +517,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    14 passed, 3 failed, 0 skipped, 1 timed out, out of 18 test(s).
+  //    15 passed, 3 failed, 1 skipped, 2 timed out, out of 21 test(s).
   TestRunner::run();
 #else
   // Should get something like:

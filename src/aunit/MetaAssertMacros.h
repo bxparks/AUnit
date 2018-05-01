@@ -214,13 +214,42 @@ SOFTWARE.
     return;\
 } while (false)
 
-// Methods that set the status of the current test, prints a message, and exits
-// immediately. The most useful one is failNow() because it prints a message
-// instead of the silent fail().
+// Methods that sets the status of the current test, prints a message, and
+// exits immediately.
 
-/** Fail the current test immediately and print an error message. */
+/**
+ * Fail the current test, return immediately, and print a status message.
+ * Similar to Test::fail() except that this prints a status message.
+ */
 #define failNow() do {\
-  setStatusNow(__FILE__, __LINE__, kStatusFailed);\
+  setStatusNow(__FILE__, __LINE__, kStatusFailed, FPSTR(kMessageFailed));\
+  return;\
+} while (false)
+
+/**
+ * Pass the current test, print a status message, and return immediately.
+ * Similar to Test::pass() except that this prints a status message.
+ */
+#define passNow() do {\
+  setStatusNow(__FILE__, __LINE__, kStatusPassed, FPSTR(kMessagePassed));\
+  return;\
+} while (false)
+
+/**
+ * Skip the current test, print a status message, and return immediately.
+ * Similar to Test::skip() except that this prints a status message.
+ */
+#define skipNow() do {\
+  setStatusNow(__FILE__, __LINE__, kStatusSkipped, FPSTR(kMessageSkipped));\
+  return;\
+} while (false)
+
+/**
+ * Expire the current test, print a status message, and return immediately.
+ * Similar to Test::expire() except that this prints a status message.
+ */
+#define expireNow() do {\
+  setStatusNow(__FILE__, __LINE__, kStatusExpired, FPSTR(kMessageExpired));\
   return;\
 } while (false)
 

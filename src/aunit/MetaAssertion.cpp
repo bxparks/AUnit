@@ -78,11 +78,12 @@ namespace {
 
 // Print message for failNow() macro.
 // "Status failed, file xxx, line yyy."
-void printStatusNowMessage(const char* file, uint16_t line, uint8_t status) {
+void printStatusNowMessage(const char* file, uint16_t line,
+    const __FlashStringHelper* statusString) {
   // Don't use F() strings here. Same reason as above.
   Print* printer = Printer::getPrinter();
   printer->print("Status ");
-  printer->print(status); // TODO: replace with strings
+  printer->print(statusString);
   printer->print(", file ");
   printer->print(file);
   printer->print(", line ");
@@ -100,10 +101,10 @@ bool MetaAssertion::isOutputEnabled(uint8_t status) {
 }
 
 void MetaAssertion::setStatusNow(const char* file, uint16_t line,
-    uint8_t status) {
-  if (isDone()) return false;
+    uint8_t status, const __FlashStringHelper* statusString) {
+  if (isDone()) return;
   if (isOutputEnabled(status)) {
-    printStatusNowMessage(file, line, status);
+    printStatusNowMessage(file, line, statusString);
   }
   setStatus(status);
 }

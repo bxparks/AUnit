@@ -75,7 +75,8 @@ class MetaAssertion: public Assertion {
     bool isOutputEnabled(uint8_t status);
 
     /** Set the status of the current test to 'status' and print a message. */
-    void setStatusNow(const char* file, uint16_t line, uint8_t status);
+    void setStatusNow(const char* file, uint16_t line, uint8_t status,
+        const __FlashStringHelper* statusString);
 
   private:
     // Disable copy-constructor and assignment operator

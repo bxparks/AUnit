@@ -411,7 +411,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    14 passed, 2 failed, 2 skipped, 2 timed out, out of 20 test(s).
+  //    15 passed, 3 failed, 2 skipped, 2 timed out, out of 21 test(s).
   TestRunner::run();
 #else
   // Should get something like:
