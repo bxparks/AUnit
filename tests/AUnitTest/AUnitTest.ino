@@ -47,12 +47,13 @@ SOFTWARE.
 
   #include <ArduinoUnit.h>
 
-  // Defined in ESP8266, not defined in AVR or Teensy
-  #ifndef FPSTR
+#endif
+
+// Defined in ESP8266, not defined in AVR or Teensy, broken in ESP32.
+#if !defined(ESP8266)
+  #undef FPSTR
   #define FPSTR(pstr_pointer) \
       (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
-  #endif
-
 #endif
 
 signed char sc = 4;

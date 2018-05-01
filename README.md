@@ -97,6 +97,7 @@ Here are the features in AUnit which are not available in ArduinoUnit:
     * AVR (8-bit)
     * Teensy ARM (32-bit)
     * ESP8266 (32-bit)
+    * ESP32 (32-bit)
 * Test filters support the 2 arguments versions:
     * `TestRunner::include(testClass, name)` - matching `testF()`
     * `TestRunner::exclude(testClass, name)` - matching `testingF()`
@@ -201,8 +202,8 @@ instead:
 ```
 
 The flash memory consumption on an 8-bit AVR may go up by 20-25% for medium to
-large tests. On Teensy ARM or ESP8266, the increased memory size probably does
-not matter too much because these microcontrollers have far more flash and
+large tests. On Teensy ARM, ESP8266 or ESP32, the increased memory size probably
+does not matter too much because these microcontrollers have far more flash and
 static memory.
 
 ### Defining the Tests
@@ -420,8 +421,8 @@ will produce a compiler error:
 unsigned short ushortValue = 5;
 assertEqual(5U, ushortValue);
 ```
-But on Teensy-ARM and ESP8266, a 16-bit (short) can be promoted to a 32-bit
-(int) without loss of precision, so the above will compile just fine. For
+But on Teensy-ARM, ESP8266, and ESP32, a 16-bit (short) can be promoted to a
+32-bit (int) without loss of precision, so the above will compile just fine. For
 portability, the following should be used on all platforms:
 ```
 unsigned short ushortValue = 5;
@@ -1166,18 +1167,23 @@ This library was developed and tested using:
 * [Arduino IDE 1.8.5](https://www.arduino.cc/en/Main/Software)
 * [Teensyduino 1.41](https://www.pjrc.com/teensy/td_download.html)
 * [ESP8266 Arduino Core 2.4.1](https://arduino-esp8266.readthedocs.io/en/2.4.1/)
+* [arduino-esp32](https://github.com/espressif/arduino-esp32)
 
 I used MacOS 10.13.3 and Ubuntu 17.10 for most of my development.
 
-The library has been verified to work on the following hardware:
+The library is tested on the following hardware before each release:
 
 * Arduino Nano clone (16 MHz ATmega328P)
-* Arduino UNO R3 clone (16 MHz ATmega328P)
-* Arduino Pro Mini clone (16 MHz ATmega328P)
 * Arduino Pro Micro clone (16 MHz ATmega32U4)
-* Teensy LC (48 MHz ARM Cortex-M0+)
 * Teensy 3.2 (72 MHz ARM Cortex-M4)
 * NodeMCU 1.0 clone (ESP-12E module, 80 MHz ESP8266)
+* ESP32 dev board (ESP-WROOM-32 module, 240 MHz dual core Tensilica LX6)
+
+I will occasionally test on the following hardware as a sanity check:
+
+* Arduino UNO R3 clone (16 MHz ATmega328P)
+* Arduino Pro Mini clone (16 MHz ATmega328P)
+* Teensy LC (48 MHz ARM Cortex-M0+)
 * ESP-01 (ESP-01 module, 80 MHz ESP8266)
 
 ## License

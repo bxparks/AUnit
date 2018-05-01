@@ -67,12 +67,6 @@ class CustomAgainFixture: public TestAgain {
 #define checkTestExpire(x) true
 #define checkTestNotExpire(x) true
 
-// Defined in ESP8266, not defined in AVR or Teensy
-#ifndef FPSTR
-#define FPSTR(pstr_pointer) \
-    (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
-#endif
-
 #endif
 
 #endif
