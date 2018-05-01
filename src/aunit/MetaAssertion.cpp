@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-
 #include <Arduino.h>  // definition of Print
 #include "Flash.h"
 #include "Printer.h"
@@ -73,6 +72,40 @@ bool MetaAssertion::assertionTestStatus(const char* file, uint16_t line,
   }
   setPassOrFail(ok);
   return ok;
+}
+
+namespace {
+
+// Print message for failNow() macro.
+// "Status failed, file xxx, line yyy."
+void printStatusNowMessage(const char* file, uint16_t line, uint8_t status) {
+  // Don't use F() strings here. Same reason as above.
+  Print* printer = Printer::getPrinter();
+  printer->print("Status ");
+  printer->print(status); // TODO: replace with strings
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
+}
+
+bool MetaAssertion::isOutputEnabled(uint8_t status) {
+  return (status == kStatusFailed && isVerbosity(Verbosity::kTestFailed))
+      || (status == kStatusPassed && isVerbosity(Verbosity::kTestPassed))
+      || (status == kStatusSkipped && isVerbosity(Verbosity::kTestSkipped))
+      || (status == kStatusExpired && isVerbosity(Verbosity::kTestExpired));
+}
+
+void MetaAssertion::setStatusNow(const char* file, uint16_t line,
+    uint8_t status) {
+  if (isDone()) return false;
+  if (isOutputEnabled(status)) {
+    printStatusNowMessage(file, line, status);
+  }
+  setStatus(status);
 }
 
 }

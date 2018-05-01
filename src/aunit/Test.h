@@ -47,11 +47,11 @@ class Test {
     // from client code. The state transition diagram looks like this:
     //
     //        include()/exclude()
-    //      |---------------------> Excluded -----------|
+    //      .---------------------> Excluded -----------.
     //      v                                           v
     //    New                                        Finished -> (out of list)
-    //      \   setup()     assertion()      teardown() ^
-    //       -----------> Setup ----> Asserted ---------|
+    //      \ setup()      assertion()       teardown() ^
+    //       -------> Setup -------> Asserted ----------'
 
     /** Test is new, needs to be setup. */
     static const uint8_t kLifeCycleNew = 0;

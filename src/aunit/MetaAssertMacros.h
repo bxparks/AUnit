@@ -214,4 +214,14 @@ SOFTWARE.
     return;\
 } while (false)
 
+// Methods that set the status of the current test, prints a message, and exits
+// immediately. The most useful one is failNow() because it prints a message
+// instead of the silent fail().
+
+/** Fail the current test immediately and print an error message. */
+#define failNow() do {\
+  setStatusNow(__FILE__, __LINE__, kStatusFailed);\
+  return;\
+} while (false)
+
 #endif

@@ -374,6 +374,12 @@ testing(timeout_after_10_seconds) {
   }
 }
 
+// Verify that failNow() prints an error message, instead of silently
+// failing the test like fail().
+test(failNow) {
+  failNow();
+}
+
 #if USE_AUNIT == 1
 
 // -------------------------------------------------------------------------
@@ -499,7 +505,7 @@ void setup() {
 
 #if USE_AUNIT == 1
   // These are useful for debugging.
-  TestRunner::setVerbosity(Verbosity::kAll);
+  //TestRunner::setVerbosity(Verbosity::kAll);
   //TestRunner::setVerbosity(Verbosity::kTestRunSummary);
   //TestRunner::list();
 #else
@@ -511,7 +517,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    14 passed, 2 failed, 0 skipped, 1 timed out, out of 17 test(s).
+  //    14 passed, 3 failed, 0 skipped, 1 timed out, out of 18 test(s).
   TestRunner::run();
 #else
   // Should get something like:
