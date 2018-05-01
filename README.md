@@ -86,6 +86,11 @@ Here are the features in AUnit which are not available in ArduinoUnit:
     * `checkTestXxxF()`
     * `externTestF()`
     * `externTestingF()`
+* Status setters
+    * `passNow()`
+    * `failNow()`
+    * `skipNow()`
+    * `expireNow()`
 * `teardown()` method, mirroring the `setup()`
     * `teardown()`
 * Tested on the following Arduino platforms:
@@ -99,11 +104,13 @@ Here are the features in AUnit which are not available in ArduinoUnit:
     * `#include <AUnit.h>` - terse messages uses less flash memory
     * `#include <AUnitVerbose.h>` - verbose messages uses more flash
 
+Every feature of AUnit is unit tested using AUnit itself.
+
 ### Beta Status
 
-Although this library has been extensively tested by me, and I converted my
-[AceButton](https://github.com/bxparks/AceButton) library to use it, I consider
-it currently in "beta stage" until more  users have tested it.
+Although this library has been extensively tested by me, and two of my Arduino
+libraries (AceButton and AceSegment, see Examples below) now use it, I consider
+it currently in "beta stage" until more users have tested it.
 
 ## Installation
 
@@ -145,6 +152,20 @@ In the `tests/` directory:
 * `FilterTest` - manual tests for `include()` and `exclude()` filters
 * `SetupAndTeardownTest` - tests to verify that `setup()` and `teardown()` are
   called properly by the finite state machine
+
+Perhaps the best way to see AUnit in action through real life examples. I
+currently have 2 Arduino project using AUnit extensively:
+
+* [AceButton](https://github.com/bxparks/AceButton)
+* [AceSegment](https://github.com/bxparks/AceSegment)
+
+Look under the `tests` directory in each project.
+
+The tests for AceButton were originally created using ArduinoUnit 2.2, and I
+have kept those tests backwards compatible. They do not use the new features of
+AUnit.
+
+The tests for AceSegment demonstrate the full power of AUnit better.
 
 ### Header and Namespace
 
