@@ -45,15 +45,19 @@ const char MetaAssertion::kMessageNotSkipped[] PROGMEM = "not skipped";
 const char MetaAssertion::kMessageExpired[] PROGMEM = "timed out";
 const char MetaAssertion::kMessageNotExpired[] PROGMEM = "not timed out";
 
-void MetaAssertion::printAssertionTestStatusMessage(
+namespace {
+
+// Print an assertion message describing whether the given 'testName' has passed
+// or failed
+void printAssertionTestStatusMessage(
     bool ok, const char* file, uint16_t line,
     const char* testName, const __FlashStringHelper* statusMessage) {
-  // Trying to move these strings into PROGMEM actually makes the flash memory
-  // consumption bigger. The compile/linker will dedupe these c-strings.
+  // Many of the following strings are duplicated in Assertion.cpp and
+  // the compiler/linker will dedupe them.
   Print* printer = Printer::getPrinter();
   printer->print("Assertion ");
   printer->print(ok ? "passed" : "failed");
-  printer->print(": Test ");
+  printer->print(F(": Test "));
   printer->print(testName);
   printer->print(" is ");
   printer->print(statusMessage);
@@ -62,6 +66,8 @@ void MetaAssertion::printAssertionTestStatusMessage(
   printer->print(", line ");
   printer->print(line);
   printer->println('.');
+}
+
 }
 
 bool MetaAssertion::assertionTestStatus(const char* file, uint16_t line,
@@ -80,9 +86,10 @@ namespace {
 // "Status failed, file xxx, line yyy."
 void printStatusNowMessage(const char* file, uint16_t line,
     const __FlashStringHelper* statusString) {
-  // Don't use F() strings here. Same reason as above.
+  // Many of these strings are duplicated in Assertion.cpp and will be deduped
+  // by the compiler/linker.
   Print* printer = Printer::getPrinter();
-  printer->print("Status ");
+  printer->print(F("Status "));
   printer->print(statusString);
   printer->print(", file ");
   printer->print(file);
@@ -93,7 +100,7 @@ void printStatusNowMessage(const char* file, uint16_t line,
 
 }
 
-bool MetaAssertion::isOutputEnabled(uint8_t status) {
+bool MetaAssertion::isOutputEnabledForStatus(uint8_t status) {
   return (status == kStatusFailed && isVerbosity(Verbosity::kTestFailed))
       || (status == kStatusPassed && isVerbosity(Verbosity::kTestPassed))
       || (status == kStatusSkipped && isVerbosity(Verbosity::kTestSkipped))
@@ -103,7 +110,7 @@ bool MetaAssertion::isOutputEnabled(uint8_t status) {
 void MetaAssertion::setStatusNow(const char* file, uint16_t line,
     uint8_t status, const __FlashStringHelper* statusString) {
   if (isDone()) return;
-  if (isOutputEnabled(status)) {
+  if (isOutputEnabledForStatus(status)) {
     printStatusNowMessage(file, line, statusString);
   }
   setStatus(status);

@@ -66,13 +66,8 @@ class MetaAssertion: public Assertion {
         const char* testName, const __FlashStringHelper* statusMessage,
         bool ok);
 
-    /** Print the meta assertion passed or failed message. */
-    void printAssertionTestStatusMessage(
-        bool ok, const char* file, uint16_t line,
-        const char* testName, const __FlashStringHelper* statusMessage);
-
     /** Return true if setting of status should print a message. */
-    bool isOutputEnabled(uint8_t status);
+    bool isOutputEnabledForStatus(uint8_t status);
 
     /** Set the status of the current test to 'status' and print a message. */
     void setStatusNow(const char* file, uint16_t line, uint8_t status,
