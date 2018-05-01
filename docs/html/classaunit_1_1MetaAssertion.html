@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.5.0</span>
+   &#160;<span id="projectnumber">0.5.1</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -105,11 +105,14 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:aee97b094c31c0a3ce9b07481f8a2d712"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d630f7755066f508da44534f5fea825"><td class="memItemLeft" align="right" valign="top"><a id="a1d630f7755066f508da44534f5fea825"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1MetaAssertion.html#a1d630f7755066f508da44534f5fea825">assertionTestStatus</a> (const char *file, uint16_t line, const char *testName, const __FlashStringHelper *statusMessage, bool ok)</td></tr>
-<tr class="memdesc:a1d630f7755066f508da44534f5fea825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the status of the current test based on 'ok, and print assertion message if requested. <br /></td></tr>
+<tr class="memdesc:a1d630f7755066f508da44534f5fea825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the status of the current test using the 'ok' status from another test, and print the assertion message if requested. <br /></td></tr>
 <tr class="separator:a1d630f7755066f508da44534f5fea825"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f9c351ee9affc817dc0b640eecf79aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1MetaAssertion.html#a5f9c351ee9affc817dc0b640eecf79aa">printAssertionTestStatusMessage</a> (bool ok, const char *file, uint16_t line, const char *testName, const __FlashStringHelper *statusMessage)</td></tr>
-<tr class="memdesc:a5f9c351ee9affc817dc0b640eecf79aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the meta assertion passed or failed message.  <a href="#a5f9c351ee9affc817dc0b640eecf79aa">More...</a><br /></td></tr>
-<tr class="separator:a5f9c351ee9affc817dc0b640eecf79aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a071edb371b360f58a65643cf9bc17781"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1MetaAssertion.html#a071edb371b360f58a65643cf9bc17781">isOutputEnabledForStatus</a> (uint8_t status)</td></tr>
+<tr class="memdesc:a071edb371b360f58a65643cf9bc17781"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if setting of status should print a message.  <a href="#a071edb371b360f58a65643cf9bc17781">More...</a><br /></td></tr>
+<tr class="separator:a071edb371b360f58a65643cf9bc17781"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaa51ad2cbda0d5ed0ed8b0b162da002"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1MetaAssertion.html#abaa51ad2cbda0d5ed0ed8b0b162da002">setStatusNow</a> (const char *file, uint16_t line, uint8_t status, const __FlashStringHelper *statusString)</td></tr>
+<tr class="memdesc:abaa51ad2cbda0d5ed0ed8b0b162da002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the status of the current test to 'status' and print a message.  <a href="#abaa51ad2cbda0d5ed0ed8b0b162da002">More...</a><br /></td></tr>
+<tr class="separator:abaa51ad2cbda0d5ed0ed8b0b162da002"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classaunit_1_1Assertion"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classaunit_1_1Assertion')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classaunit_1_1Assertion.html">aunit::Assertion</a></td></tr>
 <tr class="memitem:a5fab4c2c0aae1604036c29b1941aaaca inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Assertion.html#a5fab4c2c0aae1604036c29b1941aaaca">Assertion</a> ()</td></tr>
 <tr class="memdesc:a5fab4c2c0aae1604036c29b1941aaaca inherit pro_methods_classaunit_1_1Assertion"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty constructor.  <a href="classaunit_1_1Assertion.html#a5fab4c2c0aae1604036c29b1941aaaca">More...</a><br /></td></tr>
@@ -168,57 +171,57 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const 
 <tr class="memitem:a6c8c7238d31b89359c8ef1643e9d24fc inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a6c8c7238d31b89359c8ef1643e9d24fc"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertion</b> (const char *file, uint16_t line, const __FlashStringHelper *lhs, const char *opName, bool(*op)(const __FlashStringHelper *lhs, const __FlashStringHelper *rhs), const __FlashStringHelper *rhs)</td></tr>
 <tr class="separator:a6c8c7238d31b89359c8ef1643e9d24fc inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01561a441345162b026e3ac5e12e1345 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a01561a441345162b026e3ac5e12e1345"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionBoolVerbose</b> (const char *file, uint16_t line, bool arg, internal::FlashStringType argString, bool value)</td></tr>
-<tr class="separator:a01561a441345162b026e3ac5e12e1345 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67dfda9d8bcc2eac92a50f423fafe0a0 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a67dfda9d8bcc2eac92a50f423fafe0a0"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, bool lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(bool lhs, bool rhs), bool rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:a67dfda9d8bcc2eac92a50f423fafe0a0 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e72faf662cb7d9b2f4a73a4806d1437 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a0e72faf662cb7d9b2f4a73a4806d1437"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, char lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(char lhs, char rhs), char rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:a0e72faf662cb7d9b2f4a73a4806d1437 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fd5d5de7621e11c284a1fbc23293f73 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a1fd5d5de7621e11c284a1fbc23293f73"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, int lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(int lhs, int rhs), int rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:a1fd5d5de7621e11c284a1fbc23293f73 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acec30ce957e97546333a16803ae1d850 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="acec30ce957e97546333a16803ae1d850"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, unsigned int lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(unsigned int lhs, unsigned int rhs), unsigned int rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:acec30ce957e97546333a16803ae1d850 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adccfdc80ddc647fa521f36ae3842e8f2 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="adccfdc80ddc647fa521f36ae3842e8f2"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, long lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(long lhs, long rhs), long rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:adccfdc80ddc647fa521f36ae3842e8f2 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadf88a5bc29348cb7783d611b3b0e816 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="aadf88a5bc29348cb7783d611b3b0e816"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, unsigned long lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(unsigned long lhs, unsigned long rhs), unsigned long rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:aadf88a5bc29348cb7783d611b3b0e816 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a692b91adbee4555dfc300f2ee833724f inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a692b91adbee4555dfc300f2ee833724f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, double lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(double lhs, double rhs), double rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:a692b91adbee4555dfc300f2ee833724f inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2aa26b3f2548c2e0990609c9c5d539f inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="ab2aa26b3f2548c2e0990609c9c5d539f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const char *lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(const char *lhs, const char *rhs), const char *rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:ab2aa26b3f2548c2e0990609c9c5d539f inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86f81530f2274ac0f074e6132052cffa inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a86f81530f2274ac0f074e6132052cffa"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const char *lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(const char *lhs, const String &amp;rhs), const String &amp;rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:a86f81530f2274ac0f074e6132052cffa inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affd142219f220bdd476bc09026b0d07d inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="affd142219f220bdd476bc09026b0d07d"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const char *lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(const char *lhs, const __FlashStringHelper *rhs), const __FlashStringHelper *rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:affd142219f220bdd476bc09026b0d07d inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbed9ce3340eda2dd06d3bba9d79b8f8 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="abbed9ce3340eda2dd06d3bba9d79b8f8"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const String &amp;lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(const String &amp;lhs, const char *rhs), const char *rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:abbed9ce3340eda2dd06d3bba9d79b8f8 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1089ae7ca3d698d91c9bddbc53e7634 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="ae1089ae7ca3d698d91c9bddbc53e7634"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const String &amp;lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(const String &amp;lhs, const String &amp;rhs), const String &amp;rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:ae1089ae7ca3d698d91c9bddbc53e7634 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ffce3435d7acf3959f27b47267a52e2 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a5ffce3435d7acf3959f27b47267a52e2"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const String &amp;lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(const String &amp;lhs, const __FlashStringHelper *rhs), const __FlashStringHelper *rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:a5ffce3435d7acf3959f27b47267a52e2 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0d2cab5d6d5464cf288eccaea224bc8 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="ae0d2cab5d6d5464cf288eccaea224bc8"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const __FlashStringHelper *lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(const __FlashStringHelper *lhs, const char *rhs), const char *rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:ae0d2cab5d6d5464cf288eccaea224bc8 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32c728fbe528d3a936efa07d69805997 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a32c728fbe528d3a936efa07d69805997"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const __FlashStringHelper *lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(const __FlashStringHelper *lhs, const String &amp;rhs), const String &amp;rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:a32c728fbe528d3a936efa07d69805997 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a650a1ae3873be129f7d883ec00c6ad44 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a650a1ae3873be129f7d883ec00c6ad44"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const __FlashStringHelper *lhs, internal::FlashStringType lhsString, const char *opName, bool(*op)(const __FlashStringHelper *lhs, const __FlashStringHelper *rhs), const __FlashStringHelper *rhs, internal::FlashStringType rhsString)</td></tr>
-<tr class="separator:a650a1ae3873be129f7d883ec00c6ad44 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2651cdda1e29aa2c85aaa4489076f7a2 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a2651cdda1e29aa2c85aaa4489076f7a2"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionBoolVerbose</b> (const char *file, uint16_t line, bool arg, const __FlashStringHelper *argString, bool value)</td></tr>
+<tr class="separator:a2651cdda1e29aa2c85aaa4489076f7a2 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbc95244bc739f71413ddf26d5e93b57 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="abbc95244bc739f71413ddf26d5e93b57"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, bool lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(bool lhs, bool rhs), bool rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:abbc95244bc739f71413ddf26d5e93b57 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5240e0e8679c080ebcbb12fa3be3de4b inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a5240e0e8679c080ebcbb12fa3be3de4b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, char lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(char lhs, char rhs), char rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:a5240e0e8679c080ebcbb12fa3be3de4b inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a951ac3f0bfbd0da33af58a01c3711433 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a951ac3f0bfbd0da33af58a01c3711433"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, int lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(int lhs, int rhs), int rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:a951ac3f0bfbd0da33af58a01c3711433 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a739d3750d01787625a16cc05084f04d2 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a739d3750d01787625a16cc05084f04d2"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, unsigned int lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(unsigned int lhs, unsigned int rhs), unsigned int rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:a739d3750d01787625a16cc05084f04d2 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d2a300e5271852aa1d5c850b4b93211 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a7d2a300e5271852aa1d5c850b4b93211"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, long lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(long lhs, long rhs), long rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:a7d2a300e5271852aa1d5c850b4b93211 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ea2e5f8f4e741950e2d36561af8779a inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a8ea2e5f8f4e741950e2d36561af8779a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, unsigned long lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(unsigned long lhs, unsigned long rhs), unsigned long rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:a8ea2e5f8f4e741950e2d36561af8779a inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf63b1f5f873b37d4e14db5a00fac280 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="adf63b1f5f873b37d4e14db5a00fac280"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, double lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(double lhs, double rhs), double rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:adf63b1f5f873b37d4e14db5a00fac280 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3d9d841925fa5d9e9ba09e017d2165f inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="ad3d9d841925fa5d9e9ba09e017d2165f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const char *lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(const char *lhs, const char *rhs), const char *rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:ad3d9d841925fa5d9e9ba09e017d2165f inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c9facf53ce72a7d66768e35fad315e5 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a5c9facf53ce72a7d66768e35fad315e5"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const char *lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(const char *lhs, const String &amp;rhs), const String &amp;rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:a5c9facf53ce72a7d66768e35fad315e5 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a907d6687e2cf62268d215e7137cf8bb7 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a907d6687e2cf62268d215e7137cf8bb7"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const char *lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(const char *lhs, const __FlashStringHelper *rhs), const __FlashStringHelper *rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:a907d6687e2cf62268d215e7137cf8bb7 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e42669f93d87cd4bb08cc6cda2c6ade inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a2e42669f93d87cd4bb08cc6cda2c6ade"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const String &amp;lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(const String &amp;lhs, const char *rhs), const char *rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:a2e42669f93d87cd4bb08cc6cda2c6ade inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad856dd1df26b0759dc0c2b5d106cdcc5 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="ad856dd1df26b0759dc0c2b5d106cdcc5"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const String &amp;lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(const String &amp;lhs, const String &amp;rhs), const String &amp;rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:ad856dd1df26b0759dc0c2b5d106cdcc5 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6067ea9199685b8d4b7a689dba741c4a inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a6067ea9199685b8d4b7a689dba741c4a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const String &amp;lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(const String &amp;lhs, const __FlashStringHelper *rhs), const __FlashStringHelper *rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:a6067ea9199685b8d4b7a689dba741c4a inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d1a40e3252a5f02d5afcbcb8b51ad3b inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="a9d1a40e3252a5f02d5afcbcb8b51ad3b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const __FlashStringHelper *lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(const __FlashStringHelper *lhs, const char *rhs), const char *rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:a9d1a40e3252a5f02d5afcbcb8b51ad3b inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae662771921df844d4aac261cc74107c inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="aae662771921df844d4aac261cc74107c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const __FlashStringHelper *lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(const __FlashStringHelper *lhs, const String &amp;rhs), const String &amp;rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:aae662771921df844d4aac261cc74107c inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae969d46b9581bd012621be6d8684372 inherit pro_methods_classaunit_1_1Assertion"><td class="memItemLeft" align="right" valign="top"><a id="aae969d46b9581bd012621be6d8684372"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>assertionVerbose</b> (const char *file, uint16_t line, const __FlashStringHelper *lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(const __FlashStringHelper *lhs, const __FlashStringHelper *rhs), const __FlashStringHelper *rhs, const __FlashStringHelper *rhsString)</td></tr>
+<tr class="separator:aae969d46b9581bd012621be6d8684372 inherit pro_methods_classaunit_1_1Assertion"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classaunit_1_1Test"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classaunit_1_1Test')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classaunit_1_1Test.html">aunit::Test</a></td></tr>
 <tr class="memitem:a64023d7738f6ae94dcaeb4fc4c7ec8b3 inherit pro_methods_classaunit_1_1Test"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Test.html#a64023d7738f6ae94dcaeb4fc4c7ec8b3">fail</a> ()</td></tr>
 <tr class="memdesc:a64023d7738f6ae94dcaeb4fc4c7ec8b3 inherit pro_methods_classaunit_1_1Test"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the test as failed.  <a href="classaunit_1_1Test.html#a64023d7738f6ae94dcaeb4fc4c7ec8b3">More...</a><br /></td></tr>
@@ -424,8 +427,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setLifeCycle</b> (uin
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5f9c351ee9affc817dc0b640eecf79aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f9c351ee9affc817dc0b640eecf79aa">&#9670;&nbsp;</a></span>printAssertionTestStatusMessage()</h2>
+<a id="a071edb371b360f58a65643cf9bc17781"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a071edb371b360f58a65643cf9bc17781">&#9670;&nbsp;</a></span>isOutputEnabledForStatus()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -434,14 +437,38 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setLifeCycle</b> (uin
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void aunit::MetaAssertion::printAssertionTestStatusMessage </td>
+          <td class="memname">bool aunit::MetaAssertion::isOutputEnabledForStatus </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>ok</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>status</em></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return true if setting of status should print a message. </p>
+
+<p class="definition">Definition at line <a class="el" href="MetaAssertion_8cpp_source.html#l00103">103</a> of file <a class="el" href="MetaAssertion_8cpp_source.html">MetaAssertion.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abaa51ad2cbda0d5ed0ed8b0b162da002"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaa51ad2cbda0d5ed0ed8b0b162da002">&#9670;&nbsp;</a></span>setStatusNow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void aunit::MetaAssertion::setStatusNow </td>
+          <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>file</em>, </td>
         </tr>
@@ -454,14 +481,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setLifeCycle</b> (uin
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>testName</em>, </td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>status</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const __FlashStringHelper *&#160;</td>
-          <td class="paramname"><em>statusMessage</em>&#160;</td>
+          <td class="paramname"><em>statusString</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -476,9 +503,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setLifeCycle</b> (uin
 </table>
 </div><div class="memdoc">
 
-<p>Print the meta assertion passed or failed message. </p>
+<p>Set the status of the current test to 'status' and print a message. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertion_8cpp_source.html#l00049">49</a> of file <a class="el" href="MetaAssertion_8cpp_source.html">MetaAssertion.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertion_8cpp_source.html#l00110">110</a> of file <a class="el" href="MetaAssertion_8cpp_source.html">MetaAssertion.cpp</a>.</p>
 
 </div>
 </div>

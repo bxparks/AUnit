@@ -10,6 +10,7 @@ var searchData=
   ['isnotpassed',['isNotPassed',['../classaunit_1_1Test.html#a923f621dda088a4e47258960ec09f1da',1,'aunit::Test']]],
   ['isnotskipped',['isNotSkipped',['../classaunit_1_1Test.html#aa7d205159104b7f96428a31eac15ca64',1,'aunit::Test']]],
   ['isoutputenabled',['isOutputEnabled',['../classaunit_1_1Assertion.html#ac56577e807b88987f06605c104d50451',1,'aunit::Assertion']]],
+  ['isoutputenabledforstatus',['isOutputEnabledForStatus',['../classaunit_1_1MetaAssertion.html#a071edb371b360f58a65643cf9bc17781',1,'aunit::MetaAssertion']]],
   ['ispassed',['isPassed',['../classaunit_1_1Test.html#a7a6c48fbb202d8aa6a13774487f97cad',1,'aunit::Test']]],
   ['isskipped',['isSkipped',['../classaunit_1_1Test.html#a59cffb7aefe39adbb8b7f14cb22ac02f',1,'aunit::Test']]],
   ['isverbosity',['isVerbosity',['../classaunit_1_1Test.html#acad6ad04fc4bf8f1068fdb5ecda70b79',1,'aunit::Test::isVerbosity()'],['../classaunit_1_1TestRunner.html#a6e9df4eb9d16fe3b56afd17603e45baa',1,'aunit::TestRunner::isVerbosity()']]]
