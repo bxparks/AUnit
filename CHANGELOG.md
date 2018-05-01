@@ -1,5 +1,8 @@
 # Changelog
 
+* 0.5.1 (2018-05-01)
+    * Support ESP32.
+    * Add failNow(), passNow(), skipNow() and expireNow() macros.
 * 0.5.0 (2018-04-25)
     * Support verbose assertion messages using AUnitVerbose.h. Fixes #8.
     * Better assertion messages for assertTrue() and assertFalse(). Fixes #17.
