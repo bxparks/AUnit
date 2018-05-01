@@ -222,10 +222,16 @@ class Test {
     /** Return true if test is not expired. */
     bool isNotExpired() { return !isExpired(); }
 
-    /** Mark the test as skipped. */
+    /**
+     * Mark the test as skipped. Use the skipNow() macro in a unit test to
+     * print a diagnostic message and exit immediately.
+     */
     void skip() { setStatus(kStatusSkipped); }
 
-    /** Mark the test as expired (i.e. timed out). */
+    /**
+     * Mark the test as expired (i.e. timed out). Use the expireNow() macro in
+     * a unit test to print a diagnostic message and exit immediately.
+     */
     void expire() { setStatus(kStatusExpired); }
 
     /** Enable the given verbosity of the current test. */
@@ -235,10 +241,18 @@ class Test {
     void disableVerbosity(uint8_t verbosity) { mVerbosity &= ~verbosity; }
 
   protected:
-    /** Mark the test as failed. */
+    /**
+     * Mark the test as failed. Use the failNow() macro in a unit test to print
+     * a diagnostic message and exit immediately.
+     */
     void fail() { setStatus(kStatusFailed); }
 
-    /** Mark the test as passed. */
+    /**
+     * Mark the test as passed. Often used to terminate a testing() looping
+     * test. The passNow() macro can be used in a unit test to print a
+     * diagnostic message and exit immediately. It is expected that pass() will
+     * be used more often.
+     */
     void pass() { setStatus(kStatusPassed); }
 
     void init(const char* name) {
