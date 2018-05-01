@@ -60,6 +60,8 @@ class Assertion: public Test {
     /** Returns true if an assertion message should be printed. */
     bool isOutputEnabled(bool ok);
 
+    // Terse assertions. Prints only the argument values.
+
     bool assertionBool(const char* file, uint16_t line, bool arg,
         bool value);
 

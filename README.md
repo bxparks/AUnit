@@ -229,9 +229,9 @@ testing(looping_test) {
   if (...) {
     pass();
   } else if (...) {
-    fail();
+    failNow();
   } else {
-    skip();
+    skipNow();
   }
 }
 
@@ -644,17 +644,39 @@ assertTestXxx() meta assertion macros._
 
 ### Status Indicator Methods
 
-These methods can be used inside a `test()` or `testing()` macro
-to indicate whether the test has passed or failed (or reached some other
-status reason).
+The following macros can be used inside the body of `test()` or `testing()`
+macro to indicate whether the test has passed or failed (or reached some other
+status). Each macro prints a short message, and returns immediately from the
+test, much like an `assertXxx()` macro that fails.
+
+* `passNow()`  [&ast;]
+* `failNow()` [&ast;]
+* `skipNow()` [&ast;]
+* `expireNow()` [&ast;]
+
+The message looks like:
+```
+Status timed out, file AUnitTest.ino, line 381.
+Status failed, file AUnitTest.ino, line 378.
+Status failed, file AUnitTest.ino, line 378.
+Status skipped, file AUnitTest.ino, line 380.
+```
+
+The above methods are recommended over the following methods on the `Test` class
+because the `xxxNow()` versions print the file and line number of the statement.
+The methods on `Test` are completely silent which makes debugging difficult.
 
 * `pass()` - test passed
 * `fail()` - test failed
 * `skip()` - test skipped
 * `expire()`  - test timed out [&ast;]
 
-***ArduinoUnit Compatibility***: _The method(s) marked by [&ast;] are only
-available in AUnit._
+***ArduinoUnit Compatibility***: _
+_The method(s) marked by [&ast;] are only available in AUnit. For most cases,
+the failNow(), skipNow() and expireNow() methods are recommended over the
+methods from ArduinoUnit which have been carried over for compatibility and for
+internal use. In a testing() loop test, the pass() method may be more useful
+than the passNow() macro._
 
 ### Overridable Methods
 
