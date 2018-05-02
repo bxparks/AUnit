@@ -66,10 +66,12 @@ SOFTWARE.
 
 class __FlashStringHelper;
 
-// The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and
-// broken on ESP32. We define our onw version to make this work on all 4
-// platforms. We might be able to use just FPSTR() if
-// https://github.com/espressif/arduino-esp32/issues/1371 is fixed.
+/**
+ * The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and
+ * broken on ESP32. We define our onw version to make this work on all 4
+ * platforms. We might be able to use just FPSTR() if
+ * https://github.com/espressif/arduino-esp32/issues/1371 is fixed.
+ */
 #define AUNIT_FPSTR(pstr_pointer) \
     (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
 
