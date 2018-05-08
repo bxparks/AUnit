@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.5.1</span>
+   &#160;<span id="projectnumber">0.5.2</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -86,7 +86,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <area shape="rect" id="node14" href="MetaAssertMacros_8h.html" title="Various assertTestXxx(), checkTestXxx(), assertTestXxxF() and checkTestXxxF() macros are defined in t..." alt="" coords="1134,363,1335,404"/>
 <area shape="rect" id="node15" href="Test_8cpp_source.html" title="/home/brian/dev/AUnit\l/src/aunit/Test.cpp" alt="" coords="1368,95,1520,136"/>
 <area shape="rect" id="node4" href="MetaAssertion_8h_source.html" title="/home/brian/dev/AUnit\l/src/aunit/MetaAssertion.h" alt="" coords="425,184,599,225"/>
-<area shape="rect" id="node9" href="AUnit_8h_source.html" title="/home/brian/dev/AUnit\l/src/AUnit.h" alt="" coords="995,452,1147,493"/>
+<area shape="rect" id="node9" href="AUnit_8h.html" title="Same as AUnitVerbose.h except that the terse versions of the various assertXxx() macros are provided..." alt="" coords="995,452,1147,493"/>
 <area shape="rect" id="node10" href="AUnitVerbose_8h.html" title="Same as AUnit.h except that the verbose versions of the various assertXxx() macros are provided..." alt="" coords="435,452,587,493"/>
 <area shape="rect" id="node6" href="TestAgain_8h_source.html" title="/home/brian/dev/AUnit\l/src/aunit/TestAgain.h" alt="" coords="729,273,881,315"/>
 <area shape="rect" id="node11" href="TestOnce_8h_source.html" title="/home/brian/dev/AUnit\l/src/aunit/TestOnce.h" alt="" coords="436,273,588,315"/>
@@ -99,8 +99,8 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:af6637cbf5dced7105416585fd58ce29e"><td class="memItemLeft" align="right" valign="top"><a id="af6637cbf5dced7105416585fd58ce29e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>AUNIT_FPSTR</b>(pstr_pointer)&#160;&#160;&#160;(reinterpret_cast&lt;const __FlashStringHelper *&gt;(pstr_pointer))</td></tr>
+<tr class="memitem:af6637cbf5dced7105416585fd58ce29e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a>(pstr_pointer)&#160;&#160;&#160;(reinterpret_cast&lt;const __FlashStringHelper *&gt;(pstr_pointer))</td></tr>
+<tr class="memdesc:af6637cbf5dced7105416585fd58ce29e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and broken on ESP32.  <a href="#af6637cbf5dced7105416585fd58ce29e">More...</a><br /></td></tr>
 <tr class="separator:af6637cbf5dced7105416585fd58ce29e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -108,11 +108,35 @@ Macros</h2></td></tr>
 <p>On AVR, flash strings are fully supported through the F() and PSTR() macros, and the (const __FlashStringHelper*) pointer. However, the useful FPSTR() macro is not defined.</p>
 <p>On Teensy-ARM, flash strings are <em>not</em> supported, but F(), PSTR() and (const __FlashStringHelper*) are defined. The useful FPSTR() macro is not defined.</p>
 <p>On the ESP8266 platform, flash strings are implemented, and the F(), PSTR() and __FlashStringHelper are defined, but the implementation is brittle and can fail with obscure errors messages. For a single compilation unit, a flash string cannot be defined in both an inline and non-inline contexts (see <a href="https://github.com/esp8266/Arduino/issues/3369">https://github.com/esp8266/Arduino/issues/3369</a>). In some cases (e.g. <a class="el" href="TestMacros_8h.html" title="Various macros (test(), testF(), testing(), testingF(), externTest(), externTestF(), externTesting(), externTestingF()) are defined in this header. ">TestMacros.h</a>), we were able to move the F() macro into a non-inline context. But in other cases (e.g. <a class="el" href="AssertVerboseMacros_8h.html" title="Verbose versions of the macros in AssertMacros.h. ">AssertVerboseMacros.h</a>), the end-user can choose to use an assertXxx() macro inside an inline function, which breaks the compiler. Therefore, I chose to use normal (const char*) strings instead of flash strings in those assertXxx() macros. In addition, the ESP8266 platform defines a useful FPSTR() macro which converts a (const char*) returned by PSTR() into a (const __FlashStringHelper*) pointer.</p>
-<p>On the ESP32, flash strings are <em>not</em> implemented, but the various F(), PSTR() and __FlashStringHelper symbols are defined for compatibility, similar to Teensy-ARM. However, as of 2018-05-01, the implementation of FPSTR() is incorrect. That macro should return a (const __FlashStringHelper*) pointer, but is defined to return a (const char*) pointer.</p>
+<p>On the ESP32, flash strings are <em>not</em> implemented, but the various F(), PSTR() and __FlashStringHelper symbols are defined for compatibility, similar to Teensy-ARM. However, the implementation of FPSTR() is incorrect, see <a href="https://github.com/espressif/arduino-esp32/issues/1371">https://github.com/espressif/arduino-esp32/issues/1371</a>. That macro should return a (const __FlashStringHelper*) pointer, but is defined to return a (const char*) pointer.</p>
 <p>To make AUnit work under all of the above platforms, I chose to support flash strings only on the AVR. I create custom versions of the F() and FPSTR() macros below to accomplish this. </p>
 
 <p class="definition">Definition in file <a class="el" href="Flash_8h_source.html">Flash.h</a>.</p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="af6637cbf5dced7105416585fd58ce29e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6637cbf5dced7105416585fd58ce29e">&#9670;&nbsp;</a></span>AUNIT_FPSTR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AUNIT_FPSTR</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">pstr_pointer</td><td>)</td>
+          <td>&#160;&#160;&#160;(reinterpret_cast&lt;const __FlashStringHelper *&gt;(pstr_pointer))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and broken on ESP32. </p>
+<p>We define our onw version to make this work on all 4 platforms. We might be able to use just FPSTR() if <a href="https://github.com/espressif/arduino-esp32/issues/1371">https://github.com/espressif/arduino-esp32/issues/1371</a> is fixed. </p>
+
+<p class="definition">Definition at line <a class="el" href="Flash_8h_source.html#l00075">75</a> of file <a class="el" href="Flash_8h_source.html">Flash.h</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

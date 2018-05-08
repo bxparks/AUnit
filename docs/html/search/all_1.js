@@ -19,5 +19,6 @@ var searchData=
   ['checktestpass',['checkTestPass',['../MetaAssertMacros_8h.html#a5b2c79b1cb2a807e6acd6074c1921305',1,'MetaAssertMacros.h']]],
   ['checktestpassf',['checkTestPassF',['../MetaAssertMacros_8h.html#a651cacf80a1516f68e0959ae3dfe9334',1,'MetaAssertMacros.h']]],
   ['checktestskip',['checkTestSkip',['../MetaAssertMacros_8h.html#a084f35bf7746d6e804336bba4f1fb7bf',1,'MetaAssertMacros.h']]],
-  ['checktestskipf',['checkTestSkipF',['../MetaAssertMacros_8h.html#a54036d78d271d1491abcdd458e95ba06',1,'MetaAssertMacros.h']]]
+  ['checktestskipf',['checkTestSkipF',['../MetaAssertMacros_8h.html#a54036d78d271d1491abcdd458e95ba06',1,'MetaAssertMacros.h']]],
+  ['compare_2eh',['Compare.h',['../Compare_8h.html',1,'']]]
 ];
