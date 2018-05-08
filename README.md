@@ -3,7 +3,7 @@
 A unit testing framework for Arduino platforms inspired by ArduinoUnit and
 Google Test.
 
-Version: 0.5.1 (2018-05-01)
+Version: 0.5.2 (2018-05-08)
 
 ## Summary
 

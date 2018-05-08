@@ -1,6 +1,6 @@
 # Changelog
 
-* 0.5.2 (2018-05-06)
+* 0.5.2 (2018-05-08)
     * Rename failNow(), passNow(), skipNow(), expireNow() macros to
       failTestNow(), passTestNow(), skipTestNow(), expireTestNow() to reduce
       the chance of name collision.
