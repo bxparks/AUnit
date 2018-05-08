@@ -7,7 +7,7 @@
 <area shape="rect" id="node14" href="$MetaAssertMacros_8h.html" title="Various assertTestXxx(), checkTestXxx(), assertTestXxxF() and checkTestXxxF() macros are defined in t..." alt="" coords="1134,363,1335,404"/>
 <area shape="rect" id="node15" href="$Test_8cpp_source.html" title="/home/brian/dev/AUnit\l/src/aunit/Test.cpp" alt="" coords="1368,95,1520,136"/>
 <area shape="rect" id="node4" href="$MetaAssertion_8h_source.html" title="/home/brian/dev/AUnit\l/src/aunit/MetaAssertion.h" alt="" coords="425,184,599,225"/>
-<area shape="rect" id="node9" href="$AUnit_8h_source.html" title="/home/brian/dev/AUnit\l/src/AUnit.h" alt="" coords="995,452,1147,493"/>
+<area shape="rect" id="node9" href="$AUnit_8h.html" title="Same as AUnitVerbose.h except that the terse versions of the various assertXxx() macros are provided..." alt="" coords="995,452,1147,493"/>
 <area shape="rect" id="node10" href="$AUnitVerbose_8h.html" title="Same as AUnit.h except that the verbose versions of the various assertXxx() macros are provided..." alt="" coords="435,452,587,493"/>
 <area shape="rect" id="node6" href="$TestAgain_8h_source.html" title="/home/brian/dev/AUnit\l/src/aunit/TestAgain.h" alt="" coords="729,273,881,315"/>
 <area shape="rect" id="node11" href="$TestOnce_8h_source.html" title="/home/brian/dev/AUnit\l/src/aunit/TestOnce.h" alt="" coords="436,273,588,315"/>

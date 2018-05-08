@@ -11,6 +11,8 @@ TestOnce	KEYWORD1
 TestAgain	KEYWORD1
 Assertion	KEYWORD1
 MetaAssertion	KEYWORD1
+
+# TestMacros.h
 test	KEYWORD1
 testing	KEYWORD1
 testF	KEYWORD1
@@ -69,7 +71,7 @@ once	KEYWORD2
 # TestAgain.h
 again	KEYWORD2
 
-# Public macros from Assertion.h
+# Public macros from AssertMacros.h
 assertEqual	KEYWORD2
 assertNotEqual	KEYWORD2
 assertLess	KEYWORD2
@@ -79,7 +81,7 @@ assertMoreOrEqual	KEYWORD2
 assertTrue	KEYWORD2
 assertFalse	KEYWORD2
 
-# Public macros from MetaAssertion.h
+# Public macros from MetaAssertMacros.h
 checkTestDone	KEYWORD2
 checkTestNotDone	KEYWORD2
 checkTestPass	KEYWORD2
@@ -121,11 +123,11 @@ assertTestSkipF	KEYWORD2
 assertTestNotSkipF	KEYWORD2
 assertTestExpireF	KEYWORD2
 assertTestNotExpireF	KEYWORD2
-# status macros
-failNow	KEYWORD2
-passNow	KEYWORD2
-skipNow	KEYWORD2
-expireNow	KEYWORD2
+# unconditional termination
+failTestNow	KEYWORD2
+passTestNow	KEYWORD2
+skipTestNow	KEYWORD2
+expireTestNow	KEYWORD2
 
 # Overloaded functions from Compare.h
 compareString	KEYWORD2
@@ -165,3 +167,4 @@ kStatusSetup	LITERAL1
 kStatusPassed	LITERAL1
 kStatusFailed	LITERAL1
 kStatusSkipped	LITERAL1
+kStatusExpired	LITERAL1

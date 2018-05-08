@@ -25,6 +25,48 @@ SOFTWARE.
 // Significant portions of the design and implementation of this file came from
 // https://github.com/mmurdoch/arduinounit/blob/master/src/ArduinoUnitUtility/Compare.h
 
+/**
+ * @file Compare.h
+ *
+ * This file provides overloaded compareXxx(a, b) functions which are used by
+ * the various assertXxx(a, b) macros. We wanted to allow users to use the
+ * assertXxx() macros with all combinations of the 3 types of strings available
+ * in the Arduino platform:
+ *
+ *  - (const char *)
+ *  - (String&)
+ *  - (const __FlashStringHelper*)
+ *
+ * Clearly, there are 9 binary combinations these string types, so we define 9
+ * compareString(a, b) functions.
+ *
+ * For other primitive types, I depend on implicit conversion rules to reduce
+ * the overloaded types to 7:
+ *
+ *  - (bool, bool)
+ *  - (char, char)
+ *  - (int, int)
+ *  - (unsigned int, unsigned int)
+ *  - (long, long)
+ *  - (unsigned long, unsigned long)
+ *  - (double, double)
+ *
+ * Therefore, there are 16 overloaded versions of each of the compareXxx(a, b)
+ * functions.
+ *
+ * There are 6 compareXxx() functions corresponding to (==, !=, <, >, <=, >=).
+ * Many of them are implemented using the primitive logical operators for
+ * the respective primitive types. The compare functions for string types are
+ * implemented using compareString().
+ *
+ * The compareStringN(a, b) functions are used only to implement the
+ * TestRunner::include() and TestRunner::exclude() functions. The type of 'a'
+ * could be any of the 3 string types, but 'b' can only (const char*) or (const
+ * __FlashStringHelper*) so only 6 combinations are implemented. In practice,
+ * the type of 'a' is also restricted to (const char*) or (const
+ * __FlashStringHelper*) so only 4 of these compareStringN() are actually used.
+ */
+
 #ifndef AUNIT_COMPARE_H
 #define AUNIT_COMPARE_H
 
@@ -62,7 +104,7 @@ int compareString(const FCString& a, const FCString& b);
 
 // compareStringN()
 //
-// These methods are used to implement the TestRunner::exclude() and
+// These functions are used to implement the TestRunner::exclude() and
 // TestRunner::include() features.
 
 /** Compare only the first n characters of 'a' or 'b'. */

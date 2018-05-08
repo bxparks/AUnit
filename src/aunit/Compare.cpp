@@ -25,16 +25,6 @@ SOFTWARE.
 /*
 Design Notes:
 ============
-This file provides overloaded compareXxx(a, b) functions which are used by
-the various assertXxx() macros. A primary goal of this file is to allow users
-to use the assertXxx() macros with all combinations of the 3 types of strings
-available in the Arduino platform:
-
- - (const char *)
- - (String&)
- - (const __FlashStringHelper*)
-
-Clearly, there are 9 binary combinations these string types.
 
 Template Specialization:
 -----------------------
@@ -115,7 +105,7 @@ comporeXxx() and assertXxx() functions for a custom class. I have not
 tested this though.
 
 Comparing Flash Strings:
-----------------------
+------------------------
 Flash memory must be read using 4-byte alignment on the ESP8266. AVR doesn't
 care. Teensy-ARM fakes the flash memory API but really just uses the normal
 static RAM. The following code for comparing two (__FlashStringHelper*)

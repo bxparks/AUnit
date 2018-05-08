@@ -51,10 +51,10 @@ SOFTWARE.
  *
  * On the ESP32, flash strings are *not* implemented, but the various F(),
  * PSTR() and __FlashStringHelper symbols are defined for compatibility,
- * similar to Teensy-ARM. However, as of 2018-05-01, the implementation of
- * FPSTR() is incorrect. That macro should return a (const
- * __FlashStringHelper*) pointer, but is defined to return a (const char*)
- * pointer.
+ * similar to Teensy-ARM. However, the implementation of FPSTR() is incorrect,
+ * see https://github.com/espressif/arduino-esp32/issues/1371. That macro
+ * should return a (const __FlashStringHelper*) pointer, but is defined to
+ * return a (const char*) pointer.
  *
  * To make AUnit work under all of the above platforms, I chose to support
  * flash strings only on the AVR. I create custom versions of the F() and
@@ -66,9 +66,12 @@ SOFTWARE.
 
 class __FlashStringHelper;
 
-// The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and
-// broken on ESP32. We define our onw version to make this work on all 4
-// platforms.
+/**
+ * The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and
+ * broken on ESP32. We define our onw version to make this work on all 4
+ * platforms. We might be able to use just FPSTR() if
+ * https://github.com/espressif/arduino-esp32/issues/1371 is fixed.
+ */
 #define AUNIT_FPSTR(pstr_pointer) \
     (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
 

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.5.1</span>
+   &#160;<span id="projectnumber">0.5.2</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -87,7 +87,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="MetaAssertMacros_8h__dep__incl.png" border="0" usemap="#_2home_2brian_2dev_2AUnit_2src_2aunit_2MetaAssertMacros_8hdep" alt=""/></div>
 <map name="_2home_2brian_2dev_2AUnit_2src_2aunit_2MetaAssertMacros_8hdep" id="_2home_2brian_2dev_2AUnit_2src_2aunit_2MetaAssertMacros_8hdep">
-<area shape="rect" id="node2" href="AUnit_8h_source.html" title="/home/brian/dev/AUnit\l/src/AUnit.h" alt="" coords="5,95,157,136"/>
+<area shape="rect" id="node2" href="AUnit_8h.html" title="Same as AUnitVerbose.h except that the terse versions of the various assertXxx() macros are provided..." alt="" coords="5,95,157,136"/>
 <area shape="rect" id="node3" href="AUnitVerbose_8h.html" title="Same as AUnit.h except that the verbose versions of the various assertXxx() macros are provided..." alt="" coords="181,95,333,136"/>
 </map>
 </div>
@@ -222,18 +222,18 @@ Macros</h2></td></tr>
 <tr class="memitem:ada7021c0388f9dc7e05ea5a30099aedf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#ada7021c0388f9dc7e05ea5a30099aedf">assertTestStatusInternalF</a>(testClass,  name,  method,  message)</td></tr>
 <tr class="memdesc:ada7021c0388f9dc7e05ea5a30099aedf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal helper macro, shouldn't be called directly by users.  <a href="#ada7021c0388f9dc7e05ea5a30099aedf">More...</a><br /></td></tr>
 <tr class="separator:ada7021c0388f9dc7e05ea5a30099aedf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fb46902fdc59e86240bbce445f215e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a4fb46902fdc59e86240bbce445f215e9">failNow</a>()</td></tr>
-<tr class="memdesc:a4fb46902fdc59e86240bbce445f215e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fail the current test, return immediately, and print a status message.  <a href="#a4fb46902fdc59e86240bbce445f215e9">More...</a><br /></td></tr>
-<tr class="separator:a4fb46902fdc59e86240bbce445f215e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1f7998d5fc068d6fca202a2141e9182"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#af1f7998d5fc068d6fca202a2141e9182">passNow</a>()</td></tr>
-<tr class="memdesc:af1f7998d5fc068d6fca202a2141e9182"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pass the current test, print a status message, and return immediately.  <a href="#af1f7998d5fc068d6fca202a2141e9182">More...</a><br /></td></tr>
-<tr class="separator:af1f7998d5fc068d6fca202a2141e9182"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fd8b67525add51dfac730887a361628"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a3fd8b67525add51dfac730887a361628">skipNow</a>()</td></tr>
-<tr class="memdesc:a3fd8b67525add51dfac730887a361628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip the current test, print a status message, and return immediately.  <a href="#a3fd8b67525add51dfac730887a361628">More...</a><br /></td></tr>
-<tr class="separator:a3fd8b67525add51dfac730887a361628"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb9e22211f3853b9542fa577a4c5458a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#adb9e22211f3853b9542fa577a4c5458a">expireNow</a>()</td></tr>
-<tr class="memdesc:adb9e22211f3853b9542fa577a4c5458a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expire the current test, print a status message, and return immediately.  <a href="#adb9e22211f3853b9542fa577a4c5458a">More...</a><br /></td></tr>
-<tr class="separator:adb9e22211f3853b9542fa577a4c5458a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd0890fab0daa1749abc4dbc8b2905b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#afd0890fab0daa1749abc4dbc8b2905b2">failTestNow</a>()</td></tr>
+<tr class="memdesc:afd0890fab0daa1749abc4dbc8b2905b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fail the current test, return immediately, and print a status message.  <a href="#afd0890fab0daa1749abc4dbc8b2905b2">More...</a><br /></td></tr>
+<tr class="separator:afd0890fab0daa1749abc4dbc8b2905b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac46547949efbe1a40df64c47949dac0d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#ac46547949efbe1a40df64c47949dac0d">passTestNow</a>()</td></tr>
+<tr class="memdesc:ac46547949efbe1a40df64c47949dac0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pass the current test, print a status message, and return immediately.  <a href="#ac46547949efbe1a40df64c47949dac0d">More...</a><br /></td></tr>
+<tr class="separator:ac46547949efbe1a40df64c47949dac0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90a70dc25d2628e1e9353736824117b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a90a70dc25d2628e1e9353736824117b5">skipTestNow</a>()</td></tr>
+<tr class="memdesc:a90a70dc25d2628e1e9353736824117b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip the current test, print a status message, and return immediately.  <a href="#a90a70dc25d2628e1e9353736824117b5">More...</a><br /></td></tr>
+<tr class="separator:a90a70dc25d2628e1e9353736824117b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f865d01d2abffc7ba9365ebcdb3eda9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a0f865d01d2abffc7ba9365ebcdb3eda9">expireTestNow</a>()</td></tr>
+<tr class="memdesc:a0f865d01d2abffc7ba9365ebcdb3eda9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expire the current test, print a status message, and return immediately.  <a href="#a0f865d01d2abffc7ba9365ebcdb3eda9">More...</a><br /></td></tr>
+<tr class="separator:a0f865d01d2abffc7ba9365ebcdb3eda9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Various assertTestXxx(), checkTestXxx(), assertTestXxxF() and checkTestXxxF() macros are defined in this header. </p>
@@ -813,7 +813,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  if (!assertionTestStatus(\</div><div class="line">      __FILE__,__LINE__,#name,AUNIT_FPSTR(message),test_##name##_instance.method()))\</div><div class="line">    return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  if (!assertionTestStatus(\</div><div class="line">      __FILE__,__LINE__,#name,<a class="code" href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a>(message),test_##name##_instance.method()))\</div><div class="line">    return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div><div class="ttc" id="Flash_8h_html_af6637cbf5dced7105416585fd58ce29e"><div class="ttname"><a href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a></div><div class="ttdeci">#define AUNIT_FPSTR(pstr_pointer)</div><div class="ttdoc">The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and broken on ESP32...</div><div class="ttdef"><b>Definition:</b> <a href="Flash_8h_source.html#l00075">Flash.h:75</a></div></div>
+</div><!-- fragment -->
 <p>Internal helper macro, shouldn't be called directly by users. </p>
 
 <p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00117">117</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
@@ -857,7 +858,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  if (!assertionTestStatus(__FILE__, __LINE__, #name, AUNIT_FPSTR(message),\</div><div class="line">      testClass##_##name##_instance.method()))\</div><div class="line">    return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  if (!assertionTestStatus(__FILE__, __LINE__, #name, <a class="code" href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a>(message),\</div><div class="line">      testClass##_##name##_instance.method()))\</div><div class="line">    return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div><div class="ttc" id="Flash_8h_html_af6637cbf5dced7105416585fd58ce29e"><div class="ttname"><a href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a></div><div class="ttdeci">#define AUNIT_FPSTR(pstr_pointer)</div><div class="ttdoc">The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and broken on ESP32...</div><div class="ttdef"><b>Definition:</b> <a href="Flash_8h_source.html#l00075">Flash.h:75</a></div></div>
+</div><!-- fragment -->
 <p>Internal helper macro, shouldn't be called directly by users. </p>
 
 <p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00212">212</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
@@ -1404,21 +1406,22 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="adb9e22211f3853b9542fa577a4c5458a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb9e22211f3853b9542fa577a4c5458a">&#9670;&nbsp;</a></span>expireNow</h2>
+<a id="a0f865d01d2abffc7ba9365ebcdb3eda9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f865d01d2abffc7ba9365ebcdb3eda9">&#9670;&nbsp;</a></span>expireTestNow</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define expireNow</td>
+          <td class="memname">#define expireTestNow</td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  setStatusNow(__FILE__, __LINE__, kStatusExpired,\</div><div class="line">      AUNIT_FPSTR(kMessageExpired));\</div><div class="line">  return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  setStatusNow(__FILE__, __LINE__, kStatusExpired,\</div><div class="line">      <a class="code" href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a>(kMessageExpired));\</div><div class="line">  return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div><div class="ttc" id="Flash_8h_html_af6637cbf5dced7105416585fd58ce29e"><div class="ttname"><a href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a></div><div class="ttdeci">#define AUNIT_FPSTR(pstr_pointer)</div><div class="ttdoc">The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and broken on ESP32...</div><div class="ttdef"><b>Definition:</b> <a href="Flash_8h_source.html#l00075">Flash.h:75</a></div></div>
+</div><!-- fragment -->
 <p>Expire the current test, print a status message, and return immediately. </p>
 <p>Similar to Test::expire() except that this prints a status message. </p>
 
@@ -1426,21 +1429,22 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="a4fb46902fdc59e86240bbce445f215e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4fb46902fdc59e86240bbce445f215e9">&#9670;&nbsp;</a></span>failNow</h2>
+<a id="afd0890fab0daa1749abc4dbc8b2905b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd0890fab0daa1749abc4dbc8b2905b2">&#9670;&nbsp;</a></span>failTestNow</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define failNow</td>
+          <td class="memname">#define failTestNow</td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  setStatusNow(__FILE__, __LINE__, kStatusFailed, AUNIT_FPSTR(kMessageFailed));\</div><div class="line">  return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  setStatusNow(__FILE__, __LINE__, kStatusFailed, <a class="code" href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a>(kMessageFailed));\</div><div class="line">  return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div><div class="ttc" id="Flash_8h_html_af6637cbf5dced7105416585fd58ce29e"><div class="ttname"><a href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a></div><div class="ttdeci">#define AUNIT_FPSTR(pstr_pointer)</div><div class="ttdoc">The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and broken on ESP32...</div><div class="ttdef"><b>Definition:</b> <a href="Flash_8h_source.html#l00075">Flash.h:75</a></div></div>
+</div><!-- fragment -->
 <p>Fail the current test, return immediately, and print a status message. </p>
 <p>Similar to Test::fail() except that this prints a status message. </p>
 
@@ -1448,21 +1452,22 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="af1f7998d5fc068d6fca202a2141e9182"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1f7998d5fc068d6fca202a2141e9182">&#9670;&nbsp;</a></span>passNow</h2>
+<a id="ac46547949efbe1a40df64c47949dac0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac46547949efbe1a40df64c47949dac0d">&#9670;&nbsp;</a></span>passTestNow</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define passNow</td>
+          <td class="memname">#define passTestNow</td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  setStatusNow(__FILE__, __LINE__, kStatusPassed, AUNIT_FPSTR(kMessagePassed));\</div><div class="line">  return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  setStatusNow(__FILE__, __LINE__, kStatusPassed, <a class="code" href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a>(kMessagePassed));\</div><div class="line">  return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div><div class="ttc" id="Flash_8h_html_af6637cbf5dced7105416585fd58ce29e"><div class="ttname"><a href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a></div><div class="ttdeci">#define AUNIT_FPSTR(pstr_pointer)</div><div class="ttdoc">The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and broken on ESP32...</div><div class="ttdef"><b>Definition:</b> <a href="Flash_8h_source.html#l00075">Flash.h:75</a></div></div>
+</div><!-- fragment -->
 <p>Pass the current test, print a status message, and return immediately. </p>
 <p>Similar to Test::pass() except that this prints a status message. </p>
 
@@ -1470,21 +1475,22 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="a3fd8b67525add51dfac730887a361628"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fd8b67525add51dfac730887a361628">&#9670;&nbsp;</a></span>skipNow</h2>
+<a id="a90a70dc25d2628e1e9353736824117b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90a70dc25d2628e1e9353736824117b5">&#9670;&nbsp;</a></span>skipTestNow</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define skipNow</td>
+          <td class="memname">#define skipTestNow</td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  setStatusNow(__FILE__, __LINE__, kStatusSkipped,\</div><div class="line">      AUNIT_FPSTR(kMessageSkipped));\</div><div class="line">  return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  setStatusNow(__FILE__, __LINE__, kStatusSkipped,\</div><div class="line">      <a class="code" href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a>(kMessageSkipped));\</div><div class="line">  return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div><div class="ttc" id="Flash_8h_html_af6637cbf5dced7105416585fd58ce29e"><div class="ttname"><a href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a></div><div class="ttdeci">#define AUNIT_FPSTR(pstr_pointer)</div><div class="ttdoc">The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and broken on ESP32...</div><div class="ttdef"><b>Definition:</b> <a href="Flash_8h_source.html#l00075">Flash.h:75</a></div></div>
+</div><!-- fragment -->
 <p>Skip the current test, print a status message, and return immediately. </p>
 <p>Similar to Test::skip() except that this prints a status message. </p>
 

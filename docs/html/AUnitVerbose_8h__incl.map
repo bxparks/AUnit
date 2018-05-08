@@ -1,6 +1,6 @@
 <map id="/home/brian/dev/AUnit/src/AUnitVerbose.h" name="/home/brian/dev/AUnit/src/AUnitVerbose.h">
 <area shape="rect" id="node2" href="$Verbosity_8h_source.html" title="aunit/Verbosity.h" alt="" coords="391,468,511,495"/>
-<area shape="rect" id="node4" href="$Compare_8h_source.html" title="aunit/Compare.h" alt="" coords="45,95,163,121"/>
+<area shape="rect" id="node4" href="$Compare_8h.html" title="This file provides overloaded compareXxx(a, b) functions which are used by the various assertXxx(a..." alt="" coords="45,95,163,121"/>
 <area shape="rect" id="node6" href="$Printer_8h_source.html" title="aunit/Printer.h" alt="" coords="365,319,467,345"/>
 <area shape="rect" id="node7" href="$Test_8h_source.html" title="aunit/Test.h" alt="" coords="439,393,529,420"/>
 <area shape="rect" id="node9" href="$Assertion_8h_source.html" title="aunit/Assertion.h" alt="" coords="492,319,612,345"/>

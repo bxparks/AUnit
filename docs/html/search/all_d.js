@@ -8,5 +8,5 @@ var searchData=
   ['setup',['setup',['../classaunit_1_1Test.html#ad32752b60ecc4cab1149d38c2bb2da7c',1,'aunit::Test']]],
   ['setverbosity',['setVerbosity',['../classaunit_1_1TestRunner.html#a70bcaa3a7c0c2a11266ba2c758f4cfc3',1,'aunit::TestRunner']]],
   ['skip',['skip',['../classaunit_1_1Test.html#a8fcf67b6fdec7a1fa364b1b0b07ff1e5',1,'aunit::Test']]],
-  ['skipnow',['skipNow',['../MetaAssertMacros_8h.html#a3fd8b67525add51dfac730887a361628',1,'MetaAssertMacros.h']]]
+  ['skiptestnow',['skipTestNow',['../MetaAssertMacros_8h.html#a90a70dc25d2628e1e9353736824117b5',1,'MetaAssertMacros.h']]]
 ];

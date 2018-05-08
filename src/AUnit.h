@@ -29,6 +29,15 @@ SOFTWARE.
  * <a href="https://github.com/bxparks/AUnit">AUnit Library</a>.
  */
 
+/**
+ * @file AUnit.h
+ *
+ * Same as AUnitVerbose.h except that the terse versions of the various
+ * assertXxx() macros are provided. These versions print only the values of the
+ * parameters given in the assert macros. They do not capture the source text
+ * of the assert parameters, which can reduce flash memory by 25-35%.
+ */
+
 #ifndef AUNIT_AUNIT_H
 #define AUNIT_AUNIT_H
 
@@ -46,6 +55,6 @@ SOFTWARE.
 #include "aunit/TestMacros.h"
 
 // Version format: xxyyzz == "xx.yy.zz"
-#define AUNIT_VERSION 000501
+#define AUNIT_VERSION 000502
 
 #endif
