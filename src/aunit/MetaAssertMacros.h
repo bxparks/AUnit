@@ -222,7 +222,7 @@ SOFTWARE.
  * Fail the current test, return immediately, and print a status message.
  * Similar to Test::fail() except that this prints a status message.
  */
-#define failNow() do {\
+#define failTestNow() do {\
   setStatusNow(__FILE__, __LINE__, kStatusFailed, AUNIT_FPSTR(kMessageFailed));\
   return;\
 } while (false)
@@ -231,7 +231,7 @@ SOFTWARE.
  * Pass the current test, print a status message, and return immediately.
  * Similar to Test::pass() except that this prints a status message.
  */
-#define passNow() do {\
+#define passTestNow() do {\
   setStatusNow(__FILE__, __LINE__, kStatusPassed, AUNIT_FPSTR(kMessagePassed));\
   return;\
 } while (false)
@@ -240,7 +240,7 @@ SOFTWARE.
  * Skip the current test, print a status message, and return immediately.
  * Similar to Test::skip() except that this prints a status message.
  */
-#define skipNow() do {\
+#define skipTestNow() do {\
   setStatusNow(__FILE__, __LINE__, kStatusSkipped,\
       AUNIT_FPSTR(kMessageSkipped));\
   return;\
@@ -250,7 +250,7 @@ SOFTWARE.
  * Expire the current test, print a status message, and return immediately.
  * Similar to Test::expire() except that this prints a status message.
  */
-#define expireNow() do {\
+#define expireTestNow() do {\
   setStatusNow(__FILE__, __LINE__, kStatusExpired,\
       AUNIT_FPSTR(kMessageExpired));\
   return;\

@@ -376,10 +376,10 @@ testing(timeout_after_10_seconds) {
 }
 
 // Each of the following should print a message and exit immediately.
-test(failNow) { failNow(); }
-test(passNow) { passNow(); }
-test(skipNow) { skipNow(); }
-test(expireNow) { expireNow(); }
+test(failTestNow) { failTestNow(); }
+test(passTestNow) { passTestNow(); }
+test(skipTestNow) { skipTestNow(); }
+test(expireTestNow) { expireTestNow(); }
 
 #if USE_AUNIT == 1
 

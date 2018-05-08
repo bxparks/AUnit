@@ -1,5 +1,9 @@
 # Changelog
 
+* 0.5.2 (2018-05-06)
+    * Rename failNow(), passNow(), skipNow(), expireNow() macros to
+      failTestNow(), passTestNow(), skipTestNow(), expireTestNow() to reduce
+      the chance of name collision.
 * 0.5.1 (2018-05-01)
     * Support ESP32.
     * Add failNow(), passNow(), skipNow() and expireNow() macros.
