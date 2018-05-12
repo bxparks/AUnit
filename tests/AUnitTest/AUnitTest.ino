@@ -213,6 +213,7 @@ test(compareStringN_WithNulls) {
 
 test(assertEqual) {
   assertEqual(true, true);
+  assertEqual(true, true);
   assertEqual(c, c);
   assertEqual(sc, sc);
   assertEqual(usc, usc);
@@ -224,6 +225,7 @@ test(assertEqual) {
   assertEqual(4UL, 4UL);
   assertEqual(4.0f, 4.0f);
   assertEqual(4.0, 4.0);
+  assertEqual((const char*) nullptr, (const char*) nullptr);
   assertEqual(a, a);
   assertEqual(aa, aa);
   assertEqual(f, f);
@@ -249,6 +251,7 @@ test(assertLess) {
   assertLess(3UL, 4UL);
   assertLess(3.0f, 4.0f);
   assertLess(3.0, 4.0);
+  assertLess((const char*) nullptr, b);
   assertLess(a, b);
   assertLess(aa, bb);
   assertLess(f, g);
@@ -274,6 +277,7 @@ test(assertMore) {
   assertMore(4UL, 3UL);
   assertMore(4.0f, 3.0f);
   assertMore(4.0, 3.0);
+  assertMore(a, (const char*) nullptr);
   assertMore(b, a);
   assertMore(bb, aa);
   assertMore(g, f);
@@ -299,6 +303,7 @@ test(assertLessOrEqual) {
   assertLessOrEqual(3UL, 4UL);
   assertLessOrEqual(4.0f, 4.0f);
   assertLessOrEqual(4.0, 4.0);
+  assertLessOrEqual((const char*) nullptr, b);
   assertLessOrEqual(a, b);
   assertLessOrEqual(aa, bb);
   assertLessOrEqual(f, g);
@@ -324,6 +329,7 @@ test(assertMoreOrEqual) {
   assertMoreOrEqual(4UL, 3UL);
   assertMoreOrEqual(4.0f, 4.0f);
   assertMoreOrEqual(4.0, 4.0);
+  assertMoreOrEqual(a, (const char*) nullptr);
   assertMoreOrEqual(b, a);
   assertMoreOrEqual(bb, aa);
   assertMoreOrEqual(g, f);
@@ -349,6 +355,7 @@ test(assertNotEqual) {
   assertNotEqual(4UL, 3UL);
   assertNotEqual(4.0f, 3.0f);
   assertNotEqual(4.0, 3.0);
+  assertNotEqual(a, (const char*) nullptr);
   assertNotEqual(b, a);
   assertNotEqual(bb, aa);
   assertNotEqual(g, f);
