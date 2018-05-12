@@ -60,11 +60,18 @@ SOFTWARE.
  * implemented using compareString().
  *
  * The compareStringN(a, b) functions are used only to implement the
- * TestRunner::include() and TestRunner::exclude() functions. The type of 'a'
- * could be any of the 3 string types, but 'b' can only (const char*) or (const
- * __FlashStringHelper*) so only 6 combinations are implemented. In practice,
- * the type of 'a' is also restricted to (const char*) or (const
- * __FlashStringHelper*) so only 4 of these compareStringN() are actually used.
+ * TestRunner::include() and TestRunner::exclude() functions. The supported
+ * types of 'a' and 'b' only need to be (const char*) or (const
+ * __FlashStringHelper*) so we get 4 combinations. Two more versions of
+ * compareStringN() are required to support FCString types for 'a'. That makes
+ * a total of 6.
+ *
+ * All versions of compareString() and compareStringN() accept nullptr
+ * arguments (in constrast to strcmp() and strncmp() where their behavior for
+ * nullptr are undefined by the C standard.) If both arguments are nullptr,
+ * then the strings are considered equal (returns 0). Otherwise, the nullptr is
+ * arbitrarily defined to be less than all non-null strings, including the
+ * empty string.
  */
 
 #ifndef AUNIT_COMPARE_H

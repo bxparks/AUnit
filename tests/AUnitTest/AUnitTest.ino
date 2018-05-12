@@ -118,34 +118,53 @@ test(type_mismatch) {
 
 #if USE_AUNIT == 1
 
-// We use if-statements instead of assertXxx() because compareXxx() is used by
-// the assertXxx() methods. Strictly speaking, it's not necessary because one
-// is a string compare and the other is an integer compare, but this feels
-// conceptually cleaner.
+// We use if-statements instead of assertXxx() because compareXxx() is a
+// lower-level function that the assertXxx() methods depend on.
 test(compareString) {
-  if (!(compareString(a, a) == 0)) { fail(); }
-  if (!(compareString(a, f) == 0)) { fail(); }
-  if (!(compareString(a, s) == 0)) { fail(); }
+  if (!(compareString(a, a) == 0)) { failTestNow(); }
+  if (!(compareString(a, f) == 0)) { failTestNow(); }
+  if (!(compareString(a, s) == 0)) { failTestNow(); }
 
-  if (!(compareString(f, a) == 0)) { fail(); }
-  if (!(compareString(f, f) == 0)) { fail(); }
-  if (!(compareString(f, s) == 0)) { fail(); }
+  if (!(compareString(f, a) == 0)) { failTestNow(); }
+  if (!(compareString(f, f) == 0)) { failTestNow(); }
+  if (!(compareString(f, s) == 0)) { failTestNow(); }
 
-  if (!(compareString(s, a) == 0)) { fail(); }
-  if (!(compareString(s, f) == 0)) { fail(); }
-  if (!(compareString(s, s) == 0)) { fail(); }
+  if (!(compareString(s, a) == 0)) { failTestNow(); }
+  if (!(compareString(s, f) == 0)) { failTestNow(); }
+  if (!(compareString(s, s) == 0)) { failTestNow(); }
 
-  if (!(compareString(a, b) < 0)) { fail(); }
-  if (!(compareString(a, g) < 0)) { fail(); }
-  if (!(compareString(a, t) < 0)) { fail(); }
+  if (!(compareString(a, b) < 0)) { failTestNow(); }
+  if (!(compareString(a, g) < 0)) { failTestNow(); }
+  if (!(compareString(a, t) < 0)) { failTestNow(); }
 
-  if (!(compareString(f, b) < 0)) { fail(); }
-  if (!(compareString(f, g) < 0)) { fail(); }
-  if (!(compareString(f, t) < 0)) { fail(); }
+  if (!(compareString(f, b) < 0)) { failTestNow(); }
+  if (!(compareString(f, g) < 0)) { failTestNow(); }
+  if (!(compareString(f, t) < 0)) { failTestNow(); }
 
-  if (!(compareString(s, b) < 0)) { fail(); }
-  if (!(compareString(s, g) < 0)) { fail(); }
-  if (!(compareString(s, t) < 0)) { fail(); }
+  if (!(compareString(s, b) < 0)) { failTestNow(); }
+  if (!(compareString(s, g) < 0)) { failTestNow(); }
+  if (!(compareString(s, t) < 0)) { failTestNow(); }
+}
+
+test(compareString_WithNulls) {
+  const char* const NULL_CSTRING = (const char*) nullptr;
+  const __FlashStringHelper* const NULL_FSTRING =
+      (const __FlashStringHelper*) nullptr;
+
+  if (!(compareString(NULL_CSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
+  if (!(compareString(a, NULL_CSTRING) > 0)) { failTestNow(); }
+  if (!(compareString(NULL_CSTRING, a) < 0)) { failTestNow(); }
+
+  if (!(compareString(NULL_FSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareString(f, NULL_FSTRING) > 0)) { failTestNow(); }
+  if (!(compareString(NULL_FSTRING, f) < 0)) { failTestNow(); }
+
+  if (!(compareString(NULL_FSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareString(s, NULL_FSTRING) > 0)) { failTestNow(); }
+  if (!(compareString(NULL_FSTRING, s) < 0)) { failTestNow(); }
+
+  if (!(compareString(NULL_CSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareString(NULL_FSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
 }
 
 // We use if-statements instead of assertXxx() because compareXxx() is used by
@@ -153,24 +172,41 @@ test(compareString) {
 // is a string compare and the other is an integer compare, but this feels
 // conceptually cleaner.
 test(compareStringN) {
-  if (!(compareStringN(ff, "abcde", 5) == 0)) { fail(); }
-  if (!(compareStringN("abcde", ff, 5) == 0)) { fail(); }
+  if (!(compareStringN(ff, "abcde", 5) == 0)) { failTestNow(); }
+  if (!(compareStringN("abcde", ff, 5) == 0)) { failTestNow(); }
 
-  if (!(compareStringN(ff, "abcd", 5) > 0)) { fail(); }
-  assertLess(compareStringN("abcd", ff, 5), 0);
+  if (!(compareStringN(ff, "abcd", 5) > 0)) { failTestNow(); }
+  if (!(compareStringN("abcd", ff, 5) < 0)) { failTestNow(); }
 
-  if (!(compareStringN(ff, "abcd", 4) == 0)) { fail(); }
-  if (!(compareStringN("abcd", ff, 4) == 0)) { fail(); }
+  if (!(compareStringN(ff, "abcd", 4) == 0)) { failTestNow(); }
+  if (!(compareStringN("abcd", ff, 4) == 0)) { failTestNow(); }
 
-  if (!(compareStringN(ff, "", 1) > 0)) { fail(); }
-  if (!(compareStringN("", ff, 1) < 0)) { fail(); }
+  if (!(compareStringN(ff, "", 1) > 0)) { failTestNow(); }
+  if (!(compareStringN("", ff, 1) < 0)) { failTestNow(); }
 
-  if (!(compareStringN(ff, "", 0) == 0)) { fail(); }
-  if (!(compareStringN("", ff, 0) == 0)) { fail(); }
+  if (!(compareStringN(ff, "", 0) == 0)) { failTestNow(); }
+  if (!(compareStringN("", ff, 0) == 0)) { failTestNow(); }
 
-  if (!(compareStringN(gg, ff, 5) == 0)) { fail(); }
+  if (!(compareStringN(gg, ff, 5) == 0)) { failTestNow(); }
 
-  if (!(compareStringN(gg, ff, 6) > 0)) { fail(); }
+  if (!(compareStringN(gg, ff, 6) > 0)) { failTestNow(); }
+}
+
+test(compareStringN_WithNulls) {
+  const char* const NULL_CSTRING = (const char*) nullptr;
+  const __FlashStringHelper* const NULL_FSTRING =
+      (const __FlashStringHelper*) nullptr;
+
+  if (!(compareStringN(NULL_CSTRING, NULL_CSTRING, 4) == 0)) { failTestNow(); }
+  if (!(compareStringN(a, NULL_CSTRING, 4) > 0)) { failTestNow(); }
+  if (!(compareStringN(NULL_CSTRING, a, 4) < 0)) { failTestNow(); }
+
+  if (!(compareStringN(NULL_FSTRING, NULL_FSTRING, 4) == 0)) { failTestNow(); }
+  if (!(compareStringN(f, NULL_FSTRING, 4) > 0)) { failTestNow(); }
+  if (!(compareStringN(NULL_FSTRING, f, 4) < 0)) { failTestNow(); }
+
+  if (!(compareString(NULL_CSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareString(NULL_FSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
 }
 
 #endif
@@ -518,7 +554,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    15 passed, 3 failed, 1 skipped, 2 timed out, out of 21 test(s).
+  //    17 passed, 3 failed, 1 skipped, 2 timed out, out of 23 test(s).
   TestRunner::run();
 #else
   // Should get something like:
