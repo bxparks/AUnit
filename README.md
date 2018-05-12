@@ -129,10 +129,14 @@ sketch directory. The `master` branch contains the stable release.
 Using either installation method, you may need to restart the Arduino IDE to
 pick up the new library.
 
-## Usage
+### Source Code
 
-In this section, information about differences between AUnit and ArduinoUnit
-will appear in a note marked by ***ArduinoUnit Compatibility***.
+The source files are organized as follows:
+* `src/AUnit.h` - main header file
+* `src/AUnitVerbose.h` - verbose version of main header file
+* `src/aunit/` - all implementation files
+* `tests/` - unit tests written using [AUnit](https://github.com/bxparks/AUnit)
+* `examples/` - example sketches
 
 ### Examples
 
@@ -167,6 +171,11 @@ have kept those tests backwards compatible. They do not use the new features of
 AUnit.
 
 The tests for AceSegment demonstrate the full power of AUnit better.
+
+## Usage
+
+In this section, information about differences between AUnit and ArduinoUnit
+will appear in a note marked by ***ArduinoUnit Compatibility***.
 
 ### Header and Namespace
 
