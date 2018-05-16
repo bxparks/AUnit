@@ -109,6 +109,29 @@ int compareString(const __FlashStringHelper* a, const String& b);
 
 int compareString(const FCString& a, const FCString& b);
 
+// compareStringCase() - case insensitive versions of compareString()
+
+int compareStringCase(const char* a, const char* b);
+
+int compareStringCase(const char* a, const String& b);
+
+int compareStringCase(const char* a, const __FlashStringHelper* b);
+
+int compareStringCase(const String& a, const char* b);
+
+int compareStringCase(const String& a, const String& b);
+
+int compareStringCase(const String& a, const __FlashStringHelper* b);
+
+int compareStringCase(const __FlashStringHelper* a, const char* b);
+
+int compareStringCase(const __FlashStringHelper* a,
+    const __FlashStringHelper* b);
+
+int compareStringCase(const __FlashStringHelper* a, const String& b);
+
+int compareStringCase(const FCString& a, const FCString& b);
+
 // compareStringN()
 //
 // These functions are used to implement the TestRunner::exclude() and
@@ -339,6 +362,48 @@ bool compareNotEqual(const String& a, const char* b);
 bool compareNotEqual(const String& a, const String& b);
 
 bool compareNotEqual(const String& a, const __FlashStringHelper* b);
+
+// compareStringCaseEqual
+
+bool compareStringCaseEqual(const char* a, const char* b);
+
+bool compareStringCaseEqual(const char* a, const String& b);
+
+bool compareStringCaseEqual(const char* a, const __FlashStringHelper* b);
+
+bool compareStringCaseEqual(const __FlashStringHelper* a, const char* b);
+
+bool compareStringCaseEqual( const __FlashStringHelper* a,
+    const __FlashStringHelper* b);
+
+bool compareStringCaseEqual(const __FlashStringHelper* a, const String& b);
+
+bool compareStringCaseEqual(const String& a, const char* b);
+
+bool compareStringCaseEqual(const String& a, const String& b);
+
+bool compareStringCaseEqual(const String& a, const __FlashStringHelper* b);
+
+// compareStringCaseNotEqual
+
+bool compareStringCaseNotEqual(const char* a, const char* b);
+
+bool compareStringCaseNotEqual(const char* a, const String& b);
+
+bool compareStringCaseNotEqual(const char* a, const __FlashStringHelper* b);
+
+bool compareStringCaseNotEqual(const __FlashStringHelper* a, const char* b);
+
+bool compareStringCaseNotEqual( const __FlashStringHelper* a,
+    const __FlashStringHelper* b);
+
+bool compareStringCaseNotEqual(const __FlashStringHelper* a, const String& b);
+
+bool compareStringCaseNotEqual(const String& a, const char* b);
+
+bool compareStringCaseNotEqual(const String& a, const String& b);
+
+bool compareStringCaseNotEqual(const String& a, const __FlashStringHelper* b);
 
 }
 }

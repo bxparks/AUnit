@@ -62,22 +62,45 @@ unsigned char usc = 4;
 unsigned char usd = 5;
 char c = 'a';
 char d = 'b';
+
 const char a[] = "a";
 const char b[] = "b";
+const char A[] = "A";
+const char B[] = "B";
+
 char aa[] = "a";
 char bb[] = "b";
+char AA[] = "A";
+char BB[] = "B";
+
 String s = "a";
 String t = "b";
+String S = "A";
+String T = "B";
+
 const char F_PROGMEM[] PROGMEM = "a";
 const char G_PROGMEM[] PROGMEM = "b";
 const __FlashStringHelper* f = FPSTR(F_PROGMEM);
 const __FlashStringHelper* g = FPSTR(G_PROGMEM);
+
+const char F_UPPER_PROGMEM[] PROGMEM = "A";
+const char G_UPPER_PROGMEM[] PROGMEM = "B";
+const __FlashStringHelper* F = FPSTR(F_UPPER_PROGMEM);
+const __FlashStringHelper* G = FPSTR(G_UPPER_PROGMEM);
+
 const char FF_PROGMEM[] PROGMEM = "abcde";
 const char GG_PROGMEM[] PROGMEM = "abcdef";
 const char HH_PROGMEM[] PROGMEM = "abcdeg";
 const __FlashStringHelper* ff = FPSTR(FF_PROGMEM);
 const __FlashStringHelper* gg = FPSTR(GG_PROGMEM);
 const __FlashStringHelper* hh = FPSTR(HH_PROGMEM);
+
+const char FF_UPPER_PROGMEM[] PROGMEM = "ABCDE";
+const char GG_UPPER_PROGMEM[] PROGMEM = "ABCDEF";
+const char HH_UPPER_PROGMEM[] PROGMEM = "ABCDEG";
+const __FlashStringHelper* FF = FPSTR(FF_UPPER_PROGMEM);
+const __FlashStringHelper* GG = FPSTR(GG_UPPER_PROGMEM);
+const __FlashStringHelper* HH = FPSTR(HH_UPPER_PROGMEM);
 
 // ------------------------------------------------------
 // Test the test() macro.
@@ -165,6 +188,54 @@ test(compareString_WithNulls) {
 
   if (!(compareString(NULL_CSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
   if (!(compareString(NULL_FSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
+}
+
+// Same as test(compareString) but case-insensitive.
+test(compareStringCase) {
+  if (!(compareStringCase(a, A) == 0)) { failTestNow(); }
+  if (!(compareStringCase(A, f) == 0)) { failTestNow(); }
+  if (!(compareStringCase(a, S) == 0)) { failTestNow(); }
+
+  if (!(compareStringCase(f, A) == 0)) { failTestNow(); }
+  if (!(compareStringCase(F, f) == 0)) { failTestNow(); }
+  if (!(compareStringCase(f, S) == 0)) { failTestNow(); }
+
+  if (!(compareStringCase(s, A) == 0)) { failTestNow(); }
+  if (!(compareStringCase(S, f) == 0)) { failTestNow(); }
+  if (!(compareStringCase(s, S) == 0)) { failTestNow(); }
+
+  if (!(compareStringCase(a, B) < 0)) { failTestNow(); }
+  if (!(compareStringCase(A, g) < 0)) { failTestNow(); }
+  if (!(compareStringCase(a, T) < 0)) { failTestNow(); }
+
+  if (!(compareStringCase(f, B) < 0)) { failTestNow(); }
+  if (!(compareStringCase(F, g) < 0)) { failTestNow(); }
+  if (!(compareStringCase(f, T) < 0)) { failTestNow(); }
+
+  if (!(compareStringCase(s, B) < 0)) { failTestNow(); }
+  if (!(compareStringCase(S, g) < 0)) { failTestNow(); }
+  if (!(compareStringCase(s, T) < 0)) { failTestNow(); }
+}
+
+test(compareStringCase_WithNulls) {
+  const char* const NULL_CSTRING = (const char*) nullptr;
+  const __FlashStringHelper* const NULL_FSTRING =
+      (const __FlashStringHelper*) nullptr;
+
+  if (!(compareStringCase(NULL_CSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
+  if (!(compareStringCase(a, NULL_CSTRING) > 0)) { failTestNow(); }
+  if (!(compareStringCase(NULL_CSTRING, a) < 0)) { failTestNow(); }
+
+  if (!(compareStringCase(NULL_FSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareStringCase(f, NULL_FSTRING) > 0)) { failTestNow(); }
+  if (!(compareStringCase(NULL_FSTRING, f) < 0)) { failTestNow(); }
+
+  if (!(compareStringCase(NULL_FSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareStringCase(s, NULL_FSTRING) > 0)) { failTestNow(); }
+  if (!(compareStringCase(NULL_FSTRING, s) < 0)) { failTestNow(); }
+
+  if (!(compareStringCase(NULL_CSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareStringCase(NULL_FSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
 }
 
 // We use if-statements instead of assertXxx() because compareXxx() is used by
@@ -368,6 +439,34 @@ test(assertNotEqual) {
   assertNotEqual(g, s);
 }
 
+test(assertStringCaseEqual) {
+  assertStringCaseEqual((const char*) nullptr, (const char*) nullptr);
+  assertStringCaseEqual(a, A);
+  assertStringCaseEqual(AA, aa);
+  assertStringCaseEqual(f, F);
+  assertStringCaseEqual(S, s);
+  assertStringCaseEqual(a, S);
+  assertStringCaseEqual(S, a);
+  assertStringCaseEqual(a, F);
+  assertStringCaseEqual(F, a);
+  assertStringCaseEqual(f, S);
+  assertStringCaseEqual(s, f);
+}
+
+test(assertStringCaseNotEqual) {
+  assertNotEqual(A, (const char*) nullptr);
+  assertNotEqual(b, A);
+  assertNotEqual(BB, aa);
+  assertNotEqual(g, F);
+  assertNotEqual(T, s);
+  assertNotEqual(t, A);
+  assertNotEqual(B, s);
+  assertNotEqual(g, A);
+  assertNotEqual(B, f);
+  assertNotEqual(t, F);
+  assertNotEqual(G, s);
+}
+
 test(assertTrue) {
   assertTrue(true);
   assertFalse(false);
@@ -561,7 +660,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    17 passed, 3 failed, 1 skipped, 2 timed out, out of 23 test(s).
+  //    21 passed, 3 failed, 1 skipped, 2 timed out, out of 27 test(s).
   TestRunner::run();
 #else
   // Should get something like:
