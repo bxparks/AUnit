@@ -11,6 +11,8 @@ var searchData=
   ['assertnotequal',['assertNotEqual',['../AssertMacros_8h.html#a8b6e553f85b2a168388016b5afbb0939',1,'assertNotEqual():&#160;AssertMacros.h'],['../AssertVerboseMacros_8h.html#a8b6e553f85b2a168388016b5afbb0939',1,'assertNotEqual():&#160;AssertVerboseMacros.h']]],
   ['assertopinternal',['assertOpInternal',['../AssertMacros_8h.html#ac6741e4107b23f341ed5126107d2de8f',1,'AssertMacros.h']]],
   ['assertopverboseinternal',['assertOpVerboseInternal',['../AssertVerboseMacros_8h.html#ad92562006e10094c25fcdc4d06e69363',1,'AssertVerboseMacros.h']]],
+  ['assertstringcaseequal',['assertStringCaseEqual',['../AssertMacros_8h.html#a023b4860f97c516ca1a539cc91cbad51',1,'assertStringCaseEqual():&#160;AssertMacros.h'],['../AssertVerboseMacros_8h.html#a023b4860f97c516ca1a539cc91cbad51',1,'assertStringCaseEqual():&#160;AssertVerboseMacros.h']]],
+  ['assertstringcasenotequal',['assertStringCaseNotEqual',['../AssertMacros_8h.html#a8e9e3a7160074ddad9893a4df32929d6',1,'assertStringCaseNotEqual():&#160;AssertMacros.h'],['../AssertVerboseMacros_8h.html#a8e9e3a7160074ddad9893a4df32929d6',1,'assertStringCaseNotEqual():&#160;AssertVerboseMacros.h']]],
   ['asserttestdone',['assertTestDone',['../MetaAssertMacros_8h.html#aae1db15fc5598a9df577abc10a9f0046',1,'MetaAssertMacros.h']]],
   ['asserttestdonef',['assertTestDoneF',['../MetaAssertMacros_8h.html#ab5c7b6225b495421800ac97dbb99ee53',1,'MetaAssertMacros.h']]],
   ['asserttestexpire',['assertTestExpire',['../MetaAssertMacros_8h.html#a9a036ed1288ea337e6c8971e99dfd7b8',1,'MetaAssertMacros.h']]],

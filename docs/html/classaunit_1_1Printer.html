@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.5.2</span>
+   &#160;<span id="projectnumber">0.5.3</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -85,19 +85,13 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a2d170283a810ddfec4a0f5744aab56dc"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Printer.html#a2d170283a810ddfec4a0f5744aab56dc">setPrinter</a> (Print *printer)</td></tr>
 <tr class="memdesc:a2d170283a810ddfec4a0f5744aab56dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the printer.  <a href="#a2d170283a810ddfec4a0f5744aab56dc">More...</a><br /></td></tr>
 <tr class="separator:a2d170283a810ddfec4a0f5744aab56dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78f742aa58d4d228d955cd4bc8df2b70"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Printer.html#a78f742aa58d4d228d955cd4bc8df2b70">print</a> (const <a class="el" href="classaunit_1_1internal_1_1FCString.html">internal::FCString</a> &amp;s)</td></tr>
-<tr class="memdesc:a78f742aa58d4d228d955cd4bc8df2b70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience method for printing an FCString.  <a href="#a78f742aa58d4d228d955cd4bc8df2b70">More...</a><br /></td></tr>
-<tr class="separator:a78f742aa58d4d228d955cd4bc8df2b70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6da8a675b7a08dc4163f32f5efbac08b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1Printer.html#a6da8a675b7a08dc4163f32f5efbac08b">println</a> (const <a class="el" href="classaunit_1_1internal_1_1FCString.html">internal::FCString</a> &amp;s)</td></tr>
-<tr class="memdesc:a6da8a675b7a08dc4163f32f5efbac08b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience method for printing an FCString.  <a href="#a6da8a675b7a08dc4163f32f5efbac08b">More...</a><br /></td></tr>
-<tr class="separator:a6da8a675b7a08dc4163f32f5efbac08b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Utility class that provides a level of indirection to the Print class where test results can be sent. </p>
 <p>By default, the Print object will be the Serial object. This can be changed using the <a class="el" href="classaunit_1_1Printer.html#a2d170283a810ddfec4a0f5744aab56dc" title="Set the printer. ">setPrinter()</a> method.</p>
 <p>This class assumes that it will be used after all static initializations have finished. Because static initialization ordering is undefined, if this utility is used during static initialization, the behaviour is undefined. </p>
 
-<p class="definition">Definition at line <a class="el" href="Printer_8h_source.html#l00045">45</a> of file <a class="el" href="Printer_8h_source.html">Printer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Printer_8h_source.html#l00041">41</a> of file <a class="el" href="Printer_8h_source.html">Printer.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae3783da78df10b7abff74826904ce5c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae3783da78df10b7abff74826904ce5c4">&#9670;&nbsp;</a></span>getPrinter()</h2>
@@ -125,67 +119,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Get the output printer used by the various assertion() methods and the <a class="el" href="classaunit_1_1TestRunner.html" title="The class that runs the various test cases defined by the test() and testing() macros. ">TestRunner</a>. </p>
 <p>The default is the predefined Serial object. Can be changed using the <a class="el" href="classaunit_1_1Printer.html#a2d170283a810ddfec4a0f5744aab56dc" title="Set the printer. ">setPrinter()</a> method. </p>
 
-<p class="definition">Definition at line <a class="el" href="Printer_8h_source.html#l00052">52</a> of file <a class="el" href="Printer_8h_source.html">Printer.h</a>.</p>
-
-</div>
-</div>
-<a id="a78f742aa58d4d228d955cd4bc8df2b70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78f742aa58d4d228d955cd4bc8df2b70">&#9670;&nbsp;</a></span>print()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void aunit::Printer::print </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classaunit_1_1internal_1_1FCString.html">internal::FCString</a> &amp;&#160;</td>
-          <td class="paramname"><em>s</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Convenience method for printing an FCString. </p>
-
-<p class="definition">Definition at line <a class="el" href="Printer_8cpp_source.html#l00033">33</a> of file <a class="el" href="Printer_8cpp_source.html">Printer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6da8a675b7a08dc4163f32f5efbac08b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6da8a675b7a08dc4163f32f5efbac08b">&#9670;&nbsp;</a></span>println()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void aunit::Printer::println </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classaunit_1_1internal_1_1FCString.html">internal::FCString</a> &amp;&#160;</td>
-          <td class="paramname"><em>s</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Convenience method for printing an FCString. </p>
-
-<p class="definition">Definition at line <a class="el" href="Printer_8cpp_source.html#l00041">41</a> of file <a class="el" href="Printer_8cpp_source.html">Printer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Printer_8h_source.html#l00048">48</a> of file <a class="el" href="Printer_8h_source.html">Printer.h</a>.</p>
 
 </div>
 </div>
@@ -215,7 +149,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Set the printer. </p>
 
-<p class="definition">Definition at line <a class="el" href="Printer_8h_source.html#l00055">55</a> of file <a class="el" href="Printer_8h_source.html">Printer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Printer_8h_source.html#l00051">51</a> of file <a class="el" href="Printer_8h_source.html">Printer.h</a>.</p>
 
 </div>
 </div>
