@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.5.2</span>
+   &#160;<span id="projectnumber">0.5.3</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -104,6 +104,12 @@ Macros</h2></td></tr>
 <tr class="memitem:a4e12af47bf69ae0007db97421cf12fdd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="AssertMacros_8h.html#a4e12af47bf69ae0007db97421cf12fdd">assertMoreOrEqual</a>(arg1,  arg2)&#160;&#160;&#160;<a class="el" href="AssertMacros_8h.html#ac6741e4107b23f341ed5126107d2de8f">assertOpInternal</a>(arg1,aunit::internal::compareMoreOrEqual,&quot;&gt;=&quot;,arg2)</td></tr>
 <tr class="memdesc:a4e12af47bf69ae0007db97421cf12fdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that arg1 is more than or equal to arg2.  <a href="#a4e12af47bf69ae0007db97421cf12fdd">More...</a><br /></td></tr>
 <tr class="separator:a4e12af47bf69ae0007db97421cf12fdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a023b4860f97c516ca1a539cc91cbad51"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="AssertMacros_8h.html#a023b4860f97c516ca1a539cc91cbad51">assertStringCaseEqual</a>(arg1,  arg2)&#160;&#160;&#160;<a class="el" href="AssertMacros_8h.html#ac6741e4107b23f341ed5126107d2de8f">assertOpInternal</a>(arg1,aunit::internal::compareStringCaseEqual,&quot;==&quot;,arg2)</td></tr>
+<tr class="memdesc:a023b4860f97c516ca1a539cc91cbad51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that string arg1 is equal to string arg2, case-insensitive.  <a href="#a023b4860f97c516ca1a539cc91cbad51">More...</a><br /></td></tr>
+<tr class="separator:a023b4860f97c516ca1a539cc91cbad51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e9e3a7160074ddad9893a4df32929d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="AssertMacros_8h.html#a8e9e3a7160074ddad9893a4df32929d6">assertStringCaseNotEqual</a>(arg1,  arg2)&#160;&#160;&#160;<a class="el" href="AssertMacros_8h.html#ac6741e4107b23f341ed5126107d2de8f">assertOpInternal</a>(arg1,aunit::internal::compareStringCaseNotEqual,&quot;!=&quot;,arg2)</td></tr>
+<tr class="memdesc:a8e9e3a7160074ddad9893a4df32929d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that string arg1 is not equal to string arg2, case-insensitive.  <a href="#a8e9e3a7160074ddad9893a4df32929d6">More...</a><br /></td></tr>
+<tr class="separator:a8e9e3a7160074ddad9893a4df32929d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf5260a4376989bd11cbbbb86843e381"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="AssertMacros_8h.html#abf5260a4376989bd11cbbbb86843e381">assertTrue</a>(arg)&#160;&#160;&#160;<a class="el" href="AssertMacros_8h.html#aa3035cdfef30a14c0205039b32be6758">assertBoolInternal</a>(arg,true)</td></tr>
 <tr class="memdesc:abf5260a4376989bd11cbbbb86843e381"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that arg is true.  <a href="#abf5260a4376989bd11cbbbb86843e381">More...</a><br /></td></tr>
 <tr class="separator:abf5260a4376989bd11cbbbb86843e381"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,7 +157,7 @@ Macros</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  if (!assertionBool(__FILE__,__LINE__,(arg),(value)))\</div><div class="line">    return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div></div><!-- fragment -->
 <p>Internal helper macro, shouldn't be called directly by users. </p>
 
-<p class="definition">Definition at line <a class="el" href="AssertMacros_8h_source.html#l00076">76</a> of file <a class="el" href="AssertMacros_8h_source.html">AssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AssertMacros_8h_source.html#l00084">84</a> of file <a class="el" href="AssertMacros_8h_source.html">AssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -205,7 +211,7 @@ Macros</h2></td></tr>
 
 <p>Assert that arg is false. </p>
 
-<p class="definition">Definition at line <a class="el" href="AssertMacros_8h_source.html#l00067">67</a> of file <a class="el" href="AssertMacros_8h_source.html">AssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AssertMacros_8h_source.html#l00075">75</a> of file <a class="el" href="AssertMacros_8h_source.html">AssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -409,7 +415,71 @@ Macros</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  if (!assertion(__FILE__,__LINE__,(arg1),opName,op,(arg2)))\</div><div class="line">    return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div></div><!-- fragment -->
 <p>Internal helper macro, shouldn't be called directly by users. </p>
 
-<p class="definition">Definition at line <a class="el" href="AssertMacros_8h_source.html#l00070">70</a> of file <a class="el" href="AssertMacros_8h_source.html">AssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AssertMacros_8h_source.html#l00078">78</a> of file <a class="el" href="AssertMacros_8h_source.html">AssertMacros.h</a>.</p>
+
+</div>
+</div>
+<a id="a023b4860f97c516ca1a539cc91cbad51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a023b4860f97c516ca1a539cc91cbad51">&#9670;&nbsp;</a></span>assertStringCaseEqual</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define assertStringCaseEqual</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">arg1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">arg2&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="AssertMacros_8h.html#ac6741e4107b23f341ed5126107d2de8f">assertOpInternal</a>(arg1,aunit::internal::compareStringCaseEqual,&quot;==&quot;,arg2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assert that string arg1 is equal to string arg2, case-insensitive. </p>
+
+<p class="definition">Definition at line <a class="el" href="AssertMacros_8h_source.html#l00064">64</a> of file <a class="el" href="AssertMacros_8h_source.html">AssertMacros.h</a>.</p>
+
+</div>
+</div>
+<a id="a8e9e3a7160074ddad9893a4df32929d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e9e3a7160074ddad9893a4df32929d6">&#9670;&nbsp;</a></span>assertStringCaseNotEqual</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define assertStringCaseNotEqual</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">arg1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">arg2&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="AssertMacros_8h.html#ac6741e4107b23f341ed5126107d2de8f">assertOpInternal</a>(arg1,aunit::internal::compareStringCaseNotEqual,&quot;!=&quot;,arg2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assert that string arg1 is not equal to string arg2, case-insensitive. </p>
+
+<p class="definition">Definition at line <a class="el" href="AssertMacros_8h_source.html#l00068">68</a> of file <a class="el" href="AssertMacros_8h_source.html">AssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -431,7 +501,7 @@ Macros</h2></td></tr>
 
 <p>Assert that arg is true. </p>
 
-<p class="definition">Definition at line <a class="el" href="AssertMacros_8h_source.html#l00064">64</a> of file <a class="el" href="AssertMacros_8h_source.html">AssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AssertMacros_8h_source.html#l00072">72</a> of file <a class="el" href="AssertMacros_8h_source.html">AssertMacros.h</a>.</p>
 
 </div>
 </div>

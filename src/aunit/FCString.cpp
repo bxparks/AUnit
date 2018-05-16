@@ -22,33 +22,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/**
- * @file AUnitVerbose.h
- *
- * Same as AUnit.h except that the verbose versions of the various assertXxx()
- * macros are provided. These capture the strings of the actual arguments in
- * the assert macros and print more verbose and helpful messages in the same
- * format used by ArduinoUnit. The cost is 20-25% increase in flash memory to
- * hold those strings for medium to large unit tests.
- */
+#include <Print.h>
+#include "FCString.h"
 
-#ifndef AUNIT_AUNIT_VERBOSE_H
-#define AUNIT_AUNIT_VERBOSE_H
+namespace aunit {
+namespace internal {
 
-#include "aunit/Verbosity.h"
-#include "aunit/Compare.h"
-#include "aunit/Printer.h"
-#include "aunit/Test.h"
-#include "aunit/Assertion.h"
-#include "aunit/MetaAssertion.h"
-#include "aunit/TestOnce.h"
-#include "aunit/TestAgain.h"
-#include "aunit/TestRunner.h"
-#include "aunit/AssertVerboseMacros.h" // verbose assertXxx() macros
-#include "aunit/MetaAssertMacros.h"
-#include "aunit/TestMacros.h"
+void FCString::print(Print* printer) const {
+  if (mStringType == kCStringType) {
+    printer->print(getCString());
+  } else {
+    printer->print(getFString());
+  }
+}
 
-// Version format: xxyyzz == "xx.yy.zz"
-#define AUNIT_VERSION 000503
+void FCString::println(Print* printer) const {
+  if (mStringType == kCStringType) {
+    printer->println(getCString());
+  } else {
+    printer->println(getFString());
+  }
+}
 
-#endif
+}
+}

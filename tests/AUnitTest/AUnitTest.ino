@@ -62,22 +62,45 @@ unsigned char usc = 4;
 unsigned char usd = 5;
 char c = 'a';
 char d = 'b';
+
 const char a[] = "a";
 const char b[] = "b";
+const char A[] = "A";
+const char B[] = "B";
+
 char aa[] = "a";
 char bb[] = "b";
+char AA[] = "A";
+char BB[] = "B";
+
 String s = "a";
 String t = "b";
+String S = "A";
+String T = "B";
+
 const char F_PROGMEM[] PROGMEM = "a";
 const char G_PROGMEM[] PROGMEM = "b";
 const __FlashStringHelper* f = FPSTR(F_PROGMEM);
 const __FlashStringHelper* g = FPSTR(G_PROGMEM);
+
+const char F_UPPER_PROGMEM[] PROGMEM = "A";
+const char G_UPPER_PROGMEM[] PROGMEM = "B";
+const __FlashStringHelper* F = FPSTR(F_UPPER_PROGMEM);
+const __FlashStringHelper* G = FPSTR(G_UPPER_PROGMEM);
+
 const char FF_PROGMEM[] PROGMEM = "abcde";
 const char GG_PROGMEM[] PROGMEM = "abcdef";
 const char HH_PROGMEM[] PROGMEM = "abcdeg";
 const __FlashStringHelper* ff = FPSTR(FF_PROGMEM);
 const __FlashStringHelper* gg = FPSTR(GG_PROGMEM);
 const __FlashStringHelper* hh = FPSTR(HH_PROGMEM);
+
+const char FF_UPPER_PROGMEM[] PROGMEM = "ABCDE";
+const char GG_UPPER_PROGMEM[] PROGMEM = "ABCDEF";
+const char HH_UPPER_PROGMEM[] PROGMEM = "ABCDEG";
+const __FlashStringHelper* FF = FPSTR(FF_UPPER_PROGMEM);
+const __FlashStringHelper* GG = FPSTR(GG_UPPER_PROGMEM);
+const __FlashStringHelper* HH = FPSTR(HH_UPPER_PROGMEM);
 
 // ------------------------------------------------------
 // Test the test() macro.
@@ -118,34 +141,101 @@ test(type_mismatch) {
 
 #if USE_AUNIT == 1
 
-// We use if-statements instead of assertXxx() because compareXxx() is used by
-// the assertXxx() methods. Strictly speaking, it's not necessary because one
-// is a string compare and the other is an integer compare, but this feels
-// conceptually cleaner.
+// We use if-statements instead of assertXxx() because compareXxx() is a
+// lower-level function that the assertXxx() methods depend on.
 test(compareString) {
-  if (!(compareString(a, a) == 0)) { fail(); }
-  if (!(compareString(a, f) == 0)) { fail(); }
-  if (!(compareString(a, s) == 0)) { fail(); }
+  if (!(compareString(a, a) == 0)) { failTestNow(); }
+  if (!(compareString(a, f) == 0)) { failTestNow(); }
+  if (!(compareString(a, s) == 0)) { failTestNow(); }
 
-  if (!(compareString(f, a) == 0)) { fail(); }
-  if (!(compareString(f, f) == 0)) { fail(); }
-  if (!(compareString(f, s) == 0)) { fail(); }
+  if (!(compareString(f, a) == 0)) { failTestNow(); }
+  if (!(compareString(f, f) == 0)) { failTestNow(); }
+  if (!(compareString(f, s) == 0)) { failTestNow(); }
 
-  if (!(compareString(s, a) == 0)) { fail(); }
-  if (!(compareString(s, f) == 0)) { fail(); }
-  if (!(compareString(s, s) == 0)) { fail(); }
+  if (!(compareString(s, a) == 0)) { failTestNow(); }
+  if (!(compareString(s, f) == 0)) { failTestNow(); }
+  if (!(compareString(s, s) == 0)) { failTestNow(); }
 
-  if (!(compareString(a, b) < 0)) { fail(); }
-  if (!(compareString(a, g) < 0)) { fail(); }
-  if (!(compareString(a, t) < 0)) { fail(); }
+  if (!(compareString(a, b) < 0)) { failTestNow(); }
+  if (!(compareString(a, g) < 0)) { failTestNow(); }
+  if (!(compareString(a, t) < 0)) { failTestNow(); }
 
-  if (!(compareString(f, b) < 0)) { fail(); }
-  if (!(compareString(f, g) < 0)) { fail(); }
-  if (!(compareString(f, t) < 0)) { fail(); }
+  if (!(compareString(f, b) < 0)) { failTestNow(); }
+  if (!(compareString(f, g) < 0)) { failTestNow(); }
+  if (!(compareString(f, t) < 0)) { failTestNow(); }
 
-  if (!(compareString(s, b) < 0)) { fail(); }
-  if (!(compareString(s, g) < 0)) { fail(); }
-  if (!(compareString(s, t) < 0)) { fail(); }
+  if (!(compareString(s, b) < 0)) { failTestNow(); }
+  if (!(compareString(s, g) < 0)) { failTestNow(); }
+  if (!(compareString(s, t) < 0)) { failTestNow(); }
+}
+
+test(compareString_WithNulls) {
+  const char* const NULL_CSTRING = (const char*) nullptr;
+  const __FlashStringHelper* const NULL_FSTRING =
+      (const __FlashStringHelper*) nullptr;
+
+  if (!(compareString(NULL_CSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
+  if (!(compareString(a, NULL_CSTRING) > 0)) { failTestNow(); }
+  if (!(compareString(NULL_CSTRING, a) < 0)) { failTestNow(); }
+
+  if (!(compareString(NULL_FSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareString(f, NULL_FSTRING) > 0)) { failTestNow(); }
+  if (!(compareString(NULL_FSTRING, f) < 0)) { failTestNow(); }
+
+  if (!(compareString(NULL_FSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareString(s, NULL_FSTRING) > 0)) { failTestNow(); }
+  if (!(compareString(NULL_FSTRING, s) < 0)) { failTestNow(); }
+
+  if (!(compareString(NULL_CSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareString(NULL_FSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
+}
+
+// Same as test(compareString) but case-insensitive.
+test(compareStringCase) {
+  if (!(compareStringCase(a, A) == 0)) { failTestNow(); }
+  if (!(compareStringCase(A, f) == 0)) { failTestNow(); }
+  if (!(compareStringCase(a, S) == 0)) { failTestNow(); }
+
+  if (!(compareStringCase(f, A) == 0)) { failTestNow(); }
+  if (!(compareStringCase(F, f) == 0)) { failTestNow(); }
+  if (!(compareStringCase(f, S) == 0)) { failTestNow(); }
+
+  if (!(compareStringCase(s, A) == 0)) { failTestNow(); }
+  if (!(compareStringCase(S, f) == 0)) { failTestNow(); }
+  if (!(compareStringCase(s, S) == 0)) { failTestNow(); }
+
+  if (!(compareStringCase(a, B) < 0)) { failTestNow(); }
+  if (!(compareStringCase(A, g) < 0)) { failTestNow(); }
+  if (!(compareStringCase(a, T) < 0)) { failTestNow(); }
+
+  if (!(compareStringCase(f, B) < 0)) { failTestNow(); }
+  if (!(compareStringCase(F, g) < 0)) { failTestNow(); }
+  if (!(compareStringCase(f, T) < 0)) { failTestNow(); }
+
+  if (!(compareStringCase(s, B) < 0)) { failTestNow(); }
+  if (!(compareStringCase(S, g) < 0)) { failTestNow(); }
+  if (!(compareStringCase(s, T) < 0)) { failTestNow(); }
+}
+
+test(compareStringCase_WithNulls) {
+  const char* const NULL_CSTRING = (const char*) nullptr;
+  const __FlashStringHelper* const NULL_FSTRING =
+      (const __FlashStringHelper*) nullptr;
+
+  if (!(compareStringCase(NULL_CSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
+  if (!(compareStringCase(a, NULL_CSTRING) > 0)) { failTestNow(); }
+  if (!(compareStringCase(NULL_CSTRING, a) < 0)) { failTestNow(); }
+
+  if (!(compareStringCase(NULL_FSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareStringCase(f, NULL_FSTRING) > 0)) { failTestNow(); }
+  if (!(compareStringCase(NULL_FSTRING, f) < 0)) { failTestNow(); }
+
+  if (!(compareStringCase(NULL_FSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareStringCase(s, NULL_FSTRING) > 0)) { failTestNow(); }
+  if (!(compareStringCase(NULL_FSTRING, s) < 0)) { failTestNow(); }
+
+  if (!(compareStringCase(NULL_CSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareStringCase(NULL_FSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
 }
 
 // We use if-statements instead of assertXxx() because compareXxx() is used by
@@ -153,29 +243,47 @@ test(compareString) {
 // is a string compare and the other is an integer compare, but this feels
 // conceptually cleaner.
 test(compareStringN) {
-  if (!(compareStringN(ff, "abcde", 5) == 0)) { fail(); }
-  if (!(compareStringN("abcde", ff, 5) == 0)) { fail(); }
+  if (!(compareStringN(ff, "abcde", 5) == 0)) { failTestNow(); }
+  if (!(compareStringN("abcde", ff, 5) == 0)) { failTestNow(); }
 
-  if (!(compareStringN(ff, "abcd", 5) > 0)) { fail(); }
-  assertLess(compareStringN("abcd", ff, 5), 0);
+  if (!(compareStringN(ff, "abcd", 5) > 0)) { failTestNow(); }
+  if (!(compareStringN("abcd", ff, 5) < 0)) { failTestNow(); }
 
-  if (!(compareStringN(ff, "abcd", 4) == 0)) { fail(); }
-  if (!(compareStringN("abcd", ff, 4) == 0)) { fail(); }
+  if (!(compareStringN(ff, "abcd", 4) == 0)) { failTestNow(); }
+  if (!(compareStringN("abcd", ff, 4) == 0)) { failTestNow(); }
 
-  if (!(compareStringN(ff, "", 1) > 0)) { fail(); }
-  if (!(compareStringN("", ff, 1) < 0)) { fail(); }
+  if (!(compareStringN(ff, "", 1) > 0)) { failTestNow(); }
+  if (!(compareStringN("", ff, 1) < 0)) { failTestNow(); }
 
-  if (!(compareStringN(ff, "", 0) == 0)) { fail(); }
-  if (!(compareStringN("", ff, 0) == 0)) { fail(); }
+  if (!(compareStringN(ff, "", 0) == 0)) { failTestNow(); }
+  if (!(compareStringN("", ff, 0) == 0)) { failTestNow(); }
 
-  if (!(compareStringN(gg, ff, 5) == 0)) { fail(); }
+  if (!(compareStringN(gg, ff, 5) == 0)) { failTestNow(); }
 
-  if (!(compareStringN(gg, ff, 6) > 0)) { fail(); }
+  if (!(compareStringN(gg, ff, 6) > 0)) { failTestNow(); }
+}
+
+test(compareStringN_WithNulls) {
+  const char* const NULL_CSTRING = (const char*) nullptr;
+  const __FlashStringHelper* const NULL_FSTRING =
+      (const __FlashStringHelper*) nullptr;
+
+  if (!(compareStringN(NULL_CSTRING, NULL_CSTRING, 4) == 0)) { failTestNow(); }
+  if (!(compareStringN(a, NULL_CSTRING, 4) > 0)) { failTestNow(); }
+  if (!(compareStringN(NULL_CSTRING, a, 4) < 0)) { failTestNow(); }
+
+  if (!(compareStringN(NULL_FSTRING, NULL_FSTRING, 4) == 0)) { failTestNow(); }
+  if (!(compareStringN(f, NULL_FSTRING, 4) > 0)) { failTestNow(); }
+  if (!(compareStringN(NULL_FSTRING, f, 4) < 0)) { failTestNow(); }
+
+  if (!(compareString(NULL_CSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
+  if (!(compareString(NULL_FSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
 }
 
 #endif
 
 test(assertEqual) {
+  assertEqual(true, true);
   assertEqual(true, true);
   assertEqual(c, c);
   assertEqual(sc, sc);
@@ -188,6 +296,7 @@ test(assertEqual) {
   assertEqual(4UL, 4UL);
   assertEqual(4.0f, 4.0f);
   assertEqual(4.0, 4.0);
+  assertEqual((const char*) nullptr, (const char*) nullptr);
   assertEqual(a, a);
   assertEqual(aa, aa);
   assertEqual(f, f);
@@ -213,6 +322,7 @@ test(assertLess) {
   assertLess(3UL, 4UL);
   assertLess(3.0f, 4.0f);
   assertLess(3.0, 4.0);
+  assertLess((const char*) nullptr, b);
   assertLess(a, b);
   assertLess(aa, bb);
   assertLess(f, g);
@@ -238,6 +348,7 @@ test(assertMore) {
   assertMore(4UL, 3UL);
   assertMore(4.0f, 3.0f);
   assertMore(4.0, 3.0);
+  assertMore(a, (const char*) nullptr);
   assertMore(b, a);
   assertMore(bb, aa);
   assertMore(g, f);
@@ -263,6 +374,7 @@ test(assertLessOrEqual) {
   assertLessOrEqual(3UL, 4UL);
   assertLessOrEqual(4.0f, 4.0f);
   assertLessOrEqual(4.0, 4.0);
+  assertLessOrEqual((const char*) nullptr, b);
   assertLessOrEqual(a, b);
   assertLessOrEqual(aa, bb);
   assertLessOrEqual(f, g);
@@ -288,6 +400,7 @@ test(assertMoreOrEqual) {
   assertMoreOrEqual(4UL, 3UL);
   assertMoreOrEqual(4.0f, 4.0f);
   assertMoreOrEqual(4.0, 4.0);
+  assertMoreOrEqual(a, (const char*) nullptr);
   assertMoreOrEqual(b, a);
   assertMoreOrEqual(bb, aa);
   assertMoreOrEqual(g, f);
@@ -313,6 +426,7 @@ test(assertNotEqual) {
   assertNotEqual(4UL, 3UL);
   assertNotEqual(4.0f, 3.0f);
   assertNotEqual(4.0, 3.0);
+  assertNotEqual(a, (const char*) nullptr);
   assertNotEqual(b, a);
   assertNotEqual(bb, aa);
   assertNotEqual(g, f);
@@ -323,6 +437,34 @@ test(assertNotEqual) {
   assertNotEqual(b, f);
   assertNotEqual(t, f);
   assertNotEqual(g, s);
+}
+
+test(assertStringCaseEqual) {
+  assertStringCaseEqual((const char*) nullptr, (const char*) nullptr);
+  assertStringCaseEqual(a, A);
+  assertStringCaseEqual(AA, aa);
+  assertStringCaseEqual(f, F);
+  assertStringCaseEqual(S, s);
+  assertStringCaseEqual(a, S);
+  assertStringCaseEqual(S, a);
+  assertStringCaseEqual(a, F);
+  assertStringCaseEqual(F, a);
+  assertStringCaseEqual(f, S);
+  assertStringCaseEqual(s, f);
+}
+
+test(assertStringCaseNotEqual) {
+  assertNotEqual(A, (const char*) nullptr);
+  assertNotEqual(b, A);
+  assertNotEqual(BB, aa);
+  assertNotEqual(g, F);
+  assertNotEqual(T, s);
+  assertNotEqual(t, A);
+  assertNotEqual(B, s);
+  assertNotEqual(g, A);
+  assertNotEqual(B, f);
+  assertNotEqual(t, F);
+  assertNotEqual(G, s);
 }
 
 test(assertTrue) {
@@ -518,7 +660,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    15 passed, 3 failed, 1 skipped, 2 timed out, out of 21 test(s).
+  //    21 passed, 3 failed, 1 skipped, 2 timed out, out of 27 test(s).
   TestRunner::run();
 #else
   // Should get something like:

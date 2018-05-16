@@ -60,6 +60,16 @@ SOFTWARE.
 #define assertMoreOrEqual(arg1,arg2) \
     assertOpVerboseInternal(arg1,aunit::internal::compareMoreOrEqual,">=",arg2)
 
+/** Assert that string arg1 is equal to string arg2, case-insensitive. */
+#define assertStringCaseEqual(arg1,arg2) \
+    assertOpVerboseInternal(arg1,aunit::internal::compareStringCaseEqual,\
+    "==",arg2)
+
+/** Assert that string arg1 is not equal to string arg2, case-insensitive. */
+#define assertStringCaseNotEqual(arg1,arg2) \
+    assertOpVerboseInternal(arg1,aunit::internal::compareStringCaseNotEqual,\
+    "!=",arg2)
+
 /** Assert that arg is true. */
 #define assertTrue(arg) assertBoolVerboseInternal(arg,true)
 

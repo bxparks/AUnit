@@ -128,40 +128,57 @@ namespace internal {
 
 class FCString;
 
+//---------------------------------------------------------------------------
 // compareString()
+//---------------------------------------------------------------------------
 
 int compareString(const char* a, const char* b) {
+  if (a == b) { return 0; }
+  if (a == nullptr) { return -1; }
+  if (b == nullptr) { return 1; }
   return strcmp(a, b);
 }
 
 int compareString(const char* a, const String& b) {
+  if (a == nullptr) { return -1; }
   return strcmp(a, b.c_str());
 }
 
 int compareString(const char* a, const __FlashStringHelper* b) {
+  if (a == (const char*)b) { return 0; }
+  if (a == nullptr) { return -1; }
+  if (b == nullptr) { return 1; }
   return strcmp_P(a, (const char*)b);
 }
 
 int compareString(const String& a, const char* b) {
-  return strcmp(a.c_str(), b);
+  return -compareString(b, a);
 }
 
 int compareString(const String& a, const String& b) {
-  return a.compareTo(b);
+  return strcmp(a.c_str(), b.c_str());
 }
 
 int compareString(const String& a, const __FlashStringHelper* b) {
+  if (b == nullptr) { return 1; }
   return strcmp_P(a.c_str(), (const char*)b);
 }
 
 int compareString(const __FlashStringHelper* a, const char* b) {
-  return -strcmp_P(b, (const char*) a);
+  return -compareString(b, a);
+}
+
+int compareString(const __FlashStringHelper* a, const String& b) {
+  return -compareString(b, a);
 }
 
 // On ESP8266, pgm_read_byte() already takes care of 4-byte alignment, and
 // memcpy_P(s, p, 4) makes 4 calls to pgm_read_byte() anyway, so don't bother
 // optimizing for 4-byte alignment here.
 int compareString(const __FlashStringHelper* a, const __FlashStringHelper* b) {
+  if (a == b) { return 0; }
+  if (a == nullptr) { return -1; }
+  if (b == nullptr) { return 1; }
   const char* aa = reinterpret_cast<const char*>(a);
   const char* bb = reinterpret_cast<const char*>(b);
 
@@ -173,10 +190,6 @@ int compareString(const __FlashStringHelper* a, const __FlashStringHelper* b) {
     aa++;
     bb++;
   }
-}
-
-int compareString(const __FlashStringHelper* a, const String& b) {
-  return -strcmp_P(b.c_str(), (const char*)a);
 }
 
 int compareString(const FCString& a, const FCString& b) {
@@ -195,18 +208,97 @@ int compareString(const FCString& a, const FCString& b) {
   }
 }
 
-// compareStringN()
+//---------------------------------------------------------------------------
+// compareStringCase()
+//---------------------------------------------------------------------------
+
+int compareStringCase(const char* a, const char* b) {
+  if (a == b) { return 0; }
+  if (a == nullptr) { return -1; }
+  if (b == nullptr) { return 1; }
+  return strcasecmp(a, b);
+}
+
+int compareStringCase(const char* a, const String& b) {
+  if (a == nullptr) { return -1; }
+  return strcasecmp(a, b.c_str());
+}
+
+int compareStringCase(const char* a, const __FlashStringHelper* b) {
+  if (a == (const char*)b) { return 0; }
+  if (a == nullptr) { return -1; }
+  if (b == nullptr) { return 1; }
+  return strcasecmp_P(a, (const char*)b);
+}
+
+int compareStringCase(const String& a, const char* b) {
+  return -compareStringCase(b, a);
+}
+
+int compareStringCase(const String& a, const String& b) {
+  return strcasecmp(a.c_str(), b.c_str());
+}
+
+int compareStringCase(const String& a, const __FlashStringHelper* b) {
+  if (b == nullptr) { return 1; }
+  return strcasecmp_P(a.c_str(), (const char*)b);
+}
+
+int compareStringCase(const __FlashStringHelper* a, const char* b) {
+  return -compareStringCase(b, a);
+}
+
+int compareStringCase(const __FlashStringHelper* a, const String& b) {
+  return -compareStringCase(b, a);
+}
+
+// On ESP8266, pgm_read_byte() already takes care of 4-byte alignment, and
+// memcpy_P(s, p, 4) makes 4 calls to pgm_read_byte() anyway, so don't bother
+// optimizing for 4-byte alignment here.
+int compareStringCase(const __FlashStringHelper* a,
+    const __FlashStringHelper* b) {
+  if (a == b) { return 0; }
+  if (a == nullptr) { return -1; }
+  if (b == nullptr) { return 1; }
+  const char* aa = reinterpret_cast<const char*>(a);
+  const char* bb = reinterpret_cast<const char*>(b);
+
+  while (true) {
+    uint8_t ca = pgm_read_byte(aa);
+    uint8_t cb = pgm_read_byte(bb);
+    uint8_t la = tolower(ca);
+    uint8_t lb = tolower(cb);
+    if (la != lb) return (int) la - (int) lb;
+    if (ca == '\0') return 0;
+    aa++;
+    bb++;
+  }
+}
+
+//---------------------------------------------------------------------------
+// compareStringN
+//---------------------------------------------------------------------------
+
+// We need compareStringN() to support only (const char*) and (const
+// __FlashStringHelper*). And it turns out that compareStringN(a, b, N) ==
+// -compareString(b, a, N).
 
 int compareStringN(const char* a, const char* b, size_t n) {
+  if (a == b) { return 0; }
+  if (a == nullptr) { return -1; }
+  if (b == nullptr) { return 1; }
   return strncmp(a, b, n);
 }
 
 int compareStringN(const char* a, const __FlashStringHelper* b, size_t n) {
+  if (a == (const char*) b) { return 0; }
+  if (a == nullptr) { return -1; }
+  if (b == nullptr) { return 1; }
   return strncmp_P(a, (const char*)b, n);
 }
 
 int compareStringN(const __FlashStringHelper* a, const char* b, size_t n) {
-  return -strncmp_P(b, (const char*)a, n);
+  return -compareStringN(b, a, n);
 }
 
 // On ESP8266, pgm_read_byte() already takes care of 4-byte alignment, and
@@ -214,6 +306,9 @@ int compareStringN(const __FlashStringHelper* a, const char* b, size_t n) {
 // optimizing for 4-byte alignment here.
 int compareStringN(const __FlashStringHelper* a, const __FlashStringHelper* b,
     size_t n) {
+  if (a == b) { return 0; }
+  if (a == nullptr) { return -1; }
+  if (b == nullptr) { return 1; }
   const char* aa = reinterpret_cast<const char*>(a);
   const char* bb = reinterpret_cast<const char*>(b);
 
@@ -228,6 +323,8 @@ int compareStringN(const __FlashStringHelper* a, const __FlashStringHelper* b,
   }
   return 0;
 }
+
+// Following used only by TestRunner::exclude() and include().
 
 int compareStringN(const FCString& a, const char* b, size_t n) {
   if (a.getType() == FCString::kCStringType) {
@@ -245,7 +342,9 @@ int compareStringN(const FCString& a, const __FlashStringHelper* b, size_t n) {
   }
 }
 
+//---------------------------------------------------------------------------
 // compareEqual()
+//---------------------------------------------------------------------------
 
 bool compareEqual(bool a, bool b) {
   return (a == b);
@@ -311,7 +410,9 @@ bool compareEqual(const String& a, const __FlashStringHelper* b) {
   return compareString(a, b) == 0;
 }
 
+//---------------------------------------------------------------------------
 // compareLess()
+//---------------------------------------------------------------------------
 
 bool compareLess(bool a, bool b) {
   return (a < b);
@@ -378,7 +479,9 @@ bool compareLess(const String& a, const __FlashStringHelper* b) {
   return compareString(a, b) < 0;
 }
 
+//---------------------------------------------------------------------------
 // compareMore()
+//---------------------------------------------------------------------------
 
 bool compareMore(bool a, bool b) {
   return (a > b);
@@ -444,7 +547,9 @@ bool compareMore(const String& a, const __FlashStringHelper* b) {
   return compareString(a, b) > 0;
 }
 
+//---------------------------------------------------------------------------
 // compareLessOrEqual
+//---------------------------------------------------------------------------
 
 bool compareLessOrEqual(bool a, bool b) {
   return (a <= b);
@@ -511,7 +616,9 @@ bool compareLessOrEqual(const String& a, const __FlashStringHelper* b) {
   return compareString(a, b) <= 0;
 }
 
+//---------------------------------------------------------------------------
 // compareMoreOrEqual
+//---------------------------------------------------------------------------
 
 bool compareMoreOrEqual(bool a, bool b) {
   return (a >= b);
@@ -578,7 +685,9 @@ bool compareMoreOrEqual(const String& a, const __FlashStringHelper* b) {
   return compareString(a, b) >= 0;
 }
 
+//---------------------------------------------------------------------------
 // compareNotEqual
+//---------------------------------------------------------------------------
 
 bool compareNotEqual(bool a, bool b) {
   return (a != b);
@@ -643,6 +752,88 @@ bool compareNotEqual(const String& a, const String& b) {
 
 bool compareNotEqual(const String& a, const __FlashStringHelper* b) {
   return compareString(a, b) != 0;
+}
+
+//---------------------------------------------------------------------------
+// compareStringCaseEqual()
+//---------------------------------------------------------------------------
+
+bool compareStringCaseEqual(const char* a, const char* b) {
+  return compareStringCase(a, b) == 0;
+}
+
+bool compareStringCaseEqual(const char* a, const String& b) {
+  return compareStringCase(a, b) == 0;
+}
+
+bool compareStringCaseEqual(const char* a, const __FlashStringHelper* b) {
+  return compareStringCase(a, b) == 0;
+}
+
+bool compareStringCaseEqual(const __FlashStringHelper* a, const char* b) {
+  return compareStringCase(a, b) == 0;
+}
+
+bool compareStringCaseEqual(const __FlashStringHelper* a,
+    const __FlashStringHelper* b) {
+  return compareStringCase(a, b) == 0;
+}
+
+bool compareStringCaseEqual(const __FlashStringHelper* a, const String& b) {
+  return compareStringCase(a, b) == 0;
+}
+
+bool compareStringCaseEqual(const String& a, const char* b) {
+  return compareStringCase(a, b) == 0;
+}
+
+bool compareStringCaseEqual(const String& a, const String& b) {
+  return compareStringCase(a, b) == 0;
+}
+
+bool compareStringCaseEqual(const String& a, const __FlashStringHelper* b) {
+  return compareStringCase(a, b) == 0;
+}
+
+//---------------------------------------------------------------------------
+// compareStringCaseNotEqual()
+//---------------------------------------------------------------------------
+
+bool compareStringCaseNotEqual(const char* a, const char* b) {
+  return compareStringCase(a, b) != 0;
+}
+
+bool compareStringCaseNotEqual(const char* a, const String& b) {
+  return compareStringCase(a, b) != 0;
+}
+
+bool compareStringCaseNotEqual(const char* a, const __FlashStringHelper* b) {
+  return compareStringCase(a, b) != 0;
+}
+
+bool compareStringCaseNotEqual(const __FlashStringHelper* a, const char* b) {
+  return compareStringCase(a, b) != 0;
+}
+
+bool compareStringCaseNotEqual(const __FlashStringHelper* a,
+    const __FlashStringHelper* b) {
+  return compareStringCase(a, b) != 0;
+}
+
+bool compareStringCaseNotEqual(const __FlashStringHelper* a, const String& b) {
+  return compareStringCase(a, b) != 0;
+}
+
+bool compareStringCaseNotEqual(const String& a, const char* b) {
+  return compareStringCase(a, b) != 0;
+}
+
+bool compareStringCaseNotEqual(const String& a, const String& b) {
+  return compareStringCase(a, b) != 0;
+}
+
+bool compareStringCaseNotEqual(const String& a, const __FlashStringHelper* b) {
+  return compareStringCase(a, b) != 0;
 }
 
 }

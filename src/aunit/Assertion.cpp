@@ -29,7 +29,9 @@ SOFTWARE.
 
 namespace aunit {
 
-namespace {
+using namespace internal;
+
+namespace internal {
 
 // This can be a template function because it is accessed only through the
 // various assertXxx() methods. Those assertXxx() methods are explicitly
@@ -39,8 +41,8 @@ namespace {
 // Assertion failed: (5) == (6), file Test.ino, line 820.
 // Assertion passed: (6) == (6), file Test.ino, line 820.
 template <typename A, typename B>
-void printAssertionMessage(bool ok, const char* file, uint16_t line,
-    const A& lhs, const char *opName, const B& rhs) {
+void printAssertionMessage(Print* printer, bool ok, const char* file,
+    uint16_t line, const A& lhs, const char *opName, const B& rhs) {
 
   // Don't use F() strings here because flash memory strings are not deduped by
   // the compiler, so each template instantiation of this method causes a
@@ -48,7 +50,6 @@ void printAssertionMessage(bool ok, const char* file, uint16_t line,
   // https://github.com/mmurdoch/arduinounit/issues/70
   // for more info. Normal (const char*) strings will be deduped by the
   // compiler/linker.
-  Print* printer = Printer::getPrinter();
   printer->print("Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
@@ -69,11 +70,10 @@ void printAssertionMessage(bool ok, const char* file, uint16_t line,
 // Special version of (bool, bool) because Arduino Print.h converts
 // bool into int, which prints out "(1) == (0)", which isn't as useful.
 // This prints "(true) == (false)".
-void printAssertionMessage(bool ok, const char* file, uint16_t line,
-    bool lhs, const char *opName, bool rhs) {
+void printAssertionMessage(Print* printer, bool ok, const char* file,
+    uint16_t line, bool lhs, const char *opName, bool rhs) {
 
   // Don't use F() strings here. Same reason as above.
-  Print* printer = Printer::getPrinter();
   printer->print("Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
@@ -94,11 +94,10 @@ void printAssertionMessage(bool ok, const char* file, uint16_t line,
 // Prints:
 //    "Assertion passed/failed: (arg) is true"
 //    "Assertion passed/failed: (arg) is false"
-void printAssertionBoolMessage(bool ok, const char* file, uint16_t line,
-    bool arg, bool value) {
+void printAssertionBoolMessage(Print* printer, bool ok, const char* file,
+    uint16_t line, bool arg, bool value) {
 
   // Don't use F() strings here. Same reason as above.
-  Print* printer = Printer::getPrinter();
   printer->print("Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
@@ -124,7 +123,8 @@ bool Assertion::assertionBool(const char* file, uint16_t line, bool arg,
   if (isDone()) return false;
   bool ok = (arg == value);
   if (isOutputEnabled(ok)) {
-    printAssertionBoolMessage(ok, file, line, arg, value);
+    printAssertionBoolMessage(Printer::getPrinter(), ok, file, line,
+        arg, value);
   }
   setPassOrFail(ok);
   return ok;
@@ -136,7 +136,8 @@ bool Assertion::assertion(const char* file, uint16_t line, bool lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -148,7 +149,8 @@ bool Assertion::assertion(const char* file, uint16_t line, char lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -160,7 +162,8 @@ bool Assertion::assertion(const char* file, uint16_t line, int lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -172,7 +175,8 @@ bool Assertion::assertion(const char* file, uint16_t line, unsigned int lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -184,7 +188,8 @@ bool Assertion::assertion(const char* file, uint16_t line, long lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -196,7 +201,8 @@ bool Assertion::assertion(const char* file, uint16_t line, unsigned long lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -208,7 +214,8 @@ bool Assertion::assertion(const char* file, uint16_t line, double lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -220,7 +227,8 @@ bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -232,7 +240,8 @@ bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -245,7 +254,8 @@ bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -257,7 +267,8 @@ bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -269,7 +280,8 @@ bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -282,7 +294,8 @@ bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -295,7 +308,8 @@ bool Assertion::assertion(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -308,7 +322,8 @@ bool Assertion::assertion(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
@@ -321,13 +336,14 @@ bool Assertion::assertion(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessage(ok, file, line, lhs, opName, rhs);
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
   }
   setPassOrFail(ok);
   return ok;
 }
 
-namespace {
+namespace internal {
 
 // Verbose versions of above which accept the string arguments of the
 // assertXxx() macros, so that the error messages are more verbose.
@@ -336,7 +352,7 @@ namespace {
 // Assertion failed: (x=5) == (y=6), file Test.ino, line 820.
 // Assertion passed: (x=6) == (y=6), file Test.ino, line 820.
 template <typename A, typename B>
-void printAssertionMessageVerbose(bool ok, const char* file,
+void printAssertionMessageVerbose(Print* printer, bool ok, const char* file,
     uint16_t line, const A& lhs, const __FlashStringHelper* lhsString,
     const char *opName, const B& rhs, const __FlashStringHelper* rhsString) {
 
@@ -345,7 +361,6 @@ void printAssertionMessageVerbose(bool ok, const char* file,
   // duplication of all the strings below. See
   // https://github.com/mmurdoch/arduinounit/issues/70
   // for more info.
-  Print* printer = Printer::getPrinter();
   printer->print("Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
@@ -370,12 +385,11 @@ void printAssertionMessageVerbose(bool ok, const char* file,
 // Special version of (bool, bool) because Arduino Print.h converts
 // bool into int, which prints out "(1) == (0)", which isn't as useful.
 // This prints "(x=true) == (y=false)".
-void printAssertionMessageVerbose(bool ok, const char* file,
+void printAssertionMessageVerbose(Print* printer, bool ok, const char* file,
     uint16_t line, bool lhs, const __FlashStringHelper* lhsString,
     const char *opName, bool rhs, const __FlashStringHelper* rhsString) {
 
   // Don't use F() strings here. Same reason as above.
-  Print* printer = Printer::getPrinter();
   printer->print("Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
@@ -400,11 +414,10 @@ void printAssertionMessageVerbose(bool ok, const char* file,
 // Prints:
 //    "Assertion passed/failed: (x=arg) is true"
 //    "Assertion passed/failed: (x=arg) is false"
-void printAssertionBoolMessageVerbose(bool ok, const char* file,
+void printAssertionBoolMessageVerbose(Print* printer, bool ok, const char* file,
     uint16_t line, bool arg, const __FlashStringHelper* argString, bool value) {
 
   // Don't use F() strings here. Same reason as above.
-  Print* printer = Printer::getPrinter();
   printer->print("Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
@@ -427,7 +440,8 @@ bool Assertion::assertionBoolVerbose(const char* file, uint16_t line, bool arg,
   if (isDone()) return false;
   bool ok = (arg == value);
   if (isOutputEnabled(ok)) {
-    printAssertionBoolMessageVerbose(ok, file, line, arg, argString, value);
+    printAssertionBoolMessageVerbose(Printer::getPrinter(), ok, file, line,
+        arg, argString, value);
   }
   setPassOrFail(ok);
   return ok;
@@ -440,8 +454,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line, bool lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -454,8 +468,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line, char lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -468,8 +482,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line, int lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -482,8 +496,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -496,8 +510,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line, long lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -510,8 +524,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -524,8 +538,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line, double lhs,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -538,8 +552,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -552,8 +566,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -566,8 +580,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -580,8 +594,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -594,8 +608,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -608,8 +622,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -623,8 +637,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -638,8 +652,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;
@@ -653,8 +667,8 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
-    printAssertionMessageVerbose(ok, file, line, lhs, lhsString, opName, rhs,
-        rhsString);
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
   }
   setPassOrFail(ok);
   return ok;

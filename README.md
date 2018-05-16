@@ -3,7 +3,7 @@
 A unit testing framework for Arduino platforms inspired by ArduinoUnit and
 Google Test.
 
-Version: 0.5.2 (2018-05-08)
+Version: 0.5.3 (2018-05-16)
 
 ## Summary
 
@@ -15,7 +15,7 @@ Just like ArduinoUnit, the unit tests run directly on the microcontrollers
 themselves, not on emulators or simulators. The test results are printed on the
 `Serial` object by default, but can be redirected to another `Print` object.
 
-AUnit was created to solve 3 problems with ArduinoUnit:
+AUnit was created to solve 3 problems with ArduinoUnit 2.2:
 * ArduinoUnit consumes too much flash memory on an AVR platform (e.g.
   Arduino UNO, Nano) as explained in
   [ArduinoUnit#70](https://github.com/mmurdoch/arduinounit/issues/70).
@@ -27,7 +27,7 @@ AUnit was created to solve 3 problems with ArduinoUnit:
   equivalent to the `TEST_F()` macro in Google Test.
 
 In contrast:
-* AUnit consumes as much as 65% *less* flash memory than ArduinoUnit on the
+* AUnit consumes as much as 65% *less* flash memory than ArduinoUnit 2.2 on the
   AVR platform. On Teensy-ARM, the savings can be as much as 30%.
 * AUnit has been tested on AVR, Teensy-ARM and ESP8266.
 * AUnit implements the `testF()` and `testingF()` macros to use fixtures.
@@ -39,8 +39,7 @@ convert to AUnit:
 * `#include <ArduinoUnit.h>` -> `#include <AUnit.h>`
 * `Test::run()` -> `aunit::TestRunner::run()`
 
-Essentially all of the various macros are compatible between ArduinoUnit and
-AUnit:
+Most of the core macros are compatible between ArduinoUnit and AUnit:
 * `test()`
 * `testing()`
 * `assertXxx()`
@@ -50,7 +49,7 @@ AUnit:
 * `externTest()`
 * `externTesting()`
 
-AUnit supports exclude and include filters:
+AUnit also supports exclude and include filters:
 * `TestRunner::exclude()`
 * `TestRunner::include()`
 
@@ -61,7 +60,7 @@ the `Verbosity` flags on per test basis:
 
 ### Missing Features
 
-Here are the features which have not been ported over from ArduinoUnit:
+Here are the features which have not been ported over from ArduinoUnit 2.2:
 
 * ArduinoUnit supports multiple `*` wildcards in its `exclude()` and `include()`
   methods. AUnit supports only a single `*` wildcard and it must occur at the
@@ -69,7 +68,7 @@ Here are the features which have not been ported over from ArduinoUnit:
 
 ### Added Features
 
-Here are the features in AUnit which are not available in ArduinoUnit:
+Here are the features in AUnit which are not available in ArduinoUnit 2.2:
 
 * Configurable timeout parameter to prevent `testing()` test cases from
   running forever:
@@ -79,6 +78,9 @@ Here are the features in AUnit which are not available in ArduinoUnit:
     * `assertTestNotExpire()`
     * `checkTestExpire()`
     * `checkTestNotExpire()`
+* Case-insensitive string comparisons:
+    * `assertStringCaseEqual()`
+    * `assertStringCaseNotEqual()`
 * Test fixtures using the "F" variations of existing macros:
     * `testF()`
     * `testingF()`
@@ -86,24 +88,24 @@ Here are the features in AUnit which are not available in ArduinoUnit:
     * `checkTestXxxF()`
     * `externTestF()`
     * `externTestingF()`
-* Status setters
+* Unconditional termination:
     * `passTestNow()`
     * `failTestNow()`
     * `skipTestNow()`
     * `expireTestNow()`
-* `teardown()` method, mirroring the `setup()`
+* `teardown()` method which mirrors the `setup()` method:
     * `teardown()`
+* Test filters support 2-arguments, matching `testF()` and `testingF()`:
+    * `TestRunner::include(testClass, name)`
+    * `TestRunner::exclude(testClass, name)`
+* Terse and verbose modes:
+    * `#include <AUnit.h>` - terse messages uses less flash memory
+    * `#include <AUnitVerbose.h>` - verbose messages uses more flash memory
 * Tested on the following Arduino platforms:
     * AVR (8-bit)
     * Teensy ARM (32-bit)
     * ESP8266 (32-bit)
     * ESP32 (32-bit)
-* Test filters support the 2 arguments versions:
-    * `TestRunner::include(testClass, name)` - matching `testF()`
-    * `TestRunner::exclude(testClass, name)` - matching `testingF()`
-* Terse and verbose modes:
-    * `#include <AUnit.h>` - terse messages uses less flash memory
-    * `#include <AUnitVerbose.h>` - verbose messages uses more flash
 
 Every feature of AUnit is unit tested using AUnit itself.
 
@@ -135,8 +137,13 @@ The source files are organized as follows:
 * `src/AUnit.h` - main header file
 * `src/AUnitVerbose.h` - verbose version of main header file
 * `src/aunit/` - all implementation files
-* `tests/` - unit tests written using [AUnit](https://github.com/bxparks/AUnit)
+* `tests/` - unit tests written using AUnit itself
 * `examples/` - example sketches
+
+### Docs
+
+The [docs/](docs/) directory contains the
+[Doxygen docs published on GitHub Pages](https://bxparks.github.io/AUnit/html).
 
 ### Examples
 
@@ -159,18 +166,15 @@ In the `tests/` directory:
   called properly by the finite state machine
 
 Perhaps the best way to see AUnit in action through real life examples. I
-currently have 2 Arduino project using AUnit extensively:
+currently have 2 Arduino project using AUnit extensively
+(look under the `tests/` directory in each project).
 
 * [AceButton](https://github.com/bxparks/AceButton)
+    * Originally created using ArduinoUnit 2.2, and I have kept those tests
+      backwards compatible. They do not use the new features of AUnit.
 * [AceSegment](https://github.com/bxparks/AceSegment)
+    * Demonstrates the full power of AUnit better.
 
-Look under the `tests` directory in each project.
-
-The tests for AceButton were originally created using ArduinoUnit 2.2, and I
-have kept those tests backwards compatible. They do not use the new features of
-AUnit.
-
-The tests for AceSegment demonstrate the full power of AUnit better.
 
 ## Usage
 
@@ -347,8 +351,18 @@ are available. These are essentially identical to ArduinoUnit:
 * `assertLessOrEqual(a, b)`
 * `assertMoreOrEqual(a, b)`
 
-The following overloaded types for the various `assertXxx()` macros are
-defined:
+Two additional macros provide case-insensitive string comparisons
+(analogous to `ASSERT_STRCASEEQ()` and `ASSERT_STRCASENE()` in
+Google Test):
+
+* `assertStringCaseEqual()`
+* `assertStringCaseNotEqual()`
+
+#### Supported Parameter Types
+
+The 6 core assert macros (assertEqual, assertNotEqual, assertLess, assertMore,
+assertLessOrEqual, assertMoreOrEqual) support the following 16
+combinations for their parameter types:
 
 * `(bool, bool)`
 * `(char, char)`
@@ -370,8 +384,20 @@ defined:
 As you can see, all 9 combinations of the 3 string types (`char*`, `String`, and
 `__FlashStringHelper*`) are supported.
 
+These macros perform deep comparisons for string types instead of just comparing
+their pointer values. This is different than the `ASSERT_EQ()` and `ASSERT_NE()`
+macros in Google Test which perform only pointer comparisons. In other words,
+`assertEqual()` with string types is equivalent to `ASSERT_STREQ()` in Google
+Test.
+
+Also for string types, these macros support `nullptr` (unlike the underlying
+`strcmp()` function from the C-library). The `nullptr` string is defined to be
+"smaller" than any non-null string, including the empty string. Two `nullptr`
+strings are considered to be equal however.
+
 Additionally, the usual C++ implicit type conversion and function overloading
-matching algorithms apply. For example, the conversions will occur:
+matching algorithms apply to support additional argument types.
+For example, the following type conversions will occur:
 
 * `signed char` -> `int`
 * `unsigned char` -> `int`
@@ -390,9 +416,10 @@ _The names of the macros are identical. However, the
 type inference logic of two `(a, b)` arguments in the `assertXxx(a, b)` is
 slightly different. ArduinoUnit allows the two parameters to be slightly
 different types, at the expense of a compiler warning. In AUnit, the
-warning becomes a compiler error. See below._
+warning becomes a compiler error. See the "Parameters Must Match Types" section
+below._
 
-#### Assertion Parameters Must Match Types
+#### Parameters Must Match Types
 
 In ArduinoUnit, the `assertXxx()` macros could be slightly different types, for
 example:
@@ -401,7 +428,8 @@ unsigned int uintValue = 5;
 assertEqual(5, uintValue);
 ```
 
-If the compiler warnings are enabled, a warning from the compiler is printed:
+If the compiler warnings are enabled in the Preferences box of the
+IDE, a warning from the compiler is printed:
 
 ```
 ../ArduinoUnit/src/ArduinoUnitUtility/Compare.h:17:28: warning:
@@ -704,11 +732,11 @@ they do *not* terminate the test immediately.
 
 In most cases, the `failTestNow()`, `skipTestNow()` and `expireTestNow()` macros
 are more useful than the equivalent methods in the `Test` class. However, in a
-testing() loop test, the pass() method is probably better than the passTestNow()
-macro because we usually don't want to see an error message for a test that
-passes.
+`testing()` loop test, the `pass()` method is probably better than the
+`passTestNow()` macro because we usually don't want to see an error message
+from a passing test.
 
-***ArduinoUnit Compatibility***: _
+***ArduinoUnit Compatibility***:
 _The method(s) marked by [&ast;] are only available in AUnit._
 
 ### Overridable Methods
