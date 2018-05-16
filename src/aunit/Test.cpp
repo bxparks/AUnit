@@ -79,22 +79,22 @@ void Test::resolve() {
   if (mStatus == Test::kStatusPassed
       && isVerbosity(Verbosity::kTestPassed)) {
     printer->print(TEST_STRING);
-    Printer::print(mName);
+    mName.print(printer);
     printer->println(F(" passed."));
   } else if (mStatus == Test::kStatusFailed
       && isVerbosity(Verbosity::kTestFailed)) {
     printer->print(TEST_STRING);
-    Printer::print(mName);
+    mName.print(printer);
     printer->println(F(" failed."));
   } else if (mStatus == Test::kStatusSkipped
       && isVerbosity(Verbosity::kTestSkipped)) {
     printer->print(TEST_STRING);
-    Printer::print(mName);
+    mName.print(printer);
     printer->println(F(" skipped."));
   } else if (mStatus == Test::kStatusExpired
       && isVerbosity(Verbosity::kTestExpired)) {
     printer->print(TEST_STRING);
-    Printer::print(mName);
+    mName.print(printer);
     printer->println(F(" timed out."));
   }
 }

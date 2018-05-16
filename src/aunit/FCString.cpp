@@ -22,11 +22,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <Arduino.h> // Serial
-#include "Printer.h"
+#include <Print.h>
+#include "FCString.h"
 
 namespace aunit {
+namespace internal {
 
-Print* Printer::sPrinter = &Serial;
+void FCString::print(Print* printer) const {
+  if (mStringType == kCStringType) {
+    printer->print(getCString());
+  } else {
+    printer->print(getFString());
+  }
+}
 
+void FCString::println(Print* printer) const {
+  if (mStringType == kCStringType) {
+    printer->println(getCString());
+  } else {
+    printer->println(getFString());
+  }
+}
+
+}
 }

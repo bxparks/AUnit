@@ -271,7 +271,7 @@ void TestRunner::listTests() {
   printer->println(mCount);
   for (Test** p = Test::getRoot(); (*p) != nullptr; p = (*p)->getNext()) {
     printer->print(F("Test "));
-    Printer::print((*p)->getName());
+    (*p)->getName().print(printer);
     printer->print(F("; lifeCycle: "));
     printer->println((*p)->getLifeCycle());
   }
