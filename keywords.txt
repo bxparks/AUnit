@@ -78,6 +78,8 @@ assertLess	KEYWORD2
 assertLessOrEqual	KEYWORD2
 assertMore	KEYWORD2
 assertMoreOrEqual	KEYWORD2
+assertStringCaseEqual	KEYWORD2
+assertStringCaseNotEqual	KEYWORD2
 assertTrue	KEYWORD2
 assertFalse	KEYWORD2
 
@@ -131,13 +133,18 @@ expireTestNow	KEYWORD2
 
 # Overloaded functions from Compare.h
 compareString	KEYWORD2
+compareStringCase	KEYWORD2
 compareStringN	KEYWORD2
+#
 compareEqual	KEYWORD2
 compareLess	KEYWORD2
 compareMore	KEYWORD2
 compareLessOrEqual	KEYWORD2
 compareMoreOrEqual	KEYWORD2
 compareNotEqual	KEYWORD2
+#
+compareStringCaseEqual	KEYWORD2
+compareStringCaseNotEqual	KEYWORD2
 
 #######################################
 # Instances (KEYWORD2)
