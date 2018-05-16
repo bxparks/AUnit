@@ -732,11 +732,11 @@ they do *not* terminate the test immediately.
 
 In most cases, the `failTestNow()`, `skipTestNow()` and `expireTestNow()` macros
 are more useful than the equivalent methods in the `Test` class. However, in a
-testing() loop test, the pass() method is probably better than the passTestNow()
-macro because we usually don't want to see an error message for a test that
-passes.
+`testing()` loop test, the `pass()` method is probably better than the
+`passTestNow()` macro because we usually don't want to see an error message
+from a passing test.
 
-***ArduinoUnit Compatibility***: _
+***ArduinoUnit Compatibility***:
 _The method(s) marked by [&ast;] are only available in AUnit._
 
 ### Overridable Methods
