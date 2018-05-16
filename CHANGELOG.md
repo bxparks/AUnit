@@ -1,5 +1,10 @@
 # Changelog
 
+* 0.5.3 (2018-05-16)
+    * Add assertStringCaseEqual() and assertStringCaseNotEqual(),
+      case-insensitive versions of assertEqual() and assertNotEqual() for
+      strings. Issue #28.
+    * Support nullptr strings in various assertXxx() macros.
 * 0.5.2 (2018-05-08)
     * Rename failNow(), passNow(), skipNow(), expireNow() macros to
       failTestNow(), passTestNow(), skipTestNow(), expireTestNow() to reduce
