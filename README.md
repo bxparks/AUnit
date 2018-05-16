@@ -15,7 +15,7 @@ Just like ArduinoUnit, the unit tests run directly on the microcontrollers
 themselves, not on emulators or simulators. The test results are printed on the
 `Serial` object by default, but can be redirected to another `Print` object.
 
-AUnit was created to solve 3 problems with ArduinoUnit:
+AUnit was created to solve 3 problems with ArduinoUnit 2.2:
 * ArduinoUnit consumes too much flash memory on an AVR platform (e.g.
   Arduino UNO, Nano) as explained in
   [ArduinoUnit#70](https://github.com/mmurdoch/arduinounit/issues/70).
@@ -27,7 +27,7 @@ AUnit was created to solve 3 problems with ArduinoUnit:
   equivalent to the `TEST_F()` macro in Google Test.
 
 In contrast:
-* AUnit consumes as much as 65% *less* flash memory than ArduinoUnit on the
+* AUnit consumes as much as 65% *less* flash memory than ArduinoUnit 2.2 on the
   AVR platform. On Teensy-ARM, the savings can be as much as 30%.
 * AUnit has been tested on AVR, Teensy-ARM and ESP8266.
 * AUnit implements the `testF()` and `testingF()` macros to use fixtures.
@@ -39,8 +39,7 @@ convert to AUnit:
 * `#include <ArduinoUnit.h>` -> `#include <AUnit.h>`
 * `Test::run()` -> `aunit::TestRunner::run()`
 
-Essentially all of the various macros are compatible between ArduinoUnit and
-AUnit:
+Most of the core macros are compatible between ArduinoUnit and AUnit:
 * `test()`
 * `testing()`
 * `assertXxx()`
@@ -50,7 +49,7 @@ AUnit:
 * `externTest()`
 * `externTesting()`
 
-AUnit supports exclude and include filters:
+AUnit also supports exclude and include filters:
 * `TestRunner::exclude()`
 * `TestRunner::include()`
 
@@ -91,19 +90,20 @@ Here are the features in AUnit which are not available in ArduinoUnit:
     * `failTestNow()`
     * `skipTestNow()`
     * `expireTestNow()`
-* `teardown()` method, mirroring the `setup()`
+* `teardown()` method which matches the `setup()` method
     * `teardown()`
+* Test filters support the 2 arguments versions, matching `testF()` and
+  `testingF()`:
+    * `TestRunner::include(testClass, name)`
+    * `TestRunner::exclude(testClass, name)`
+* Terse and verbose modes:
+    * `#include <AUnit.h>` - terse messages uses less flash memory
+    * `#include <AUnitVerbose.h>` - verbose messages uses more flash memory
 * Tested on the following Arduino platforms:
     * AVR (8-bit)
     * Teensy ARM (32-bit)
     * ESP8266 (32-bit)
     * ESP32 (32-bit)
-* Test filters support the 2 arguments versions:
-    * `TestRunner::include(testClass, name)` - matching `testF()`
-    * `TestRunner::exclude(testClass, name)` - matching `testingF()`
-* Terse and verbose modes:
-    * `#include <AUnit.h>` - terse messages uses less flash memory
-    * `#include <AUnitVerbose.h>` - verbose messages uses more flash
 
 Every feature of AUnit is unit tested using AUnit itself.
 
@@ -135,8 +135,13 @@ The source files are organized as follows:
 * `src/AUnit.h` - main header file
 * `src/AUnitVerbose.h` - verbose version of main header file
 * `src/aunit/` - all implementation files
-* `tests/` - unit tests written using [AUnit](https://github.com/bxparks/AUnit)
+* `tests/` - unit tests written using AUnit itself
 * `examples/` - example sketches
+
+### Docs
+
+The [docs/](docs/) directory contains the
+[Doxygen docs published on GitHub Pages](https://bxparks.github.io/AUnit/html).
 
 ### Examples
 
@@ -159,18 +164,15 @@ In the `tests/` directory:
   called properly by the finite state machine
 
 Perhaps the best way to see AUnit in action through real life examples. I
-currently have 2 Arduino project using AUnit extensively:
+currently have 2 Arduino project using AUnit extensively
+(look under the `tests/` directory in each project).
 
 * [AceButton](https://github.com/bxparks/AceButton)
+    * Originally created using ArduinoUnit 2.2, and I have kept those tests
+      backwards compatible. They do not use the new features of AUnit.
 * [AceSegment](https://github.com/bxparks/AceSegment)
+    * Demonstrates the full power of AUnit better.
 
-Look under the `tests` directory in each project.
-
-The tests for AceButton were originally created using ArduinoUnit 2.2, and I
-have kept those tests backwards compatible. They do not use the new features of
-AUnit.
-
-The tests for AceSegment demonstrate the full power of AUnit better.
 
 ## Usage
 
