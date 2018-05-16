@@ -60,7 +60,7 @@ the `Verbosity` flags on per test basis:
 
 ### Missing Features
 
-Here are the features which have not been ported over from ArduinoUnit:
+Here are the features which have not been ported over from ArduinoUnit 2.2:
 
 * ArduinoUnit supports multiple `*` wildcards in its `exclude()` and `include()`
   methods. AUnit supports only a single `*` wildcard and it must occur at the
@@ -68,7 +68,7 @@ Here are the features which have not been ported over from ArduinoUnit:
 
 ### Added Features
 
-Here are the features in AUnit which are not available in ArduinoUnit:
+Here are the features in AUnit which are not available in ArduinoUnit 2.2:
 
 * Configurable timeout parameter to prevent `testing()` test cases from
   running forever:
@@ -78,6 +78,9 @@ Here are the features in AUnit which are not available in ArduinoUnit:
     * `assertTestNotExpire()`
     * `checkTestExpire()`
     * `checkTestNotExpire()`
+* Case-insensitive string comparisons:
+    * `assertStringCaseEqual()`
+    * `assertStringCaseNotEqual()`
 * Test fixtures using the "F" variations of existing macros:
     * `testF()`
     * `testingF()`
@@ -85,15 +88,14 @@ Here are the features in AUnit which are not available in ArduinoUnit:
     * `checkTestXxxF()`
     * `externTestF()`
     * `externTestingF()`
-* Status setters
+* Unconditional termination:
     * `passTestNow()`
     * `failTestNow()`
     * `skipTestNow()`
     * `expireTestNow()`
-* `teardown()` method which matches the `setup()` method
+* `teardown()` method which mirrors the `setup()` method:
     * `teardown()`
-* Test filters support the 2 arguments versions, matching `testF()` and
-  `testingF()`:
+* Test filters support 2-arguments, matching `testF()` and `testingF()`:
     * `TestRunner::include(testClass, name)`
     * `TestRunner::exclude(testClass, name)`
 * Terse and verbose modes:
@@ -349,8 +351,18 @@ are available. These are essentially identical to ArduinoUnit:
 * `assertLessOrEqual(a, b)`
 * `assertMoreOrEqual(a, b)`
 
-The following overloaded types for the various `assertXxx()` macros are
-defined:
+Two additional macros provide case-insensitive string comparisons
+(analogous to `ASSERT_STRCASEEQ()` and `ASSERT_STRCASENE()` in
+Google Test):
+
+* `assertStringCaseEqual()`
+* `assertStringCaseNotEqual()`
+
+#### Supported Parameter Types
+
+The 6 core assert macros (assertEqual, assertNotEqual, assertLess, assertMore,
+assertLessOrEqual, assertMoreOrEqual) support the following 16
+combinations for their parameter types:
 
 * `(bool, bool)`
 * `(char, char)`
@@ -372,8 +384,20 @@ defined:
 As you can see, all 9 combinations of the 3 string types (`char*`, `String`, and
 `__FlashStringHelper*`) are supported.
 
+These macros perform deep comparisons for string types instead of just comparing
+their pointer values. This is different than the `ASSERT_EQ()` and `ASSERT_NE()`
+macros in Google Test which perform only pointer comparisons. In other words,
+`assertEqual()` with string types is equivalent to `ASSERT_STREQ()` in Google
+Test.
+
+Also for string types, these macros support `nullptr` (unlike the underlying
+`strcmp()` function from the C-library). The `nullptr` string is defined to be
+"smaller" than any non-null string, including the empty string. Two `nullptr`
+strings are considered to be equal however.
+
 Additionally, the usual C++ implicit type conversion and function overloading
-matching algorithms apply. For example, the conversions will occur:
+matching algorithms apply to support additional argument types.
+For example, the following type conversions will occur:
 
 * `signed char` -> `int`
 * `unsigned char` -> `int`
@@ -392,9 +416,10 @@ _The names of the macros are identical. However, the
 type inference logic of two `(a, b)` arguments in the `assertXxx(a, b)` is
 slightly different. ArduinoUnit allows the two parameters to be slightly
 different types, at the expense of a compiler warning. In AUnit, the
-warning becomes a compiler error. See below._
+warning becomes a compiler error. See the "Parameters Must Match Types" section
+below._
 
-#### Assertion Parameters Must Match Types
+#### Parameters Must Match Types
 
 In ArduinoUnit, the `assertXxx()` macros could be slightly different types, for
 example:
@@ -403,7 +428,8 @@ unsigned int uintValue = 5;
 assertEqual(5, uintValue);
 ```
 
-If the compiler warnings are enabled, a warning from the compiler is printed:
+If the compiler warnings are enabled in the Preferences box of the
+IDE, a warning from the compiler is printed:
 
 ```
 ../ArduinoUnit/src/ArduinoUnitUtility/Compare.h:17:28: warning:
