@@ -28,6 +28,24 @@ SOFTWARE.
  * A simple adapter which allows basic unit tests written using Google Test API
  * (https://github.com/google/googletest) to run on Arduino platforms using
  * AUnit.
+ *
+ * This is not a comprehensive mapping layer. Only the TEST()
+ * macro is supported, TEST_F() is not supported. Many of the ASSERT_Xxx()
+ * macros are missing. Over time, more mapping macros may be added.
+ *
+ * Usage:
+ *
+ * @code
+ * #include <AUnit.h>
+ * #include <aunit/contrib/gtest.h>
+ * @endcode
+ *
+ * or
+ *
+ * @code
+ * #include <AUnitVerbose.h>
+ * #include <aunit/contrib/gtest.h>
+ * @endcode
  */
 
 #ifndef AUNIT_CONTRIB_GTEST_H
@@ -44,7 +62,7 @@ SOFTWARE.
 #define ASSERT_STRCASENE(e, a) \
     assertStringCaseNotEqual(static_cast<decltype(a)>(e), a)
 
-#define ASSERT_TRUE(x) assertNotEqual(static_cast<unsigned>(x), 0u)
-#define ASSERT_FALSE(x) assertEqual(static_cast<unsigned>(x), 0u)
+#define ASSERT_TRUE(x) assertTrue(x)
+#define ASSERT_FALSE(x) assertFalse(x)
 
 #endif
