@@ -23,12 +23,15 @@ SOFTWARE.
 */
 
 #include <Print.h>
+#include "Compare.h"
 #include "FCString.h"
 
 namespace aunit {
 namespace internal {
 
 void FCString::print(Print* printer) const {
+  if (mString.cstring == nullptr) return;
+
   if (mStringType == kCStringType) {
     printer->print(getCString());
   } else {
@@ -37,10 +40,47 @@ void FCString::print(Print* printer) const {
 }
 
 void FCString::println(Print* printer) const {
+  if (mString.cstring == nullptr) {
+    printer->println();
+    return;
+  }
+
   if (mStringType == kCStringType) {
     printer->println(getCString());
   } else {
     printer->println(getFString());
+  }
+}
+
+int FCString::compareTo(const FCString& that) const {
+  if (getType() == FCString::kCStringType) {
+      if (that.getType() == FCString::kCStringType) {
+        return compareString(getCString(), that.getCString());
+      } else {
+        return compareString(getCString(), that.getFString());
+      }
+  } else {
+      if (that.getType() == FCString::kCStringType) {
+        return compareString(getFString(), that.getCString());
+      } else {
+        return compareString(getFString(), that.getFString());
+      }
+  }
+}
+
+int FCString::compareToN(const char* that, size_t n) const {
+  if (getType() == FCString::kCStringType) {
+    return compareStringN(getCString(), that, n);
+  } else {
+    return compareStringN(getFString(), that, n);
+  }
+}
+
+int FCString::compareToN(const __FlashStringHelper* that, size_t n) const {
+  if (getType() == FCString::kCStringType) {
+    return compareStringN(getCString(), that, n);
+  } else {
+    return compareStringN(getFString(), that, n);
   }
 }
 

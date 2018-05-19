@@ -59,13 +59,6 @@ SOFTWARE.
  * the respective primitive types. The compare functions for string types are
  * implemented using compareString().
  *
- * The compareStringN(a, b) functions are used only to implement the
- * TestRunner::include() and TestRunner::exclude() functions. The supported
- * types of 'a' and 'b' only need to be (const char*) or (const
- * __FlashStringHelper*) so we get 4 combinations. Two more versions of
- * compareStringN() are required to support FCString types for 'a'. That makes
- * a total of 6.
- *
  * All versions of compareString() and compareStringN() accept nullptr
  * arguments (in constrast to strcmp() and strncmp() where their behavior for
  * nullptr are undefined by the C standard.) If both arguments are nullptr,
@@ -84,8 +77,6 @@ class __FlashStringHelper;
 
 namespace aunit {
 namespace internal {
-
-class FCString;
 
 // compareString()
 
@@ -106,8 +97,6 @@ int compareString(const __FlashStringHelper* a, const char* b);
 int compareString(const __FlashStringHelper* a, const __FlashStringHelper* b);
 
 int compareString(const __FlashStringHelper* a, const String& b);
-
-int compareString(const FCString& a, const FCString& b);
 
 // compareStringCase() - case insensitive versions of compareString()
 
@@ -130,8 +119,6 @@ int compareStringCase(const __FlashStringHelper* a,
 
 int compareStringCase(const __FlashStringHelper* a, const String& b);
 
-int compareStringCase(const FCString& a, const FCString& b);
-
 // compareStringN()
 //
 // These functions are used to implement the TestRunner::exclude() and
@@ -149,12 +136,6 @@ int compareStringN(const __FlashStringHelper* a, const char* b, size_t n);
 /** Compare only the first n characters of 'a' or 'b'. */
 int compareStringN(const __FlashStringHelper* a, const __FlashStringHelper* b,
     size_t n);
-
-/** Compare only the first n characters of 'a' or 'b'. */
-int compareStringN(const FCString& a, const char* b, size_t n);
-
-/** Compare only the first n characters of 'a' or 'b'. */
-int compareStringN(const FCString& a, const __FlashStringHelper* b, size_t n);
 
 // compareEqual()
 

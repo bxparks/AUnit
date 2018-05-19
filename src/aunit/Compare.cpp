@@ -121,12 +121,9 @@ inlining them because they are almost always used through a function pointer.
 #include <WString.h>
 #include "Flash.h"
 #include "Compare.h"
-#include "FCString.h"
 
 namespace aunit {
 namespace internal {
-
-class FCString;
 
 //---------------------------------------------------------------------------
 // compareString()
@@ -145,10 +142,10 @@ int compareString(const char* a, const String& b) {
 }
 
 int compareString(const char* a, const __FlashStringHelper* b) {
-  if (a == (const char*)b) { return 0; }
+  if (a == (const char*) b) { return 0; }
   if (a == nullptr) { return -1; }
   if (b == nullptr) { return 1; }
-  return strcmp_P(a, (const char*)b);
+  return strcmp_P(a, (const char*) b);
 }
 
 int compareString(const String& a, const char* b) {
@@ -161,7 +158,7 @@ int compareString(const String& a, const String& b) {
 
 int compareString(const String& a, const __FlashStringHelper* b) {
   if (b == nullptr) { return 1; }
-  return strcmp_P(a.c_str(), (const char*)b);
+  return strcmp_P(a.c_str(), (const char*) b);
 }
 
 int compareString(const __FlashStringHelper* a, const char* b) {
@@ -192,22 +189,6 @@ int compareString(const __FlashStringHelper* a, const __FlashStringHelper* b) {
   }
 }
 
-int compareString(const FCString& a, const FCString& b) {
-  if (a.getType() == FCString::kCStringType) {
-      if (b.getType() == FCString::kCStringType) {
-        return compareString(a.getCString(), b.getCString());
-      } else {
-        return compareString(a.getCString(), b.getFString());
-      }
-  } else {
-      if (b.getType() == FCString::kCStringType) {
-        return compareString(a.getFString(), b.getCString());
-      } else {
-        return compareString(a.getFString(), b.getFString());
-      }
-  }
-}
-
 //---------------------------------------------------------------------------
 // compareStringCase()
 //---------------------------------------------------------------------------
@@ -225,10 +206,10 @@ int compareStringCase(const char* a, const String& b) {
 }
 
 int compareStringCase(const char* a, const __FlashStringHelper* b) {
-  if (a == (const char*)b) { return 0; }
+  if (a == (const char*) b) { return 0; }
   if (a == nullptr) { return -1; }
   if (b == nullptr) { return 1; }
-  return strcasecmp_P(a, (const char*)b);
+  return strcasecmp_P(a, (const char*) b);
 }
 
 int compareStringCase(const String& a, const char* b) {
@@ -241,7 +222,7 @@ int compareStringCase(const String& a, const String& b) {
 
 int compareStringCase(const String& a, const __FlashStringHelper* b) {
   if (b == nullptr) { return 1; }
-  return strcasecmp_P(a.c_str(), (const char*)b);
+  return strcasecmp_P(a.c_str(), (const char*) b);
 }
 
 int compareStringCase(const __FlashStringHelper* a, const char* b) {
@@ -294,7 +275,7 @@ int compareStringN(const char* a, const __FlashStringHelper* b, size_t n) {
   if (a == (const char*) b) { return 0; }
   if (a == nullptr) { return -1; }
   if (b == nullptr) { return 1; }
-  return strncmp_P(a, (const char*)b, n);
+  return strncmp_P(a, (const char*) b, n);
 }
 
 int compareStringN(const __FlashStringHelper* a, const char* b, size_t n) {
@@ -322,24 +303,6 @@ int compareStringN(const __FlashStringHelper* a, const __FlashStringHelper* b,
     n--;
   }
   return 0;
-}
-
-// Following used only by TestRunner::exclude() and include().
-
-int compareStringN(const FCString& a, const char* b, size_t n) {
-  if (a.getType() == FCString::kCStringType) {
-    return compareStringN(a.getCString(), b, n);
-  } else {
-    return compareStringN(a.getFString(), b, n);
-  }
-}
-
-int compareStringN(const FCString& a, const __FlashStringHelper* b, size_t n) {
-  if (a.getType() == FCString::kCStringType) {
-    return compareStringN(a.getCString(), b, n);
-  } else {
-    return compareStringN(a.getFString(), b, n);
-  }
 }
 
 //---------------------------------------------------------------------------
