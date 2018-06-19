@@ -1,28 +1,7 @@
 #!/usr/bin/env bash
 #
-# A shell wrapper around the arduino(1) program with the following
-# additional features:
-#
-#   1) Supports 3 modes: verify (--verify), upload (--upload), and test
-#      (--test).
-#   2) Multiple *.ino files can be given, and the arduino(1) binary will
-#      be executed for each sketch.
-#   3) A directory can be given and the script will infer the corresponding
-#      *.ino file under that directory.
-#   4) Board aliases can be defined in a user-defined dotfile (e.g.
-#      ~/.build_arduino_config) which maps a short alias (e.g. "nano") to the
-#      longer board spec used by the arduino binary (e.g.
-#      "arduino:avr:nano:cpu=atmega328old").
-#   5) The script can monitor the serial output of the board immediately after
-#      uploading the sketch using the 'serial_monitor.py' helper script.
-#   6) If the sketch is a unit test written in AUnit, the 'serial_monitor.py'
-#      can be told to determine if the unit test passes or fails, and result
-#      will be returned to the shell script, which can collect and print
-#      a summary of all unit tests that was invoked by the script.
-#   7) If multiple board/port pairs are given using the --board flag, then
-#      the entire set of *.ino files are run through the arduino binary for each
-#      board/port pair. This is useful for running a set of unit tests for
-#      multiple board types at the same time.
+# A shell wrapper around the arduino(1) program with 3 modes: verify, upload,
+# and test.
 #
 # Usage:
 #
@@ -46,13 +25,6 @@
 #   - Arduino Nano: /dev/ttyUSB{n}
 #   - ESP8266: /dev/ttyUSB{n}
 #
-# Example .build_arduino_config alias file:
-#
-#   uno=arduino:avr:uno
-#   nano=arduino:avr:nano:cpu=atmega328old
-#   leonardo=arduino:avr:leonardo
-#   esp8266=esp8266:esp8266:nodemcuv2
-#
 # Flags:
 #
 #   If the directory is given, then the script looks for a sketch file under
@@ -69,28 +41,6 @@
 #   The default value of --port is /dev/ttyUSB0.
 #
 #   The default value of --baud is 115200.
-#
-# Example:
-#
-#   $ ./build_arduino.sh --port /dev/ttyUSB0
-#       --board arduino:avr:nano:cpu=atmega328old --verify Blink.ino
-#
-#   $ ./build_arduino.sh --port /dev/ttyUSB0 \
-#       --board arduino:avr:nano:cpu=atmega328old --upload CommonTest.ino
-#
-#   $ ./build_arduino.sh --port /dev/ttyUSB0 \
-#       --board arduino:avr:lenardo --test CommonTest.ino
-#
-#   $ ./build_arduino.sh --port /dev/ttyUSB0 \
-#       --board esp8266:esp8266:nodemcuv2 --test CommonTest.ino
-#
-#   $ ./build_arduino.sh --test \
-#       --boards nano:/dev/ttyUSB1,leonardo:/dev/ttyACM0 tests/*Test
-#
-# Dependencies:
-#
-#   - pyserial (tested with 3.4-1)
-#   - Arduion IDE (tested with 1.8.5)
 #
 # Copyright and License:
 #
