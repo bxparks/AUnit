@@ -122,8 +122,10 @@ function run_arduino_command_for_files() {
             continue
         fi
 
-        set +e; run_arduino_command $ino_file; local status=$?; set -e
-        if [[ $status != 0 ]]; then
+        if ! run_arduino_command $ino_file; then
+            if [[ "$mode" == 'test' ]]; then
+                echo "FAILED: $board $port $ino_file" >> $test_summary_file
+            fi
             continue
         fi
 
@@ -133,8 +135,7 @@ function run_arduino_command_for_files() {
             local cmd="$DIRNAME/serial_monitor.py --test \
 --port $port --baud $baud"
             echo "\$ $cmd"
-            set +e; $cmd; local status=$?; set -e
-            if [[ "$status" == 0 ]]; then
+            if $cmd; then
                 echo "PASSED: $board $port $ino_file" >> $test_summary_file
             else
                 echo "FAILED: $board $port $ino_file" >> $test_summary_file
@@ -144,7 +145,7 @@ function run_arduino_command_for_files() {
             echo # blank line
             local cmd="$DIRNAME/serial_monitor.py --port $port --baud $baud"
             echo "\$ $cmd"
-            set +e; $cmd; local status=$?; set -e
+            $cmd || true # prevent failure from exiting the entire script
         fi
     done
 }
@@ -172,8 +173,8 @@ function run_arduino_command() {
     local cmd="$BUILD_ARDUINO_BINARY $verbose $upload_or_verify --port $port \
 $board_flag $file"
     echo "\$ $cmd"
-    set +e; $cmd; local status=$?; set -e
-    if [[ "$verbose" != '' && "$mode" == 'test' && $status == 0 ]]; then
+    local status=0; $cmd || status=$?
+    if [[ "$verbose" != '' && "$mode" == 'test' && "$status" == 0 ]]; then
         echo # blank line
     fi
     if [[ "$status" != 0 ]]; then
@@ -196,8 +197,7 @@ function create_test_summary_file() {
 function print_test_summary_file() {
     echo '======== Test Run Summary'
     cat $test_summary_file
-    set +e; grep --quiet FAILED $test_summary_file; local status=$?; set -e
-    if [[ "$status" != 0 ]]; then
+    if ! grep --quiet FAILED $test_summary_file; then
         echo 'ALL PASSED'
     else
         echo 'FAILURES'
