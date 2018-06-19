@@ -24,9 +24,39 @@ entire set of `*.ino` files are run through the arduino command line program for
 each board/port pair. This is useful for running a set of unit tests across
 multiple board types.
 
+## Installation
+
+There are 2 environment variables that **must** be defined in your `.bashrc`
+file:
+
+* `export BUILD_ARDUINO_BINARY={path}` - location of the Arduino command line
+  binary
+* `export BUILD_ARDUINO_CONFIG={path}` - location of the `.build_arduino_config`
+  configuration file
+
+The `build_arduino.sh` script depends on the
+[Arduino IDE](https://arduino.cc/en/Main/Software) being installed
+(tested with 1.8.5).
+
+The `serial_monitor.py` script depends on
+[pyserial](https://pypi.org/project/pyserial/) (tested with 3.4-1). On
+Linux, you may be able to install this using one of:
+
+* `sudo apt install python-pyserial`
+* `sudo -H pip install pyserial`
+
 ## Usage
 
-The script needs to be given 3 pieces of information:
+Type `build_arduino.sh --help` to get the latest usage:
+```
+$ build_arduino.sh [--help] [--verbose] [--verify | --upload | --test ]
+    [--monitor] [--port /dev/ttyUSB0] [--baud baud]
+    [--board {package}:{arch}:{board}[:parameters]]
+    [--boards {alias}:{port},...] (file.ino | dir) [...]
+```
+
+At a minimum, the script needs to be given 4 pieces of information:
+
 * `--port port` The tty port where the Arduino board can be found
 * `--board board` The identifier for the particular board in the form
     of `{package}:{arch}:{board}[:parameters]`.
@@ -49,7 +79,7 @@ $ ./build_arduino.sh \
 To upload the sketch to the Arduino board, we need to provide the
 `--port` flag:
 ```
-$ ./build_arduino.sh --port /dev/ttyUSB0
+$ ./build_arduino.sh --port /dev/ttyUSB0 \
   --board arduino:avr:nano:cpu=atmega328old --upload Blink.ino
 ```
 
@@ -95,7 +125,7 @@ Create a dotfile (e.g. `$HOME/.build_arduino_config`) in your home directory,
 and set the `BUILD_ARDUINO_CONFIG` environment variable in your `.bashrc`
 file, like this:
 ```
-export BUILD_ARDUINO_CONFIG="$HOME/.build_arduino
+export BUILD_ARDUINO_CONFIG="$HOME/.build_arduino_config
 ```
 
 The `--boards` flag accepts a comma-separated list of `{alias}:{port}`
@@ -109,21 +139,7 @@ $ ./build_arduino.sh --test \
 This runs the `BlinkTest.ino` test on 2 boards, an Arduino Nano on
 `/dev/ttyUSB1` and an Arduino Leonardo (or a Micro clone) on `/dev/ttyACM0`.
 
-## Environment Variables
-
-There are 2 environment variables that **must** be defined in your `.bashrc`
-file:
-
-* `export BUILD_ARDUINO_BINARY={path}` - location of the Arduino command line
-  binary
-* `export BUILD_ARDUINO_CONFIG={path}` - location of the `.build_arduino_config`
-  configuration file
-
 ## System Requirements
-
-The `serial_monitor.py` script depends on `pyserial` (tested with 3.4-1).
-The `build_arduino.sh` script depends on Arduion IDE being installed
-(tested with 1.8.5).
 
 I used Ubuntu 17.10 and Arduino IDE 1.8.5 to develop and test these scripts.
 
