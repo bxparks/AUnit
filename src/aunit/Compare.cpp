@@ -117,6 +117,7 @@ Even though most of these functions are one-liners, there is no advantage to
 inlining them because they are almost always used through a function pointer.
 */
 
+#include <stdint.h>
 #include <string.h>
 #include <WString.h>
 #include "Flash.h"
