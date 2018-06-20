@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['resolve',['resolve',['../classaunit_1_1Test.html#ab7a08fd1e807b989b78d901f2d68ceb5',1,'aunit::Test']]],
-  ['run',['run',['../classaunit_1_1TestRunner.html#a93bd4a358d76e551c2aaf0d32d2dff10',1,'aunit::TestRunner']]]
+  ['pass',['pass',['../classaunit_1_1Test.html#ae71ded07fd6fc69413f64d3d603e4bd6',1,'aunit::Test']]],
+  ['print',['print',['../classaunit_1_1internal_1_1FCString.html#ac4a029df196558927f210314c2e28944',1,'aunit::internal::FCString']]],
+  ['println',['println',['../classaunit_1_1internal_1_1FCString.html#ae2e214a9db25ed35ae6f448cf133ed1e',1,'aunit::internal::FCString']]]
 ];
