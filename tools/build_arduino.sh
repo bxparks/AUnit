@@ -8,7 +8,7 @@
 #   $ build_arduino.sh [--help] [--verbose] [--verify | --upload | --test ]
 #       [--monitor] [--port /dev/ttyUSB0] [--baud baud]
 #       [--board {package}:{arch}:{board}[:parameters]]
-#       [--boards {alias}:{port},...] (file.ino | dir) [...]
+#       [--boards {alias}[:{port}],...] (file.ino | dir) [...]
 #
 # Flags:
 #
@@ -20,7 +20,7 @@
 #   --port /dev/ttyXxx location of the board. Default is /dev/ttyUSB0.
 #   --baud baud Speed of the port for serial_montor.py. Default is 115200.
 #   --board Fully qualified board name (fqbn) of the target board.
-#   --boards {alias:port},... Comma-separated list of {alias:port} pairs.
+#   --boards {alias[:port}],... Comma-separated list of {alias:port} pairs.
 #
 #   If the directory is given, then the script looks for a sketch file under
 #   the directory with the same name but ending with '.ino'. For example,
@@ -44,8 +44,8 @@ CONFIG_FILE=${BUILD_ARDUINO_CONFIG:-$HOME/.build_arduino_config}
 function usage() {
     echo "Usage: build_arduino.sh [--help] [--verbose] \
 [--verify | --upload | --test ] [--monitor] \
-[--port port] [--baud baud] [--board board] \
-[--boards {alias}:{port},...] (file.ino | directory) [...]"
+[--port port] [--baud baud] [--board {package}:{arch}:{board}[:parameters]] \
+[--boards {alias}[:{port}],...] (file.ino | directory) [...]"
     exit 1
 }
 
@@ -86,11 +86,13 @@ function get_config() {
 }
 
 function run_arduino_command_for_boards() {
-    local board_envs=$(echo $boards | sed -e 's/,/ /')
-    for env in $board_envs; do
+    local alias_ports=$(echo $boards | sed -e 's/,/ /g')
+    for alias_port in $alias_ports; do
         # Split {alias}:{port} into two fields.
-        local board_alias=$(echo $env | sed -e 's/\([^:]*\):\([^:]*\)/\1/')
-        local board_port=$(echo $env | sed -e 's/\([^:]*\):\([^:]*\)/\2/')
+        local board_alias=$(echo $alias_port \
+                | sed -E -e 's/([^:]*):?([^:]*)/\1/')
+        local board_port=$(echo $alias_port \
+                | sed -E -e 's/([^:]*):?([^:]*)/\2/')
 
         echo "======== Processing board=$board_alias, port=$board_port"
         local board_value=$(get_config "$board_alias")
@@ -98,6 +100,14 @@ function run_arduino_command_for_boards() {
             echo "Unknown board alias '$board_alias'"
             if [[ "$mode" == 'test' ]]; then
                 echo "FAILED: Unknown board alias '$board_alias'" \
+                    >> $test_summary_file
+            fi
+            continue
+        fi
+        if [[ "$board_port" == '' && "$mode" != 'verify' ]]; then
+            echo "Unknown board port for '$board_alias'"
+            if [[ "$mode" == 'test' ]]; then
+                echo "FAILED: Unknown board port for '$board_alias'" \
                     >> $test_summary_file
             fi
             continue
@@ -154,7 +164,7 @@ function run_arduino_command() {
         echo 'Board variable $board not defined, should not happen'
         return 1
     fi
-    if [[ "$port" == '' ]]; then
+    if [[ "$port" == '' && "$mode" != 'verify' ]]; then
         echo 'Port variable $port not defined, should not happen'
         return 1
     fi
@@ -165,8 +175,13 @@ function run_arduino_command() {
         upload_or_verify='--upload'
     fi
 
+    local port_flag=''
+    if [[ "$port" != '' ]]; then
+        port_flag="--port $port"
+    fi
+
     # Execute the arduino(1) command line and handle the error
-    local cmd="$BUILD_ARDUINO_BINARY $verbose $upload_or_verify --port $port \
+    local cmd="$BUILD_ARDUINO_BINARY $verbose $upload_or_verify $port_flag \
 $board_flag $file"
     echo "\$ $cmd"
     local status=0; $cmd || status=$?

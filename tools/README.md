@@ -2,28 +2,33 @@
 
 A shell wrapper around the [Arduino Commandline Interface]
 (https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc)
-with the following additional features:
+which allows:
+1) Verification (compile) of multiple `*.ino` files across multiple boards.
+2) Uploading of multiple `*.ino` files across multiple boards.
+3) Testing of multiple [AUnit](https://github.com/bxparks/AUnit) unit tests
+across multiple boards.
 
-1) Supports 3 modes: verify (`--verify`), upload (`--upload`), and test
+## Features
+
+* Supports 3 modes: verify (`--verify`), upload (`--upload`), and test
 (`--test`).
-2) Multiple `*.ino` files can be given, and the Arduino Commandline binary will
+* Multiple `*.ino` files can be given, and the Arduino Commandline binary will
 be executed for each sketch in sequence.
-3) A directory can be given and the script will infer the corresponding
+* A directory can be given and the script will infer the corresponding
 `*.ino` file under that directory.
-4) Board aliases can be defined in a user-defined dotfile
-(`$HOME/.build_arduino_config`) which maps a short alias (e.g. "nano") to the
-longer board spec used by the arduino binary (e.g.
+* User-defined board aliases allow mapping of a short alias (e.g. "nano") to the
+fully qualified board name (`fqbn`) used by the arduino binary (e.g.
 "arduino:avr:nano:cpu=atmega328old").
-5) The script can monitor the serial output of the board immediately after
+* The script can monitor the serial output of the board immediately after
 uploading the sketch using the `serial_monitor.py` helper script.
-6) If the sketch is a unit test written in AUnit, the `serial_monitor.py`
+* If the sketch is a unit test written in AUnit, the `serial_monitor.py`
 can parse the Serial output to determine if the unit test passed or failed.
 The shell script collects the results of multiple unit tests and prints
 a summary at the end.
-7) If multiple board/port pairs are given using the `--boards` flag, then the
+* If multiple `board:port` pairs are given using the `--boards` flag, then the
 entire set of `*.ino` files are run through the Arduino command line program for
-each board/port pair. This is useful for running a set of unit tests across
-multiple board types.
+each `board:port` pair. This is useful for verifying, uploading or testing
+sketches across multiple board types.
 
 ## Installation
 
@@ -35,7 +40,7 @@ file:
 
 A second environment variable is optional and overrides the location of
 the board alias config file. The default is `$HOME/.build_arduino_config`
-but can be overriden by `BUILD_ARDUINO_CONFIG`:
+but can be overriden by the `BUILD_ARDUINO_CONFIG` variable:
 
 * `export BUILD_ARDUINO_CONFIG={path}` - location of the `.build_arduino_config`
   configuration file (see **Board Aliases** section below).
@@ -48,7 +53,7 @@ The `serial_monitor.py` script depends on
 [pyserial](https://pypi.org/project/pyserial/) (tested with 3.4-1). On
 Linux, you may be able to install this using one of:
 
-* `sudo apt install python-pyserial`
+* `sudo apt install python-pyserial`, or
 * `sudo -H pip install pyserial`
 
 ## Usage
@@ -58,7 +63,7 @@ Type `build_arduino.sh --help` to get the latest usage:
 $ build_arduino.sh [--help] [--verbose] [--verify | --upload | --test ]
     [--monitor] [--port /dev/ttyUSB0] [--baud baud]
     [--board {package}:{arch}:{board}[:parameters]]
-    [--boards {alias}:{port},...] (file.ino | dir) [...]
+    [--boards {alias}[:{port}],...] (file.ino | dir) [...]
 ```
 
 At a minimum, the script needs to be given 4 pieces of information:
@@ -156,8 +161,10 @@ Save the alias list into the `$HOME/.build_arduino_config` file in your
 home directory. (The location of the config file can be
 changed using the `BUILD_ARDUINO_CONFIG` environment variable.)
 
+## Multiple Boards
+
 The board aliases can be used in the `--boards` flag, which accepts a
-comma-separated list of `{alias}:{port}` pairs, like this:
+comma-separated list of `{alias}[:{port}]` pairs, like this:
 
 ```
 $ ./build_arduino.sh --test \
@@ -167,6 +174,15 @@ $ ./build_arduino.sh --test \
 This runs the `BlinkTest.ino` test on 2 boards:
 * an Arduino Nano on `/dev/ttyUSB1` and,
 * an Arduino Leonardo (or a Micro clone) on `/dev/ttyACM0`.
+
+The `port` part of the `alias:port` pair is optional because it is not needed
+for the `--verify` mode. You can verify sketches across multiple boards like
+this:
+
+```
+$ ./build_arduino.sh --verify \
+  --boards nano,leonardo,esp8266,esp32 BlinkTest.ino
+```
 
 ## System Requirements
 
