@@ -3,7 +3,7 @@
 A unit testing framework for Arduino platforms inspired by ArduinoUnit and
 Google Test.
 
-Version: 0.5.3 (2018-05-16)
+Version: 1.0.0 (2018-06-20)
 
 ## Summary
 
@@ -31,6 +31,11 @@ In contrast:
   AVR platform. On Teensy-ARM, the savings can be as much as 30%.
 * AUnit has been tested on AVR, Teensy-ARM and ESP8266.
 * AUnit implements the `testF()` and `testingF()` macros to use fixtures.
+
+A commandline tool (`tools/auniter.sh`) allows multiple AUnit tests to be
+compiled, verified and uploaded to multiple Arduino boards. The tool will also
+monitor the serial port and collect the pass or fail status of the unit tests
+which will be presented in a summary form at the end of the script.
 
 ### Supported or Compatible Features
 
@@ -108,12 +113,6 @@ Here are the features in AUnit which are not available in ArduinoUnit 2.2:
     * ESP32 (32-bit)
 
 Every feature of AUnit is unit tested using AUnit itself.
-
-### Beta Status
-
-Although this library has been extensively tested by me, and two of my Arduino
-libraries (AceButton and AceSegment, see Examples below) now use it, I consider
-it currently in "beta stage" until more users have tested it.
 
 ## Installation
 
