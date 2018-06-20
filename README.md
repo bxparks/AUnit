@@ -139,6 +139,7 @@ The source files are organized as follows:
 * `src/aunit/` - all implementation files
 * `tests/` - unit tests written using AUnit itself
 * `examples/` - example sketches
+* `tools/` - commandline scripts for automated compiling, uploading and testing
 
 ### Docs
 
@@ -174,7 +175,6 @@ currently have 2 Arduino project using AUnit extensively
       backwards compatible. They do not use the new features of AUnit.
 * [AceSegment](https://github.com/bxparks/AceSegment)
     * Demonstrates the full power of AUnit better.
-
 
 ## Usage
 
@@ -1076,6 +1076,31 @@ really a unit test but an integration test, and should probably use a different
 framework, but let me know if you truly need a timeout of greater than 4m15s).
 
 ***ArduinoUnit Compatibility***: _Only available in AUnit._
+
+## Commandline Tools
+
+The [tools](tools) folder contains the `build_arduino.sh` script which allows
+multiple unit tests to be compiled, uploaded and run on multiple Arduino boards
+using a commandline interface. The script will monitor the serial port and
+determine if the unit test passed or failed, and it will print out a summary of
+all unit tests at the end.
+
+For example, the following runs all the unit tests in the
+[AceSegment](https://github.com/bxparks/AceSegment) project (currently 5), on 2
+boards (Nano and Leonardo) connected at the specified tty ports:
+
+```
+$ AUnit/tools/build_arduino.sh --test \
+  --boards nano:/dev/ttyUSB1,leonardo:/dev/ttyACM0 AceSegment/tests/*Test
+```
+
+If you want to just verify that the sketches compile, the tty ports are not
+needed, and you can just type:
+
+```
+$ AUnit/tools/build_arduino.sh --verify \
+  --boards nano,leonardo,esp8266 AceSegment/tests/*Test
+```
 
 ## Tips
 

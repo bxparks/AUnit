@@ -1,7 +1,7 @@
 # Build Script for Arduino Command Line
 
-A shell wrapper around the [Arduino Commandline Interface]
-(https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc)
+A shell wrapper around the
+[Arduino Commandline Interface](https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc)
 which allows programmatic (unattended) workflows:
 
 1) Verifying (compile) multiple `*.ino` files across multiple boards.
@@ -32,7 +32,12 @@ entire set of `*.ino` files are run through the Arduino command line program for
 each `board:port` pair. This is useful for verifying, uploading or testing
 sketches across multiple board types.
 
-## Installation
+## Requirements
+
+These scripts are meant to be used from a Linux environment with the
+following core packages installed:
+* bash
+* python3
 
 The `build_arduino.sh` script depends on the
 [Arduino IDE](https://arduino.cc/en/Main/Software) being installed
