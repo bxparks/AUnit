@@ -63,6 +63,7 @@ variable:
 
 Type `build_arduino.sh --help` to get the latest usage:
 ```
+$ ./build_arduino.sh --help
 Usage: build_arduino.sh [--help] [--verbose]
     [--verify | --upload | --test | --monitor]
     [--board {package}:{arch}:{board}[:parameters]]
@@ -113,17 +114,13 @@ $ ./build_arduino.sh --port /dev/ttyUSB0 \
 A summary of all the test runs are given at the end, like this:
 
 ```
+[...]
 ======== Test Run Summary
-PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1
-AceSegment/tests/CommonTest/CommonTest.ino
-PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1
-AceSegment/tests/DriverTest/DriverTest.ino
-PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1
-AceSegment/tests/LedMatrixTest/LedMatrixTest.ino
-PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1
-AceSegment/tests/RendererTest/RendererTest.ino
-PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1
-AceSegment/tests/WriterTest/WriterTest.ino
+PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1 AceSegment/tests/CommonTest/CommonTest.ino
+PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1 AceSegment/tests/DriverTest/DriverTest.ino
+PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1 AceSegment/tests/LedMatrixTest/LedMatrixTest.ino
+PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1 AceSegment/tests/RendererTest/RendererTest.ino
+PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1 AceSegment/tests/WriterTest/WriterTest.ino
 ALL PASSED
 ```
 
@@ -149,6 +146,10 @@ script. However, it has the ability to list the available tty ports
 using the `--list` flag:
 ```
 $ ./serial_monitor.py --list
+/dev/ttyS4 - n/a
+/dev/ttyS0 - ttyS0
+/dev/ttyUSB0 - EzSBC ESP32
+/dev/ttyUSB1 - USB2.0-Serial
 ```
 
 ### Files and Directory
