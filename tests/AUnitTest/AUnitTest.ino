@@ -280,6 +280,41 @@ test(compareStringN_WithNulls) {
   if (!(compareString(NULL_FSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
 }
 
+test(FCString_compareTo) {
+  FCString n;
+  FCString a("a");
+  FCString b("b");
+  FCString fa(F("a"));
+  FCString fb(F("b"));
+
+  assertEqual(n.compareTo(n), 0);
+  assertLess(n.compareTo(a), 0);
+  assertLess(n.compareTo(fa), 0);
+
+  assertEqual(a.compareTo(fa), 0);
+  assertEqual(fb.compareTo(b), 0);
+
+  assertLess(a.compareTo(b), 0);
+  assertLess(a.compareTo(fb), 0);
+  assertMore(fb.compareTo(a), 0);
+  assertMore(fb.compareTo(fa), 0);
+}
+
+test(FCString_compareToN) {
+  FCString a("a");
+  FCString fa(F("a"));
+
+  assertEqual(a.compareToN("aa", 1), 0);
+  assertLess(a.compareToN("aa", 2), 0);
+  assertEqual(a.compareToN(F("aa"), 1), 0);
+  assertLess(a.compareToN(F("aa"), 2), 0);
+
+  assertEqual(fa.compareToN("aa", 1), 0);
+  assertLess(fa.compareToN("aa", 2), 0);
+  assertEqual(fa.compareToN(F("aa"), 1), 0);
+  assertLess(fa.compareToN(F("aa"), 2), 0);
+}
+
 #endif
 
 test(assertEqual) {
@@ -660,7 +695,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    21 passed, 3 failed, 1 skipped, 2 timed out, out of 27 test(s).
+  //    23 passed, 3 failed, 1 skipped, 2 timed out, out of 29 test(s).
   TestRunner::run();
 #else
   // Should get something like:

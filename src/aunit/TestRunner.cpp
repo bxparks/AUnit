@@ -59,7 +59,7 @@ void TestRunner::setLifeCycleMatchingPattern(const char* pattern,
   }
 
   for (Test** p = Test::getRoot(); *p != nullptr; p = (*p)->getNext()) {
-    if (compareStringN((*p)->getName(), pattern, length) == 0) {
+    if ((*p)->getName().compareToN(pattern, length) == 0) {
       (*p)->setLifeCycle(lifeCycle);
     }
   }

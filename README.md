@@ -3,7 +3,7 @@
 A unit testing framework for Arduino platforms inspired by ArduinoUnit and
 Google Test.
 
-Version: 0.5.3 (2018-05-16)
+Version: 1.0.0 (2018-06-20)
 
 ## Summary
 
@@ -31,6 +31,11 @@ In contrast:
   AVR platform. On Teensy-ARM, the savings can be as much as 30%.
 * AUnit has been tested on AVR, Teensy-ARM and ESP8266.
 * AUnit implements the `testF()` and `testingF()` macros to use fixtures.
+
+A commandline tool (`tools/auniter.sh`) allows multiple AUnit tests to be
+compiled and uploaded to multiple Arduino boards. The tool monitors the serial
+port, collects the PASS or FAIL status of the unit tests, and prints a summary
+of all the unit tests at end of the run.
 
 ### Supported or Compatible Features
 
@@ -109,12 +114,6 @@ Here are the features in AUnit which are not available in ArduinoUnit 2.2:
 
 Every feature of AUnit is unit tested using AUnit itself.
 
-### Beta Status
-
-Although this library has been extensively tested by me, and two of my Arduino
-libraries (AceButton and AceSegment, see Examples below) now use it, I consider
-it currently in "beta stage" until more users have tested it.
-
 ## Installation
 
 The latest stable release is available in the Arduino IDE Library Manager.
@@ -139,6 +138,7 @@ The source files are organized as follows:
 * `src/aunit/` - all implementation files
 * `tests/` - unit tests written using AUnit itself
 * `examples/` - example sketches
+* `tools/` - commandline scripts for automated compiling, uploading and testing
 
 ### Docs
 
@@ -174,7 +174,6 @@ currently have 2 Arduino project using AUnit extensively
       backwards compatible. They do not use the new features of AUnit.
 * [AceSegment](https://github.com/bxparks/AceSegment)
     * Demonstrates the full power of AUnit better.
-
 
 ## Usage
 
@@ -1076,6 +1075,37 @@ really a unit test but an integration test, and should probably use a different
 framework, but let me know if you truly need a timeout of greater than 4m15s).
 
 ***ArduinoUnit Compatibility***: _Only available in AUnit._
+
+## Commandline Tools
+
+The `auniter.sh` script in the [AUnit/tools](tools) folder allows multiple unit
+tests to be compiled, uploaded and validated on multiple Arduino boards using a
+commandline interface. The script will monitor the serial port and determine if
+the unit test passed or failed, and it will print out a summary of all unit
+tests at the end.
+
+For example, the following runs all the unit tests in the
+[AceSegment](https://github.com/bxparks/AceSegment) project (currently 5), on 2
+boards (Nano, Leonardo) connected at the specified tty
+ports:
+
+```
+$ AUnit/tools/auniter.sh --test \
+  --boards nano:/dev/ttyUSB1,leonardo:/dev/ttyACM0 AceSegment/tests/*Test
+```
+
+If you want to just verify that the sketches compile, the tty ports can be
+omitted like this:
+
+```
+$ AUnit/tools/auniter.sh --verify \
+  --boards nano,leonardo,esp8266,esp32 AceSegment/tests/*Test
+```
+
+The list of available ports can be found by:
+```
+$ AUnit/tools/auniter.sh --list_ports
+```
 
 ## Tips
 

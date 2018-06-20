@@ -25,7 +25,7 @@ SOFTWARE.
 #ifndef AUNIT_FSTRING_H
 #define AUNIT_FSTRING_H
 
-#include <stdint.h>
+#include <stddef.h> // size_t
 
 class Print;
 class __FlashStringHelper;
@@ -86,6 +86,23 @@ class FCString {
   
     /** Convenience method for printing an FCString. */
     void println(Print* printer) const;
+
+    /** Compare to another FCString. */
+    int compareTo(const FCString& that) const;
+
+    /**
+     * Compare to C-string using the first n characters.
+     * This is expected to be used only for TestRunner::exclude() and
+     * TestRunner::include().
+     */
+    int compareToN(const char* that, size_t n) const;
+
+    /**
+     * Compare to a flash string using the first n characters.
+     * This is expected to be used only for TestRunner::exclude() and
+     * TestRunner::include().
+     */
+    int compareToN(const __FlashStringHelper* that, size_t n) const;
 
   private:
     // NOTE: It might be possible just use a (void *) instead of a union.

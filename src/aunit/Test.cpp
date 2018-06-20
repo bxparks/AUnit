@@ -63,7 +63,7 @@ void Test::insert() {
   // Find the element p whose p->next sorts after the current test
   Test** p = getRoot();
   while (*p != nullptr) {
-    if (compareString(getName(), (*p)->getName()) < 0) break;
+    if (getName().compareTo((*p)->getName()) < 0) break;
     p = &(*p)->mNext;
   }
   mNext = *p;

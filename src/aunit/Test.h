@@ -155,7 +155,7 @@ class Test {
     void resolve();
 
     /** Get the name of the test. */
-    const internal::FCString& getName() { return mName; }
+    const internal::FCString& getName() const { return mName; }
 
     /** Get the life cycle state of the test. */
     uint8_t getLifeCycle() { return mLifeCycle; }

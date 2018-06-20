@@ -1,5 +1,11 @@
 # Changelog
 
+* 1.0.0 (2018-06-20)
+    * Add auniter.sh commandline script that allows uploading and validation
+      of multiple unit tests on multiple Arduino boards. (#31)
+    * Include contrib/gtest.h, an adapter header file by
+      ciband@, that emulates some of the Google Test API. (#30)
+    * Graduate from "beta" status. The library seems stable enough.
 * 0.5.3 (2018-05-16)
     * Add assertStringCaseEqual() and assertStringCaseNotEqual(),
       case-insensitive versions of assertEqual() and assertNotEqual() for

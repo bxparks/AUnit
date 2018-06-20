@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">0.5.3</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -104,6 +104,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae2e214a9db25ed35ae6f448cf133ed1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1internal_1_1FCString.html#ae2e214a9db25ed35ae6f448cf133ed1e">println</a> (Print *printer) const</td></tr>
 <tr class="memdesc:ae2e214a9db25ed35ae6f448cf133ed1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience method for printing an <a class="el" href="classaunit_1_1internal_1_1FCString.html" title="A union of (const char*) and (const __FlashStringHelper*) with a discriminator. ">FCString</a>.  <a href="#ae2e214a9db25ed35ae6f448cf133ed1e">More...</a><br /></td></tr>
 <tr class="separator:ae2e214a9db25ed35ae6f448cf133ed1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf5327720f6e7c88aa8696dd90d5f1c5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1internal_1_1FCString.html#abf5327720f6e7c88aa8696dd90d5f1c5">compareTo</a> (const <a class="el" href="classaunit_1_1internal_1_1FCString.html">FCString</a> &amp;that) const</td></tr>
+<tr class="memdesc:abf5327720f6e7c88aa8696dd90d5f1c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare to another <a class="el" href="classaunit_1_1internal_1_1FCString.html" title="A union of (const char*) and (const __FlashStringHelper*) with a discriminator. ">FCString</a>.  <a href="#abf5327720f6e7c88aa8696dd90d5f1c5">More...</a><br /></td></tr>
+<tr class="separator:abf5327720f6e7c88aa8696dd90d5f1c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c99cb7f0ffc35e40f3b53c711a44a08"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1internal_1_1FCString.html#a7c99cb7f0ffc35e40f3b53c711a44a08">compareToN</a> (const char *that, size_t n) const</td></tr>
+<tr class="memdesc:a7c99cb7f0ffc35e40f3b53c711a44a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare to C-string using the first n characters.  <a href="#a7c99cb7f0ffc35e40f3b53c711a44a08">More...</a><br /></td></tr>
+<tr class="separator:a7c99cb7f0ffc35e40f3b53c711a44a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88450f2b8adcd7b37c356d318abae777"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1internal_1_1FCString.html#a88450f2b8adcd7b37c356d318abae777">compareToN</a> (const __FlashStringHelper *that, size_t n) const</td></tr>
+<tr class="memdesc:a88450f2b8adcd7b37c356d318abae777"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare to a flash string using the first n characters.  <a href="#a88450f2b8adcd7b37c356d318abae777">More...</a><br /></td></tr>
+<tr class="separator:a88450f2b8adcd7b37c356d318abae777"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -212,6 +221,94 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>kFStr
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="abf5327720f6e7c88aa8696dd90d5f1c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf5327720f6e7c88aa8696dd90d5f1c5">&#9670;&nbsp;</a></span>compareTo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aunit::internal::FCString::compareTo </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classaunit_1_1internal_1_1FCString.html">FCString</a> &amp;&#160;</td>
+          <td class="paramname"><em>that</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compare to another <a class="el" href="classaunit_1_1internal_1_1FCString.html" title="A union of (const char*) and (const __FlashStringHelper*) with a discriminator. ">FCString</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="FCString_8cpp_source.html#l00055">55</a> of file <a class="el" href="FCString_8cpp_source.html">FCString.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7c99cb7f0ffc35e40f3b53c711a44a08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c99cb7f0ffc35e40f3b53c711a44a08">&#9670;&nbsp;</a></span>compareToN() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aunit::internal::FCString::compareToN </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>that</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compare to C-string using the first n characters. </p>
+<p>This is expected to be used only for <a class="el" href="classaunit_1_1TestRunner.html#ad55fbb77f52eb2c1a2d45536e8c4afba" title="Exclude the tests which match the pattern. ">TestRunner::exclude()</a> and <a class="el" href="classaunit_1_1TestRunner.html#a63301f8ab1cbbf1b7cca7a35434b00d2" title="Include the tests which match the pattern. ">TestRunner::include()</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="FCString_8cpp_source.html#l00071">71</a> of file <a class="el" href="FCString_8cpp_source.html">FCString.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a88450f2b8adcd7b37c356d318abae777"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88450f2b8adcd7b37c356d318abae777">&#9670;&nbsp;</a></span>compareToN() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int aunit::internal::FCString::compareToN </td>
+          <td>(</td>
+          <td class="paramtype">const __FlashStringHelper *&#160;</td>
+          <td class="paramname"><em>that</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compare to a flash string using the first n characters. </p>
+<p>This is expected to be used only for <a class="el" href="classaunit_1_1TestRunner.html#ad55fbb77f52eb2c1a2d45536e8c4afba" title="Exclude the tests which match the pattern. ">TestRunner::exclude()</a> and <a class="el" href="classaunit_1_1TestRunner.html#a63301f8ab1cbbf1b7cca7a35434b00d2" title="Include the tests which match the pattern. ">TestRunner::include()</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="FCString_8cpp_source.html#l00079">79</a> of file <a class="el" href="FCString_8cpp_source.html">FCString.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a03e7eb782104ca65cb2dfe161540833e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a03e7eb782104ca65cb2dfe161540833e">&#9670;&nbsp;</a></span>getCString()</h2>
 
@@ -317,7 +414,7 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>kFStr
 
 <p>Convenience method for printing an <a class="el" href="classaunit_1_1internal_1_1FCString.html" title="A union of (const char*) and (const __FlashStringHelper*) with a discriminator. ">FCString</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="FCString_8cpp_source.html#l00031">31</a> of file <a class="el" href="FCString_8cpp_source.html">FCString.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FCString_8cpp_source.html#l00032">32</a> of file <a class="el" href="FCString_8cpp_source.html">FCString.cpp</a>.</p>
 
 </div>
 </div>
@@ -339,7 +436,7 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>kFStr
 
 <p>Convenience method for printing an <a class="el" href="classaunit_1_1internal_1_1FCString.html" title="A union of (const char*) and (const __FlashStringHelper*) with a discriminator. ">FCString</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="FCString_8cpp_source.html#l00039">39</a> of file <a class="el" href="FCString_8cpp_source.html">FCString.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FCString_8cpp_source.html#l00042">42</a> of file <a class="el" href="FCString_8cpp_source.html">FCString.cpp</a>.</p>
 
 </div>
 </div>
