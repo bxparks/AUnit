@@ -34,19 +34,6 @@ sketches across multiple board types.
 
 ## Installation
 
-There is one environment variable that **must** be defined in your `.bashrc`
-file:
-
-* `export BUILD_ARDUINO_BINARY={path}` - location of the Arduino command line
-  binary
-
-A second environment variable is optional and overrides the location of
-the board alias config file. The default is `$HOME/.build_arduino_config`
-but can be overriden by the `BUILD_ARDUINO_CONFIG` variable:
-
-* `export BUILD_ARDUINO_CONFIG={path}` - location of the `.build_arduino_config`
-  configuration file (see **Board Aliases** section below).
-
 The `build_arduino.sh` script depends on the
 [Arduino IDE](https://arduino.cc/en/Main/Software) being installed
 (tested with 1.8.5).
@@ -58,18 +45,32 @@ Linux, you may be able to install this using one of:
 * `sudo apt install python-pyserial`, or
 * `sudo -H pip install pyserial`
 
+There is one environment variable that **must** be defined in your `.bashrc`
+file:
+
+* `export BUILD_ARDUINO_BINARY={path}` - location of the Arduino command line
+  binary
+
+A second environment variable is optional and overrides the location of the
+board alias config file (see **Board Aliases** section below).. The default is
+`$HOME/.build_arduino_config` but can be overriden by the `BUILD_ARDUINO_CONFIG`
+variable:
+
+* `export BUILD_ARDUINO_CONFIG={path}` - location of the `.build_arduino_config`
+  configuration file
+
 ## Usage
 
 Type `build_arduino.sh --help` to get the latest usage:
 ```
-$ build_arduino.sh [--help] [--verbose]
+Usage: build_arduino.sh [--help] [--verbose]
     [--verify | --upload | --test | --monitor]
     [--board {package}:{arch}:{board}[:parameters]]
     [--port /dev/ttyUSB0] [--baud baud]
     [--boards {alias}[:{port}],...] (file.ino | dir) [...]
 ```
 
-At a minimum, the script needs to be given 4 pieces of information:
+At a minimum, the script needs to be given 3-4 pieces of information:
 
 * mode (`--verify`, `--upload`, `--test`, `--monitor`) The mode determines the
   actions performed. Verify checks for compiler errors. Upload pushes the sketch
@@ -77,7 +78,8 @@ At a minimum, the script needs to be given 4 pieces of information:
   passes. Monitor uploads the sketch then echos the Serial output to the STDOUT.
 * `--board board` The identifier for the particular board in the form
   of `{package}:{arch}:{board}[:parameters]`.
-* `--port port` The tty port where the Arduino board can be found
+* `--port port` The tty port where the Arduino board can be found. This is
+  optional for the `--verify` mode which does not need to connect to the board.
 * `file.ino` The Arduino sketch file.
 
 ### Verify

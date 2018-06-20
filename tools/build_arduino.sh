@@ -234,8 +234,6 @@ function check_environment_variables() {
     fi
 }
 
-check_environment_variables
-
 # Parse command line flags
 mode='verify'
 board=
@@ -265,6 +263,7 @@ if [[ "$port" == '' ]]; then
     usage
 fi
 
+check_environment_variables
 create_summary_file
 if [[ "$boards" != '' ]]; then
     process_boards "$@"
