@@ -7,11 +7,11 @@ with the following additional features:
 1) Supports 3 modes: verify (`--verify`), upload (`--upload`), and test
 (`--test`).
 2) Multiple `*.ino` files can be given, and the Arduino Commandline binary will
-be executed for each sketch.
+be executed for each sketch in sequence.
 3) A directory can be given and the script will infer the corresponding
 `*.ino` file under that directory.
-4) Board aliases can be defined in a user-defined dotfile (e.g.
-`$HOME/.build_arduino_config`) which maps a short alias (e.g. "nano") to the
+4) Board aliases can be defined in a user-defined dotfile
+(`$HOME/.build_arduino_config`) which maps a short alias (e.g. "nano") to the
 longer board spec used by the arduino binary (e.g.
 "arduino:avr:nano:cpu=atmega328old").
 5) The script can monitor the serial output of the board immediately after
@@ -74,7 +74,9 @@ At a minimum, the script needs to be given 4 pieces of information:
 
 ### Verify
 
-The following example verifies that the `Blink.ino` sketch compiles:
+The following example verifies that the `Blink.ino` sketch compiles. The
+`--port` flag is not necessary in this case:
+
 ```
 $ ./build_arduino.sh \
   --board arduino:avr:nano:cpu=atmega328old --verify Blink.ino
@@ -84,6 +86,7 @@ $ ./build_arduino.sh \
 
 To upload the sketch to the Arduino board, we need to provide the
 `--port` flag:
+
 ```
 $ ./build_arduino.sh --port /dev/ttyUSB0 \
   --board arduino:avr:nano:cpu=atmega328old --upload Blink.ino

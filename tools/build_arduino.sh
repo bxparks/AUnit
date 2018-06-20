@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# A shell wrapper around the arduino(1) program with 3 modes: verify, upload,
-# and test.
+# A shell wrapper around the arduino(1) commandline program which can
+# verify and upload and arduino sketch, and validate an AUnit unit test.
 #
 # Usage:
 #
@@ -10,37 +10,22 @@
 #       [--board {package}:{arch}:{board}[:parameters]]
 #       [--boards {alias}:{port},...] (file.ino | dir) [...]
 #
-# Documentation of arduino binary flags:
-#
-#   https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc
-#
-# Environment variables:
-#
-#   BUILD_ARDUINO_BINARY: location of the arduino IDE binary
-#   BUILD_ARDUINO_CONFIG: location of the .build_arduino_config file
-#
-# Example ports (Linux):
-#
-#   - Arduino Micro: /dev/ttyACM{n}
-#   - Arduino Nano: /dev/ttyUSB{n}
-#   - ESP8266: /dev/ttyUSB{n}
-#
 # Flags:
+#
+#   --verify Verify the compile of the given sketch files.
+#   --upload Upload the sketch to the given board at port.
+#   --monitor Use serial_monitor.py to read and echo the serial output.
+#   --test Upload an AUnit unit test, and verify pass or fail. Automatically
+#       invokes the --upload flag.
+#   --port /dev/ttyXxx location of the board. Default is /dev/ttyUSB0.
+#   --baud baud Speed of the port for serial_montor.py. Default is 115200.
+#   --board Fully qualified board name (fqbn) of the target board.
+#   --boards {alias:port},... Comma-separated list of {alias:port} pairs.
 #
 #   If the directory is given, then the script looks for a sketch file under
 #   the directory with the same name but ending with '.ino'. For example,
 #   './build_arduino.sh CommonTest' is equivalent to './build_arduino.sh
 #   CommonTest/CommonTest.ino' if CommonTest is a directory.
-#
-#   The --test flag automatically enables both the --upload and the --monitor
-#   flags.
-#
-#   If none of --verify, --upload nor --test flags are given, then the default
-#   is --verify.
-#
-#   The default value of --port is /dev/ttyUSB0.
-#
-#   The default value of --baud is 115200.
 #
 # Copyright and License:
 #
