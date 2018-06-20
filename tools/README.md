@@ -144,6 +144,15 @@ The `serial_monitor.py` times out after 10 seconds if the serial monitor is
 inactive. If the sketch continues to output something to the serial monitor,
 then only one sketch can be monitored.
 
+### Automatic Directory Expansion
+
+If the `build_arduino.sh` is given a directory `dir`, it tries to find
+an ino file located at `dir/dir.ino`, since the ino file must have the
+same base name as the parent directory.
+
+Multiple files and directories can be given. The Arduino Commandline will
+be executed on each of the ino files in sequence.
+
 ## Usage of Serial Monitor Script
 
 The `serial_monitor.py` is normally called from the `build_arduino.sh` script.
@@ -167,15 +176,6 @@ $ ./serial_monitor.py
 The `--monitor` causes `serial_monitor.py` to read lines from the given `--port`
 at the speed of `--baud`, and echo the lines to the STDOUT. If no lines
 are detected after 10 seconds, the python script terminates.
-
-### Files and Directory
-
-If the `build_arduino.sh` is given a directory `dir`, it tries to find
-an ino file located at `dir/dir.ino`, since the ino file must have the
-same base name as the parent directory.
-
-Multiple files and directories can be given. The Arduino Commandline will
-be executed on each of the ino files in sequence.
 
 ## Board Aliases
 
@@ -210,7 +210,7 @@ in the `[boards]` section:
   esp32 = espressif:esp32:esp32:PartitionScheme=default,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=921600,DebugLevel=none
 ```
 
-The format of the config key is not precisely defined, but it should probably be
+The format of the alias name is not precisely defined, but it should probably be
 limited to the usual character set for identifiers (`a-z`, `A-Z`, `0-9`,
 underscore `_`). It definitely cannot contain an equal sign `=` or space ` `
 character.
