@@ -1,15 +1,15 @@
 # Build Script for Arduino Command Line
 
-A shell wrapper around the
+The `auniter.sh` shell is a wrapper around the
 [Arduino Commandline Interface](https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc)
-which allows programmatic (unattended) workflows:
+that allows programmatic (unattended) workflows:
 
 1) Verifying (compile) multiple `*.ino` files across multiple boards.
 2) Uploading multiple `*.ino` files across multiple boards.
 3) Testing multiple [AUnit](https://github.com/bxparks/AUnit) unit tests
 across multiple boards.
 4) Monitoring the serial monitor after uploading the sketch to a board.
-5) List the tty ports and the associated Arduino board (if available).
+5) List the tty ports and the associated Arduino boards (if available).
 
 ## Features
 
@@ -41,7 +41,7 @@ following core packages installed:
 * bash
 * python3
 
-The `build_arduino.sh` script depends on the
+The `auniter.sh` script depends on the
 [Arduino IDE](https://arduino.cc/en/Main/Software) being installed
 (tested with 1.8.5).
 
@@ -55,23 +55,23 @@ Ubuntu Linux, you may be able to install this using one of:
 There is one environment variable that **must** be defined in your `.bashrc`
 file:
 
-* `export BUILD_ARDUINO_BINARY={path}` - location of the Arduino command line
+* `export AUNITER_BINARY={path}` - location of the Arduino command line
   binary
 
 A second environment variable is optional and overrides the location of the
 board alias config file (see **Board Aliases** section below).. The default is
-`$HOME/.build_arduino_config` but can be overriden by the `BUILD_ARDUINO_CONFIG`
+`$HOME/.auniter_config` but can be overriden by the `AUNITER_CONFIG`
 variable:
 
-* `export BUILD_ARDUINO_CONFIG={path}` - location of the `.build_arduino_config`
+* `export AUNITER_CONFIG={path}` - location of the `.auniter_config`
   configuration file
 
 ## Usage
 
-Type `build_arduino.sh --help` to get the latest usage:
+Type `auniter.sh --help` to get the latest usage:
 ```
-$ ./build_arduino.sh --help
-Usage: build_arduino.sh [--help] [--verbose]
+$ ./auniter.sh --help
+Usage: auniter.sh [--help] [--verbose]
     [--verify | --upload | --test | --monitor | --list_ports]
     [--board {package}:{arch}:{board}[:parameters]] [--port port] [--baud baud]
     [--boards {alias}[:{port}],...] (file.ino | dir) [...]
@@ -95,7 +95,7 @@ The following example verifies that the `Blink.ino` sketch compiles. The
 `--port` flag is not necessary in this case:
 
 ```
-$ ./build_arduino.sh \
+$ ./auniter.sh \
   --board arduino:avr:nano:cpu=atmega328old --verify Blink.ino
 ```
 
@@ -105,7 +105,7 @@ To upload the sketch to the Arduino board, we need to provide the
 `--port` flag:
 
 ```
-$ ./build_arduino.sh --port /dev/ttyUSB0 \
+$ ./auniter.sh --port /dev/ttyUSB0 \
   --board arduino:avr:nano:cpu=atmega328old --upload Blink.ino
 ```
 
@@ -113,7 +113,7 @@ $ ./build_arduino.sh --port /dev/ttyUSB0 \
 
 To run the AUnit test and verify pass or fail:
 ```
-$ ./build_arduino.sh --port /dev/ttyUSB0 \
+$ ./auniter.sh --port /dev/ttyUSB0 \
   --board arduino:avr:nano:cpu=atmega328old --test BlinkTest.ino
 ```
 
@@ -137,7 +137,7 @@ The `ALL PASSED` indicates that all unit tests passed.
 The `--monitor` mode uploads the given sketch and calls `serial_monitor.py`
 to listen to the serial monitor and echo the output to the STDOUT:
 ```
-$ ./build_arduino.sh --port /dev/ttyUSB0 \
+$ ./auniter.sh --port /dev/ttyUSB0 \
   --board arduino:avr:nano:cpu=atmega328old --monitor BlinkTest.ino
 ```
 
@@ -150,7 +150,7 @@ then only one sketch can be monitored.
 The `--list_ports` flag will ask `serial_monitor.py` to list the available tty
 ports:
 ```
-$ ./build_arduino.sh --list_ports
+$ ./auniter.sh --list_ports
 /dev/ttyS4 - n/a
 /dev/ttyS0 - ttyS0
 /dev/ttyUSB0 - EzSBC ESP32
@@ -159,7 +159,7 @@ $ ./build_arduino.sh --list_ports
 
 ### Automatic Directory Expansion
 
-If the `build_arduino.sh` is given a directory `dir`, it tries to find
+If the `auniter.sh` is given a directory `dir`, it tries to find
 an ino file located at `dir/dir.ino`, since the ino file must have the
 same base name as the parent directory.
 
@@ -185,7 +185,7 @@ espressif:esp32:esp32:PartitionScheme=default,FlashMode=qio,FlashFreq=80,FlashSi
 It is likely that not all the extra parameters are needed, but it is not
 easy to figure out which ones can be left out.
 
-Instead of using the `fqbn`, the `build_arduino.sh` script allows
+Instead of using the `fqbn`, the `auniter.sh` script allows
 the user to define aliases for the `fqbn` in a file. The format of the file is
 the [INI file](https://en.wikipedia.org/wiki/INI_file), and the aliases are
 in the `[boards]` section:
@@ -204,9 +204,9 @@ limited to the usual character set for identifiers (`a-z`, `A-Z`, `0-9`,
 underscore `_`). It definitely cannot contain an equal sign `=` or space ` `
 character.
 
-Save the alias list into the `$HOME/.build_arduino_config` file in your
+Save the alias list into the `$HOME/.auniter_config` file in your
 home directory. (The location of the config file can be
-changed using the `BUILD_ARDUINO_CONFIG` environment variable.)
+changed using the `AUNITER_CONFIG` environment variable.)
 
 ## Multiple Boards
 
@@ -214,7 +214,7 @@ The board aliases can be used in the `--boards` flag, which accepts a
 comma-separated list of `{alias}[:{port}]` pairs, like this:
 
 ```
-$ ./build_arduino.sh --test \
+$ ./auniter.sh --test \
   --boards nano:/dev/ttyUSB1,leonardo:/dev/ttyACM0 BlinkTest.ino
 ```
 
@@ -227,7 +227,7 @@ for the `--verify` mode. You can verify sketches across multiple boards like
 this:
 
 ```
-$ ./build_arduino.sh --verify \
+$ ./auniter.sh --verify \
   --boards nano,leonardo,esp8266,esp32 BlinkTest.ino
 ```
 

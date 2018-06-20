@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# build_arduino.sh
+# auniter.sh
 #
 #   A shell wrapper around the arduino(1) commandline program which can verify
 #   and upload an Arduino sketch, and validate an AUnit unit test.
@@ -11,10 +11,10 @@
 #
 # Usage:
 #
-#   $ build_arduino.sh [--help] [--verbose]
+#   $ auniter.sh [--help] [--verbose]
 #       [--verify | --upload | --test | --monitor | --list_ports]
 #       [--board {package}:{arch}:{board}[:parameters]]
-#       [--port /dev/ttyUSB0] [--baud baud]
+#       [--port port] [--baud baud]
 #       [--boards {alias}[:{port}],...] (file.ino | dir) [...]
 #
 # Flags:
@@ -31,7 +31,7 @@
 #
 #   If the directory is given, then the script looks for a sketch file under
 #   the directory with the same name but ending with '.ino'. For example,
-#   './build_arduino.sh CommonTest' is equivalent to './build_arduino.sh
+#   './auniter.sh CommonTest' is equivalent to './auniter.sh
 #   CommonTest/CommonTest.ino' if CommonTest is a directory.
 
 set -eu
@@ -40,12 +40,12 @@ set -eu
 DIRNAME=$(dirname $0)
 
 # Determine the location of the config file. Defaults to
-# $HOME/.build_arduino_config unless BUILD_ARDUINO_CONFIG is set.
-CONFIG_FILE=${BUILD_ARDUINO_CONFIG:-$HOME/.build_arduino_config}
+# $HOME/.auniter_config unless AUNITER_CONFIG is set.
+CONFIG_FILE=${AUNITER_CONFIG:-$HOME/.auniter_config}
 
 function usage() {
     cat <<'END'
-Usage: build_arduino.sh [--help] [--verbose]
+Usage: auniter.sh [--help] [--verbose]
     [--verify | --upload | --test | --monitor | --list_ports]
     [--board {package}:{arch}:{board}[:parameters]] [--port port] [--baud baud]
     [--boards {alias}[:{port}],...] (file.ino | directory) [...]
@@ -187,7 +187,7 @@ function process_file() {
     fi
 
     # Execute the arduino(1) command line.
-    local cmd="$BUILD_ARDUINO_BINARY \
+    local cmd="$AUNITER_ARDUINO_BINARY \
 $verbose \
 $upload_or_verify \
 $port_flag \
@@ -246,7 +246,7 @@ function clean_temp_files() {
 function create_temp_files() {
     summary_file=
     trap "clean_temp_files" EXIT
-    summary_file=$(mktemp /tmp/build_arduino_summary_XXXXX)
+    summary_file=$(mktemp /tmp/auniter_summary_XXXXX)
 }
 
 function print_summary_file() {
@@ -260,13 +260,13 @@ function print_summary_file() {
 }
 
 function check_environment_variables() {
-    # Check for BUILD_ARDUINO_BINARY
-    if [[ -z ${BUILD_ARDUINO_BINARY+x} ]]; then
-        echo "BUILD_ARDUINO_BINARY environment variable is not defined"
+    # Check for AUNITER_ARDUINO_BINARY
+    if [[ -z ${AUNITER_ARDUINO_BINARY+x} ]]; then
+        echo "AUNITER_ARDUINO_BINARY environment variable is not defined"
         exit 1
     fi
-    if [[ ! -x $BUILD_ARDUINO_BINARY ]]; then
-        echo "BUILD_ARDUINO_BINARY=$BUILD_ARDUINO_BINARY is not an executable"
+    if [[ ! -x $AUNITER_ARDUINO_BINARY ]]; then
+        echo "AUNITER_ARDUINO_BINARY=$AUNITER_ARDUINO_BINARY is not executable"
         exit 1
     fi
 }

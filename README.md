@@ -1079,28 +1079,33 @@ framework, but let me know if you truly need a timeout of greater than 4m15s).
 
 ## Commandline Tools
 
-The [tools](tools) folder contains the `build_arduino.sh` script which allows
-multiple unit tests to be compiled, uploaded and run on multiple Arduino boards
-using a commandline interface. The script will monitor the serial port and
-determine if the unit test passed or failed, and it will print out a summary of
-all unit tests at the end.
+The `auniter.sh` script in the [AUnit/tools](tools) folder allows multiple unit
+tests to be compiled, uploaded and validated on multiple Arduino boards using a
+commandline interface. The script will monitor the serial port and determine if
+the unit test passed or failed, and it will print out a summary of all unit
+tests at the end.
 
 For example, the following runs all the unit tests in the
 [AceSegment](https://github.com/bxparks/AceSegment) project (currently 5), on 2
-boards (Nano, Leonardo, ESP8266, and ESP32) connected at the specified tty
+boards (Nano, Leonardo) connected at the specified tty
 ports:
 
 ```
-$ AUnit/tools/build_arduino.sh --test \
+$ AUnit/tools/auniter.sh --test \
   --boards nano:/dev/ttyUSB1,leonardo:/dev/ttyACM0 AceSegment/tests/*Test
 ```
 
-If you want to just verify that the sketches compile, the tty ports are not
-needed, and you can just type something like:
+If you want to just verify that the sketches compile, the tty ports can be
+omitted, and you can just type something like:
 
 ```
-$ AUnit/tools/build_arduino.sh --verify \
+$ AUnit/tools/auniter.sh --verify \
   --boards nano,leonardo,esp8266,esp32 AceSegment/tests/*Test
+```
+
+The list of available ports can be found by:
+```
+$ AUnit/tools/auniter.sh --list_ports
 ```
 
 ## Tips
