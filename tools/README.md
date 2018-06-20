@@ -40,9 +40,9 @@ The `build_arduino.sh` script depends on the
 
 The `serial_monitor.py` script depends on
 [pyserial](https://pypi.org/project/pyserial/) (tested with 3.4-1). On
-Linux, you may be able to install this using one of:
+Ubuntu Linux, you may be able to install this using one of:
 
-* `sudo apt install python-pyserial`, or
+* `sudo apt install python-serial`, or
 * `sudo -H pip install pyserial`
 
 There is one environment variable that **must** be defined in your `.bashrc`
