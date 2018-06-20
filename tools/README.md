@@ -2,16 +2,18 @@
 
 A shell wrapper around the [Arduino Commandline Interface]
 (https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc)
-which allows:
-1) Verification (compile) of multiple `*.ino` files across multiple boards.
-2) Uploading of multiple `*.ino` files across multiple boards.
-3) Testing of multiple [AUnit](https://github.com/bxparks/AUnit) unit tests
+which allows programmatic (unattended) workflows:
+
+1) Verifying (compile) multiple `*.ino` files across multiple boards.
+2) Uploading multiple `*.ino` files across multiple boards.
+3) Testing multiple [AUnit](https://github.com/bxparks/AUnit) unit tests
 across multiple boards.
+4) Monitoring the serial monitor after uploading the sketch to a board.
 
 ## Features
 
-* Supports 3 modes: verify (`--verify`), upload (`--upload`), and test
-(`--test`).
+* Supports 4 modes: verify (`--verify`), upload (`--upload`), test
+(`--test`), and monitor (`--monitor`).
 * Multiple `*.ino` files can be given, and the Arduino Commandline binary will
 be executed for each sketch in sequence.
 * A directory can be given and the script will infer the corresponding
@@ -105,6 +107,25 @@ To run the AUnit test and verify pass or fail:
 $ ./build_arduino.sh --port /dev/ttyUSB0 \
   --board arduino:avr:nano:cpu=atmega328old --test BlinkTest.ino
 ```
+
+A summary of all the test runs are given at the end, like this:
+
+```
+======== Test Run Summary
+PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1
+AceSegment/tests/CommonTest/CommonTest.ino
+PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1
+AceSegment/tests/DriverTest/DriverTest.ino
+PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1
+AceSegment/tests/LedMatrixTest/LedMatrixTest.ino
+PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1
+AceSegment/tests/RendererTest/RendererTest.ino
+PASSED test: arduino:avr:nano:cpu=atmega328old /dev/ttyUSB1
+AceSegment/tests/WriterTest/WriterTest.ino
+ALL PASSED
+```
+
+The `ALL PASSED` indicates that all unit tests passed.
 
 ### Monitor
 
