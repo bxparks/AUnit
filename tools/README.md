@@ -60,21 +60,22 @@ Linux, you may be able to install this using one of:
 
 Type `build_arduino.sh --help` to get the latest usage:
 ```
-$ build_arduino.sh [--help] [--verbose] [--verify | --upload | --test ]
-    [--monitor] [--port /dev/ttyUSB0] [--baud baud]
+$ build_arduino.sh [--help] [--verbose]
+    [--verify | --upload | --test | --monitor]
     [--board {package}:{arch}:{board}[:parameters]]
+    [--port /dev/ttyUSB0] [--baud baud]
     [--boards {alias}[:{port}],...] (file.ino | dir) [...]
 ```
 
 At a minimum, the script needs to be given 4 pieces of information:
 
-* `--port port` The tty port where the Arduino board can be found
+* mode (`--verify`, `--upload`, `--test`, `--monitor`) The mode determines the
+  actions performed. Verify checks for compiler errors. Upload pushes the sketch
+  to the board. Test runs the sketch as an AUnit unit test and verifies that it
+  passes. Monitor uploads the sketch then echos the Serial output to the STDOUT.
 * `--board board` The identifier for the particular board in the form
-    of `{package}:{arch}:{board}[:parameters]`.
-* mode (`--verify`, `--upload`, `--test`) The mode determines the actions
-    performed. Verify checks for compiler errors. Upload pushes the sketch
-    to the board. Test runs the sketch as an AUnit unit test and verifies that
-    it passes.
+  of `{package}:{arch}:{board}[:parameters]`.
+* `--port port` The tty port where the Arduino board can be found
 * `file.ino` The Arduino sketch file.
 
 ### Verify
@@ -104,6 +105,19 @@ To run the AUnit test and verify pass or fail:
 $ ./build_arduino.sh --port /dev/ttyUSB0 \
   --board arduino:avr:nano:cpu=atmega328old --test BlinkTest.ino
 ```
+
+### Monitor
+
+The `--monitor` mode uploads the given sketch and calls `serial_monitor.py`
+to listen to the serial monitor and echo the output to the STDOUT:
+```
+$ ./build_arduino.sh --port /dev/ttyUSB0 \
+  --board arduino:avr:nano:cpu=atmega328old --monitor BlinkTest.ino
+```
+
+The `serial_monitor.py` times out after 10 seconds if the serial monitor is
+inactive. If the sketch continues to output something to the serial monitor,
+then only one sketch can be monitored.
 
 ### List Ports
 
@@ -188,6 +202,15 @@ $ ./build_arduino.sh --verify \
 
 I used Ubuntu 17.10 and Arduino IDE 1.8.5 to develop and test these scripts.
 
-I have tested it somewhat on MacOS. The inclusion of the Teensyduino plugin
-causes the Mac version of Arduino to display a security warning dialog box,
-which interferes with the command-line usage of this script.
+## Limitations
+
+On MacOS, the [Teensyduino](https://pjrc.com/teensy/teensyduino.html)
+plugin to support Teensy boards
+causes the Arduino IDE to display
+[a security warning dialog box](https://forum.pjrc.com/threads/27197-OSX-pop-up-when-starting-Arduino).
+This means that the script is no longer able to run without human-intervention.
+
+On Linux, using Teensyduino, the upload function does work and the
+`serial_monitor.py` is not able to monitor the serial output. Teensyduino seems
+to be using a different program loader, and I have not spent much time debugging
+this.
