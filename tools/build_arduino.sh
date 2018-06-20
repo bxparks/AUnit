@@ -155,7 +155,7 @@ function process_file() {
     echo "==== Processing $file"
 
     if [[ "$board" == '' ]]; then
-        echo "FAILED $mode: board '$board' not defined: $file" \
+        echo "FAILED $mode: board not defined: $file" \
             | tee -a $summary_file
         return
     fi
