@@ -73,17 +73,39 @@ function get_ino_file() {
     echo "${dir}/${file}.ino"
 }
 
+# Find the given $key in a $section from the $config file.
+# Usage: get_config config section key
+#
+# The config file is expected to be in an INI file format:
+#   [section]
+#       {key}={value}
+#       ...
+#   [...]
+#       ...
+#
 function get_config() {
+    local config=$1
+    local section=$2
+    local key=$3
+
     # If CONFIG_FILE does not exist then no aliases are defined.
-    if [[ ! -f $CONFIG_FILE ]]; then
+    if [[ ! -f $config ]]; then
         return
     fi
 
-    local key=$(echo $1 | sed -e 's/\./\\./g')
-    local matching_line=$(grep "^$key=" $CONFIG_FILE)
-    if [[ "$matching_line" != '' ]]; then
-        echo "$matching_line" | sed -e "s/^$key=\(.*\)/\1/"
-    fi
+    # Use one-liner sed script given in
+    # https://stackoverflow.com/questions/6318809, with a bug fix for when the
+    # key does not exist in the matching [$section] but exists in a subsequent
+    # section.
+    sed -n -E \
+        "/^\[$section\]/ {
+            n;
+            :label /^ *$key *=/ { s/[^=]*= *//; p; q; };
+            /^\[.*\]/ q;
+            n;
+            b label;
+        }" \
+        $config
 }
 
 function process_boards() {
@@ -96,7 +118,7 @@ function process_boards() {
                 | sed -E -e 's/([^:]*):?([^:]*)/\2/')
 
         echo "======== Processing board=$board_alias, port=$board_port"
-        local board_value=$(get_config "$board_alias")
+        local board_value=$(get_config "$CONFIG_FILE" 'boards' "$board_alias" "$CONFIG_FILE")
         if [[ "$board_value" == '' ]]; then
             echo "FAILED: Unknown board alias '$board_alias'" \
                 | tee -a $summary_file

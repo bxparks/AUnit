@@ -193,18 +193,22 @@ easy to figure out which ones can be left out.
 
 Instead of using the `fqbn`, the `build_arduino.sh` script allows
 the user to define aliases for the `fqbn` in a file. The format of the file is
-a list of `key=value` pairs, one per line, that look like this:
+the [INI file](https://en.wikipedia.org/wiki/INI_file), and the aliases are
+in the `[boards]` section:
 ```
-uno=arduino:avr:uno
-nano=arduino:avr:nano:cpu=atmega328old
-leonardo=arduino:avr:leonardo
-esp8266=esp8266:esp8266:nodemcuv2
-esp32=espressif:esp32:esp32:PartitionScheme=default,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=921600,DebugLevel=none
+# Board aliases
+[boards]
+  uno = arduino:avr:uno
+  nano = arduino:avr:nano:cpu=atmega328old
+  leonardo = arduino:avr:leonardo
+  esp8266 = esp8266:esp8266:nodemcuv2
+  esp32 = espressif:esp32:esp32:PartitionScheme=default,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=921600,DebugLevel=none
 ```
 
-(The name of the alias can be composed of the usual characteres, such as `a-z`,
-`A-Z`, `0-9`, underscore `_`, or a period `.`,  but it cannot contain
-an `=` or space ` ` character.)
+The format of the config key is not precisely defined, but it should probably be
+limited to the usual character set for identifiers (`a-z`, `A-Z`, `0-9`,
+underscore `_`). It definitely cannot contain an equal sign `=` or space ` `
+character.
 
 Save the alias list into the `$HOME/.build_arduino_config` file in your
 home directory. (The location of the config file can be
