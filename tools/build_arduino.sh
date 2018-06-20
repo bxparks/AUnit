@@ -12,7 +12,7 @@
 # Usage:
 #
 #   $ build_arduino.sh [--help] [--verbose]
-#       [--verify | --upload | --test | --monitor]
+#       [--verify | --upload | --test | --monitor | --list_ports]
 #       [--board {package}:{arch}:{board}[:parameters]]
 #       [--port /dev/ttyUSB0] [--baud baud]
 #       [--boards {alias}[:{port}],...] (file.ino | dir) [...]
@@ -44,10 +44,12 @@ DIRNAME=$(dirname $0)
 CONFIG_FILE=${BUILD_ARDUINO_CONFIG:-$HOME/.build_arduino_config}
 
 function usage() {
-    echo "Usage: build_arduino.sh [--help] [--verbose] \
-[--verify | --upload | --test | --monitor] \
-[--board {package}:{arch}:{board}[:parameters]] [--port port] [--baud baud] \
-[--boards {alias}[:{port}],...] (file.ino | directory) [...]"
+    cat <<'END'
+Usage: build_arduino.sh [--help] [--verbose]
+    [--verify | --upload | --test | --monitor | --list_ports]
+    [--board {package}:{arch}:{board}[:parameters]] [--port port] [--baud baud]
+    [--boards {alias}[:{port}],...] (file.ino | directory) [...]
+END
     exit 1
 }
 
@@ -106,6 +108,14 @@ function get_config() {
             b label;
         }" \
         $config
+}
+
+function process_sketches() {
+    if [[ "$boards" != '' ]]; then
+        process_boards "$@"
+    else
+        process_files "$@"
+    fi
 }
 
 function process_boards() {
@@ -280,6 +290,7 @@ while [[ $# -gt 0 ]]; do
         --upload) mode='upload' ;;
         --test) mode='test' ;;
         --monitor) mode='monitor' ;;
+        --list_ports) mode='list_ports' ;;
         --board) shift; board=$1 ;;
         --boards) shift; boards=$1 ;;
         --port) shift; port=$1 ;;
@@ -295,6 +306,10 @@ if [[ "$port" == '' ]]; then
     echo '--port flag must be given'
     usage
 fi
+if [[ "$mode" != 'list_ports' && $# -eq 0 ]]; then
+    echo 'Must provide file or directory'
+    usage
+fi
 
 # Must install a trap for Control-C because the script ignores almost all
 # interrupts and continues processing.
@@ -302,9 +317,9 @@ trap interrupted INT
 
 check_environment_variables
 create_temp_files
-if [[ "$boards" != '' ]]; then
-    process_boards "$@"
+if [[ "$mode" == 'list_ports' ]]; then
+    $DIRNAME/serial_monitor.py --list
 else
-    process_files "$@"
+    process_sketches "$@"
+    print_summary_file
 fi
-print_summary_file

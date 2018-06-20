@@ -9,6 +9,7 @@ which allows programmatic (unattended) workflows:
 3) Testing multiple [AUnit](https://github.com/bxparks/AUnit) unit tests
 across multiple boards.
 4) Monitoring the serial monitor after uploading the sketch to a board.
+5) List the tty ports and the associated Arduino board (if available).
 
 ## Features
 
@@ -22,10 +23,11 @@ be executed for each sketch in sequence.
 fully qualified board name (`fqbn`) used by the arduino binary (e.g.
 "arduino:avr:nano:cpu=atmega328old").
 * The script can monitor the serial output of the board immediately after
-uploading the sketch using the `serial_monitor.py` helper script.
+uploading the sketch.
 * If the sketch is a unit test written in AUnit, the `serial_monitor.py`
-can parse the Serial output to determine if the unit test passed or failed.
-The shell script collects the results of multiple unit tests and prints
+helper script can parse the Serial output to determine if the unit test passed
+or failed. The shell script collects the results of multiple unit tests and
+prints
 a summary at the end.
 * If multiple `board:port` pairs are given using the `--boards` flag, then the
 entire set of `*.ino` files are run through the Arduino command line program for
@@ -70,9 +72,8 @@ Type `build_arduino.sh --help` to get the latest usage:
 ```
 $ ./build_arduino.sh --help
 Usage: build_arduino.sh [--help] [--verbose]
-    [--verify | --upload | --test | --monitor]
-    [--board {package}:{arch}:{board}[:parameters]]
-    [--port /dev/ttyUSB0] [--baud baud]
+    [--verify | --upload | --test | --monitor | --list_ports]
+    [--board {package}:{arch}:{board}[:parameters]] [--port port] [--baud baud]
     [--boards {alias}[:{port}],...] (file.ino | dir) [...]
 ```
 
@@ -144,6 +145,18 @@ The `serial_monitor.py` times out after 10 seconds if the serial monitor is
 inactive. If the sketch continues to output something to the serial monitor,
 then only one sketch can be monitored.
 
+### List Ports
+
+The `--list_ports` flag will ask `serial_monitor.py` to list the available tty
+ports:
+```
+$ ./build_arduino.sh --list_ports
+/dev/ttyS4 - n/a
+/dev/ttyS0 - ttyS0
+/dev/ttyUSB0 - EzSBC ESP32
+/dev/ttyUSB1 - USB2.0-Serial
+```
+
 ### Automatic Directory Expansion
 
 If the `build_arduino.sh` is given a directory `dir`, it tries to find
@@ -152,30 +165,6 @@ same base name as the parent directory.
 
 Multiple files and directories can be given. The Arduino Commandline will
 be executed on each of the ino files in sequence.
-
-## Usage of Serial Monitor Script
-
-The `serial_monitor.py` is normally called from the `build_arduino.sh` script.
-However it has some capabilities of its own. The most useful is the
-ability to list the available tty ports.
-
-### List Ports
-
-The `--list` flag will list the available tty ports. This option is the default
-so you can just type:
-```
-$ ./serial_monitor.py
-/dev/ttyS4 - n/a
-/dev/ttyS0 - ttyS0
-/dev/ttyUSB0 - EzSBC ESP32
-/dev/ttyUSB1 - USB2.0-Serial
-```
-
-### Monitor the Serial Port
-
-The `--monitor` causes `serial_monitor.py` to read lines from the given `--port`
-at the speed of `--baud`, and echo the lines to the STDOUT. If no lines
-are detected after 10 seconds, the python script terminates.
 
 ## Board Aliases
 
