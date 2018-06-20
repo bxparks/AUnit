@@ -1095,7 +1095,7 @@ $ AUnit/tools/auniter.sh --test \
 ```
 
 If you want to just verify that the sketches compile, the tty ports can be
-omitted, and you can just type something like:
+omitted like this:
 
 ```
 $ AUnit/tools/auniter.sh --verify \
