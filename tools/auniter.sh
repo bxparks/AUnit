@@ -246,7 +246,7 @@ function clean_temp_files() {
 function create_temp_files() {
     summary_file=
     trap "clean_temp_files" EXIT
-    summary_file=$(mktemp /tmp/auniter_summary_XXXXX)
+    summary_file=$(mktemp /tmp/auniter_summary_XXXXXX)
 }
 
 function print_summary_file() {
