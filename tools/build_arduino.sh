@@ -256,6 +256,12 @@ function check_environment_variables() {
     fi
 }
 
+function interrupted() {
+    echo 'Interrupted'
+    print_summary_file
+    exit 1
+}
+
 # Parse command line flags
 mode='verify'
 board=
@@ -284,6 +290,10 @@ if [[ "$port" == '' ]]; then
     echo '--port flag must be given'
     usage
 fi
+
+# Must install a trap for Control-C because the script ignores almost all
+# interrupts and continues processing.
+trap interrupted INT
 
 check_environment_variables
 create_summary_file
