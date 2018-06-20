@@ -196,7 +196,7 @@ function validate_test() {
 # Run the serial monitor in echo mode.
 function monitor_serial() {
     echo # blank line
-    local cmd="$DIRNAME/serial_monitor.py --port $port --baud $baud"
+    local cmd="$DIRNAME/serial_monitor.py --monitor --port $port --baud $baud"
     echo "\$ $cmd"
     $cmd || true # prevent failure from exiting the entire script
 }

@@ -13,12 +13,13 @@ test, and the script validates that the test ran successfully. The script exits
 with a status 0 if the test is successful, otherwise exits with a status 1.
 
 Usage:
-    serial_monitor.py [--help] [--log_level] [--list] [--test]
+    serial_monitor.py [--help] [--log_level] [--list | --test | --monitor)
         [--port /dev/ttyPort] [--baud 115200]
 
 Flags:
+    --list List the known tty ports. (default)
+    --monitor Monitor the serial port and echo the lines to the STDOUT.
     --test Verify an AUnit test suite.
-    --list List the known tty ports.
     --port {tty} Set the tty port.
     --baud {baud} Set the baud rate.
     --log_level (INFO|DEBUG|ERROR) Set the logging level.
@@ -38,7 +39,7 @@ LOG_FORMAT = '%(asctime)s %(levelname)s %(name)s: %(message)s'
 DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
 
 
-def read_serial(port, baud):
+def monitor(port, baud):
     """Read the serial output and echo the lines to the STDOUT."""
     logging.info('Reading the serial port %s at %s baud' % (port, baud))
     with serial.Serial(port, baud, timeout=10) as ser:
@@ -61,7 +62,7 @@ TEST_MODE_START_FOUND = 1
 TEST_MODE_END_SUMMARY_FOUND = 2
 
 
-def read_test(port, baud):
+def validate_test(port, baud):
     """Read and verify an AUnit test looking and matching specific lines from
     the TestRunner of AUnit in the serial output.
     """
@@ -129,9 +130,11 @@ def main():
     parser.add_argument(
         '--baud', action='store', default='115200', help='baud')
     parser.add_argument(
+        '--list', action='store_true', help='List the available ports (default)')
+    parser.add_argument(
         '--test', action='store_true', help='Verify an AUnit test')
     parser.add_argument(
-        '--list', action='store_true', help='List the available ports')
+        '--monitor', action='store_true', help='Monitor the serial port')
     args = parser.parse_args()
 
     # Configure logging.
@@ -139,12 +142,12 @@ def main():
         level=args.log_level, format=LOG_FORMAT, datefmt=DATE_FORMAT)
 
     try:
-        if args.list:
-            list_ports()
+        if args.monitor:
+            monitor(args.port, args.baud)
         elif args.test:
-            read_test(args.port, args.baud)
+            validate_test(args.port, args.baud)
         else:
-            read_serial(args.port, args.baud)
+            list_ports()
     except Exception as e:
         logging.error(e)
         exit(1)

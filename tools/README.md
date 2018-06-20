@@ -126,7 +126,7 @@ ALL PASSED
 
 The `ALL PASSED` indicates that all unit tests passed.
 
-### Monitor
+### Monitor (after Uploading)
 
 The `--monitor` mode uploads the given sketch and calls `serial_monitor.py`
 to listen to the serial monitor and echo the output to the STDOUT:
@@ -139,18 +139,29 @@ The `serial_monitor.py` times out after 10 seconds if the serial monitor is
 inactive. If the sketch continues to output something to the serial monitor,
 then only one sketch can be monitored.
 
+## Usage of Serial Monitor Script
+
+The `serial_monitor.py` is normally called from the `build_arduino.sh` script.
+However it has some capabilities of its own. The most useful is the
+ability to list the available tty ports.
+
 ### List Ports
 
-The `serial_monitor.py` is normally called from the `build_arduino.sh`
-script. However, it has the ability to list the available tty ports
-using the `--list` flag:
+The `--list` flag will list the available tty ports. This option is the default
+so you can just type:
 ```
-$ ./serial_monitor.py --list
+$ ./serial_monitor.py
 /dev/ttyS4 - n/a
 /dev/ttyS0 - ttyS0
 /dev/ttyUSB0 - EzSBC ESP32
 /dev/ttyUSB1 - USB2.0-Serial
 ```
+
+### Monitor the Serial Port
+
+The `--monitor` causes `serial_monitor.py` to read lines from the given `--port`
+at the speed of `--baud`, and echo the lines to the STDOUT. If no lines
+are detected after 10 seconds, the python script terminates.
 
 ### Files and Directory
 
