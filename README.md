@@ -1087,7 +1087,8 @@ all unit tests at the end.
 
 For example, the following runs all the unit tests in the
 [AceSegment](https://github.com/bxparks/AceSegment) project (currently 5), on 2
-boards (Nano and Leonardo) connected at the specified tty ports:
+boards (Nano, Leonardo, ESP8266, and ESP32) connected at the specified tty
+ports:
 
 ```
 $ AUnit/tools/build_arduino.sh --test \
@@ -1095,11 +1096,11 @@ $ AUnit/tools/build_arduino.sh --test \
 ```
 
 If you want to just verify that the sketches compile, the tty ports are not
-needed, and you can just type:
+needed, and you can just type something like:
 
 ```
 $ AUnit/tools/build_arduino.sh --verify \
-  --boards nano,leonardo,esp8266 AceSegment/tests/*Test
+  --boards nano,leonardo,esp8266,esp32 AceSegment/tests/*Test
 ```
 
 ## Tips

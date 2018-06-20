@@ -118,7 +118,7 @@ function process_boards() {
                 | sed -E -e 's/([^:]*):?([^:]*)/\2/')
 
         echo "======== Processing board=$board_alias, port=$board_port"
-        local board_value=$(get_config "$CONFIG_FILE" 'boards' "$board_alias" "$CONFIG_FILE")
+        local board_value=$(get_config "$CONFIG_FILE" 'boards' "$board_alias")
         if [[ "$board_value" == '' ]]; then
             echo "FAILED: Unknown board alias '$board_alias'" \
                 | tee -a $summary_file
@@ -177,8 +177,12 @@ function process_file() {
     fi
 
     # Execute the arduino(1) command line.
-    local cmd="$BUILD_ARDUINO_BINARY $verbose $upload_or_verify $port_flag \
-$board_flag $file"
+    local cmd="$BUILD_ARDUINO_BINARY \
+$verbose \
+$upload_or_verify \
+$port_flag \
+$board_flag \
+$file"
     echo "\$ $cmd"
     local status=0; $cmd || status=$?
     if [[ "$status" != 0 ]]; then
@@ -223,15 +227,16 @@ function monitor_serial() {
     $cmd || true # prevent failure from exiting the entire script
 }
 
-function clean_summary_file() {
+function clean_temp_files() {
     if [[ "$summary_file" != '' ]]; then
         rm -f $summary_file
     fi
 }
 
-function create_summary_file() {
-    summary_file=$(mktemp /tmp/build_arduino.XXXXXX.txt)
-    trap "clean_summary_file" EXIT
+function create_temp_files() {
+    summary_file=
+    trap "clean_temp_files" EXIT
+    summary_file=$(mktemp /tmp/build_arduino_summary_XXXXX)
 }
 
 function print_summary_file() {
@@ -296,7 +301,7 @@ fi
 trap interrupted INT
 
 check_environment_variables
-create_summary_file
+create_temp_files
 if [[ "$boards" != '' ]]; then
     process_boards "$@"
 else
