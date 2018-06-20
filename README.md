@@ -33,9 +33,9 @@ In contrast:
 * AUnit implements the `testF()` and `testingF()` macros to use fixtures.
 
 A commandline tool (`tools/auniter.sh`) allows multiple AUnit tests to be
-compiled, verified and uploaded to multiple Arduino boards. The tool will also
-monitor the serial port and collect the pass or fail status of the unit tests
-which will be presented in a summary form at the end of the script.
+compiled and uploaded to multiple Arduino boards. The tool monitors the serial
+port, collects the PASS or FAIL status of the unit tests, and prints a summary
+of all the unit tests at end of the run.
 
 ### Supported or Compatible Features
 
