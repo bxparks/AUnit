@@ -55,7 +55,7 @@ Ubuntu Linux, you may be able to install this using one of:
 There is one environment variable that **must** be defined in your `.bashrc`
 file:
 
-* `export AUNITER_BINARY={path}` - location of the Arduino command line
+* `export AUNITER_ARDUINO_BINARY={path}` - location of the Arduino command line
   binary
 
 A second environment variable is optional and overrides the location of the
