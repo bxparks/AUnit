@@ -52,6 +52,10 @@ set -eu
 # Can't use $(realpath $(dirname $0)) because realpath doesn't exist on MacOS
 DIRNAME=$(dirname $0)
 
+# Determine the location of the config file. Defaults to
+# $HOME/.build_arduino_config unless BUILD_ARDUINO_CONFIG is set.
+CONFIG_FILE=${BUILD_ARDUINO_CONFIG:-$HOME/.build_arduino_config}
+
 function usage() {
     echo "Usage: build_arduino.sh [--help] [--verbose] \
 [--verify | --upload | --test ] [--monitor] \
@@ -83,13 +87,16 @@ function get_ino_file() {
 }
 
 function get_config() {
+    # If CONFIG_FILE does not exist then no aliases are defined.
+    if [[ ! -f $CONFIG_FILE ]]; then
+        return
+    fi
+
     local key=$(echo $1 | sed -e 's/\./\\./g')
-    local matching_line=$(grep "^$key=" $BUILD_ARDUINO_CONFIG)
+    local matching_line=$(grep "^$key=" $CONFIG_FILE)
     if [[ $matching_line != '' ]]; then
         local value=$(echo $matching_line | sed -e "s/^$key=\(.*\)/\1/")
         echo $value
-    else
-        echo ''
     fi
 }
 
@@ -101,9 +108,13 @@ function run_arduino_command_for_boards() {
         local board_port=$(echo $env | sed -e 's/\([^:]*\):\([^:]*\)/\2/')
 
         echo "======== Processing board=$board_alias, port=$board_port"
-        local board_value=$(get_config $board_alias)
+        local board_value=$(get_config "$board_alias")
         if [[ "$board_value" == '' ]]; then
             echo "Unknown board alias '$board_alias'"
+            if [[ "$mode" == 'test' ]]; then
+                echo "FAILED: Unknown board alias '$board_alias'" \
+                    >> $test_summary_file
+            fi
             continue
         fi
 
@@ -212,16 +223,6 @@ function check_environment_variables() {
     fi
     if [[ ! -x $BUILD_ARDUINO_BINARY ]]; then
         echo "BUILD_ARDUINO_BINARY=$BUILD_ARDUINO_BINARY is not an executable"
-        exit 1
-    fi
-
-    # Check for BUILD_ARDUINO_CONFIG
-    if [[ -z ${BUILD_ARDUINO_CONFIG+x} ]]; then
-        echo "BUILD_ARDUINO_CONFIG environment variable is not defined"
-        exit 1
-    fi
-    if [[ ! -f $BUILD_ARDUINO_CONFIG ]]; then
-        echo "BUILD_ARDUINO_CONFIG=$BUILD_ARDUINO_CONFIG is not readable"
         exit 1
     fi
 }
