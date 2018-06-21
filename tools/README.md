@@ -195,7 +195,7 @@ in the `[boards]` section:
   uno = arduino:avr:uno
   nano = arduino:avr:nano:cpu=atmega328old
   leonardo = arduino:avr:leonardo
-  esp8266 = esp8266:esp8266:nodemcuv2
+  esp8266 = esp8266:esp8266:nodemcuv2:CpuFrequency=80,FlashSize=4M1M,LwIPVariant=v2mss536,Debug=Disabled,DebugLevel=None____,FlashErase=none,UploadSpeed=115200
   esp32 = espressif:esp32:esp32:PartitionScheme=default,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=921600,DebugLevel=none
 ```
 
@@ -231,6 +231,60 @@ $ ./auniter.sh --verify \
   --boards nano,leonardo,esp8266,esp32 BlinkTest.ino
 ```
 
+## Alternatives Considered
+
+### AMake
+
+The [amake](https://github.com/pavelmc/amake) tool is very similar to
+`auniter.sh`. It is a shell script that calls out to the Arduino commandline.
+Amake does not have the `serial_monitor.py` which allows the AUnit output on the
+serial port to be validated, but since `serial_monitor.py` is a separate
+Python script, `amake` could be extended to support it.
+
+There are a few features of `amake` that I found problemmatic for my purposes.
+* Although `amake` supports the concept of board aliases, the aliases are
+hardwared into the `amake` script itself. I felt that it was important to allow
+users to define their own board aliases (through the `.auniter_config` dotfile).
+* `amake` saves the information about the most recent `*.ino` file and
+board type in a cache file named `.amake` in the current directory. This was
+designed to make it easy to compile and verify a single INO file repeatedly.
+However, `auniter.sh` is designed to make it easy to compile, upload, and
+validate multiple INI files, on multiple Arduino boards, on multiple serial
+ports.
+
+### Arduino-Makefile
+
+The [Arduino-Makefile](https://github.com/sudar/Arduino-Makefile) package
+provides a way to create traditional Makefiles and use the traditional `make`
+command line program to compile an Arduino sketch. On Ubuntu Linux,
+this package can be installed using the normal `apt` program as:
+```
+$ sudo apt install arduino-mk
+```
+
+It installs a dependency called
+[arduino-core](https://packages.ubuntu.com/search?keywords=arduino-core).
+Unfortunately, the version on Ubuntu is stuck at Arduino version 1.0.5
+and the process for upgrading been
+[stuck for years](https://github.com/arduino/Arduino/pull/2703).
+
+It is possible to make Arduino-Makefile use the latest Arduino IDE however.
+
+The problem with `Arduino-Makefile` is that it seems to allow only a single
+board type target in the Makefile. Changing the target board would mean editting
+the `Makefile`. Since I wanted to be able to easily compile, upload and validate
+against multiple boards, the `Makefile` solution did not seem to be flexible
+enough.
+
+### Arduino Builder
+
+The [Arduino Builde](https://github.com/arduino/arduino-builder) seems to be a
+collection of Go-lang programs that provide commandline interface for compiling
+Arduino sketches. However, I have not been able to find any documentation that
+describes how to actually to use these programs. Maybe eventually I'll be able
+to reverse-engineer it, but for now, it was easier for me to write my down shell
+script wrapper around the Arduino IDE program.
+
 ## System Requirements
 
 I used Ubuntu 17.10 and Arduino IDE 1.8.5 to develop and test these scripts.
@@ -246,3 +300,4 @@ This means that the script is no longer able to run without human-intervention.
 On Linux, the upload function works for Teensy boards, but the
 `serial_monitor.py` cannot find the serial port of the Teensy board. I have not
 spent much time debugging this.
+
