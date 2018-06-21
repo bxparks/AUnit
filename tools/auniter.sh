@@ -80,34 +80,41 @@ function get_ino_file() {
 #
 # The config file is expected to be in an INI file format:
 #   [section]
-#       {key}={value}
+#       {key} = {value}
 #       ...
 #   [...]
 #       ...
 #
 function get_config() {
-    local config=$1
+    local config_file=$1
     local section=$2
     local key=$3
 
-    # If CONFIG_FILE does not exist then no aliases are defined.
-    if [[ ! -f $config ]]; then
+    # If config_file does not exist then no aliases are defined.
+    if [[ ! -f $config_file ]]; then
         return
     fi
 
-    # Use one-liner sed script given in
-    # https://stackoverflow.com/questions/6318809, with a bug fix for when the
-    # key does not exist in the matching [$section] but exists in a subsequent
-    # section.
-    sed -n -E \
-        "/^\[$section\]/ {
+    # Use "one-liner" sed script given in
+    # https://stackoverflow.com/questions/6318809, with several changes:
+    # 1) Fix bug for when the key does not exist in the matching [$section] but
+    # exists in a subsequent section.
+    # 2) Support multiple sections of the same name. Entries of duplicate
+    # sections are merged together.
+    # 3) Works on MacOS sed as well as GNU sed.
+    sed -n -E -e \
+        ":label_s;
+        /^\[$section\]/ {
             n;
-            :label /^ *$key *=/ { s/[^=]*= *//; p; q; };
-            /^\[.*\]/ q;
+            :label_k;
+            /^ *$key *=/ {
+                s/[^=]*= *//; p; q;
+            };
+            /^\[.*\]/ b label_s;
             n;
-            b label;
+            b label_k;
         }" \
-        $config
+        $config_file
 }
 
 function process_sketches() {
