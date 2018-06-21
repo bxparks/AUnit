@@ -203,7 +203,11 @@ $file"
     echo "\$ $cmd"
     local status=0; $cmd || status=$?
     if [[ "$status" != 0 ]]; then
-        echo "FAILED $mode: verify or upload failed: $file" \
+        local effective_mode=$mode
+        if [[ "$mode" == 'test' ]]; then
+            effective_mode='upload'
+        fi
+        echo "FAILED $effective_mode: $board $port $file" \
             | tee -a $summary_file
         return
     fi
