@@ -38,19 +38,15 @@ LOG_FORMAT = '%(asctime)s %(levelname)s %(name)s: %(message)s'
 # Logging date format.
 DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
 
+# Time out after this many seconds if the serial port produces no output.
+TIMEOUT_ON_IDLE = 10
 
-def monitor(port, baud):
-    """Read the serial output and echo the lines to the STDOUT."""
-    logging.info('Reading the serial port %s at %s baud' % (port, baud))
-    with serial.Serial(port, baud, timeout=10) as ser:
-        while True:
-            line = ser.readline()
-            line = line.decode('ascii')
-            if line == '': break
-            line = line.rstrip()
-            print(line)
-    logging.error('No output detected after 10 seconds... exiting.')
+# Starting point of the number of seconds to wait for the serial port.
+# Actual wait time increases using exponential back off.
+WAIT_TIME_BASE = 1
 
+# Number attempts to try opening the serial port.
+NUM_ATTEMPTS = 4
 
 # Regular expressions that match the start and end of an AUnit test run.
 TEST_START_RE = re.compile(r'TestRunner started')
@@ -62,15 +58,33 @@ TEST_MODE_START_FOUND = 1
 TEST_MODE_END_SUMMARY_FOUND = 2
 
 
+def monitor(port, baud):
+    """Read the serial output and echo the lines to the STDOUT."""
+    logging.info('Reading the serial port %s at %s baud' % (port, baud))
+    ser = open_port(port, baud)
+    logging.info('Monitoring port %s...' % port)
+    try:
+        while True:
+            line = ser.readline()
+            line = line.decode('ascii')
+            if line == '': break
+            line = line.rstrip()
+            print(line)
+    finally:
+        ser.close()
+    logging.error('No output detected after 10 seconds... exiting.')
+
+
 def validate_test(port, baud):
     """Read and verify an AUnit test looking and matching specific lines from
     the TestRunner of AUnit in the serial output.
     """
     logging.info('Reading the AUnit test on serial port %s at %s baud' %
                  (port, baud))
-    sumary_line = ''
-    test_mode = TEST_MODE_UNKNOWN
-    with serial.Serial(port, baud, timeout=10) as ser:
+    ser = open_port(port, baud)
+    try:
+        summary_line = ''
+        test_mode = TEST_MODE_UNKNOWN
         while True:
             line = ser.readline()
             line = line.decode('ascii')
@@ -97,6 +111,8 @@ def validate_test(port, baud):
                     test_mode = TEST_MODE_END_SUMMARY_FOUND
                     summary_line = line
                     break
+    finally:
+        ser.close()
 
     if test_mode != TEST_MODE_END_SUMMARY_FOUND:
         raise Excpeption('No output detected after 10 seconds... exiting.')
@@ -113,11 +129,41 @@ def validate_test(port, baud):
         raise Exception('Unexpected TestRunner output')
 
 
-# See https://stackoverflow.com/questions/12090503/listing-available-com-ports-with-python
+# See https://stackoverflow.com/questions/12090503
 def list_ports():
     """List the available serial ports."""
     for comport in serial.tools.list_ports.comports():
         print(comport)
+
+
+def open_port(port, baud):
+    """Open the given port. Boards like Teensy, Leonardo, and Micro do not
+    create a virtual serial port until the Arduino program runs, so we make
+    multiple attempts (NUM_ATTEMPTS) to open the port using an exponential back
+    off wait time.
+    """
+    wait_time = WAIT_TIME_BASE
+    count = 1
+    ser = serial.Serial(port=None, baudrate=baud, timeout=TIMEOUT_ON_IDLE)
+    ser.port = port
+    while True:
+        try:
+            logging.info('Opening serial port %s' % port)
+            ser.open()
+            break
+        except:
+            if count >= NUM_ATTEMPTS:
+                break
+            logging.info('Failed... waiting %s seconds to retry...' %
+                         wait_time)
+            sleep(wait_time)
+            count += 1
+            wait_time *= 1.5
+
+    if not ser.is_open:
+        raise Exception('Unable to open serial port %s after %s attempts' %
+                        (port, NUM_ATTEMPTS))
+    return ser
 
 
 def main():
@@ -130,7 +176,9 @@ def main():
     parser.add_argument(
         '--baud', action='store', default='115200', help='baud')
     parser.add_argument(
-        '--list', action='store_true', help='List the available ports (default)')
+        '--list',
+        action='store_true',
+        help='List the available ports (default)')
     parser.add_argument(
         '--test', action='store_true', help='Verify an AUnit test')
     parser.add_argument(
@@ -141,16 +189,12 @@ def main():
     logging.basicConfig(
         level=args.log_level, format=LOG_FORMAT, datefmt=DATE_FORMAT)
 
-    try:
-        if args.monitor:
-            monitor(args.port, args.baud)
-        elif args.test:
-            validate_test(args.port, args.baud)
-        else:
-            list_ports()
-    except Exception as e:
-        logging.error(e)
-        exit(1)
+    if args.monitor:
+        monitor(args.port, args.baud)
+    elif args.test:
+        validate_test(args.port, args.baud)
+    else:
+        list_ports()
 
 
 if __name__ == '__main__':

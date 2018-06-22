@@ -296,8 +296,3 @@ plugin to support Teensy boards
 causes the Arduino IDE to display
 [a security warning dialog box](https://forum.pjrc.com/threads/27197-OSX-pop-up-when-starting-Arduino).
 This means that the script is no longer able to run without human-intervention.
-
-On Linux, the upload function works for Teensy boards, but the
-`serial_monitor.py` cannot find the serial port of the Teensy board. I have not
-spent much time debugging this.
-
