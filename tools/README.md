@@ -195,7 +195,7 @@ try to reverse engineer the `fqbn` of a particular Arduino board.
 On some boards, the `fqbn` may be quite long. For example, on my ESP32 dev
 board, it is
 ```
-espressif:esp32:esp32:PartitionScheme=default,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=921600,DebugLevel=none`.
+espressif:esp32:esp32:PartitionScheme=default,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=921600,DebugLevel=none
 ```
 
 It is likely that not all the extra parameters are needed, but it is not
@@ -227,16 +227,7 @@ changed using the `AUNITER_CONFIG` environment variable.)
 ## Multiple Boards
 
 The board aliases can be used in the `--boards` flag, which accepts a
-comma-separated list of `{alias}[:{port}]` pairs, like this:
-
-```
-$ ./auniter.sh --test \
-  --boards nano:/dev/ttyUSB1,leonardo:/dev/ttyACM0 BlinkTest.ino
-```
-
-This runs the `BlinkTest.ino` test on 2 boards:
-* an Arduino Nano on `/dev/ttyUSB1` and,
-* an Arduino Leonardo (or a Micro clone) on `/dev/ttyACM0`.
+comma-separated list of `{alias}[:{port}]` pairs.
 
 The `port` part of the `alias:port` pair is optional because it is not needed
 for the `--verify` mode. You can verify sketches across multiple boards like
@@ -246,6 +237,21 @@ this:
 $ ./auniter.sh --verify \
   --boards nano,leonardo,esp8266,esp32 BlinkTest.ino
 ```
+
+If you want to run the AUnit tests on multiple boards, you must provide the
+port of each board, like this:
+```
+$ ./auniter.sh --test \
+  --boards nano:/dev/ttyUSB0,leonardo:/dev/ttyACM0,esp8266:/dev/ttyUSB2,esp32:/dev/ttyUSB1 \
+  CommonTest DriverTest LedMatrixTest RendererTest WriterTest
+```
+
+This runs the 5 unit tests on 4 boards connected to the ports specified by the
+`--boards` flag.
+
+It did not seem worth providing aliases for the ports in the
+`$HOME/.auniter_config` file because the specific serial port is assigned by the
+OS and can vary depending on the presence of other USB or serial devices.
 
 ## Alternatives Considered
 
