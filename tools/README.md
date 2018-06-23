@@ -58,8 +58,24 @@ file:
 * `export AUNITER_ARDUINO_BINARY={path}` - location of the Arduino command line
   binary
 
+I have something like this in my `$HOME/.bashrc` file (which I share across all
+my Linux and Mac computers):
+```
+case $(uname -s) in
+  Linux*)
+    export AUNITER_ARDUINO_BINARY="$HOME/dev/arduino-1.8.5/arduino"
+    ;;
+  Darwin*)
+    export AUNITER_ARDUINO_BINARY="$HOME/dev/Arduino.app/Contents/MacOS/Arduino"
+    ;;
+  *)
+    export AUNITER_ARDUINO_BINARY=
+    ;;
+esac
+```
+
 A second environment variable is optional and overrides the location of the
-board alias config file (see **Board Aliases** section below).. The default is
+board alias config file (see **Board Aliases** section below). The default is
 `$HOME/.auniter_config` but can be overriden by the `AUNITER_CONFIG`
 variable:
 
