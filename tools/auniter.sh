@@ -185,7 +185,8 @@ function process_file() {
     # Determine flags for the arduino(1) commandline
     local board_flag="--board $board"
     local upload_or_verify='--verify'
-    if [[ "$mode" == 'upload' || "$mode" == 'test' ]]; then
+    if [[ "$mode" == 'upload' || "$mode" == 'monitor' \
+            || "$mode" == 'test' ]]; then
         upload_or_verify='--upload'
     fi
     local port_flag=''
@@ -204,7 +205,7 @@ $file"
     local status=0; $cmd || status=$?
     if [[ "$status" != 0 ]]; then
         local effective_mode=$mode
-        if [[ "$mode" == 'test' ]]; then
+        if [[ "$mode" == 'monitor' || "$mode" == 'test' ]]; then
             effective_mode='upload'
         fi
         echo "FAILED $effective_mode: $board $port $file" \
