@@ -1,0 +1,50 @@
+pipeline {
+    agent { label 'master' }
+    environment {
+        AUNITER_ARDUINO_BINARY = '/var/lib/jenkins/arduino-1.8.5/arduino'
+    }
+    stages {
+        stage('Setup') {
+            steps {
+                dir('AUniter') {
+                    git url: 'https://github.com/bxparks/AUniter',
+                        branch: 'develop'
+                }
+            }
+        }
+        stage('Verify Examples') {
+            steps {
+                sh "AUniter/auniter.sh \
+                    --pref sketchbook.path=$WORKSPACE \
+                    --config libraries/AUnit/tests/auniter.conf \
+                    --boards nano:/dev/ttyUSB0 \
+                    --verify \
+                    libraries/AUnit/examples/*"
+            }
+        }
+        stage('Verify Tests') {
+            steps {
+                sh "AUniter/auniter.sh \
+                    --pref sketchbook.path=$WORKSPACE \
+                    --config libraries/AUnit/tests/auniter.conf \
+                    --boards nano:/dev/ttyUSB0 \
+                    --verify \
+                    libraries/AUnit/tests/*Test"
+            }
+        }
+        // Some AUnit test case are deliberately broken because
+        // they are verifying that those tests actually fail.
+        /*
+        stage('Test') {
+            steps {
+                sh "AUniter/auniter.sh \
+                    --pref sketchbook.path=$WORKSPACE \
+                    --config libraries/AUnit/tests/auniter.conf \
+                    --boards nano:/dev/ttyUSB0 \
+                    --test \
+                    libraries/AUnit/tests/*Test"
+            }
+        }
+        */
+    }
+}
