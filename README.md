@@ -1,9 +1,15 @@
 # AUnit
 
 A unit testing framework for Arduino platforms inspired by ArduinoUnit and
-Google Test.
+Google Test. The unit tests run in the embedded controller, not in a simulator
+or emulator. It is almost a drop-in replacement of ArduinoUnit with some
+advantages. AUnit supports timeouts and test fixtures. It somtimes consume 50%
+less flash memory on the AVR platform, and it has been tested to work on the
+AVR, ESP8266, ESP32 and Teensy platforms. The sister AUniter project provides
+command line tools to verify, upload and validate the unit tests. AUniter tools
+can be used in a continuous integration systems like Jenkins.
 
-Version: 1.0.0 (2018-06-20)
+Version: 1.0.1 (2018-06-27)
 
 ## Summary
 
@@ -32,15 +38,17 @@ In contrast:
 * AUnit has been tested on AVR, Teensy-ARM and ESP8266.
 * AUnit implements the `testF()` and `testingF()` macros to use fixtures.
 
-A commandline tool (`tools/auniter.sh`) allows multiple AUnit tests to be
-compiled and uploaded to multiple Arduino boards. The tool monitors the serial
-port, collects the PASS or FAIL status of the unit tests, and prints a summary
-of all the unit tests at end of the run.
+The [AUniter](https://github.com/bxparks/AUniter) command line tools can compile
+the unit tests, upload them to Arduino boards attached to the serial ports of
+the local machine, and validate the output of the AUnit test runner. In
+addition, the AUniter script can be integrated into a
+[Jenkins](https://jenkins.io) continuous integration service running on the
+local machine, and the unit tests can be monitored automatically.
 
-### Supported or Compatible Features
+### ArduinoUnit Compatible Features
 
-For basic unit tests written using ArduinoUnit, only two changes are required to
-convert to AUnit:
+For basic unit tests written using ArduinoUnit 2.2, only two changes are
+required to convert to AUnit:
 * `#include <ArduinoUnit.h>` -> `#include <AUnit.h>`
 * `Test::run()` -> `aunit::TestRunner::run()`
 
@@ -65,7 +73,7 @@ the `Verbosity` flags on per test basis:
 
 ### Missing Features
 
-Here are the features which have not been ported over from ArduinoUnit 2.2:
+Here are the features which have *not* been ported over from ArduinoUnit 2.2:
 
 * ArduinoUnit supports multiple `*` wildcards in its `exclude()` and `include()`
   methods. AUnit supports only a single `*` wildcard and it must occur at the
@@ -138,7 +146,6 @@ The source files are organized as follows:
 * `src/aunit/` - all implementation files
 * `tests/` - unit tests written using AUnit itself
 * `examples/` - example sketches
-* `tools/` - commandline scripts for automated compiling, uploading and testing
 
 ### Docs
 
@@ -1076,36 +1083,44 @@ framework, but let me know if you truly need a timeout of greater than 4m15s).
 
 ***ArduinoUnit Compatibility***: _Only available in AUnit._
 
-## Commandline Tools
+## Commandline Tools and Continous Integration
 
-The `auniter.sh` script in the [AUnit/tools](tools) folder allows multiple unit
-tests to be compiled, uploaded and validated on multiple Arduino boards using a
-commandline interface. The script will monitor the serial port and determine if
+### AUniter
+
+The command line tools have been moved into the
+[AUniter](https://github.com/bxparks/AUniter) project.
+The `auniter.sh` script can compile, upload and validate multiple AUnit tests on
+multiple Arduino boards. The script can monitor the serial port and determine if
 the unit test passed or failed, and it will print out a summary of all unit
 tests at the end.
 
-For example, the following runs all the unit tests in the
-[AceSegment](https://github.com/bxparks/AceSegment) project (currently 5), on 2
-boards (Nano, Leonardo) connected at the specified tty
-ports:
+Full details are given in the AUniter project, but here are some quick examples
+of these tools using the [AceSegment](https://github.com/bxparks/AceSegment)
+project.
 
+The following compiles and verifies the given sketches:
 ```
-$ AUnit/tools/auniter.sh --test \
-  --boards nano:/dev/ttyUSB1,leonardo:/dev/ttyACM0 AceSegment/tests/*Test
-```
-
-If you want to just verify that the sketches compile, the tty ports can be
-omitted like this:
-
-```
-$ AUnit/tools/auniter.sh --verify \
+$ AUniter/auniter.sh --verify \
   --boards nano,leonardo,esp8266,esp32 AceSegment/tests/*Test
+```
+
+The following uploads to and runs all the unit tests on an Arduino Nano
+(`/dev/ttyUSB0`), then an Arduion Leonardo (`/dev/ttyACM0`):
+```
+$ AUniter/auniter.sh --test \
+  --boards nano:/dev/ttyUSB1,leonardo:/dev/ttyACM0 AceSegment/tests/*Test
 ```
 
 The list of available ports can be found by:
 ```
-$ AUnit/tools/auniter.sh --list_ports
+$ AUniter/auniter.sh --list_ports
 ```
+
+### Continuous Integration
+
+The AUniter tools have been integrated into the [Jenkins](https://jenkins.io)
+continuous integration service. See details in
+[Continuous Integration with Jenkins](https://github.com/bxparks/AUniter/tree/develop/jenkins).
 
 ## Tips
 
