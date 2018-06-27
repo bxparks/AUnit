@@ -14,21 +14,19 @@ pipeline {
         }
         stage('Verify Examples') {
             steps {
-                sh "AUniter/auniter.sh \
+                sh "AUniter/auniter.sh --verify \
                     --pref sketchbook.path=$WORKSPACE \
                     --config libraries/AUnit/tests/auniter.conf \
-                    --boards nano:/dev/ttyUSB0 \
-                    --verify \
+                    --boards nano \
                     libraries/AUnit/examples/*"
             }
         }
         stage('Verify Tests') {
             steps {
-                sh "AUniter/auniter.sh \
+                sh "AUniter/auniter.sh --verify \
                     --pref sketchbook.path=$WORKSPACE \
                     --config libraries/AUnit/tests/auniter.conf \
-                    --boards nano:/dev/ttyUSB0 \
-                    --verify \
+                    --boards nano \
                     libraries/AUnit/tests/*Test"
             }
         }
@@ -37,11 +35,10 @@ pipeline {
         /*
         stage('Test') {
             steps {
-                sh "AUniter/auniter.sh \
+                sh "AUniter/auniter.sh --test \
                     --pref sketchbook.path=$WORKSPACE \
                     --config libraries/AUnit/tests/auniter.conf \
                     --boards nano:/dev/ttyUSB0 \
-                    --test \
                     libraries/AUnit/tests/*Test"
             }
         }
