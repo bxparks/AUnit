@@ -38,7 +38,7 @@ pipeline {
                 sh "AUniter/auniter.sh --test \
                     --pref sketchbook.path=$WORKSPACE \
                     --config libraries/AUnit/tests/auniter.conf \
-                    --boards nano:/dev/ttyUSB0 \
+                    --boards nano:$PORT \
                     libraries/AUnit/tests/*Test"
             }
         }
