@@ -6,8 +6,8 @@ or emulator. It is almost a drop-in replacement of ArduinoUnit with some
 advantages. AUnit supports timeouts and test fixtures. It somtimes consume 50%
 less flash memory on the AVR platform, and it has been tested to work on the
 AVR, ESP8266, ESP32 and Teensy platforms. The sister AUniter project provides
-command line tools to verify, upload and validate the unit tests. AUniter tools
-can be used in a continuous integration systems like Jenkins.
+command line tools to verify, upload and validate the unit tests. The AUniter
+tools can be used in a continuous integration system like Jenkins.
 
 Version: 1.0.1 (2018-06-27)
 
