@@ -1208,7 +1208,8 @@ delayed failure) slightly easier to implement.
 ### Comparing Pointers
 
 Currently the `assertEqual()` and other `assertXxx()` methods do not support
-comparing arbitrary pointers (i.e. `(void*)`. This could change if Issue #34 is
+comparing arbitrary pointers (i.e. `(void*)`. This could change if 
+[Issue #34](https://github.com/bxparks/AUnit/issues/34) is
 resolved. In the meantime, a workaround is to cast the pointer to a `uintptr_t`
 integer type from `#include <stdint.h>` and then calling `assertEqual()` on the
 integer type.
