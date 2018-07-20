@@ -1205,6 +1205,14 @@ allows those assertion statements to have access to the internal states of the
 `Test` instance, which makes certain functions (like the early return upon
 delayed failure) slightly easier to implement.
 
+### Comparing Pointers
+
+Currently the `assertEqual()` and other `assertXxx()` methods do not support
+comparing arbitrary pointers (i.e. `(void*)`. This could change if Issue #34 is
+resolved. In the meantime, a workaround is to cast the pointer to a `uintptr_t`
+integer type from `#include <stdint.h>` and then calling `assertEqual()` on the
+integer type.
+
 ## Benchmarks
 
 AUnit consumes as much as 65% less flash memory than ArduinoUnit 2.2 on an AVR
