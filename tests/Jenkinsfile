@@ -7,6 +7,7 @@
 //  * WORKSPACE - automatically filled in by Jenkins
 //  * BOARDS - defined in the "This project is parameterized" section of the
 //    Jenkins Pipeline configuration
+//  * BADGE_BUCKET - defined in "This project is parameterized" section.
 //
 pipeline {
     agent { label 'master' }
@@ -52,5 +53,23 @@ pipeline {
             }
         }
         */
+    }
+    post {
+        failure {
+            script {
+                if (env.BADGE_BUCKET?.trim()) {
+                    sh "AUniter/BadgeService/set-badge-status.sh \
+                        $BADGE_BUCKET AUnit FAILED"
+                }
+            }
+        }
+        success {
+            script {
+                if (env.BADGE_BUCKET?.trim()) {
+                    sh "AUniter/BadgeService/set-badge-status.sh \
+                        $BADGE_BUCKET AUnit PASSED"
+                }
+            }
+        }
     }
 }

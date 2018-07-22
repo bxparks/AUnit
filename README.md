@@ -11,6 +11,8 @@ tools can be used in a continuous integration system like Jenkins.
 
 Version: 1.0.1 (2018-06-27)
 
+[![AUniter Jenkins Badge](https://us-central1-xparks2015.cloudfunctions.net/badge?project=AUnit)](https://github.com/bxparks/AUniter)
+
 ## Summary
 
 **AUnit** (rhymes with "JUnit") is a unit testing framework inspired
