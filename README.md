@@ -1085,7 +1085,7 @@ framework, but let me know if you truly need a timeout of greater than 4m15s).
 
 ***ArduinoUnit Compatibility***: _Only available in AUnit._
 
-## Commandline Tools and Continous Integration
+## Commandline Tools and Continuous Integration
 
 ### AUniter
 
