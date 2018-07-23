@@ -15,6 +15,9 @@
  *
  * These tests were extracted from AUnitTest.ino because AUnitTest became too
  * big to fit in an Arduino Micro (max flash: 28672).
+ *
+ * Failing tests have been moved to ExpectedFailingTests.ino so that this test
+ * can be monitored automatically by AUniter continuous integration.
  */
 
 #include "AUnitMetaTest.h"
@@ -91,48 +94,6 @@ testing(slow_pass_monitor) {
   }
 }
 
-externTesting(slow_fail);
-
-testing(slow_fail_monitor) {
-  static unsigned long start = millis();
-
-  unsigned long now = millis();
-  if (now - start < 900) {
-    assertTestNotDone(slow_fail);
-    assertTrue(checkTestNotDone(slow_fail));
-
-    assertTestNotPass(slow_fail);
-    assertTrue(checkTestNotPass(slow_fail));
-
-    assertTestNotFail(slow_fail);
-    assertTrue(checkTestNotFail(slow_fail));
-
-    assertTestNotSkip(slow_fail);
-    assertTrue(checkTestNotSkip(slow_fail));
-
-    assertTestNotExpire(slow_fail);
-    assertTrue(checkTestNotExpire(slow_fail));
-  }
-  if (now - start > 2100) {
-    assertTestDone(slow_fail);
-    assertTrue(checkTestDone(slow_fail));
-
-    assertTestNotPass(slow_fail);
-    assertTrue(checkTestNotPass(slow_fail));
-
-    assertTestFail(slow_fail);
-    assertTrue(checkTestFail(slow_fail));
-
-    assertTestNotSkip(slow_fail);
-    assertTrue(checkTestNotSkip(slow_fail));
-
-    assertTestNotExpire(slow_fail);
-    assertTrue(checkTestNotExpire(slow_fail));
-
-    pass();
-  }
-}
-
 externTesting(slow_skip);
 
 testing(slow_skip_monitor) {
@@ -171,45 +132,6 @@ testing(slow_skip_monitor) {
 }
 
 #if USE_AUNIT == 1
-externTesting(slow_expire);
-
-testing(slow_expire_monitor) {
-  static unsigned long start = millis();
-
-  unsigned long now = millis();
-  if (now - start < 900) {
-    assertTestNotDone(slow_expire);
-    assertTrue(checkTestNotDone(slow_expire));
-
-    assertTestNotPass(slow_expire);
-    assertTrue(checkTestNotPass(slow_expire));
-
-    assertTestNotFail(slow_expire);
-    assertTrue(checkTestNotFail(slow_expire));
-
-    assertTestNotSkip(slow_expire);
-    assertTrue(checkTestNotSkip(slow_expire));
-
-    assertTestNotExpire(slow_expire);
-  }
-  if (now - start > 2100) {
-    assertTestDone(slow_expire);
-    assertTrue(checkTestDone(slow_expire));
-
-    assertTestNotPass(slow_expire);
-    assertTrue(checkTestNotPass(slow_expire));
-
-    assertTestNotFail(slow_expire);
-    assertTrue(checkTestNotFail(slow_expire));
-
-    assertTestNotSkip(slow_expire);
-    assertTrue(checkTestNotSkip(slow_expire));
-
-    assertTestExpire(slow_expire);
-    pass();
-  }
-}
-
 // -------------------------------------------------------------------------
 // Test externTestF() and externTestingF() macros and various meta assertions.
 // -------------------------------------------------------------------------
@@ -264,48 +186,6 @@ testing(fixture_slow_pass_monitor) {
   }
 }
 
-externTestingF(CustomAgainFixture, fixture_slow_fail);
-
-testing(fixture_slow_fail_monitor) {
-  static unsigned long start = millis();
-
-  unsigned long now = millis();
-  if (now - start < 900) {
-    assertTestNotDoneF(CustomAgainFixture, fixture_slow_fail);
-    assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_fail));
-
-    assertTestNotPassF(CustomAgainFixture, fixture_slow_fail);
-    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_fail));
-
-    assertTestNotFailF(CustomAgainFixture, fixture_slow_fail);
-    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_fail));
-
-    assertTestNotSkipF(CustomAgainFixture, fixture_slow_fail);
-    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_fail));
-
-    assertTestNotExpireF(CustomAgainFixture, fixture_slow_fail);
-    assertTrue(checkTestNotExpireF(CustomAgainFixture, fixture_slow_fail));
-  }
-  if (now - start > 2100) {
-    assertTestDoneF(CustomAgainFixture, fixture_slow_fail);
-    assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_fail));
-
-    assertTestNotPassF(CustomAgainFixture, fixture_slow_fail);
-    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_fail));
-
-    assertTestFailF(CustomAgainFixture, fixture_slow_fail);
-    assertTrue(checkTestFailF(CustomAgainFixture, fixture_slow_fail));
-
-    assertTestNotSkipF(CustomAgainFixture, fixture_slow_fail);
-    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_fail));
-
-    assertTestNotExpireF(CustomAgainFixture, fixture_slow_fail);
-    assertTrue(checkTestNotExpireF(CustomAgainFixture, fixture_slow_fail));
-
-    pass();
-  }
-}
-
 externTestingF(CustomAgainFixture, fixture_slow_skip);
 
 testing(fixture_slow_skip_monitor) {
@@ -342,44 +222,6 @@ testing(fixture_slow_skip_monitor) {
     pass();
   }
 }
-externTestingF(CustomAgainFixture, fixture_slow_expire);
-
-testing(fixture_slow_expire_monitor) {
-  static unsigned long start = millis();
-
-  unsigned long now = millis();
-  if (now - start < 900) {
-    assertTestNotDoneF(CustomAgainFixture, fixture_slow_expire);
-    assertTrue(checkTestNotDoneF(CustomAgainFixture, fixture_slow_expire));
-
-    assertTestNotPassF(CustomAgainFixture, fixture_slow_expire);
-    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_expire));
-
-    assertTestNotFailF(CustomAgainFixture, fixture_slow_expire);
-    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_expire));
-
-    assertTestNotSkipF(CustomAgainFixture, fixture_slow_expire);
-    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_expire));
-
-    assertTestNotExpireF(CustomAgainFixture, fixture_slow_expire);
-  }
-  if (now - start > 2100) {
-    assertTestDoneF(CustomAgainFixture, fixture_slow_expire);
-    assertTrue(checkTestDoneF(CustomAgainFixture, fixture_slow_expire));
-
-    assertTestNotPassF(CustomAgainFixture, fixture_slow_expire);
-    assertTrue(checkTestNotPassF(CustomAgainFixture, fixture_slow_expire));
-
-    assertTestNotFailF(CustomAgainFixture, fixture_slow_expire);
-    assertTrue(checkTestNotFailF(CustomAgainFixture, fixture_slow_expire));
-
-    assertTestNotSkipF(CustomAgainFixture, fixture_slow_expire);
-    assertTrue(checkTestNotSkipF(CustomAgainFixture, fixture_slow_expire));
-
-    assertTestExpireF(CustomAgainFixture, fixture_slow_expire);
-    pass();
-  }
-}
 
 #endif
 
@@ -411,7 +253,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    14 passed, 2 failed, 2 skipped, 2 timed out, out of 20 test(s).
+  //    10 passed, 0 failed, 2 skipped, 0 timed out, out of 12 test(s).
   TestRunner::run();
 #else
   // Should get something like:

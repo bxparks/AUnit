@@ -38,10 +38,8 @@ pipeline {
                     libraries/AUnit/tests/*Test"
             }
         }
-        // Some AUnit test case will always fail because they are verifying
-        // that those tests actually fail. We can't run them through Jenkins
-        // but we should periodically verify that they are correctly failing.
-        /*
+        // Run tests except FailingTest and SetupAndTeardownTest which contain
+        // tests which are deliberately designed to fail.
         stage('Test') {
             steps {
                 sh "AUniter/tools/auniter.sh --test \
@@ -49,10 +47,9 @@ pipeline {
                     --pref sketchbook.path=$WORKSPACE \
                     --config libraries/AUnit/tests/auniter.conf \
                     --boards $BOARDS \
-                    libraries/AUnit/tests/*Test"
+                    libraries/AUnit/tests/{AUnitMeta,AUnit,Filter}Test"
             }
         }
-        */
     }
     post {
         failure {
