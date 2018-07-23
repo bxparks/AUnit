@@ -1,5 +1,10 @@
 # Changelog
 
+* 1.1 (2018-07-23)
+    * Add assertNear() and assertNotNear() for floating and integral types.
+      Fixes #35.
+    * Moved deliberately failing tests into FailingTest.ino and add passing
+      tests to AUniter/Jenkins.
 * 1.0.1 (2018-06-27)
     * Move AUniter tools into separate project and integrate with
       a Jenkins continuous integration service running locally.

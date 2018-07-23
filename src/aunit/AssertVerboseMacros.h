@@ -89,4 +89,20 @@ SOFTWARE.
     return;\
 } while (false)
 
+/** Assert that arg1 and arg2 are within error of each other. */
+#define assertNear(arg1, arg2, error) do { \
+  if (!assertionNearVerbose(__FILE__, __LINE__, \
+      arg1, AUNIT_F(#arg1), arg2, AUNIT_F(#arg2), error, AUNIT_F(#error), \
+      "<=", aunit::internal::compareNear)) \
+    return;\
+} while (false)
+
+/** Assert that arg1 and arg2 are NOT within error of each other. */
+#define assertNotNear(arg1, arg2, error) do { \
+  if (!assertionNearVerbose(__FILE__, __LINE__, \
+      arg1, AUNIT_F(#arg1), arg2, AUNIT_F(#arg2), error, AUNIT_F(#error), \
+      ">", aunit::internal::compareNotNear)) \
+    return;\
+} while (false)
+
 #endif

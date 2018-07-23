@@ -6,10 +6,12 @@ or emulator. It is almost a drop-in replacement of ArduinoUnit with some
 advantages. AUnit supports timeouts and test fixtures. It somtimes consume 50%
 less flash memory on the AVR platform, and it has been tested to work on the
 AVR, ESP8266, ESP32 and Teensy platforms. The sister AUniter project provides
-command line tools to verify, upload and validate the unit tests. AUniter tools
-can be used in a continuous integration systems like Jenkins.
+command line tools to verify, upload and validate the unit tests. The AUniter
+tools can be used in a continuous integration system like Jenkins.
 
-Version: 1.0.1 (2018-06-27)
+Version: 1.1 (2018-07-23)
+
+[![AUniter Jenkins Badge](https://us-central1-xparks2015.cloudfunctions.net/badge?project=AUnit)](https://github.com/bxparks/AUniter)
 
 ## Summary
 
@@ -94,6 +96,9 @@ Here are the features in AUnit which are not available in ArduinoUnit 2.2:
 * Case-insensitive string comparisons:
     * `assertStringCaseEqual()`
     * `assertStringCaseNotEqual()`
+* Approximate comparisons:
+    * `assertNear()`
+    * `asssertNotNear()`
 * Test fixtures using the "F" variations of existing macros:
     * `testF()`
     * `testingF()`
@@ -357,13 +362,6 @@ are available. These are essentially identical to ArduinoUnit:
 * `assertLessOrEqual(a, b)`
 * `assertMoreOrEqual(a, b)`
 
-Two additional macros provide case-insensitive string comparisons
-(analogous to `ASSERT_STRCASEEQ()` and `ASSERT_STRCASENE()` in
-Google Test):
-
-* `assertStringCaseEqual()`
-* `assertStringCaseNotEqual()`
-
 #### Supported Parameter Types
 
 The 6 core assert macros (assertEqual, assertNotEqual, assertLess, assertMore,
@@ -476,6 +474,75 @@ The integer type promotion rules and function overload matching rules can be
 difficult to remember (and sometimes difficult to understand). The best way to
 avoid these compiler errors is to make sure that the assertion parameter types
 are identical, potentially using explicit casting.
+
+### Case Insensitive String Comparisons
+
+Two macros provide case-insensitive string comparisons (analogous to
+`ASSERT_STRCASEEQ()` and `ASSERT_STRCASENE()` in Google Test):
+
+* `assertStringCaseEqual(a, b)`
+* `assertStringCaseNotEqual(a, b)`
+
+The supported types for `(a, b)` are all 9 combinations of Arduino string types:
+
+* `(const char *, const char *)`
+* `(const char *, const String&)`
+* `(const char *, const __FlashStringHelper*)`
+* `(const String&, const char*)`
+* `(const String&, const String&)`
+* `(const String&, const __FlashStringHelper*)`
+* `(const __FlashStringHelper*, const char*)`
+* `(const __FlashStringHelper*, const String&)`
+* `(const __FlashStringHelper*, const __FlashStringHelper*)`
+
+***ArduinoUnit Compatibility***: _Not available in ArduinoUnit._
+
+### Approximate Comparisons
+
+Floating point values are difficult to compare because of internal rounding
+errors. Google Test provides
+[two types of macros to handle floating points](https://github.com/google/googletest/blob/master/googletest/docs/advanced.md#floating-point-comparison):
+* `ASSERT_FLOAT_EQ(a, b)`, `ASSERT_DOUBLE_EQ(a, b)` - determine if the
+  floating point numbers are within 4
+  [Units in the Last Place (ULPs)](https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/)
+* `ASSERT_NEAR(a, b, error)` - determine if the absolute distance between
+  `a` and `b` is within the given `error`
+
+Since floating point operations are relatively rare in Arduino programming,
+AUnit offers only the equilvalent of `ASSERT_NEAR()` function:
+
+* `assertNear(a, b, error)`
+* `assertNotNear(a, b, error)`
+
+Upon failure, the error messages will look something like:
+```
+Assertion failed: |(1.00) - (1.10)| > (0.20), file AUnitTest.ino, line 517.
+Assertion failed: |(4.00) - (1.10)| <= (0.20), file AUnitTest.ino, line 527.
+```
+
+Unlike Google Test where `ASSERT_NEAR()` supports only the `double` type, both
+`assertNear()` and `assertNotNear()` support integral types as well. The full
+list of supported types is:
+
+* `int`
+* `unsigned int`
+* `long`
+* `unsigned long`
+* `double`
+
+Other primitive types (e.g. `char` or `float`) will be automatically converted
+to one of these supported types by the compiler.
+
+Note that the `abs()` of 2 values of a signed integer type can be larger than
+the maximum value that can be represented by the given signed type. Since signed
+integer overflow is an
+[undefined behavior](https://stackoverflow.com/questions/16188263/is-signed-integer-overflow-still-undefined-behavior-in-c)
+in C and C++11, I cannot predict what the compiler will do in that case.
+Unsigned types should not have this problem because the distance between two
+values of an unsigned type should always fit inside the given unsigned type.
+Technically, a similar problem exists for the floating point types (which are
+naturally signed), but it is unlikely that you are dealing with floating point
+values so close to the maximum values.
 
 ### Boolean Assertions
 
@@ -1083,7 +1150,7 @@ framework, but let me know if you truly need a timeout of greater than 4m15s).
 
 ***ArduinoUnit Compatibility***: _Only available in AUnit._
 
-## Commandline Tools and Continous Integration
+## Commandline Tools and Continuous Integration
 
 ### AUniter
 
@@ -1204,6 +1271,15 @@ Placing the `Assertion` and `MetaAssertion` classes inside the `Test` hierarchy
 allows those assertion statements to have access to the internal states of the
 `Test` instance, which makes certain functions (like the early return upon
 delayed failure) slightly easier to implement.
+
+### Comparing Pointers
+
+Currently the `assertEqual()` and other `assertXxx()` methods do not support
+comparing arbitrary pointers (i.e. `(void*)`. This could change if 
+[Issue #34](https://github.com/bxparks/AUnit/issues/34) is
+resolved. In the meantime, a workaround is to cast the pointer to a `uintptr_t`
+integer type from `#include <stdint.h>` and then calling `assertEqual()` on the
+integer type.
 
 ## Benchmarks
 

@@ -4,6 +4,8 @@
  * Define a bunch of tests in a file outside of AUnitTest to verify that
  * externTest(), externTesting(), externTestF() and externTestingF() work as
  * expected.
+ *
+ * Failing and expiring tests have been moved to ExpectedFailingTest/.
  */
 
 #include <Arduino.h>
@@ -16,22 +18,10 @@ testing(slow_pass) {
   if (millis() - start > 1000) pass();
 }
 
-testing(slow_fail) {
-  static unsigned long start = millis();
-  if (millis() - start > 1000) fail();
-}
-
 testing(slow_skip) {
   static unsigned long start = millis();
   if (millis() - start > 1000) skip();
 }
-
-#if USE_AUNIT == 1
-testing(slow_expire) {
-  static unsigned long start = millis();
-  if (millis() - start > 1000) expire();
-}
-#endif
 
 #if USE_AUNIT == 1
 
@@ -45,22 +35,10 @@ testingF(CustomAgainFixture, fixture_slow_pass) {
   if (millis() - start > 1000) pass();
 }
 
-testingF(CustomAgainFixture, fixture_slow_fail) {
-  static unsigned long start = millis();
-  assertCommon(5);
-  if (millis() - start > 1000) fail();
-}
-
 testingF(CustomAgainFixture, fixture_slow_skip) {
   static unsigned long start = millis();
   assertCommon(5);
   if (millis() - start > 1000) skip();
-}
-
-testingF(CustomAgainFixture, fixture_slow_expire) {
-  static unsigned long start = millis();
-  assertCommon(5);
-  if (millis() - start > 1000) expire();
 }
 
 #endif

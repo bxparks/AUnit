@@ -42,7 +42,7 @@ namespace internal {
 // Assertion passed: (6) == (6), file Test.ino, line 820.
 template <typename A, typename B>
 void printAssertionMessage(Print* printer, bool ok, const char* file,
-    uint16_t line, const A& lhs, const char *opName, const B& rhs) {
+    uint16_t line, const A& lhs, const char* opName, const B& rhs) {
 
   // Don't use F() strings here because flash memory strings are not deduped by
   // the compiler, so each template instantiation of this method causes a
@@ -71,7 +71,7 @@ void printAssertionMessage(Print* printer, bool ok, const char* file,
 // bool into int, which prints out "(1) == (0)", which isn't as useful.
 // This prints "(true) == (false)".
 void printAssertionMessage(Print* printer, bool ok, const char* file,
-    uint16_t line, bool lhs, const char *opName, bool rhs) {
+    uint16_t line, bool lhs, const char* opName, bool rhs) {
 
   // Don't use F() strings here. Same reason as above.
   printer->print("Assertion ");
@@ -104,6 +104,28 @@ void printAssertionBoolMessage(Print* printer, bool ok, const char* file,
   printer->print(arg ? "true" : "false");
   printer->print(") is ");
   printer->print(value ? "true" : "false");
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
+template <typename A>
+void printAssertionNearMessage(Print* printer, bool ok, const char* file,
+    uint16_t line, const A& lhs, const A& rhs, const char* opName,
+    const A& error) {
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": |(");
+  printer->print(lhs);
+  printer->print(") - (");
+  printer->print(rhs);
+  printer->print(")| ");
+  printer->print(opName);
+  printer->print(" (");
+  printer->print(error);
+  printer->print(')');
   printer->print(", file ");
   printer->print(file);
   printer->print(", line ");
@@ -235,7 +257,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
-    const char *opName, bool (*op)(const char* lhs, const String& rhs),
+    const char* opName, bool (*op)(const char* lhs, const String& rhs),
     const String& rhs) {
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
@@ -248,7 +270,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
-    const char *opName,
+    const char* opName,
     bool (*op)(const char* lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs) {
   if (isDone()) return false;
@@ -262,7 +284,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
-    const char *opName, bool (*op)(const String& lhs, const char* rhs),
+    const char* opName, bool (*op)(const String& lhs, const char* rhs),
     const char* rhs) {
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
@@ -275,7 +297,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
-    const char *opName, bool (*op)(const String& lhs, const String& rhs),
+    const char* opName, bool (*op)(const String& lhs, const String& rhs),
     const String& rhs) {
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
@@ -288,7 +310,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
-    const char *opName,
+    const char* opName,
     bool (*op)(const String& lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs) {
   if (isDone()) return false;
@@ -302,7 +324,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line,
-    const __FlashStringHelper* lhs, const char *opName,
+    const __FlashStringHelper* lhs, const char* opName,
     bool (*op)(const __FlashStringHelper* lhs, const char* rhs),
     const char* rhs) {
   if (isDone()) return false;
@@ -316,7 +338,7 @@ bool Assertion::assertion(const char* file, uint16_t line,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line,
-    const __FlashStringHelper* lhs, const char *opName,
+    const __FlashStringHelper* lhs, const char* opName,
     bool (*op)(const __FlashStringHelper* lhs, const String& rhs),
     const String& rhs) {
   if (isDone()) return false;
@@ -330,7 +352,7 @@ bool Assertion::assertion(const char* file, uint16_t line,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line,
-    const __FlashStringHelper* lhs, const char *opName,
+    const __FlashStringHelper* lhs, const char* opName,
     bool (*op)(const __FlashStringHelper* lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs) {
   if (isDone()) return false;
@@ -343,6 +365,74 @@ bool Assertion::assertion(const char* file, uint16_t line,
   return ok;
 }
 
+bool Assertion::assertionNear(const char* file, uint16_t line,
+    int lhs, int rhs, int error, const char* opName,
+    bool (*opNear)(int lhs, int rhs, int error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessage(Printer::getPrinter(), ok, file, line,
+        lhs, rhs, opName, error);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNear(const char* file, uint16_t line,
+    unsigned int lhs, unsigned int rhs, unsigned int error, const char* opName,
+    bool (*opNear)(unsigned int lhs, unsigned int rhs, unsigned int error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessage(Printer::getPrinter(), ok, file, line,
+        lhs, rhs, opName, error);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNear(const char* file, uint16_t line,
+    long lhs, long rhs, long error, const char* opName,
+    bool (*opNear)(long lhs, long rhs, long error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessage(Printer::getPrinter(), ok, file, line,
+        lhs, rhs, opName, error);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNear(const char* file, uint16_t line,
+    unsigned long lhs, unsigned long rhs, unsigned long error,
+    const char* opName,
+    bool (*opNear)(unsigned long lhs, unsigned long rhs, unsigned long error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessage(Printer::getPrinter(), ok, file, line,
+        lhs, rhs, opName, error);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNear(const char* file, uint16_t line,
+    double lhs, double rhs, double error, const char* opName,
+    bool (*opNear)(double lhs, double rhs, double error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessage(Printer::getPrinter(), ok, file, line,
+        lhs, rhs, opName, error);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+//---------------------------------------------------------------------------
+
 namespace internal {
 
 // Verbose versions of above which accept the string arguments of the
@@ -354,7 +444,7 @@ namespace internal {
 template <typename A, typename B>
 void printAssertionMessageVerbose(Print* printer, bool ok, const char* file,
     uint16_t line, const A& lhs, const __FlashStringHelper* lhsString,
-    const char *opName, const B& rhs, const __FlashStringHelper* rhsString) {
+    const char* opName, const B& rhs, const __FlashStringHelper* rhsString) {
 
   // Don't use F() strings here because flash memory strings are not deduped by
   // the compiler, so each template instantiation of this method causes a
@@ -387,7 +477,7 @@ void printAssertionMessageVerbose(Print* printer, bool ok, const char* file,
 // This prints "(x=true) == (y=false)".
 void printAssertionMessageVerbose(Print* printer, bool ok, const char* file,
     uint16_t line, bool lhs, const __FlashStringHelper* lhsString,
-    const char *opName, bool rhs, const __FlashStringHelper* rhsString) {
+    const char* opName, bool rhs, const __FlashStringHelper* rhsString) {
 
   // Don't use F() strings here. Same reason as above.
   printer->print("Assertion ");
@@ -426,6 +516,36 @@ void printAssertionBoolMessageVerbose(Print* printer, bool ok, const char* file,
   printer->print(arg ? "true" : "false");
   printer->print(") is ");
   printer->print(value ? "true" : "false");
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
+template <typename A>
+void printAssertionNearMessageVerbose(Print* printer, bool ok, const char* file,
+    uint16_t line, const A& lhs, const __FlashStringHelper* lhsString,
+    const A& rhs, const __FlashStringHelper* rhsString,
+    const char* opName,
+    const A& error, const __FlashStringHelper* errorString) {
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": |(");
+  printer->print(lhsString);
+  printer->print('=');
+  printer->print(lhs);
+  printer->print(") - (");
+  printer->print(rhsString);
+  printer->print('=');
+  printer->print(rhs);
+  printer->print(")| ");
+  printer->print(opName);
+  printer->print(" (");
+  printer->print(errorString);
+  printer->print('=');
+  printer->print(error);
+  printer->print(')');
   printer->print(", file ");
   printer->print(file);
   printer->print(", line ");
@@ -561,7 +681,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
     const char* lhs, const __FlashStringHelper* lhsString,
-    const char *opName, bool (*op)(const char* lhs, const String& rhs),
+    const char* opName, bool (*op)(const char* lhs, const String& rhs),
     const String& rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
@@ -574,7 +694,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 }
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
-    const char* lhs, const __FlashStringHelper* lhsString, const char *opName,
+    const char* lhs, const __FlashStringHelper* lhsString, const char* opName,
     bool (*op)(const char* lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
@@ -588,7 +708,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 }
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
-    const String& lhs, const __FlashStringHelper* lhsString, const char *opName,
+    const String& lhs, const __FlashStringHelper* lhsString, const char* opName,
     bool (*op)(const String& lhs, const char* rhs),
     const char* rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
@@ -602,7 +722,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 }
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
-    const String& lhs, const __FlashStringHelper* lhsString, const char *opName,
+    const String& lhs, const __FlashStringHelper* lhsString, const char* opName,
     bool (*op)(const String& lhs, const String& rhs),
     const String& rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
@@ -616,7 +736,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 }
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
-    const String& lhs, const __FlashStringHelper* lhsString, const char *opName,
+    const String& lhs, const __FlashStringHelper* lhsString, const char* opName,
     bool (*op)(const String& lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
@@ -631,7 +751,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
     const __FlashStringHelper* lhs, const __FlashStringHelper* lhsString,
-    const char *opName,
+    const char* opName,
     bool (*op)(const __FlashStringHelper* lhs, const char* rhs),
     const char* rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
@@ -646,7 +766,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
     const __FlashStringHelper* lhs, const __FlashStringHelper* lhsString,
-    const char *opName,
+    const char* opName,
     bool (*op)(const __FlashStringHelper* lhs, const String& rhs),
     const String& rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
@@ -661,7 +781,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
     const __FlashStringHelper* lhs, const __FlashStringHelper* lhsString,
-    const char *opName,
+    const char* opName,
     bool (*op)(const __FlashStringHelper* lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
@@ -669,6 +789,86 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
   if (isOutputEnabled(ok)) {
     printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
         lhs, lhsString, opName, rhs, rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNearVerbose(const char* file, uint16_t line,
+    int lhs, const __FlashStringHelper* lhsString,
+    int rhs, const __FlashStringHelper* rhsString,
+    int error, const __FlashStringHelper* errorString,
+    const char* opName,
+    bool (*opNear)(int lhs, int rhs, int error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, rhs, rhsString, opName, error, errorString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNearVerbose(const char* file, uint16_t line,
+    unsigned int lhs, const __FlashStringHelper* lhsString,
+    unsigned int rhs, const __FlashStringHelper* rhsString,
+    unsigned int error, const __FlashStringHelper* errorString,
+    const char* opName,
+    bool (*opNear)(unsigned int lhs, unsigned int rhs, unsigned int error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, rhs, rhsString, opName, error, errorString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNearVerbose(const char* file, uint16_t line,
+    long lhs, const __FlashStringHelper* lhsString,
+    long rhs, const __FlashStringHelper* rhsString,
+    long error, const __FlashStringHelper* errorString,
+    const char* opName,
+    bool (*opNear)(long lhs, long rhs, long error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, rhs, rhsString, opName, error, errorString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNearVerbose(const char* file, uint16_t line,
+    unsigned long lhs, const __FlashStringHelper* lhsString,
+    unsigned long rhs, const __FlashStringHelper* rhsString,
+    unsigned long error, const __FlashStringHelper* errorString,
+    const char* opName,
+    bool (*opNear)(unsigned long lhs, unsigned long rhs, unsigned long error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, rhs, rhsString, opName, error, errorString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNearVerbose(const char* file, uint16_t line,
+    double lhs, const __FlashStringHelper* lhsString,
+    double rhs, const __FlashStringHelper* rhsString,
+    double error, const __FlashStringHelper* errorString,
+    const char* opName,
+    bool (*opNear)(double lhs, double rhs, double error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, rhs, rhsString, opName, error, errorString);
   }
   setPassOrFail(ok);
   return ok;

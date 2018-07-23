@@ -1,8 +1,16 @@
+// See https://github.com/bxparks/AUniter/tree/develop/jenkins for
+// a description of AUniter integration with Jenkins.
+//
+// The following variables are used:
+//
+//  * AUNITER_ARDUINO_BINARY - defined in the Jenkins system configuration
+//  * WORKSPACE - automatically filled in by Jenkins
+//  * BOARDS - defined in the "This project is parameterized" section of the
+//    Jenkins Pipeline configuration
+//  * BADGE_BUCKET - defined in "This project is parameterized" section.
+//
 pipeline {
     agent { label 'master' }
-    environment {
-        AUNITER_ARDUINO_BINARY = '/var/lib/jenkins/arduino-1.8.5/arduino'
-    }
     stages {
         stage('Setup') {
             steps {
@@ -14,34 +22,54 @@ pipeline {
         }
         stage('Verify Examples') {
             steps {
-                sh "AUniter/auniter.sh --verify \
+                sh "AUniter/tools/auniter.sh --verify \
                     --pref sketchbook.path=$WORKSPACE \
                     --config libraries/AUnit/tests/auniter.conf \
-                    --boards nano \
+                    --boards $BOARDS \
                     libraries/AUnit/examples/*"
             }
         }
         stage('Verify Tests') {
             steps {
-                sh "AUniter/auniter.sh --verify \
+                sh "AUniter/tools/auniter.sh --verify \
                     --pref sketchbook.path=$WORKSPACE \
                     --config libraries/AUnit/tests/auniter.conf \
-                    --boards nano \
+                    --boards $BOARDS \
                     libraries/AUnit/tests/*Test"
             }
         }
-        // Some AUnit test case are deliberately broken because
-        // they are verifying that those tests actually fail.
-        /*
+        // Run tests except FailingTest and SetupAndTeardownTest which contain
+        // tests which are deliberately designed to fail.
         stage('Test') {
             steps {
-                sh "AUniter/auniter.sh --test \
+                sh "AUniter/tools/auniter.sh --test \
+                    --skip_if_no_port \
                     --pref sketchbook.path=$WORKSPACE \
                     --config libraries/AUnit/tests/auniter.conf \
-                    --boards nano:/dev/ttyUSB0 \
-                    libraries/AUnit/tests/*Test"
+                    --boards $BOARDS \
+                    libraries/AUnit/tests/AUnitMetaTest \
+                    libraries/AUnit/tests/AUnitMoreTest \
+                    libraries/AUnit/tests/AUnitTest \
+                    libraries/AUnit/tests/FilterTest"
             }
         }
-        */
+    }
+    post {
+        failure {
+            script {
+                if (env.BADGE_BUCKET?.trim()) {
+                    sh "AUniter/BadgeService/set-badge-status.sh \
+                        $BADGE_BUCKET AUnit FAILED"
+                }
+            }
+        }
+        success {
+            script {
+                if (env.BADGE_BUCKET?.trim()) {
+                    sh "AUniter/BadgeService/set-badge-status.sh \
+                        $BADGE_BUCKET AUnit PASSED"
+                }
+            }
+        }
     }
 }

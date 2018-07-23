@@ -31,8 +31,6 @@ SOFTWARE.
 // Arduino UNO or Nano.
 #define USE_AUNIT 1
 
-#include <WString.h>
-
 #if USE_AUNIT == 1
 
   #if defined(__AVR__)
@@ -507,20 +505,6 @@ test(assertTrue) {
   assertFalse(false);
 }
 
-#if USE_AUNIT == 1
-test(verbosity_assertionFailed_only) {
-  enableVerbosity(Verbosity::kAssertionPassed);
-  disableVerbosity(Verbosity::kTestPassed);
-  assertTrue(true);
-}
-
-test(verbosity_testFailed_only) {
-  enableVerbosity(Verbosity::kTestFailed);
-  disableVerbosity(Verbosity::kAssertionFailed);
-  assertTrue(false);
-}
-#endif
-
 test(flashString) {
   assertEqual(ff, ff);
   assertEqual(gg, gg);
@@ -541,22 +525,6 @@ test(flashString) {
   assertMoreOrEqual(hh, ff);
   assertMoreOrEqual(hh, gg);
 }
-
-testing(timeout_after_10_seconds) {
-  static unsigned long startTime  = millis();
-
-  // complete the test in 20 seconds.
-  unsigned long now = millis();
-  if (now >= startTime + 20000) {
-    pass();
-  }
-}
-
-// Each of the following should print a message and exit immediately.
-test(failTestNow) { failTestNow(); }
-test(passTestNow) { passTestNow(); }
-test(skipTestNow) { skipTestNow(); }
-test(expireTestNow) { expireTestNow(); }
 
 #if USE_AUNIT == 1
 
@@ -589,12 +557,6 @@ class CustomOnceFixture: public TestOnce {
 testF(CustomOnceFixture, common) {
   assertCommon(5);
   assertEqual(6, subject);
-}
-
-testF(CustomOnceFixture, failing) {
-  assertFailing();
-  assertEqual(6, subject); // should bail out early because of prev failure
-  assertTrue(false); // this should not execute
 }
 
 class CustomAgainFixture: public TestAgain {
@@ -650,7 +612,7 @@ testF(CustomAgainFixture, crossedAgain) {
 
 class CustomTestOnce: public TestOnce {
   public:
-    CustomTestOnce(const char *name):
+    CustomTestOnce(const char* name):
         TestOnce(name) {
     }
 
@@ -695,7 +657,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    23 passed, 3 failed, 1 skipped, 2 timed out, out of 29 test(s).
+  //    21 passed, 0 failed, 0 skipped, 0 timed out, out of 23 test(s).
   TestRunner::run();
 #else
   // Should get something like:
