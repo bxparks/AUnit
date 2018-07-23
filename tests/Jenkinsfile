@@ -48,8 +48,8 @@ pipeline {
                     --config libraries/AUnit/tests/auniter.conf \
                     --boards $BOARDS \
                     libraries/AUnit/tests/AUnitMetaTest \
+                    libraries/AUnit/tests/AUnitMoreTest \
                     libraries/AUnit/tests/AUnitTest \
-                    libraries/AUnit/tests/AUnitPlusTest \
                     libraries/AUnit/tests/FilterTest"
             }
         }
