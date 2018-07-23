@@ -47,7 +47,10 @@ pipeline {
                     --pref sketchbook.path=$WORKSPACE \
                     --config libraries/AUnit/tests/auniter.conf \
                     --boards $BOARDS \
-                    libraries/AUnit/tests/{AUnitMeta,AUnit,Filter}Test"
+                    libraries/AUnit/tests/AUnitMetaTest \
+                    libraries/AUnit/tests/AUnitTest \
+                    libraries/AUnit/tests/AUnitPlusTest \
+                    libraries/AUnit/tests/FilterTest"
             }
         }
     }
