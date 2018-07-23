@@ -42,7 +42,7 @@ namespace internal {
 // Assertion passed: (6) == (6), file Test.ino, line 820.
 template <typename A, typename B>
 void printAssertionMessage(Print* printer, bool ok, const char* file,
-    uint16_t line, const A& lhs, const char *opName, const B& rhs) {
+    uint16_t line, const A& lhs, const char* opName, const B& rhs) {
 
   // Don't use F() strings here because flash memory strings are not deduped by
   // the compiler, so each template instantiation of this method causes a
@@ -71,7 +71,7 @@ void printAssertionMessage(Print* printer, bool ok, const char* file,
 // bool into int, which prints out "(1) == (0)", which isn't as useful.
 // This prints "(true) == (false)".
 void printAssertionMessage(Print* printer, bool ok, const char* file,
-    uint16_t line, bool lhs, const char *opName, bool rhs) {
+    uint16_t line, bool lhs, const char* opName, bool rhs) {
 
   // Don't use F() strings here. Same reason as above.
   printer->print("Assertion ");
@@ -257,7 +257,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
-    const char *opName, bool (*op)(const char* lhs, const String& rhs),
+    const char* opName, bool (*op)(const char* lhs, const String& rhs),
     const String& rhs) {
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
@@ -270,7 +270,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
-    const char *opName,
+    const char* opName,
     bool (*op)(const char* lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs) {
   if (isDone()) return false;
@@ -284,7 +284,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const char* lhs,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
-    const char *opName, bool (*op)(const String& lhs, const char* rhs),
+    const char* opName, bool (*op)(const String& lhs, const char* rhs),
     const char* rhs) {
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
@@ -297,7 +297,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
-    const char *opName, bool (*op)(const String& lhs, const String& rhs),
+    const char* opName, bool (*op)(const String& lhs, const String& rhs),
     const String& rhs) {
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
@@ -310,7 +310,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
-    const char *opName,
+    const char* opName,
     bool (*op)(const String& lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs) {
   if (isDone()) return false;
@@ -324,7 +324,7 @@ bool Assertion::assertion(const char* file, uint16_t line, const String& lhs,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line,
-    const __FlashStringHelper* lhs, const char *opName,
+    const __FlashStringHelper* lhs, const char* opName,
     bool (*op)(const __FlashStringHelper* lhs, const char* rhs),
     const char* rhs) {
   if (isDone()) return false;
@@ -338,7 +338,7 @@ bool Assertion::assertion(const char* file, uint16_t line,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line,
-    const __FlashStringHelper* lhs, const char *opName,
+    const __FlashStringHelper* lhs, const char* opName,
     bool (*op)(const __FlashStringHelper* lhs, const String& rhs),
     const String& rhs) {
   if (isDone()) return false;
@@ -352,7 +352,7 @@ bool Assertion::assertion(const char* file, uint16_t line,
 }
 
 bool Assertion::assertion(const char* file, uint16_t line,
-    const __FlashStringHelper* lhs, const char *opName,
+    const __FlashStringHelper* lhs, const char* opName,
     bool (*op)(const __FlashStringHelper* lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs) {
   if (isDone()) return false;
@@ -444,7 +444,7 @@ namespace internal {
 template <typename A, typename B>
 void printAssertionMessageVerbose(Print* printer, bool ok, const char* file,
     uint16_t line, const A& lhs, const __FlashStringHelper* lhsString,
-    const char *opName, const B& rhs, const __FlashStringHelper* rhsString) {
+    const char* opName, const B& rhs, const __FlashStringHelper* rhsString) {
 
   // Don't use F() strings here because flash memory strings are not deduped by
   // the compiler, so each template instantiation of this method causes a
@@ -477,7 +477,7 @@ void printAssertionMessageVerbose(Print* printer, bool ok, const char* file,
 // This prints "(x=true) == (y=false)".
 void printAssertionMessageVerbose(Print* printer, bool ok, const char* file,
     uint16_t line, bool lhs, const __FlashStringHelper* lhsString,
-    const char *opName, bool rhs, const __FlashStringHelper* rhsString) {
+    const char* opName, bool rhs, const __FlashStringHelper* rhsString) {
 
   // Don't use F() strings here. Same reason as above.
   printer->print("Assertion ");
@@ -681,7 +681,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
     const char* lhs, const __FlashStringHelper* lhsString,
-    const char *opName, bool (*op)(const char* lhs, const String& rhs),
+    const char* opName, bool (*op)(const char* lhs, const String& rhs),
     const String& rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
@@ -694,7 +694,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 }
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
-    const char* lhs, const __FlashStringHelper* lhsString, const char *opName,
+    const char* lhs, const __FlashStringHelper* lhsString, const char* opName,
     bool (*op)(const char* lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
@@ -708,7 +708,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 }
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
-    const String& lhs, const __FlashStringHelper* lhsString, const char *opName,
+    const String& lhs, const __FlashStringHelper* lhsString, const char* opName,
     bool (*op)(const String& lhs, const char* rhs),
     const char* rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
@@ -722,7 +722,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 }
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
-    const String& lhs, const __FlashStringHelper* lhsString, const char *opName,
+    const String& lhs, const __FlashStringHelper* lhsString, const char* opName,
     bool (*op)(const String& lhs, const String& rhs),
     const String& rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
@@ -736,7 +736,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 }
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
-    const String& lhs, const __FlashStringHelper* lhsString, const char *opName,
+    const String& lhs, const __FlashStringHelper* lhsString, const char* opName,
     bool (*op)(const String& lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
@@ -751,7 +751,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
     const __FlashStringHelper* lhs, const __FlashStringHelper* lhsString,
-    const char *opName,
+    const char* opName,
     bool (*op)(const __FlashStringHelper* lhs, const char* rhs),
     const char* rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
@@ -766,7 +766,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
     const __FlashStringHelper* lhs, const __FlashStringHelper* lhsString,
-    const char *opName,
+    const char* opName,
     bool (*op)(const __FlashStringHelper* lhs, const String& rhs),
     const String& rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
@@ -781,7 +781,7 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
 
 bool Assertion::assertionVerbose(const char* file, uint16_t line,
     const __FlashStringHelper* lhs, const __FlashStringHelper* lhsString,
-    const char *opName,
+    const char* opName,
     bool (*op)(const __FlashStringHelper* lhs, const __FlashStringHelper* rhs),
     const __FlashStringHelper* rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;

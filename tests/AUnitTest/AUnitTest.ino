@@ -612,7 +612,7 @@ testF(CustomAgainFixture, crossedAgain) {
 
 class CustomTestOnce: public TestOnce {
   public:
-    CustomTestOnce(const char *name):
+    CustomTestOnce(const char* name):
         TestOnce(name) {
     }
 

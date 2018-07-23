@@ -33,7 +33,7 @@ SOFTWARE.
  * assertXxx() macros with all combinations of the 3 types of strings available
  * in the Arduino platform:
  *
- *  - (const char *)
+ *  - (const char*)
  *  - (String&)
  *  - (const __FlashStringHelper*)
  *
