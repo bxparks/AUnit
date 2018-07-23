@@ -524,7 +524,7 @@ test(assertNotNear) {
   assertNotNear(4U, 2U, 1U);
   assertNotNear(4L, 2L, 1L);
   assertNotNear(4UL, 2UL, 1UL);
-  assertNotNear(4.0f, 1.1f, 0.2f);
+  assertNear(4.0f, 1.1f, 0.2f);
   assertNotNear(4.0, 1.1, 0.2);
 }
 

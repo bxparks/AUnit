@@ -514,6 +514,12 @@ AUnit offers only the equilvalent of `ASSERT_NEAR()` function:
 * `assertNear(a, b, error)`
 * `assertNotNear(a, b, error)`
 
+Upon failure, the error messages will look something like:
+```
+Assertion failed: |(1.00) - (1.10)| > (0.20), file AUnitTest.ino, line 517.
+Assertion failed: |(4.00) - (1.10)| <= (0.20), file AUnitTest.ino, line 527.
+```
+
 Unlike Google Test where `ASSERT_NEAR()` supports only the `double` type, both
 `assertNear()` and `assertNotNear()` support integral types as well. The full
 list of supported types is:
@@ -525,7 +531,7 @@ list of supported types is:
 * `double`
 
 Other primitive types (e.g. `char` or `float`) will be automatically converted
-to one of these types by the compiler.
+to one of these supported types by the compiler.
 
 Note that the `abs()` of 2 values of a signed integer type can be larger than
 the maximum value that can be represented by the given signed type. Since signed
