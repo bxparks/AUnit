@@ -505,30 +505,6 @@ test(assertTrue) {
   assertFalse(false);
 }
 
-#if USE_AUNIT == 1
-
-test(assertNear) {
-  assertNear((char) 1, (char) 2, (char) 1);
-  assertNear(1, 2, 1);
-  assertNear(1U, 2U, 1U);
-  assertNear(1L, 2L, 1L);
-  assertNear(1UL, 2UL, 1UL);
-  assertNear(1.0f, 1.1f, 0.2f);
-  assertNear(1.0, 1.1, 0.2);
-}
-
-test(assertNotNear) {
-  assertNotNear((char) 4, (char) 2, (char) 1);
-  assertNotNear(4, 2, 1);
-  assertNotNear(4U, 2U, 1U);
-  assertNotNear(4L, 2L, 1L);
-  assertNotNear(4UL, 2UL, 1UL);
-  assertNotNear(4.0f, 1.1f, 0.2f);
-  assertNotNear(4.0, 1.1, 0.2);
-}
-
-#endif
-
 test(flashString) {
   assertEqual(ff, ff);
   assertEqual(gg, gg);
@@ -681,7 +657,7 @@ void loop() {
 #if USE_AUNIT == 1
   // Should get something like:
   // TestRunner summary:
-  //    23 passed, 0 failed, 0 skipped, 0 timed out, out of 23 test(s).
+  //    21 passed, 0 failed, 0 skipped, 0 timed out, out of 23 test(s).
   TestRunner::run();
 #else
   // Should get something like:
