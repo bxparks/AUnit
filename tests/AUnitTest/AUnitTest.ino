@@ -508,6 +508,26 @@ test(assertTrue) {
 }
 
 #if USE_AUNIT == 1
+test(assertNear) {
+  assertNear((char) 1, (char) 2, (char) 1);
+  assertNear(1, 2, 1);
+  assertNear(1U, 2U, 1U);
+  assertNear(1L, 2L, 1L);
+  assertNear(1UL, 2UL, 1UL);
+  assertNear(1.0f, 1.1f, 0.2f);
+  assertNear(1.0, 1.1, 0.2);
+}
+
+test(assertNotNear) {
+  assertNotNear((char) 4, (char) 2, (char) 1);
+  assertNotNear(4, 2, 1);
+  assertNotNear(4U, 2U, 1U);
+  assertNotNear(4L, 2L, 1L);
+  assertNotNear(4UL, 2UL, 1UL);
+  assertNear(4.0f, 1.1f, 0.2f);
+  assertNotNear(4.0, 1.1, 0.2);
+}
+
 test(verbosity_assertionFailed_only) {
   enableVerbosity(Verbosity::kAssertionPassed);
   disableVerbosity(Verbosity::kTestPassed);

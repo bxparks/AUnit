@@ -119,6 +119,7 @@ inlining them because they are almost always used through a function pointer.
 
 #include <stdint.h>
 #include <string.h>
+#include <math.h> // fabs()
 #include <WString.h>
 #include "Flash.h"
 #include "Compare.h"
@@ -798,6 +799,50 @@ bool compareStringCaseNotEqual(const String& a, const String& b) {
 
 bool compareStringCaseNotEqual(const String& a, const __FlashStringHelper* b) {
   return compareStringCase(a, b) != 0;
+}
+
+//---------------------------------------------------------------------------
+// compareNear()
+//---------------------------------------------------------------------------
+
+bool compareNear(int a, int b, int error) {
+  return abs(a - b) <= error;
+}
+
+bool compareNear(unsigned int a, unsigned int b, unsigned int error) {
+  return abs(a - b) <= error;
+}
+
+bool compareNear(long a, long b, long error) {
+  return abs(a - b) <= error;
+}
+
+bool compareNear(unsigned long a, unsigned long b, unsigned long error) {
+  return abs(a - b) <= error;
+}
+
+bool compareNear(double a, double b, double error) {
+  return fabs(a - b) <= error;
+}
+
+bool compareNotNear(int a, int b, int error) {
+  return !compareNear(a, b, error);
+}
+
+bool compareNotNear(unsigned int a, unsigned int b, unsigned int error) {
+  return !compareNear(a, b, error);
+}
+
+bool compareNotNear(long a, long b, long error) {
+  return !compareNear(a, b, error);
+}
+
+bool compareNotNear(unsigned long a, unsigned long b, unsigned long error) {
+  return !compareNear(a, b, error);
+}
+
+bool compareNotNear(double a, double b, double error) {
+  return !compareNear(a, b, error);
 }
 
 }

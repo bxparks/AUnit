@@ -386,6 +386,30 @@ bool compareStringCaseNotEqual(const String& a, const String& b);
 
 bool compareStringCaseNotEqual(const String& a, const __FlashStringHelper* b);
 
+// compareNear
+
+bool compareNear(int a, int b, int error);
+
+bool compareNear(unsigned int a, unsigned int b, unsigned int error);
+
+bool compareNear(long a, long b, long error);
+
+bool compareNear(unsigned long a, unsigned long b, unsigned long error);
+
+bool compareNear(double a, double b, double error);
+
+// compareNotNear
+
+bool compareNotNear(int a, int b, int error);
+
+bool compareNotNear(unsigned int a, unsigned int b, unsigned int error);
+
+bool compareNotNear(long a, long b, long error);
+
+bool compareNotNear(unsigned long a, unsigned long b, unsigned long error);
+
+bool compareNotNear(double a, double b, double error);
+
 }
 }
 
