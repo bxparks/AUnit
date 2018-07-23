@@ -135,6 +135,30 @@ class Assertion: public Test {
         const __FlashStringHelper* rhs),
         const __FlashStringHelper* rhs);
 
+    bool assertionNear(const char* file, uint16_t line,
+        int lhs, int rhs, int error, const char* opName,
+        bool (*compareNear)(int lhs, int rhs, int error));
+
+    bool assertionNear(const char* file, uint16_t line,
+        unsigned int lhs, unsigned int rhs, unsigned int error,
+        const char* opName,
+        bool (*compareNear)(
+            unsigned int lhs, unsigned int rhs, unsigned int error));
+
+    bool assertionNear(const char* file, uint16_t line,
+        long lhs, long rhs, long error, const char* opName,
+        bool (*compareNear)(long lhs, long rhs, long error));
+
+    bool assertionNear(const char* file, uint16_t line,
+        unsigned long lhs, unsigned long rhs, unsigned long error,
+        const char* opName,
+        bool (*compareNear)(
+            unsigned long lhs, unsigned long rhs, unsigned long error));
+
+    bool assertionNear(const char* file, uint16_t line,
+        double lhs, double rhs, double error, const char* opName,
+        bool (*compareNear)(double lhs, double rhs, double error));
+
     // Verbose versions of above.
 
     bool assertionBoolVerbose(const char* file, uint16_t line, bool arg,
@@ -223,6 +247,43 @@ class Assertion: public Test {
         bool (*op)(const __FlashStringHelper* lhs,
         const __FlashStringHelper* rhs),
         const __FlashStringHelper* rhs, const __FlashStringHelper* rhsString);
+
+    bool assertionNearVerbose(const char* file, uint16_t line,
+        int lhs, const __FlashStringHelper* lhsString,
+        int rhs, const __FlashStringHelper* rhsString,
+        int error, const __FlashStringHelper* errorString,
+        const char* opName,
+        bool (*compareNear)(int lhs, int rhs, int error));
+
+    bool assertionNearVerbose(const char* file, uint16_t line,
+        unsigned int lhs, const __FlashStringHelper* lhsString,
+        unsigned int rhs, const __FlashStringHelper* rhsString,
+        unsigned int error, const __FlashStringHelper* errorString,
+        const char* opName,
+        bool (*compareNear)(
+            unsigned int lhs, unsigned int rhs, unsigned int error));
+
+    bool assertionNearVerbose(const char* file, uint16_t line,
+        long lhs, const __FlashStringHelper* lhsString,
+        long rhs, const __FlashStringHelper* rhsString,
+        long error, const __FlashStringHelper* errorString,
+        const char* opName,
+        bool (*compareNear)(long lhs, long rhs, long error));
+
+    bool assertionNearVerbose(const char* file, uint16_t line,
+        unsigned long lhs, const __FlashStringHelper* lhsString,
+        unsigned long rhs, const __FlashStringHelper* rhsString,
+        unsigned long error, const __FlashStringHelper* errorString,
+        const char* opName,
+        bool (*compareNear)(
+            unsigned long lhs, unsigned long rhs, unsigned long error));
+
+    bool assertionNearVerbose(const char* file, uint16_t line,
+        double lhs, const __FlashStringHelper* lhsString,
+        double rhs, const __FlashStringHelper* rhsString,
+        double error, const __FlashStringHelper* errorString,
+        const char* opName,
+        bool (*compareNear)(double lhs, double rhs, double error));
 
   private:
     // Disable copy-constructor and assignment operator

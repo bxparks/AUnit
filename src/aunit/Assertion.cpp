@@ -111,6 +111,28 @@ void printAssertionBoolMessage(Print* printer, bool ok, const char* file,
   printer->println('.');
 }
 
+template <typename A>
+void printAssertionNearMessage(Print* printer, bool ok, const char* file,
+    uint16_t line, const A& lhs, const A& rhs, const char* opName,
+    const A& error) {
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": |(");
+  printer->print(lhs);
+  printer->print(") - (");
+  printer->print(rhs);
+  printer->print(")| ");
+  printer->print(opName);
+  printer->print(" (");
+  printer->print(error);
+  printer->print(')');
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
 } // namespace
 
 bool Assertion::isOutputEnabled(bool ok) {
@@ -343,6 +365,74 @@ bool Assertion::assertion(const char* file, uint16_t line,
   return ok;
 }
 
+bool Assertion::assertionNear(const char* file, uint16_t line,
+    int lhs, int rhs, int error, const char* opName,
+    bool (*opNear)(int lhs, int rhs, int error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessage(Printer::getPrinter(), ok, file, line,
+        lhs, rhs, opName, error);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNear(const char* file, uint16_t line,
+    unsigned int lhs, unsigned int rhs, unsigned int error, const char* opName,
+    bool (*opNear)(unsigned int lhs, unsigned int rhs, unsigned int error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessage(Printer::getPrinter(), ok, file, line,
+        lhs, rhs, opName, error);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNear(const char* file, uint16_t line,
+    long lhs, long rhs, long error, const char* opName,
+    bool (*opNear)(long lhs, long rhs, long error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessage(Printer::getPrinter(), ok, file, line,
+        lhs, rhs, opName, error);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNear(const char* file, uint16_t line,
+    unsigned long lhs, unsigned long rhs, unsigned long error,
+    const char* opName,
+    bool (*opNear)(unsigned long lhs, unsigned long rhs, unsigned long error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessage(Printer::getPrinter(), ok, file, line,
+        lhs, rhs, opName, error);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNear(const char* file, uint16_t line,
+    double lhs, double rhs, double error, const char* opName,
+    bool (*opNear)(double lhs, double rhs, double error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessage(Printer::getPrinter(), ok, file, line,
+        lhs, rhs, opName, error);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+//---------------------------------------------------------------------------
+
 namespace internal {
 
 // Verbose versions of above which accept the string arguments of the
@@ -426,6 +516,36 @@ void printAssertionBoolMessageVerbose(Print* printer, bool ok, const char* file,
   printer->print(arg ? "true" : "false");
   printer->print(") is ");
   printer->print(value ? "true" : "false");
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
+template <typename A>
+void printAssertionNearMessageVerbose(Print* printer, bool ok, const char* file,
+    uint16_t line, const A& lhs, const __FlashStringHelper* lhsString,
+    const A& rhs, const __FlashStringHelper* rhsString,
+    const char* opName,
+    const A& error, const __FlashStringHelper* errorString) {
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": |(");
+  printer->print(lhsString);
+  printer->print('=');
+  printer->print(lhs);
+  printer->print(") - (");
+  printer->print(rhsString);
+  printer->print('=');
+  printer->print(rhs);
+  printer->print(")| ");
+  printer->print(opName);
+  printer->print(" (");
+  printer->print(errorString);
+  printer->print('=');
+  printer->print(error);
+  printer->print(')');
   printer->print(", file ");
   printer->print(file);
   printer->print(", line ");
@@ -669,6 +789,86 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
   if (isOutputEnabled(ok)) {
     printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
         lhs, lhsString, opName, rhs, rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNearVerbose(const char* file, uint16_t line,
+    int lhs, const __FlashStringHelper* lhsString,
+    int rhs, const __FlashStringHelper* rhsString,
+    int error, const __FlashStringHelper* errorString,
+    const char* opName,
+    bool (*opNear)(int lhs, int rhs, int error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, rhs, rhsString, opName, error, errorString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNearVerbose(const char* file, uint16_t line,
+    unsigned int lhs, const __FlashStringHelper* lhsString,
+    unsigned int rhs, const __FlashStringHelper* rhsString,
+    unsigned int error, const __FlashStringHelper* errorString,
+    const char* opName,
+    bool (*opNear)(unsigned int lhs, unsigned int rhs, unsigned int error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, rhs, rhsString, opName, error, errorString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNearVerbose(const char* file, uint16_t line,
+    long lhs, const __FlashStringHelper* lhsString,
+    long rhs, const __FlashStringHelper* rhsString,
+    long error, const __FlashStringHelper* errorString,
+    const char* opName,
+    bool (*opNear)(long lhs, long rhs, long error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, rhs, rhsString, opName, error, errorString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNearVerbose(const char* file, uint16_t line,
+    unsigned long lhs, const __FlashStringHelper* lhsString,
+    unsigned long rhs, const __FlashStringHelper* rhsString,
+    unsigned long error, const __FlashStringHelper* errorString,
+    const char* opName,
+    bool (*opNear)(unsigned long lhs, unsigned long rhs, unsigned long error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, rhs, rhsString, opName, error, errorString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionNearVerbose(const char* file, uint16_t line,
+    double lhs, const __FlashStringHelper* lhsString,
+    double rhs, const __FlashStringHelper* rhsString,
+    double error, const __FlashStringHelper* errorString,
+    const char* opName,
+    bool (*opNear)(double lhs, double rhs, double error)) {
+  if (isDone()) return false;
+  bool ok = opNear(lhs, rhs, error);
+  if (isOutputEnabled(ok)) {
+    printAssertionNearMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, rhs, rhsString, opName, error, errorString);
   }
   setPassOrFail(ok);
   return ok;
