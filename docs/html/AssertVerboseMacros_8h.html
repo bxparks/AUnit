@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.0.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -122,6 +122,12 @@ Macros</h2></td></tr>
 <tr class="memitem:a738bb37ec091dfd5e3bf40cf47093a78"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="AssertVerboseMacros_8h.html#a738bb37ec091dfd5e3bf40cf47093a78">assertBoolVerboseInternal</a>(arg,  value)</td></tr>
 <tr class="memdesc:a738bb37ec091dfd5e3bf40cf47093a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal helper macro, shouldn't be called directly by users.  <a href="#a738bb37ec091dfd5e3bf40cf47093a78">More...</a><br /></td></tr>
 <tr class="separator:a738bb37ec091dfd5e3bf40cf47093a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab37dc3ab85b61bad53032bdea0a36b26"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="AssertVerboseMacros_8h.html#ab37dc3ab85b61bad53032bdea0a36b26">assertNear</a>(arg1,  arg2,  error)</td></tr>
+<tr class="memdesc:ab37dc3ab85b61bad53032bdea0a36b26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that arg1 and arg2 are within error of each other.  <a href="#ab37dc3ab85b61bad53032bdea0a36b26">More...</a><br /></td></tr>
+<tr class="separator:ab37dc3ab85b61bad53032bdea0a36b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a780f10370d41f109377629af76c84f78"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="AssertVerboseMacros_8h.html#a780f10370d41f109377629af76c84f78">assertNotNear</a>(arg1,  arg2,  error)</td></tr>
+<tr class="memdesc:a780f10370d41f109377629af76c84f78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that arg1 and arg2 are NOT within error of each other.  <a href="#a780f10370d41f109377629af76c84f78">More...</a><br /></td></tr>
+<tr class="separator:a780f10370d41f109377629af76c84f78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Verbose versions of the macros in <a class="el" href="AssertMacros_8h.html" title="Various assertion macros (assertXxx()) are defined in this header. ">AssertMacros.h</a>. </p>
@@ -343,6 +349,44 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="ab37dc3ab85b61bad53032bdea0a36b26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab37dc3ab85b61bad53032bdea0a36b26">&#9670;&nbsp;</a></span>assertNear</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define assertNear</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">arg1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">arg2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">error&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { \</div><div class="line">  if (!assertionNearVerbose(__FILE__, __LINE__, \</div><div class="line">      arg1, AUNIT_F(#arg1), arg2, AUNIT_F(#arg2), error, AUNIT_F(#error), \</div><div class="line">      <span class="stringliteral">&quot;&lt;=&quot;</span>, aunit::internal::compareNear)) \</div><div class="line">    return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div></div><!-- fragment -->
+<p>Assert that arg1 and arg2 are within error of each other. </p>
+
+<p class="definition">Definition at line <a class="el" href="AssertVerboseMacros_8h_source.html#l00093">93</a> of file <a class="el" href="AssertVerboseMacros_8h_source.html">AssertVerboseMacros.h</a>.</p>
+
+</div>
+</div>
 <a id="a8b6e553f85b2a168388016b5afbb0939"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8b6e553f85b2a168388016b5afbb0939">&#9670;&nbsp;</a></span>assertNotEqual</h2>
 
@@ -372,6 +416,44 @@ Macros</h2></td></tr>
 <p>Assert that arg1 is not equal to arg2. </p>
 
 <p class="definition">Definition at line <a class="el" href="AssertVerboseMacros_8h_source.html#l00044">44</a> of file <a class="el" href="AssertVerboseMacros_8h_source.html">AssertVerboseMacros.h</a>.</p>
+
+</div>
+</div>
+<a id="a780f10370d41f109377629af76c84f78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a780f10370d41f109377629af76c84f78">&#9670;&nbsp;</a></span>assertNotNear</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define assertNotNear</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">arg1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">arg2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">error&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { \</div><div class="line">  if (!assertionNearVerbose(__FILE__, __LINE__, \</div><div class="line">      arg1, AUNIT_F(#arg1), arg2, AUNIT_F(#arg2), error, AUNIT_F(#error), \</div><div class="line">      <span class="stringliteral">&quot;&gt;&quot;</span>, aunit::internal::compareNotNear)) \</div><div class="line">    return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div></div><!-- fragment -->
+<p>Assert that arg1 and arg2 are NOT within error of each other. </p>
+
+<p class="definition">Definition at line <a class="el" href="AssertVerboseMacros_8h_source.html#l00101">101</a> of file <a class="el" href="AssertVerboseMacros_8h_source.html">AssertVerboseMacros.h</a>.</p>
 
 </div>
 </div>
