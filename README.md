@@ -11,7 +11,7 @@ tools can be used in a continuous integration system like Jenkins.
 
 Version: 1.1 (2018-07-23)
 
-[![AUniter Jenkins Badge](https://us-central1-xparks2015.cloudfunctions.net/badge?project=AUnit)](https://github.com/bxparks/AUniter)
+[![AUniter Jenkins Badge](https://us-central1-xparks2018.cloudfunctions.net/badge?project=AUnit)](https://github.com/bxparks/AUniter)
 
 ## Summary
 
