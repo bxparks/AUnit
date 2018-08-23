@@ -178,12 +178,14 @@ In the `tests/` directory:
   called properly by the finite state machine
 
 Perhaps the best way to see AUnit in action through real life examples. I
-currently have 2 Arduino project using AUnit extensively
+currently have 3 Arduino project using AUnit extensively
 (look under the `tests/` directory in each project).
 
 * [AceButton](https://github.com/bxparks/AceButton)
     * Originally created using ArduinoUnit 2.2, and I have kept those tests
       backwards compatible. They do not use the new features of AUnit.
+* [AceRoutine](https://github.com/bxparks/AceRoutine)
+    * Demonstrates the full power of AUnit better.
 * [AceSegment](https://github.com/bxparks/AceSegment)
     * Demonstrates the full power of AUnit better.
 
