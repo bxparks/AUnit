@@ -71,7 +71,7 @@ void Test::insert() {
 }
 
 void Test::resolve() {
-  static const __FlashStringHelper* TEST_STRING = F("Test ");
+  const __FlashStringHelper* const TEST_STRING = F("Test ");
 
   if (!isVerbosity(Verbosity::kTestAll)) return;
 
