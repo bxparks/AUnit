@@ -25,7 +25,7 @@ pipeline {
                 sh "AUniter/tools/auniter.sh \
                     --config libraries/AUnit/tests/auniter.ini \
                     verify \
-                    --sketchbook=$WORKSPACE \
+                    --sketchbook $WORKSPACE \
                     $BOARDS \
                     libraries/AUnit/examples/*"
             }
@@ -35,7 +35,7 @@ pipeline {
                 sh "AUniter/tools/auniter.sh \
                     --config libraries/AUnit/tests/auniter.ini \
                     verify \
-                    --sketchbook=$WORKSPACE \
+                    --sketchbook $WORKSPACE \
                     $BOARDS \
                     libraries/AUnit/tests/*Test"
             }
@@ -48,7 +48,7 @@ pipeline {
                     --config libraries/AUnit/tests/auniter.ini \
                     test \
                     --skip_missing_port \
-                    --sketchbook=$WORKSPACE \
+                    --sketchbook $WORKSPACE \
                     $BOARDS \
                     libraries/AUnit/tests/AUnitMetaTest \
                     libraries/AUnit/tests/AUnitMoreTest \
