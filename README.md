@@ -286,13 +286,13 @@ testing(looping_test) {
 class CustomTestOnce: public TestOnce {
   protected:
     // optional
-    virtual void setup() override {
+    void setup() override {
       TestOnce::setup();
       ...setup code...
     }
 
     // optional
-    virtual void teardown() override {
+    void teardown() override {
       ...teardown code...
       TestOnce::teardown();
     }
@@ -311,13 +311,13 @@ testF(CustomTestOnce, example_test) {
 class CustomTestAgain: public TestAgain {
   protected:
     // optional
-    virtual void setup() override {
+    void setup() override {
       TestAgain::setup();
       ...setup code...
     }
 
     // optional
-    virtual void teardown() override {
+    void teardown() override {
       ...teardown code...
       TestOnce::teardown();
     }
@@ -582,13 +582,13 @@ To define your tests, use the `testF()` macro like this:
 class CustomTestOnce: public TestOnce {
   protected:
     // optional
-    virtual void setup() override {
+    void setup() override {
       TestOnce::setup();
       ...setup code...
     }
 
     // optional
-    virtual void teardown() override {
+    void teardown() override {
       ...teardown code...
       TestOnce::teardown();
     }
@@ -618,13 +618,13 @@ To define a continuous test, use the `testingF()` macro like this:
 class CustomTestAgain: public TestAgain {
   protected:
     // optional
-    virtual void setup() override {
+    void setup() override {
       TestAgain::setup();
       ...setup code...
     }
 
     // optional
-    virtual void teardown() override {
+    void teardown() override {
       ...teardown code...
       TestAgain::teardown();
     }
@@ -670,13 +670,13 @@ then `doStuff()` inside `testF()` will execute:
 class CustomTestOnce: public TestOnce {
   protected:
     // optional
-    virtual void setup() override {
+    void setup() override {
       TestOnce::setup();
       ...setup code...
     }
 
     // optional
-    virtual void teardown() override {
+    void teardown() override {
       ...teardown code...
       TestOnce::teardown();
     }
@@ -1207,13 +1207,13 @@ messages for successful assertions (with a
 class CustomTestOnce: public TestOnce {
   protected:
     // optional
-    virtual void setup() override {
+    void setup() override {
       TestOnce::setup();
       ...setup code...
     }
 
     // optional
-    virtual void teardown() override {
+    void teardown() override {
       ...teardown code...
       TestOnce::teardown();
     }

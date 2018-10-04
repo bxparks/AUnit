@@ -23,12 +23,12 @@ using namespace aunit;
 
 class CustomOnceFixture: public TestOnce {
   protected:
-    virtual void setup() override {
+    void setup() override {
       TestOnce::setup();
       subject = 6;
     }
 
-    virtual void teardown() override {
+    void teardown() override {
       TestOnce::teardown();
     }
 

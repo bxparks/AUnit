@@ -534,12 +534,12 @@ test(flashString) {
 
 class CustomOnceFixture: public TestOnce {
   protected:
-    virtual void setup() override {
+    void setup() override {
       TestOnce::setup();
       subject = 6;
     }
 
-    virtual void teardown() override {
+    void teardown() override {
       TestOnce::teardown();
     }
 
@@ -561,12 +561,12 @@ testF(CustomOnceFixture, common) {
 
 class CustomAgainFixture: public TestAgain {
   protected:
-    virtual void setup() override {
+    void setup() override {
       TestAgain::setup();
       subject = 6;
     }
 
-    virtual void teardown() override {
+    void teardown() override {
       TestAgain::teardown();
     }
 
@@ -617,11 +617,11 @@ class CustomTestOnce: public TestOnce {
     }
 
   protected:
-    virtual void setup() override {
+    void setup() override {
       n = 6;
     }
 
-    virtual void once() override {
+    void once() override {
       assertLessOrEqual(5, 6);
     }
 

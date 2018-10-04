@@ -19,12 +19,12 @@ using namespace aunit;
 
 class CustomOnceFixture: public TestOnce {
   protected:
-    virtual void setup() override {
+    void setup() override {
       TestOnce::setup();
       subject = 6;
     }
 
-    virtual void teardown() override {
+    void teardown() override {
       TestOnce::teardown();
     }
 
@@ -41,12 +41,12 @@ class CustomOnceFixture: public TestOnce {
 
 class CustomAgainFixture: public TestAgain {
   protected:
-    virtual void setup() override {
+    void setup() override {
       TestAgain::setup();
       subject = 6;
     }
 
-    virtual void teardown() override {
+    void teardown() override {
       TestAgain::teardown();
     }
 

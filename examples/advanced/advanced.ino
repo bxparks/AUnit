@@ -16,7 +16,7 @@ test(simple2) {
 
 class MyTestOnce: public TestOnce {
   protected:
-    virtual void setup() override {
+    void setup() override {
       n = random(6);
       if (n == 0) skip();
     }
@@ -34,7 +34,7 @@ testF(MyTestOnce, simple1) {
 
 class MyTestAgain: public TestAgain {
   protected:
-    virtual void setup() override {
+    void setup() override {
       TestAgain::setup();
       when = random(100, 200);
     }

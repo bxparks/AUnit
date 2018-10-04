@@ -55,7 +55,7 @@ SOFTWARE.
 /** Macro to define a test that will be run only once. */
 #define test(name) struct test_ ## name : aunit::TestOnce {\
   test_ ## name();\
-  virtual void once() override;\
+  void once() override;\
 } test_ ## name ## _instance;\
 test_ ## name :: test_ ## name() {\
   init(AUNIT_F(#name)); \
@@ -69,7 +69,7 @@ void test_ ## name :: once()
  */
 #define testing(name) struct test_ ## name : aunit::TestAgain {\
   test_ ## name();\
-  virtual void again() override;\
+  void again() override;\
 } test_ ## name ## _instance;\
 test_ ## name :: test_ ## name() {\
   init(AUNIT_F(#name));\
@@ -107,7 +107,7 @@ extern test_##name test_##name##_instance
 #define testF(testClass, name) \
 struct testClass ## _ ## name : testClass {\
   testClass ## _ ## name();\
-  virtual void once() override;\
+  void once() override;\
 } testClass ## _ ## name ## _instance;\
 testClass ## _ ## name :: testClass ## _ ## name() {\
   init(AUNIT_F(#testClass "_" #name));\
@@ -122,7 +122,7 @@ void testClass ## _ ## name :: once()
 #define testingF(testClass, name) \
 struct testClass ## _ ## name : testClass {\
   testClass ## _ ## name();\
-  virtual void again() override;\
+  void again() override;\
 } testClass ## _ ## name ## _instance;\
 testClass ## _ ## name :: testClass ## _ ## name() {\
   init(AUNIT_F(#testClass "_" #name));\
@@ -137,7 +137,7 @@ void testClass ## _ ## name :: again()
 #define externTestF(testClass, name) \
 struct testClass ## _ ## name : testClass {\
   testClass ## _ ## name();\
-  virtual void once() override;\
+  void once() override;\
 };\
 extern testClass ## _ ## name testClass##_##name##_instance
 
@@ -150,7 +150,7 @@ extern testClass ## _ ## name testClass##_##name##_instance
 #define externTestingF(testClass, name) \
 struct testClass ## _ ## name : testClass {\
   testClass ## _ ## name();\
-  virtual void again() override;\
+  void again() override;\
 };\
 extern testClass ## _ ## name testClass##_##name##_instance
 
