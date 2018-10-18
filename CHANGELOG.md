@@ -1,5 +1,15 @@
 # Changelog
 
+* 1.1.1 (2018-10-18)
+    * Work around compiler crash on Arduino Core >= 1.6.22 (IDE >= 1.8.6)
+      due to
+      [ArduinoCore-avr#Issue39](https://github.com/arduino/ArduinoCore-avr/issues/39).
+    * Update Jenkinsfile to be compatible with AUniter 1.7, use new subcommand
+      syntax of auniter.sh.
+    * Rename tests/auniter.conf to tests/auniter.ini after AUniter 1.6.
+    * Clean up various AUniter environments (e.g. env:micro uses SparkFun board
+      manager for SparkFun:avr:promicro; env:esp32 uses ESP32 board manager
+      for esp32:esp32:esp32 instead of espressif:esp32:esp32).
 * 1.1 (2018-07-23)
     * Add assertNear() and assertNotNear() for floating and integral types.
       Fixes #35.
