@@ -1336,7 +1336,7 @@ I used MacOS 10.13.3 and Ubuntu 17.10 for most of my development.
 The library is tested on the following hardware before each release:
 
 * Arduino Nano clone (16 MHz ATmega328P)
-* Arduino Pro Micro clone (16 MHz ATmega32U4)
+* SparkFun Pro Micro clone (16 MHz ATmega32U4)
 * Teensy 3.2 (72 MHz ARM Cortex-M4)
 * NodeMCU 1.0 clone (ESP-12E module, 80 MHz ESP8266)
 * ESP32 dev board (ESP-WROOM-32 module, 240 MHz dual core Tensilica LX6)
