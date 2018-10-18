@@ -36,11 +36,11 @@ test(configure) {}
 test(display) {}
 
 class CustomOnce: public TestOnce {
-  virtual void setup() override {
+  void setup() override {
     Serial.println(F("CustomOnce::setup()"));
   }
 
-  virtual void teardown() override {
+  void teardown() override {
     Serial.println(F("CustomOnce::teardown()"));
   }
 };
@@ -49,11 +49,11 @@ testF(CustomOnce, configure) {}
 testF(CustomOnce, display) {}
 
 class CustomAgain: public TestAgain {
-  virtual void setup() override {
+  void setup() override {
     Serial.println(F("CustomAgain::setup()"));
   }
 
-  virtual void teardown() override {
+  void teardown() override {
     Serial.println(F("CustomAgain::teardown()"));
   }
 };

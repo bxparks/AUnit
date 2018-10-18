@@ -12,12 +12,12 @@ using namespace aunit;
 
 class CustomAgainFixture: public TestAgain {
   protected:
-    virtual void setup() override {
+    void setup() override {
       TestAgain::setup();
       subject = 6;
     }
 
-    virtual void teardown() override {
+    void teardown() override {
       TestAgain::teardown();
     }
 

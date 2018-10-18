@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.1</span>
+   &#160;<span id="projectnumber">1.1.1</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -189,7 +189,7 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>testClass ## _ ## name : testClass {\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  virtual <span class="keywordtype">void</span> once() <span class="keyword">override</span>;\</div><div class="line">};\</div><div class="line">extern testClass ## _ ## name testClass##_##name##_instance</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>testClass ## _ ## name : testClass {\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  void once() <span class="keyword">override</span>;\</div><div class="line">};\</div><div class="line">extern testClass ## _ ## name testClass##_##name##_instance</div></div><!-- fragment -->
 <p>Create an extern reference to a <a class="el" href="TestMacros_8h.html#a4f2798c22904efe9442ce65eb6932a9c" title="Create a test that is derived from a custom TestOnce class. ">testF()</a> test case object defined elsewhere. </p>
 <p>This is only necessary if you use assertTestXxx() or checkTestXxx() when the test is in another file (or defined after the assertion on it). </p>
 
@@ -247,7 +247,7 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>testClass ## _ ## name : testClass {\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  virtual <span class="keywordtype">void</span> again() <span class="keyword">override</span>;\</div><div class="line">};\</div><div class="line">extern testClass ## _ ## name testClass##_##name##_instance</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>testClass ## _ ## name : testClass {\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  void again() <span class="keyword">override</span>;\</div><div class="line">};\</div><div class="line">extern testClass ## _ ## name testClass##_##name##_instance</div></div><!-- fragment -->
 <p>Create an extern reference to a <a class="el" href="TestMacros_8h.html#a648c8cb704b9d942b36d8c4646645c2c" title="Create a test that is derived from a custom TestAgain class. ">testingF()</a> test case object defined elsewhere. </p>
 <p>This is only necessary if you use assertTestXxx() or checkTestXxx() when the test is in another file (or defined after the assertion on it). </p>
 
@@ -270,7 +270,7 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_ ## name : <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">  test_ ## name();\</div><div class="line">  virtual <span class="keywordtype">void</span> <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>() <span class="keyword">override</span>;\</div><div class="line">} test_ ## name ## _instance;\</div><div class="line">test_ ## name :: test_ ## name() {\</div><div class="line">  init(AUNIT_F(#name)); \</div><div class="line">}\</div><div class="line">void test_ ## name :: once()</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_ ## name : <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">  test_ ## name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>() <span class="keyword">override</span>;\</div><div class="line">} test_ ## name ## _instance;\</div><div class="line">test_ ## name :: test_ ## name() {\</div><div class="line">  init(AUNIT_F(#name)); \</div><div class="line">}\</div><div class="line">void test_ ## name :: once()</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
 <div class="ttc" id="classaunit_1_1TestOnce_html"><div class="ttname"><a href="classaunit_1_1TestOnce.html">aunit::TestOnce</a></div><div class="ttdoc">Similar to TestAgain but performs user-defined test only once. </div><div class="ttdef"><b>Definition:</b> <a href="TestOnce_8h_source.html#l00040">TestOnce.h:40</a></div></div>
 </div><!-- fragment -->
 <p>Macro to define a test that will be run only once. </p>
@@ -304,7 +304,7 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>testClass ## _ ## name : testClass {\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  virtual <span class="keywordtype">void</span> once() <span class="keyword">override</span>;\</div><div class="line">} testClass ## _ ## name ## _instance;\</div><div class="line">testClass ## _ ## name :: testClass ## _ ## name() {\</div><div class="line">  init(AUNIT_F(#testClass <span class="stringliteral">&quot;_&quot;</span> #name));\</div><div class="line">}\</div><div class="line">void testClass ## _ ## name :: once()</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>testClass ## _ ## name : testClass {\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  void once() <span class="keyword">override</span>;\</div><div class="line">} testClass ## _ ## name ## _instance;\</div><div class="line">testClass ## _ ## name :: testClass ## _ ## name() {\</div><div class="line">  init(AUNIT_F(#testClass <span class="stringliteral">&quot;_&quot;</span> #name));\</div><div class="line">}\</div><div class="line">void testClass ## _ ## name :: once()</div></div><!-- fragment -->
 <p>Create a test that is derived from a custom TestOnce class. </p>
 <p>The name of the instance is prefixed by '{testClass}_' to avoid name collisions with similarly named tests using other fixtures. </p>
 
@@ -327,7 +327,7 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_ ## name : <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">  test_ ## name();\</div><div class="line">  virtual <span class="keywordtype">void</span> <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>() <span class="keyword">override</span>;\</div><div class="line">} test_ ## name ## _instance;\</div><div class="line">test_ ## name :: test_ ## name() {\</div><div class="line">  init(AUNIT_F(#name));\</div><div class="line">}\</div><div class="line">void test_ ## name :: again()</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_ ## name : <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">  test_ ## name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>() <span class="keyword">override</span>;\</div><div class="line">} test_ ## name ## _instance;\</div><div class="line">test_ ## name :: test_ ## name() {\</div><div class="line">  init(AUNIT_F(#name));\</div><div class="line">}\</div><div class="line">void test_ ## name :: again()</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
 <div class="ttc" id="classaunit_1_1TestAgain_html"><div class="ttname"><a href="classaunit_1_1TestAgain.html">aunit::TestAgain</a></div><div class="ttdoc">Similar to TestOnce but performs the user-defined test multiple times. </div><div class="ttdef"><b>Definition:</b> <a href="TestAgain_8h_source.html#l00037">TestAgain.h:37</a></div></div>
 </div><!-- fragment -->
 <p>Macro to define a test that will run repeatly upon each iteration of the global loop() method, stopping when the something calls Test::pass(), Test::fail() or Test::skip(). </p>
@@ -361,7 +361,7 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>testClass ## _ ## name : testClass {\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  virtual <span class="keywordtype">void</span> again() <span class="keyword">override</span>;\</div><div class="line">} testClass ## _ ## name ## _instance;\</div><div class="line">testClass ## _ ## name :: testClass ## _ ## name() {\</div><div class="line">  init(AUNIT_F(#testClass <span class="stringliteral">&quot;_&quot;</span> #name));\</div><div class="line">}\</div><div class="line">void testClass ## _ ## name :: again()</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>testClass ## _ ## name : testClass {\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  void again() <span class="keyword">override</span>;\</div><div class="line">} testClass ## _ ## name ## _instance;\</div><div class="line">testClass ## _ ## name :: testClass ## _ ## name() {\</div><div class="line">  init(AUNIT_F(#testClass <span class="stringliteral">&quot;_&quot;</span> #name));\</div><div class="line">}\</div><div class="line">void testClass ## _ ## name :: again()</div></div><!-- fragment -->
 <p>Create a test that is derived from a custom TestAgain class. </p>
 <p>The name of the instance is prefixed by '{testClass}_' to avoid name collisions with similarly named tests using other fixtures. </p>
 

@@ -22,19 +22,21 @@ pipeline {
         }
         stage('Verify Examples') {
             steps {
-                sh "AUniter/tools/auniter.sh --verify \
-                    --pref sketchbook.path=$WORKSPACE \
-                    --config libraries/AUnit/tests/auniter.conf \
-                    --boards $BOARDS \
+                sh "AUniter/tools/auniter.sh \
+                    --config libraries/AUnit/tests/auniter.ini \
+                    verify \
+                    --sketchbook $WORKSPACE \
+                    $BOARDS \
                     libraries/AUnit/examples/*"
             }
         }
         stage('Verify Tests') {
             steps {
-                sh "AUniter/tools/auniter.sh --verify \
-                    --pref sketchbook.path=$WORKSPACE \
-                    --config libraries/AUnit/tests/auniter.conf \
-                    --boards $BOARDS \
+                sh "AUniter/tools/auniter.sh \
+                    --config libraries/AUnit/tests/auniter.ini \
+                    verify \
+                    --sketchbook $WORKSPACE \
+                    $BOARDS \
                     libraries/AUnit/tests/*Test"
             }
         }
@@ -42,11 +44,12 @@ pipeline {
         // tests which are deliberately designed to fail.
         stage('Test') {
             steps {
-                sh "AUniter/tools/auniter.sh --test \
-                    --skip_if_no_port \
-                    --pref sketchbook.path=$WORKSPACE \
-                    --config libraries/AUnit/tests/auniter.conf \
-                    --boards $BOARDS \
+                sh "AUniter/tools/auniter.sh \
+                    --config libraries/AUnit/tests/auniter.ini \
+                    test \
+                    --skip_missing_port \
+                    --sketchbook $WORKSPACE \
+                    $BOARDS \
                     libraries/AUnit/tests/AUnitMetaTest \
                     libraries/AUnit/tests/AUnitMoreTest \
                     libraries/AUnit/tests/AUnitTest \

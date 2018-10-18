@@ -9,9 +9,9 @@ AVR, ESP8266, ESP32 and Teensy platforms. The sister AUniter project provides
 command line tools to verify, upload and validate the unit tests. The AUniter
 tools can be used in a continuous integration system like Jenkins.
 
-Version: 1.1 (2018-07-23)
+Version: 1.1.1 (2018-10-18)
 
-[![AUniter Jenkins Badge](https://us-central1-xparks2015.cloudfunctions.net/badge?project=AUnit)](https://github.com/bxparks/AUniter)
+[![AUniter Jenkins Badge](https://us-central1-xparks2018.cloudfunctions.net/badge?project=AUnit)](https://github.com/bxparks/AUniter)
 
 ## Summary
 
@@ -178,12 +178,14 @@ In the `tests/` directory:
   called properly by the finite state machine
 
 Perhaps the best way to see AUnit in action through real life examples. I
-currently have 2 Arduino project using AUnit extensively
+currently have 3 Arduino project using AUnit extensively
 (look under the `tests/` directory in each project).
 
 * [AceButton](https://github.com/bxparks/AceButton)
     * Originally created using ArduinoUnit 2.2, and I have kept those tests
       backwards compatible. They do not use the new features of AUnit.
+* [AceRoutine](https://github.com/bxparks/AceRoutine)
+    * Demonstrates the full power of AUnit better.
 * [AceSegment](https://github.com/bxparks/AceSegment)
     * Demonstrates the full power of AUnit better.
 
@@ -199,12 +201,12 @@ library are defined in the `aunit` namespace. The user will mostly interact with
 the `TestRunner` class. It can be referenced with an explicit namespace
 qualifier (i.e. `aunit::TestRunner`), or we can use a `using` directive like
 this:
-```
+```C++
 #include <AUnit.h>
 using aunit::TestRunner;
 ```
 or we can import the entire `aunit` namespace:
-```
+```C++
 #include <AUnit.h>
 using namespace aunit;
 ```
@@ -221,7 +223,7 @@ the string arguments of the various `assertXxx()` macros. If you would like
 to get the same verbose output as ArduinoUnit, use the following header
 instead:
 
-```
+```C++
 #include <AUnitVerbose.h>
 ```
 
@@ -260,7 +262,7 @@ until it passes, fails or is skipped.
 
 Here is a rough outline of an AUnit unit test sketch:
 
-```
+```C++
 #line 2 AUnitTest.ino
 
 #include <AUnit.h>
@@ -284,13 +286,13 @@ testing(looping_test) {
 class CustomTestOnce: public TestOnce {
   protected:
     // optional
-    virtual void setup() override {
+    void setup() override {
       TestOnce::setup();
       ...setup code...
     }
 
     // optional
-    virtual void teardown() override {
+    void teardown() override {
       ...teardown code...
       TestOnce::teardown();
     }
@@ -309,13 +311,13 @@ testF(CustomTestOnce, example_test) {
 class CustomTestAgain: public TestAgain {
   protected:
     // optional
-    virtual void setup() override {
+    void setup() override {
       TestAgain::setup();
       ...setup code...
     }
 
     // optional
-    virtual void teardown() override {
+    void teardown() override {
       ...teardown code...
       TestOnce::teardown();
     }
@@ -427,7 +429,7 @@ below._
 
 In ArduinoUnit, the `assertXxx()` macros could be slightly different types, for
 example:
-```
+```C++
 unsigned int uintValue = 5;
 assertEqual(5, uintValue);
 ```
@@ -452,20 +454,20 @@ In AUnit, the above code produces a compiler error (not a warning) like this:
 The compiler cannot find an appropriate overloaded version of `assertEqual()`.
 
 The solution is to make the parameters the same type:
-```
+```C++
 assertEqual(5U, uintValue);
 ```
 
 On the AVR platform, both a (short) and (int) are 16-bit types, so the following
 will produce a compiler error:
-```
+```C++
 unsigned short ushortValue = 5;
 assertEqual(5U, ushortValue);
 ```
 But on Teensy-ARM, ESP8266, and ESP32, a 16-bit (short) can be promoted to a
 32-bit (int) without loss of precision, so the above will compile just fine. For
 portability, the following should be used on all platforms:
-```
+```C++
 unsigned short ushortValue = 5;
 assertEqual((unsigned short) 5, ushortValue);
 ```
@@ -576,17 +578,17 @@ To create a test fixture:
 1. Add any additional shared methods into this new class.
 
 To define your tests, use the `testF()` macro like this:
-```
+```C++
 class CustomTestOnce: public TestOnce {
   protected:
     // optional
-    virtual void setup() override {
+    void setup() override {
       TestOnce::setup();
       ...setup code...
     }
 
     // optional
-    virtual void teardown() override {
+    void teardown() override {
       ...teardown code...
       TestOnce::teardown();
     }
@@ -612,17 +614,17 @@ which prevents name collision with other `testF()` tests with the same
 name using a different test fixture class.
 
 To define a continuous test, use the `testingF()` macro like this:
-```
+```C++
 class CustomTestAgain: public TestAgain {
   protected:
     // optional
-    virtual void setup() override {
+    void setup() override {
       TestAgain::setup();
       ...setup code...
     }
 
     // optional
-    virtual void teardown() override {
+    void teardown() override {
       ...teardown code...
       TestAgain::teardown();
     }
@@ -664,17 +666,17 @@ execute.
 In other words, in the following example, if the `assertCustomStuff()` fails,
 then `doStuff()` inside `testF()` will execute:
 
-```
+```C++
 class CustomTestOnce: public TestOnce {
   protected:
     // optional
-    virtual void setup() override {
+    void setup() override {
       TestOnce::setup();
       ...setup code...
     }
 
     // optional
-    virtual void teardown() override {
+    void teardown() override {
       ...teardown code...
       TestOnce::teardown();
     }
@@ -842,7 +844,7 @@ next call to `run()` executes the next test case. This design allows the
 allow the system to perform some actions. On some systems, such as the ESP8266,
 an error is generated if `loop()` takes too much CPU time.
 
-```
+```C++
 ...
 void loop() {
   TestRunner::run();
@@ -866,7 +868,7 @@ We can `exclude()` or `include()` test cases using a pattern match:
 
 These methods are called from the global `setup()` method:
 
-```
+```C++
 void setup() {
   TestRunner::exclude("*");
   TestRunner::include("looping*");
@@ -903,7 +905,7 @@ _AUnit provides 2-argument versions of `include()` and `exclude()`_
 The default output printer is the `Serial` instance. This can be
 changed using the `TestRunner::setPrinter()` method:
 
-```
+```C++
 #include <AUnit.h>
 using aunit::TestRunner;
 ...
@@ -928,7 +930,7 @@ ArduinoUnit._
 
 The default verbosity of the test results can be controlled using the
 `TestRunner::setVerbosity()` method:
-```
+```C++
 #include <AUnit.h>
 using aunit::TestRunner;
 using aunit::Verbosity;
@@ -951,7 +953,7 @@ following methods:
 
 at the beginning of the test definition, like this:
 
-```
+```C++
 test(enable_assertion_passed_messages) {
   enableVerbosity(Verbosity::kAssertionPassed);
   ...
@@ -1000,7 +1002,7 @@ _The bit field constants have slightly different names:_
 
 AUnit suffers from the same compiler/preprocessor bug as ArduinoUnit that causes
 the built-in `__LINE__` macro to be off by one. The solution is to add:
-```
+```C++
 #line 2 {file.ino}
 ```
 as the first line of a unit test sketch.
@@ -1011,7 +1013,7 @@ as the first line of a unit test sketch.
 
 The various `assertXxx()` macros in AUnit print a message upon pass or fail. For
 example, if the assertion was:
-```
+```C++
 int expected = 3;
 int counter = 4;
 assertEquals(expected, counter);
@@ -1024,7 +1026,7 @@ Assertion failed: (3) == (4), file AUnitTest.ino, line 134.
 
 Asserts with `bool` values produce customized messages, printing "true" or
 "false" instead of using the Print class default conversion to `int`:
-```
+```C++
 assertEquals(true, false);
 
 Assertion failed: (true) == (false), file AUnitTest.ino, line 134.
@@ -1032,7 +1034,7 @@ Assertion failed: (true) == (false), file AUnitTest.ino, line 134.
 
 Similarly, the `assertTrue()` and `assertFalse()` macros provide more customized
 messages:
-```
+```C++
 bool ok = false;
 assertTrue(ok);
 
@@ -1040,7 +1042,7 @@ Assertion failed: (false) is true, file AUnitTest.ino, line 134.
 ```
 
 and
-```
+```C++
 bool ok = true;
 assertFalse(ok);
 
@@ -1066,7 +1068,7 @@ arguments, and are different from ArduinoUnit._
 #### Verbose Mode
 
 If you use the verbose header:
-```
+```C++
 #include <AUnitVerbose.h>
 ```
 the assertion message will contain the string fragments of the arguments
@@ -1133,7 +1135,7 @@ Test looping_until timed out.
 The time out value can be changed by calling the static
 `TestRunner::setTimeout()` method. Here is an example that sets the timeout to
 30 seconds instead:
-```
+```C++
 void setup() {
   ...
   TestRunner::setTimeout(30);
@@ -1201,17 +1203,17 @@ Debugging such assertion statements can be tricky. I've found that turning on
 messages for successful assertions (with a
 `enableVerbosity(Verbosity::kAssertionPassed)`) statement can be very helpful:
 
-```
+```C++
 class CustomTestOnce: public TestOnce {
   protected:
     // optional
-    virtual void setup() override {
+    void setup() override {
       TestOnce::setup();
       ...setup code...
     }
 
     // optional
-    virtual void teardown() override {
+    void teardown() override {
       ...teardown code...
       TestOnce::teardown();
     }
@@ -1334,7 +1336,7 @@ I used MacOS 10.13.3 and Ubuntu 17.10 for most of my development.
 The library is tested on the following hardware before each release:
 
 * Arduino Nano clone (16 MHz ATmega328P)
-* Arduino Pro Micro clone (16 MHz ATmega32U4)
+* SparkFun Pro Micro clone (16 MHz ATmega32U4)
 * Teensy 3.2 (72 MHz ARM Cortex-M4)
 * NodeMCU 1.0 clone (ESP-12E module, 80 MHz ESP8266)
 * ESP32 dev board (ESP-WROOM-32 module, 240 MHz dual core Tensilica LX6)
@@ -1349,6 +1351,16 @@ I will occasionally test on the following hardware as a sanity check:
 ## License
 
 [MIT License](https://opensource.org/licenses/MIT)
+
+## Feedback and Support
+
+If you have any questions, comments, bug reports, or feature requests, please
+file a GitHub ticket or send me an email. I'd love to hear about how this
+software and its documentation can be improved. Instead of forking the
+repository to modify or add a feature for your own projects, let me have a
+chance to incorporate the change into the main repository so that your external
+dependencies are simpler and so that others can benefit. I can't promise that I
+will incorporate everything, but I will give your ideas serious consideration.
 
 ## Authors
 

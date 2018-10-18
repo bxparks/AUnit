@@ -44,7 +44,7 @@ class TestAgain: public MetaAssertion {
      * code explicitly resolves the test using pass(), fail(), skip() or
      * expire().
      */
-    virtual void loop() override;
+    void loop() override;
 
     /** User-provided test case. */
     virtual void again() = 0;
