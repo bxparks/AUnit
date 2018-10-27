@@ -52,52 +52,128 @@ SOFTWARE.
 // F() used below. I have abandoned supporting the F() macro for these test*()
 // macros on the ESP8266.
 
-/** Macro to define a test that will be run only once. */
-#define test(name) struct test_ ## name : aunit::TestOnce {\
-  test_ ## name();\
+/**
+ * Macro to define a test that will be run only once.
+ *
+ * Two versions are supported: test(name) and test(suiteName, name).
+ * The 2-argument test(suiteName, name) is a convenience macro which is
+ * identical to test(suiteName_name).
+ */
+#define test(...) \
+    GET_TEST(__VA_ARGS__, TEST2, TEST1)(__VA_ARGS__)
+
+#define GET_TEST(_1, _2, NAME, ...) NAME
+
+#define TEST1(name) \
+struct test_##name : aunit::TestOnce {\
+  test_##name();\
   void once() override;\
-} test_ ## name ## _instance;\
-test_ ## name :: test_ ## name() {\
+} test_##name##_instance;\
+test_##name :: test_##name() {\
   init(AUNIT_F(#name)); \
 }\
-void test_ ## name :: once()
+void test_##name :: once()
+
+#define TEST2(suiteName, name) \
+struct suiteName##_##name : aunit::TestOnce {\
+  suiteName##_##name();\
+  void once() override;\
+} suiteName##_##name##_instance;\
+suiteName##_##name :: suiteName##_##name() {\
+  init(AUNIT_F(#suiteName "_" #name)); \
+}\
+void suiteName##_##name :: once()
 
 /**
  * Macro to define a test that will run repeatly upon each iteration of the
  * global loop() method, stopping when the something calls Test::pass(),
  * Test::fail() or Test::skip().
+ *
+ * Two versions are supported: testing(name) and testing(suiteName, name).
+ * The 2-argument testing(suiteName, name) is a convenience macro which is
+ * identical to testing(suiteName_name).
  */
-#define testing(name) struct test_ ## name : aunit::TestAgain {\
-  test_ ## name();\
+#define testing(...) \
+    GET_TESTING(__VA_ARGS__, TESTING2, TESTING1)(__VA_ARGS__)
+
+#define GET_TESTING(_1, _2, NAME, ...) NAME
+
+#define TESTING1(name) \
+struct test_##name : aunit::TestAgain {\
+  test_##name();\
   void again() override;\
-} test_ ## name ## _instance;\
-test_ ## name :: test_ ## name() {\
+} test_##name##_instance;\
+test_##name :: test_##name() {\
   init(AUNIT_F(#name));\
 }\
-void test_ ## name :: again()
+void test_##name :: again()
+
+#define TESTING2(suiteName, name) \
+struct suiteName##_##name : aunit::TestAgain {\
+  suiteName##_##name();\
+  void again() override;\
+} suiteName##_##name##_instance;\
+suiteName##_##name :: suiteName##_##name() {\
+  init(AUNIT_F(#suiteName "_" #name));\
+}\
+void suiteName##_##name :: again()
 
 /**
  * Create an extern reference to a test() test case object defined elsewhere.
  * This is only necessary if you use assertTestXxx() or checkTestXxx() when the
  * test is in another file (or defined after the assertion on it).
+ *
+ * Two versions are supported: externTest(name) and externTest(suiteName, name).
+ * The 2-argument externTest(suiteName, name) is a convenience macro which is
+ * identical to externTest(suiteName_name).
  */
-#define externTest(name) struct test_ ## name : aunit::TestOnce {\
-  test_ ## name();\
+#define externTest(...) \
+    GET_EXTERN_TEST(__VA_ARGS__, EXTERN_TEST2, EXTERN_TEST1)(__VA_ARGS__)
+
+#define GET_EXTERN_TEST(_1, _2, NAME, ...) NAME
+
+#define EXTERN_TEST1(name) \
+struct test_##name : aunit::TestOnce {\
+  test_##name();\
   void once();\
 };\
 extern test_##name test_##name##_instance
+
+#define EXTERN_TEST2(suiteName, name) \
+struct suiteName##_##name : aunit::TestOnce {\
+  suiteName##_##name();\
+  void once();\
+};\
+extern suiteName##_##name suiteName##_##name##_instance
 
 /**
  * Create an extern reference to a testing() test case object defined
  * elsewhere.  This is only necessary if you use assertTestXxx() or
  * checkTestXxx() when the test is in another file (or defined after the
  * assertion on it).
+ *
+ * Two versions are supported: externTesting(name) and externTesting(suiteName,
+ * name). The 2-argument externTesting(suiteName, name) is a convenience macro
+ * which is identical to externTesting(suiteName_name).
  */
-#define externTesting(name) struct test_ ## name : aunit::TestAgain {\
+#define externTesting(...) \
+    GET_EXTERN_TESTING(__VA_ARGS__, EXTERN_TESTING2, EXTERN_TESTING1)(__VA_ARGS__)
+
+#define GET_EXTERN_TESTING(_1, _2, NAME, ...) NAME
+
+#define EXTERN_TESTING1(name) \
+struct test_ ## name : aunit::TestAgain {\
   test_ ## name();\
   void again();\
 };\
 extern test_##name test_##name##_instance
+
+#define EXTERN_TESTING2(suiteName, name) \
+struct suiteName##_ ## name : aunit::TestAgain {\
+  suiteName##_ ## name();\
+  void again();\
+};\
+extern suiteName##_##name suiteName##_##name##_instance
 
 /**
  * Create a test that is derived from a custom TestOnce class.
@@ -118,6 +194,9 @@ void testClass ## _ ## name :: once()
  * Create a test that is derived from a custom TestAgain class.
  * The name of the instance is prefixed by '{testClass}_' to avoid
  * name collisions with similarly named tests using other fixtures.
+ *
+ * Note that test(suiteName, name) is different than testF(className, name),
+ * but there will be a name collision if suiteName is the same as className.
  */
 #define testingF(testClass, name) \
 struct testClass ## _ ## name : testClass {\
