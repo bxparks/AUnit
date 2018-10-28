@@ -52,6 +52,34 @@ testing(external_monitor) {
   }
 }
 
+externTest(MyTestSuite, external);
+
+testing(MyTestSuite, external_monitor) {
+  static unsigned long start = millis();
+
+  unsigned long now = millis();
+  if (now - start > 1000) {
+    assertTestDone(MyTestSuite, external);
+    assertTrue(checkTestDone(MyTestSuite, external));
+
+    assertTestPass(MyTestSuite, external);
+    assertTrue(checkTestPass(MyTestSuite, external));
+
+    assertTestNotFail(MyTestSuite, external);
+    assertTrue(checkTestNotFail(MyTestSuite, external));
+
+    assertTestNotSkip(MyTestSuite, external);
+    assertTrue(checkTestNotSkip(MyTestSuite, external));
+
+    assertTestNotExpire(MyTestSuite, external);
+    assertTrue(checkTestNotExpire(MyTestSuite, external));
+
+    pass();
+  }
+}
+
+// -------------------------------------------------------------------------
+
 externTesting(slow_pass);
 
 testing(slow_pass_monitor) {
@@ -94,6 +122,50 @@ testing(slow_pass_monitor) {
   }
 }
 
+externTesting(MyTestSuite, slow_pass);
+
+testing(MyTestSuite, slow_pass_monitor) {
+  static unsigned long start = millis();
+
+  unsigned long now = millis();
+  if (now - start < 900) {
+    assertTestNotDone(MyTestSuite, slow_pass);
+    assertTrue(checkTestNotDone(MyTestSuite, slow_pass));
+
+    assertTestNotPass(MyTestSuite, slow_pass);
+    assertTrue(checkTestNotPass(MyTestSuite, slow_pass));
+
+    assertTestNotFail(MyTestSuite, slow_pass);
+    assertTrue(checkTestNotFail(MyTestSuite, slow_pass));
+
+    assertTestNotSkip(MyTestSuite, slow_pass);
+    assertTrue(checkTestNotSkip(MyTestSuite, slow_pass));
+
+    assertTestNotExpire(MyTestSuite, slow_pass);
+    assertTrue(checkTestNotExpire(MyTestSuite, slow_pass));
+  }
+  if (now - start > 2100) {
+    assertTestDone(MyTestSuite, slow_pass);
+    assertTrue(checkTestDone(MyTestSuite, slow_pass));
+
+    assertTestPass(MyTestSuite, slow_pass);
+    assertTrue(checkTestPass(MyTestSuite, slow_pass));
+
+    assertTestNotFail(MyTestSuite, slow_pass);
+    assertTrue(checkTestNotFail(MyTestSuite, slow_pass));
+
+    assertTestNotSkip(MyTestSuite, slow_pass);
+    assertTrue(checkTestNotSkip(MyTestSuite, slow_pass));
+
+    assertTestNotExpire(MyTestSuite, slow_pass);
+    assertTrue(checkTestNotExpire(MyTestSuite, slow_pass));
+
+    pass();
+  }
+}
+
+// -------------------------------------------------------------------------
+
 externTesting(slow_skip);
 
 testing(slow_skip_monitor) {
@@ -127,6 +199,43 @@ testing(slow_skip_monitor) {
     assertTrue(checkTestSkip(slow_skip));
 
     assertTestNotExpire(slow_skip);
+    pass();
+  }
+}
+
+externTesting(MyTestSuite, slow_skip);
+
+testing(MyTestSuite, slow_skip_monitor) {
+  static unsigned long start = millis();
+
+  unsigned long now = millis();
+  if (now - start < 900) {
+    assertTestNotDone(MyTestSuite, slow_skip);
+    assertTrue(checkTestNotDone(MyTestSuite, slow_skip));
+
+    assertTestNotPass(MyTestSuite, slow_skip);
+    assertTrue(checkTestNotPass(MyTestSuite, slow_skip));
+
+    assertTestNotFail(MyTestSuite, slow_skip);
+    assertTrue(checkTestNotFail(MyTestSuite, slow_skip));
+
+    assertTestNotSkip(MyTestSuite, slow_skip);
+    assertTestNotExpire(MyTestSuite, slow_skip);
+  }
+  if (now - start > 2100) {
+    assertTestDone(MyTestSuite, slow_skip);
+    assertTrue(checkTestDone(MyTestSuite, slow_skip));
+
+    assertTestNotPass(MyTestSuite, slow_skip);
+    assertTrue(checkTestNotPass(MyTestSuite, slow_skip));
+
+    assertTestNotFail(MyTestSuite, slow_skip);
+    assertTrue(checkTestNotFail(MyTestSuite, slow_skip));
+
+    assertTestSkip(MyTestSuite, slow_skip);
+    assertTrue(checkTestSkip(MyTestSuite, slow_skip));
+
+    assertTestNotExpire(MyTestSuite, slow_skip);
     pass();
   }
 }

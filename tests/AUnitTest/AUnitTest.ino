@@ -278,7 +278,7 @@ test(compareStringN_WithNulls) {
   if (!(compareString(NULL_FSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
 }
 
-test(FCString_compareTo) {
+test(FCStringTest, compareTo) {
   FCString n;
   FCString a("a");
   FCString b("b");
@@ -298,7 +298,7 @@ test(FCString_compareTo) {
   assertMore(fb.compareTo(fa), 0);
 }
 
-test(FCString_compareToN) {
+test(FCStringTest, compareToN) {
   FCString a("a");
   FCString fa(F("a"));
 

@@ -153,8 +153,7 @@ extern suiteName##_##name suiteName##_##name##_instance
  * assertion on it).
  *
  * Two versions are supported: externTesting(name) and externTesting(suiteName,
- * name). The 2-argument externTesting(suiteName, name) is a convenience macro
- * which is identical to externTesting(suiteName_name).
+ * name).
  */
 #define externTesting(...) \
     GET_EXTERN_TESTING(__VA_ARGS__, EXTERN_TESTING2, EXTERN_TESTING1)(__VA_ARGS__)
