@@ -1205,29 +1205,33 @@ The command line tools have been moved into the
 The `auniter.sh` script can compile, upload and validate multiple AUnit tests on
 multiple Arduino boards. The script can monitor the serial port and determine if
 the unit test passed or failed, and it will print out a summary of all unit
-tests at the end.
+tests at the end. Full details are given in the AUniter project, but here are
+some quick examples copied from the `AUniter/README.md` file:
 
-Full details are given in the AUniter project, but here are some quick examples
-of these tools using the [AceSegment](https://github.com/bxparks/AceSegment)
-project.
-
-The following compiles and verifies the given sketches:
-```
-$ AUniter/auniter.sh --verify \
-  --boards nano,leonardo,esp8266,esp32 AceSegment/tests/*Test
-```
-
-The following uploads to and runs all the unit tests on an Arduino Nano
-(`/dev/ttyUSB0`), then an Arduion Leonardo (`/dev/ttyACM0`):
-```
-$ AUniter/auniter.sh --test \
-  --boards nano:/dev/ttyUSB1,leonardo:/dev/ttyACM0 AceSegment/tests/*Test
-```
-
-The list of available ports can be found by:
-```
-$ AUniter/auniter.sh --list_ports
-```
+* `$ auniter envs`
+    * list the environments configured in the `auniter.ini` config file
+* `$ auniter ports`
+    * list the available serial ports and devices
+* `$ auniter verify nano Blink.ino`
+    * verify (compile) `Blink.ino` using the `env:nano` environment
+* `$ auniter verify nano,esp8266,esp32 Blink.ino`
+    * verify `Blink.ino` on 3 target environments (`env:nano`, `env:esp8266`,
+    `env:esp32`)
+* `$ auniter upload nano:/dev/ttyUSB0 Blink.ino`
+    * upload `Blink.ino` to the `env:nano` target environment connected to
+    `/dev/ttyUSB0`
+* `$ auniter test nano:USB0 BlinkTest.ino`
+    * compile and upload `BlinkTest.ino` using the `env:nano` environment,
+      upload it to the board at `/dev/ttyUSB0`, then validate the output of the
+      [AUnit](https://github.com/bxparks/AUnit) unit test
+* `$ auniter test nano:USB0,esp8266:USB1,esp32:USB2 BlinkTest/ ClockTest/`
+    * upload and verify the 2 unit tests (`BlinkTest/BlinkTest.ino`,
+      `ClockTest/ClockTest.ino`) on 3 target environments (`env:nano`,
+      `env:esp8266`, `env:esp32`) located at the 3 respective ports
+      (`/dev/ttyUSB0`, `/dev/ttyUSB1`, `/dev/ttyUSB2`)
+* `$ auniter upmon nano:USB0 Blink.ino`
+    * upload the `Blink.ino` sketch and monitor the serial port using a
+      user-configurable terminal program (e.g. `picocom`) on `/dev/ttyUSB0`
 
 ### Continuous Integration
 
