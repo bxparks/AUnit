@@ -99,6 +99,9 @@ Here are the features in AUnit which are not available in ArduinoUnit 2.2:
 * Approximate comparisons:
     * `assertNear()`
     * `asssertNotNear()`
+* `test()` and `testing()` macros support both 1 and 2 arguments
+    * `test(testName)` and `test(suiteName, testName)`
+    * `testing(testName)` and `testing(suiteName, testName)`
 * Test fixtures using the "F" variations of existing macros:
     * `testF()`
     * `testingF()`
@@ -239,6 +242,8 @@ macros are used to create a test:
 
 * `test(name) {...}` - creates a subclass of `TestOnce`
 * `testing(name) {...}` - creates a subclass of `TestAgain`
+* `test(suiteName, name) {...}` - creates a subclass of `TestOnce`
+* `testing(suiteName, name) {...}` - creates a subclass of `TestAgain`
 * `testF(classname, name) {...}` - creates a subclass of `classname`
 * `testingF(classname, name) {...}` - creates a subclass of `classname`
 
@@ -246,14 +251,14 @@ The code in `{ }` following these macros becomes the body of a method in a
 subclass derived from the base class indicated above. The `test()` and `testF()`
 macros place the code body into the `TestOnce::once()` method. The `testing()`
 and `testingF()` macros place the code body into the `TestAgain::again()`
-method. The name of the subclass is a concatenation of the string `"test_"` and
-the `name` for `test()` and `testing()`, or the concatenation of
-`classname` + `"_"` + `name` for `testF()` and `testing()`.
+method.
 
-The argument to these macros are the name of the test case, and is used to
-generate a name for the subclass. (The name is available within the test code
-using the `Test::getName()` method). The macros also generate code to create an
-global instance of the subclass, which are static initialized by C++.
+The `test()` and `testing()` macros support 1 or 2 arguments. The one-argument
+version is inherited from ArduinoUnit. The two-argument version is
+analogous to the `TEST()` macro in GoogleTest, where the `suiteName` can
+be used to organize multiple tests into a collection of similar tests. The
+grouping is purely in the naming scheme of the generated code, there is no
+functional relationship between these tests.
 
 During static initialization, the constructor of the object adds itself to an
 internal list. The root of that list is given by `Test::getRoot()`. The
@@ -268,11 +273,17 @@ Here is a rough outline of an AUnit unit test sketch:
 #include <AUnit.h>
 using namespace aunit;
 
-test(example_test) {
-  ...assertXxx()...
+test(example) {
+  ...
+  assertXxx(...)
+  ...
 }
 
-testing(looping_test) {
+test(ExampleTest, example) {
+  ...
+}
+
+testing(looping) {
   ...code...
   if (...) {
     pass();
@@ -281,6 +292,10 @@ testing(looping_test) {
   } else {
     skipTestNow();
   }
+}
+
+testing(LoopingTest, looping) {
+  ...
 }
 
 class CustomTestOnce: public TestOnce {
@@ -348,9 +363,38 @@ void loop() {
 ```
 
 ***ArduinoUnit Compatibility***: _The basic structure of the unit test is
-identical to ArduinoUnit. AUnit adds the `testF()` and `testingF`() macros which
+identical to ArduinoUnit. AUnit adds the `testF()` and `testingF`() macros,
+and the two-argument versions of `test()` and `testing()` which
 are not available in ArduinoUnit. The `Test` class in ArduinoUnit has been
 replaced with the `TestAgain` class in AUnit._
+
+### Generated Class and Instance Names
+
+The arguments to the various `test*()` macros are used to generate the name for
+the subclasses of `TestOnce` or `TestAgain`, and generate the names of the
+instances of those classes. For reference, here are the rules:
+
+* `test(name)`
+    * class: `"test_"` + name
+    * instance: `"test_"` + name + `"_instance"`
+* `testing(name)`
+    * class: `"test_"` + name
+    * instance: `"test_"` + name + `"_instance"`
+* `test(suiteName, name)`
+    * class: `suiteName` + `"_"` + name
+    * instance: `suiteName` + `"_"` + name + `"_instance"`
+* `testing(suiteName, name)`
+    * class: `suiteName` + `"_"` + name
+    * instance: `suiteName` + `"_"` + name + `"_instance"`
+* `testF(className, name)`
+    * class: `className` + `"_"` + name
+    * instance: `className` + `"_"` + name + `"_instance"`
+* `testingF(className, name)`
+    * class: `className` + `"_"` + name
+    * instance: `className` + `"_"` + name + `"_instance"`
+
+The instance name is available within the test code using the `Test::getName()`
+method.
 
 ### Binary Assertions
 
@@ -1269,19 +1313,102 @@ TestAgain  TestOnce
 ::again()  ::once()
 ```
 
-Placing the `Assertion` and `MetaAssertion` classes inside the `Test` hierarchy
-allows those assertion statements to have access to the internal states of the
-`Test` instance, which makes certain functions (like the early return upon
-delayed failure) slightly easier to implement.
+Normally, deep inheritance hierarchies like this should be avoided. However,
+placing the `Assertion` and `MetaAssertion` classes inside the `Test` hierarchy
+allowed those assertion statements to have access to the internal states of the
+`Test` instance. This made certain features (like the early return upon delayed
+failure) slightly easier to implement. For the most part, the end-users can
+ignore the existence of the `Assertion` and `MetaAssertion` classes and think of
+this as a simple 2-level inheritance tree.
 
 ### Comparing Pointers
 
 Currently the `assertEqual()` and other `assertXxx()` methods do not support
-comparing arbitrary pointers (i.e. `(void*)`. This could change if 
+comparing arbitrary pointers (i.e. `(void*)`. This could change if
 [Issue #34](https://github.com/bxparks/AUnit/issues/34) is
 resolved. In the meantime, a workaround is to cast the pointer to a `uintptr_t`
 integer type from `#include <stdint.h>` and then calling `assertEqual()` on the
 integer type.
+
+### Testing Private Helper Methods
+
+There is a school of throught which says that unit tests should test only the
+publically exposed methods of a class or library. I agree mostly with that
+sentiment, but not rigidly. I think it is sometimes useful to write unit tests
+for `protected` or `private` methods. For example, when creating a chain of
+small helper methods, which build up to larger publically exposed methods, it is
+extremely useful to write unit tests for the helper methods in isolation.
+
+Normally those helper methods would be `private` because they are used
+only within that class, and we don't want to expose them to the public API. One
+option is to make them `public` but add a comment in the function to say that it
+is exposed only for testing purposes. This does not seem satisfactory because
+users will tend to ignore such comments if the helper functions are useful.
+
+I think a better way is to keep the helper functions `private` but make
+the unit tests a `friend class` of the target class. The syntax for doing this
+can be tricky, it took me a number of attempts to get this right, especially if
+you are also using namespaces for your target class:
+
+```C++
+//------------------- Target.h -------------
+
+// Auto-generated test class names.
+class Test_helper;
+class TargetSuite_helper;
+class TargetTest_helper;
+
+namespace mylib {
+
+class Target {
+  public:
+    void publicMethod() {
+      ...
+      int a = helper();
+      ...
+    }
+
+  private:
+    // Must have the global scope operator '::'
+    friend class ::Test_helper;
+    friend class ::TargetSuite_helper;
+    friend class ::TargetTest_helper;
+
+    static int helper() {...}
+};
+
+}
+
+//------------------- TargetTest.ino -------------
+
+#include <AUnit.h>
+#include "Target.h"
+
+using namespace aunit;
+using namespace mylib;
+
+test(helper) {
+  assertEqual(1, Target::helper(...));
+}
+
+test(TargetSuite, helper) {
+  assertEqual(1, Target::helper(...));
+}
+
+class TargetTest: public TestOnce {
+  ...
+};
+
+testF(TargetTest, helper) {
+  assertEqual(1, Target::helper(...));
+}
+
+```
+
+The tricky part is that in `Target.h` you need a forward declaration of the
+various auto-generated AUnit test classes, and within the `Target` class itsef,
+the `friend` declaration needs to have a global scope `::` specifier before the
+name of the test class.
 
 ## Benchmarks
 
