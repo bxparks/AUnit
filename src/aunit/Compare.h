@@ -25,6 +25,48 @@ SOFTWARE.
 // Significant portions of the design and implementation of this file came from
 // https://github.com/mmurdoch/arduinounit/blob/master/src/ArduinoUnitUtility/Compare.h
 
+/**
+ * @file Compare.h
+ *
+ * This file provides overloaded compareXxx(a, b) functions which are used by
+ * the various assertXxx(a, b) macros. We wanted to allow users to use the
+ * assertXxx() macros with all combinations of the 3 types of strings available
+ * in the Arduino platform:
+ *
+ *  - (const char*)
+ *  - (String&)
+ *  - (const __FlashStringHelper*)
+ *
+ * Clearly, there are 9 binary combinations these string types, so we define 9
+ * compareString(a, b) functions.
+ *
+ * For other primitive types, I depend on implicit conversion rules to reduce
+ * the overloaded types to 7:
+ *
+ *  - (bool, bool)
+ *  - (char, char)
+ *  - (int, int)
+ *  - (unsigned int, unsigned int)
+ *  - (long, long)
+ *  - (unsigned long, unsigned long)
+ *  - (double, double)
+ *
+ * Therefore, there are 16 overloaded versions of each of the compareXxx(a, b)
+ * functions.
+ *
+ * There are 6 compareXxx() functions corresponding to (==, !=, <, >, <=, >=).
+ * Many of them are implemented using the primitive logical operators for
+ * the respective primitive types. The compare functions for string types are
+ * implemented using compareString().
+ *
+ * All versions of compareString() and compareStringN() accept nullptr
+ * arguments (in constrast to strcmp() and strncmp() where their behavior for
+ * nullptr are undefined by the C standard.) If both arguments are nullptr,
+ * then the strings are considered equal (returns 0). Otherwise, the nullptr is
+ * arbitrarily defined to be less than all non-null strings, including the
+ * empty string.
+ */
+
 #ifndef AUNIT_COMPARE_H
 #define AUNIT_COMPARE_H
 
@@ -34,8 +76,7 @@ class String;
 class __FlashStringHelper;
 
 namespace aunit {
-
-class FCString;
+namespace internal {
 
 // compareString()
 
@@ -57,11 +98,30 @@ int compareString(const __FlashStringHelper* a, const __FlashStringHelper* b);
 
 int compareString(const __FlashStringHelper* a, const String& b);
 
-int compareString(const FCString& a, const FCString& b);
+// compareStringCase() - case insensitive versions of compareString()
+
+int compareStringCase(const char* a, const char* b);
+
+int compareStringCase(const char* a, const String& b);
+
+int compareStringCase(const char* a, const __FlashStringHelper* b);
+
+int compareStringCase(const String& a, const char* b);
+
+int compareStringCase(const String& a, const String& b);
+
+int compareStringCase(const String& a, const __FlashStringHelper* b);
+
+int compareStringCase(const __FlashStringHelper* a, const char* b);
+
+int compareStringCase(const __FlashStringHelper* a,
+    const __FlashStringHelper* b);
+
+int compareStringCase(const __FlashStringHelper* a, const String& b);
 
 // compareStringN()
 //
-// These methods are used to implement the TestRunner::exclude() and
+// These functions are used to implement the TestRunner::exclude() and
 // TestRunner::include() features.
 
 /** Compare only the first n characters of 'a' or 'b'. */
@@ -76,12 +136,6 @@ int compareStringN(const __FlashStringHelper* a, const char* b, size_t n);
 /** Compare only the first n characters of 'a' or 'b'. */
 int compareStringN(const __FlashStringHelper* a, const __FlashStringHelper* b,
     size_t n);
-
-/** Compare only the first n characters of 'a' or 'b'. */
-int compareStringN(const FCString& a, const char* b, size_t n);
-
-/** Compare only the first n characters of 'a' or 'b'. */
-int compareStringN(const FCString& a, const __FlashStringHelper* b, size_t n);
 
 // compareEqual()
 
@@ -290,6 +344,73 @@ bool compareNotEqual(const String& a, const String& b);
 
 bool compareNotEqual(const String& a, const __FlashStringHelper* b);
 
+// compareStringCaseEqual
+
+bool compareStringCaseEqual(const char* a, const char* b);
+
+bool compareStringCaseEqual(const char* a, const String& b);
+
+bool compareStringCaseEqual(const char* a, const __FlashStringHelper* b);
+
+bool compareStringCaseEqual(const __FlashStringHelper* a, const char* b);
+
+bool compareStringCaseEqual( const __FlashStringHelper* a,
+    const __FlashStringHelper* b);
+
+bool compareStringCaseEqual(const __FlashStringHelper* a, const String& b);
+
+bool compareStringCaseEqual(const String& a, const char* b);
+
+bool compareStringCaseEqual(const String& a, const String& b);
+
+bool compareStringCaseEqual(const String& a, const __FlashStringHelper* b);
+
+// compareStringCaseNotEqual
+
+bool compareStringCaseNotEqual(const char* a, const char* b);
+
+bool compareStringCaseNotEqual(const char* a, const String& b);
+
+bool compareStringCaseNotEqual(const char* a, const __FlashStringHelper* b);
+
+bool compareStringCaseNotEqual(const __FlashStringHelper* a, const char* b);
+
+bool compareStringCaseNotEqual( const __FlashStringHelper* a,
+    const __FlashStringHelper* b);
+
+bool compareStringCaseNotEqual(const __FlashStringHelper* a, const String& b);
+
+bool compareStringCaseNotEqual(const String& a, const char* b);
+
+bool compareStringCaseNotEqual(const String& a, const String& b);
+
+bool compareStringCaseNotEqual(const String& a, const __FlashStringHelper* b);
+
+// compareNear
+
+bool compareNear(int a, int b, int error);
+
+bool compareNear(unsigned int a, unsigned int b, unsigned int error);
+
+bool compareNear(long a, long b, long error);
+
+bool compareNear(unsigned long a, unsigned long b, unsigned long error);
+
+bool compareNear(double a, double b, double error);
+
+// compareNotNear
+
+bool compareNotNear(int a, int b, int error);
+
+bool compareNotNear(unsigned int a, unsigned int b, unsigned int error);
+
+bool compareNotNear(long a, long b, long error);
+
+bool compareNotNear(unsigned long a, unsigned long b, unsigned long error);
+
+bool compareNotNear(double a, double b, double error);
+
+}
 }
 
 #endif

@@ -47,7 +47,7 @@ class TestOnce: public MetaAssertion {
      * the internal status, then this calls pass() to make sure that this test
      * case will be called only once from Test::run().
      */
-    virtual void loop() override;
+    void loop() override;
 
     /** User-provided test case. */
     virtual void once() = 0;

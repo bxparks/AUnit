@@ -59,7 +59,7 @@ void TestRunner::setLifeCycleMatchingPattern(const char* pattern,
   }
 
   for (Test** p = Test::getRoot(); *p != nullptr; p = (*p)->getNext()) {
-    if (compareStringN((*p)->getName(), pattern, length) == 0) {
+    if ((*p)->getName().compareToN(pattern, length) == 0) {
       (*p)->setLifeCycle(lifeCycle);
     }
   }
@@ -102,7 +102,9 @@ void TestRunner::runTest() {
   // If no more test cases, then print out summary of run.
   if (*Test::getRoot() == nullptr) {
     if (!mIsResolved) {
+      mEndTime = millis();
       resolveRun();
+      mIsResolved = true;
     }
     return;
   }
@@ -211,6 +213,25 @@ uint16_t TestRunner::countTests() {
   return count;
 }
 
+namespace {
+
+/**
+ * Print the timeMillis as floating point seconds, without using floating point
+ * math. This is the equivalent of 'printer->print((float) timeMillis / 1000)',
+ * but saves 1400-1600 bytes of flash memory and 12 bytes of static memory.
+ */
+void printSeconds(Print* printer, unsigned long timeMillis) {
+  int s = timeMillis / 1000;
+  int ms = timeMillis % 1000;
+  printer->print(s);
+  printer->print('.');
+  if (ms < 100) printer->print('0');
+  if (ms < 10) printer->print('0');
+  printer->print(ms);
+}
+
+}
+
 void TestRunner::printStartRunner() {
   if (!isVerbosity(Verbosity::kTestRunSummary)) return;
 
@@ -222,8 +243,13 @@ void TestRunner::printStartRunner() {
 
 void TestRunner::resolveRun() {
   if (!isVerbosity(Verbosity::kTestRunSummary)) return;
-
   Print* printer = Printer::getPrinter();
+
+  unsigned long elapsedTime = mEndTime - mStartTime;
+  printer->print(F("TestRunner duration: "));
+  printSeconds(printer, elapsedTime);
+  printer->println(" seconds.");
+
   printer->print(F("TestRunner summary: "));
   printer->print(mPassedCount);
   printer->print(F(" passed, "));
@@ -235,8 +261,6 @@ void TestRunner::resolveRun() {
   printer->print(F(" timed out, out of "));
   printer->print(mCount);
   printer->println(F(" test(s)."));
-
-  mIsResolved = true;
 }
 
 void TestRunner::listTests() {
@@ -247,7 +271,7 @@ void TestRunner::listTests() {
   printer->println(mCount);
   for (Test** p = Test::getRoot(); (*p) != nullptr; p = (*p)->getNext()) {
     printer->print(F("Test "));
-    Printer::print((*p)->getName());
+    (*p)->getName().print(printer);
     printer->print(F("; lifeCycle: "));
     printer->println((*p)->getLifeCycle());
   }

@@ -1,0 +1,78 @@
+// See https://github.com/bxparks/AUniter/tree/develop/jenkins for
+// a description of AUniter integration with Jenkins.
+//
+// The following variables are used:
+//
+//  * AUNITER_ARDUINO_BINARY - defined in the Jenkins system configuration
+//  * WORKSPACE - automatically filled in by Jenkins
+//  * BOARDS - defined in the "This project is parameterized" section of the
+//    Jenkins Pipeline configuration
+//  * BADGE_BUCKET - defined in "This project is parameterized" section.
+//
+pipeline {
+    agent { label 'master' }
+    stages {
+        stage('Setup') {
+            steps {
+                dir('AUniter') {
+                    git url: 'https://github.com/bxparks/AUniter',
+                        branch: 'develop'
+                }
+            }
+        }
+        stage('Verify Examples') {
+            steps {
+                sh "AUniter/tools/auniter.sh \
+                    --config libraries/AUnit/tests/auniter.ini \
+                    verify \
+                    --sketchbook $WORKSPACE \
+                    $BOARDS \
+                    libraries/AUnit/examples/*"
+            }
+        }
+        stage('Verify Tests') {
+            steps {
+                sh "AUniter/tools/auniter.sh \
+                    --config libraries/AUnit/tests/auniter.ini \
+                    verify \
+                    --sketchbook $WORKSPACE \
+                    $BOARDS \
+                    libraries/AUnit/tests/*Test"
+            }
+        }
+        // Run tests except FailingTest and SetupAndTeardownTest which contain
+        // tests which are deliberately designed to fail.
+        stage('Test') {
+            steps {
+                sh "AUniter/tools/auniter.sh \
+                    --config libraries/AUnit/tests/auniter.ini \
+                    test \
+                    --skip_missing_port \
+                    --sketchbook $WORKSPACE \
+                    $BOARDS \
+                    libraries/AUnit/tests/AUnitMetaTest \
+                    libraries/AUnit/tests/AUnitMoreTest \
+                    libraries/AUnit/tests/AUnitTest \
+                    libraries/AUnit/tests/FilterTest"
+            }
+        }
+    }
+    post {
+        failure {
+            script {
+                if (env.BADGE_BUCKET?.trim()) {
+                    sh "AUniter/BadgeService/set-badge-status.sh \
+                        $BADGE_BUCKET AUnit FAILED"
+                }
+            }
+        }
+        success {
+            script {
+                if (env.BADGE_BUCKET?.trim()) {
+                    sh "AUniter/BadgeService/set-badge-status.sh \
+                        $BADGE_BUCKET AUnit PASSED"
+                }
+            }
+        }
+    }
+}

@@ -25,11 +25,13 @@ SOFTWARE.
 #ifndef AUNIT_FSTRING_H
 #define AUNIT_FSTRING_H
 
-#include <stdint.h>
+#include <stddef.h> // size_t
 
+class Print;
 class __FlashStringHelper;
 
 namespace aunit {
+namespace internal {
 
 /**
  * A union of (const char*) and (const __FlashStringHelper*) with a
@@ -46,39 +48,73 @@ namespace aunit {
  * (Teensy-ARM or ESP8266) bytes big, so the cost of 50-100 bytes of static
  * memory for a large suite of 25 unit tests does not seem worth the minor
  * convenience.
+ *
+ * Instead, the print() and println() methods invert the dependency and
+ * accept a pointer to 'Print'.
  */
 class FCString {
   public:
     static const uint8_t kCStringType = 0;
     static const uint8_t kFStringType = 1;
 
+    /** Default constructor initializes to a nullptr of kCStringType. */
     FCString() {}
 
+    /** Construct with a c-string. */
     explicit FCString(const char* s):
         mStringType(kCStringType) {
       mString.cstring = s;
     }
 
+    /** Construct with a flash string. */
     explicit FCString(const __FlashStringHelper* s):
         mStringType(kFStringType) {
       mString.fstring = s;
     }
 
+    /** Get the internal type of string. */
     uint8_t getType() const { return mStringType; }
 
+    /** Get the c-string pointer. */
     const char* getCString() const { return mString.cstring; }
 
+    /** Get the flash string pointer. */
     const __FlashStringHelper* getFString() const { return mString.fstring; }
+
+    /** Convenience method for printing an FCString. */
+    void print(Print* printer) const;
   
+    /** Convenience method for printing an FCString. */
+    void println(Print* printer) const;
+
+    /** Compare to another FCString. */
+    int compareTo(const FCString& that) const;
+
+    /**
+     * Compare to C-string using the first n characters.
+     * This is expected to be used only for TestRunner::exclude() and
+     * TestRunner::include().
+     */
+    int compareToN(const char* that, size_t n) const;
+
+    /**
+     * Compare to a flash string using the first n characters.
+     * This is expected to be used only for TestRunner::exclude() and
+     * TestRunner::include().
+     */
+    int compareToN(const __FlashStringHelper* that, size_t n) const;
+
   private:
+    // NOTE: It might be possible just use a (void *) instead of a union.
     union {
       const char* cstring;
       const __FlashStringHelper* fstring;
-    } mString;
+    } mString = { nullptr };
 
-    uint8_t mStringType;
+    uint8_t mStringType = kCStringType;
 };
 
+}
 }
 
 #endif

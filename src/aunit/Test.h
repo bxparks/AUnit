@@ -32,12 +32,6 @@ SOFTWARE.
 #include "FCString.h"
 #include "Verbosity.h"
 
-// Defined in ESP8266, not defined in AVR or Teensy
-#ifndef FPSTR
-#define FPSTR(pstr_pointer) \
-    (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
-#endif
-
 namespace aunit {
 
 /**
@@ -53,13 +47,11 @@ class Test {
     // from client code. The state transition diagram looks like this:
     //
     //        include()/exclude()
-    //       ---------------------> Excluded -----------|
-    //      /                                           v
+    //      .---------------------> Excluded -----------.
+    //      v                                           v
     //    New                                        Finished -> (out of list)
-    //      \   setup()     assertion()      teardown() ^
-    //       -----------> Setup ----> Asserted ---------|
-    //
-    // The following are life cycle states, not readily visible to the user.
+    //      \ setup()      assertion()       teardown() ^
+    //       -------> Setup -------> Asserted ----------'
 
     /** Test is new, needs to be setup. */
     static const uint8_t kLifeCycleNew = 0;
@@ -125,6 +117,15 @@ class Test {
     /** Empty constructor. The name will be set later. */
     Test();
 
+    // NOTE: Don't create a virtual destructor. That's the normal best practice
+    // for classes that will be used polymorphically. However, this class will
+    // never be deleted polymorphically (i.e. through its pointer) so it
+    // doesn't need a virtual destructor. In fact, adding it causes flash and
+    // static memory to increase dramatically because each test() and testing()
+    // macro creates a new subclass. AceButtonTest flash memory increases from
+    // 18928 to 20064 bytes, and static memory increases from 917 to 1055
+    // bytes.
+
     /**
      * Optional method that performs any initialization. The assertXxx() macros,
      * as well as  pass(), fail() and skip() functions can be called in here.
@@ -154,7 +155,7 @@ class Test {
     void resolve();
 
     /** Get the name of the test. */
-    const FCString& getName() { return mName; }
+    const internal::FCString& getName() const { return mName; }
 
     /** Get the life cycle state of the test. */
     uint8_t getLifeCycle() { return mLifeCycle; }
@@ -221,10 +222,16 @@ class Test {
     /** Return true if test is not expired. */
     bool isNotExpired() { return !isExpired(); }
 
-    /** Mark the test as skipped. */
+    /**
+     * Mark the test as skipped. Use the skipTestNow() macro in a unit test to
+     * print a diagnostic message and exit immediately.
+     */
     void skip() { setStatus(kStatusSkipped); }
 
-    /** Mark the test as expired (i.e. timed out). */
+    /**
+     * Mark the test as expired (i.e. timed out). Use the expireTestNow() macro
+     * in a unit test to print a diagnostic message and exit immediately.
+     */
     void expire() { setStatus(kStatusExpired); }
 
     /** Enable the given verbosity of the current test. */
@@ -234,14 +241,22 @@ class Test {
     void disableVerbosity(uint8_t verbosity) { mVerbosity &= ~verbosity; }
 
   protected:
-    /** Mark the test as failed. */
+    /**
+     * Mark the test as failed. Use the failTestNow() macro in a unit test to
+     * print a diagnostic message and exit immediately.
+     */
     void fail() { setStatus(kStatusFailed); }
 
-    /** Mark the test as passed. */
+    /**
+     * Mark the test as passed. Often used to terminate a testing() looping
+     * test. The passTestNow() macro can be used in a unit test to print a
+     * diagnostic message and exit immediately. It is expected that pass() will
+     * be used more often.
+     */
     void pass() { setStatus(kStatusPassed); }
 
     void init(const char* name) {
-      mName = FCString(name);
+      mName = internal::FCString(name);
       mLifeCycle = kLifeCycleNew;
       mStatus = kStatusUnknown;
       mVerbosity = 0;
@@ -249,7 +264,7 @@ class Test {
     }
 
     void init(const __FlashStringHelper* name) {
-      mName = FCString(name);
+      mName = internal::FCString(name);
       mLifeCycle = kLifeCycleNew;
       mStatus = kStatusUnknown;
       mVerbosity = 0;
@@ -270,7 +285,7 @@ class Test {
     /** Insert into the linked list. */
     void insert();
 
-    FCString mName;
+    internal::FCString mName;
     uint8_t mLifeCycle;
     uint8_t mStatus;
     uint8_t mVerbosity;

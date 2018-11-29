@@ -28,15 +28,17 @@ SOFTWARE.
 using namespace aunit;
 
 class CustomOnce: public TestOnce {
-  virtual void setup() override {
+  void setup() override {
     TestOnce::setup();
-    Printer::getPrinter()->print("CustomOnce::setup(): ");
-    Printer::println(getName());
+    Print* printer = Printer::getPrinter();
+    printer->print("CustomOnce::setup(): ");
+    getName().println(printer);
   }
 
-  virtual void teardown() override {
-    Printer::getPrinter()->print("CustomOnce::teardown(): ");
-    Printer::println(getName());
+  void teardown() override {
+    Print* printer = Printer::getPrinter();
+    printer->print("CustomOnce::teardown(): ");
+    getName().println(printer);
     TestOnce::teardown();
   }
     
@@ -50,15 +52,17 @@ testF(CustomOnce, expire) { expire(); }
 testF(CustomOnce, excluded) { fail(); }
 
 class CustomAgain: public TestAgain {
-  virtual void setup() override {
+  void setup() override {
     TestAgain::setup();
-    Printer::getPrinter()->print("CustomAgain::setup(): ");
-    Printer::println(getName());
+    Print* printer = Printer::getPrinter();
+    printer->print("CustomAgain::setup(): ");
+    getName().println(printer);
   }
 
-  virtual void teardown() override {
-    Printer::getPrinter()->print("CustomAgain::teardown(): ");
-    Printer::println(getName());
+  void teardown() override {
+    Print* printer = Printer::getPrinter();
+    printer->print("CustomAgain::teardown(): ");
+    getName().println(printer);
     TestAgain::teardown();
   }
     

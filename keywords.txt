@@ -11,6 +11,8 @@ TestOnce	KEYWORD1
 TestAgain	KEYWORD1
 Assertion	KEYWORD1
 MetaAssertion	KEYWORD1
+
+# TestMacros.h
 test	KEYWORD1
 testing	KEYWORD1
 testF	KEYWORD1
@@ -67,19 +69,23 @@ getVerbosity	KEYWORD2
 once	KEYWORD2
 
 # TestAgain.h
-once	KEYWORD2
+again	KEYWORD2
 
-# Public macros from Assertion.h
+# Public macros from AssertMacros.h
 assertEqual	KEYWORD2
 assertNotEqual	KEYWORD2
 assertLess	KEYWORD2
 assertLessOrEqual	KEYWORD2
 assertMore	KEYWORD2
 assertMoreOrEqual	KEYWORD2
+assertStringCaseEqual	KEYWORD2
+assertStringCaseNotEqual	KEYWORD2
 assertTrue	KEYWORD2
 assertFalse	KEYWORD2
+assertNear	KEYWORD2
+assertNotNear	KEYWORD2
 
-# Public macros from MetaAssertion.h
+# Public macros from MetaAssertMacros.h
 checkTestDone	KEYWORD2
 checkTestNotDone	KEYWORD2
 checkTestPass	KEYWORD2
@@ -121,15 +127,29 @@ assertTestSkipF	KEYWORD2
 assertTestNotSkipF	KEYWORD2
 assertTestExpireF	KEYWORD2
 assertTestNotExpireF	KEYWORD2
+# unconditional termination
+failTestNow	KEYWORD2
+passTestNow	KEYWORD2
+skipTestNow	KEYWORD2
+expireTestNow	KEYWORD2
 
 # Overloaded functions from Compare.h
 compareString	KEYWORD2
+compareStringCase	KEYWORD2
 compareStringN	KEYWORD2
+#
 compareEqual	KEYWORD2
 compareLess	KEYWORD2
+compareMore	KEYWORD2
 compareLessOrEqual	KEYWORD2
 compareMoreOrEqual	KEYWORD2
 compareNotEqual	KEYWORD2
+#
+compareStringCaseEqual	KEYWORD2
+compareStringCaseNotEqual	KEYWORD2
+#
+compareNear	KEYWORD2
+compareNotNear	KEYWORD2
 
 #######################################
 # Instances (KEYWORD2)
@@ -154,8 +174,9 @@ kAll	LITERAL1
 kNone	LITERAL1
 
 # public constants from Test.h
-kStatusNew	LITERAL1
+kStatusUnknown	LITERAL1
 kStatusSetup	LITERAL1
 kStatusPassed	LITERAL1
 kStatusFailed	LITERAL1
 kStatusSkipped	LITERAL1
+kStatusExpired	LITERAL1

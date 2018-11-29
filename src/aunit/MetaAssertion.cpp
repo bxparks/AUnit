@@ -22,13 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifdef ESP8266
-#include <pgmspace.h>
-#else
-#include <avr/pgmspace.h>
-#endif
-
 #include <Arduino.h>  // definition of Print
+#include "Flash.h"
 #include "Printer.h"
 #include "Verbosity.h"
 #include "Compare.h"
@@ -50,15 +45,19 @@ const char MetaAssertion::kMessageNotSkipped[] PROGMEM = "not skipped";
 const char MetaAssertion::kMessageExpired[] PROGMEM = "timed out";
 const char MetaAssertion::kMessageNotExpired[] PROGMEM = "not timed out";
 
-void MetaAssertion::printAssertionTestStatusMessage(
+namespace {
+
+// Print an assertion message describing whether the given 'testName' has passed
+// or failed
+void printAssertionTestStatusMessage(
     bool ok, const char* file, uint16_t line,
     const char* testName, const __FlashStringHelper* statusMessage) {
-  // Trying to move these strings into PROGMEM actually makes the flash memory
-  // consumption bigger. The compile/linker will dedupe these c-strings.
+  // Many of the following strings are duplicated in Assertion.cpp and
+  // the compiler/linker will dedupe them.
   Print* printer = Printer::getPrinter();
   printer->print("Assertion ");
   printer->print(ok ? "passed" : "failed");
-  printer->print(": Test ");
+  printer->print(F(": Test "));
   printer->print(testName);
   printer->print(" is ");
   printer->print(statusMessage);
@@ -69,6 +68,8 @@ void MetaAssertion::printAssertionTestStatusMessage(
   printer->println('.');
 }
 
+}
+
 bool MetaAssertion::assertionTestStatus(const char* file, uint16_t line,
     const char* testName, const __FlashStringHelper* statusMessage, bool ok) {
   if (isDone()) return false;
@@ -77,6 +78,42 @@ bool MetaAssertion::assertionTestStatus(const char* file, uint16_t line,
   }
   setPassOrFail(ok);
   return ok;
+}
+
+namespace {
+
+// Print message for failNow() macro.
+// "Status failed, file xxx, line yyy."
+void printStatusNowMessage(const char* file, uint16_t line,
+    const __FlashStringHelper* statusString) {
+  // Many of these strings are duplicated in Assertion.cpp and will be deduped
+  // by the compiler/linker.
+  Print* printer = Printer::getPrinter();
+  printer->print(F("Status "));
+  printer->print(statusString);
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
+}
+
+bool MetaAssertion::isOutputEnabledForStatus(uint8_t status) {
+  return (status == kStatusFailed && isVerbosity(Verbosity::kTestFailed))
+      || (status == kStatusPassed && isVerbosity(Verbosity::kTestPassed))
+      || (status == kStatusSkipped && isVerbosity(Verbosity::kTestSkipped))
+      || (status == kStatusExpired && isVerbosity(Verbosity::kTestExpired));
+}
+
+void MetaAssertion::setStatusNow(const char* file, uint16_t line,
+    uint8_t status, const __FlashStringHelper* statusString) {
+  if (isDone()) return;
+  if (isOutputEnabledForStatus(status)) {
+    printStatusNowMessage(file, line, statusString);
+  }
+  setStatus(status);
 }
 
 }

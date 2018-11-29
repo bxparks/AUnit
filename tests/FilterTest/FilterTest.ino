@@ -36,11 +36,11 @@ test(configure) {}
 test(display) {}
 
 class CustomOnce: public TestOnce {
-  virtual void setup() override {
+  void setup() override {
     Serial.println(F("CustomOnce::setup()"));
   }
 
-  virtual void teardown() override {
+  void teardown() override {
     Serial.println(F("CustomOnce::teardown()"));
   }
 };
@@ -49,11 +49,11 @@ testF(CustomOnce, configure) {}
 testF(CustomOnce, display) {}
 
 class CustomAgain: public TestAgain {
-  virtual void setup() override {
+  void setup() override {
     Serial.println(F("CustomAgain::setup()"));
   }
 
-  virtual void teardown() override {
+  void teardown() override {
     Serial.println(F("CustomAgain::teardown()"));
   }
 };
@@ -67,7 +67,7 @@ void setup() {
   while (! Serial); // Wait until Serial is ready - Leonardo
 
   // Verify that the names of these tests don't collide and can be
-  // independently selected. Name of test is "{test_class}_{name}", but we can
+  // independently selected. Name of test is "{testClass}_{name}", but we can
   // use the new 2-argument versions of include(testClass, pattern) and
   // exclude(testClass, pattern) instead.
 

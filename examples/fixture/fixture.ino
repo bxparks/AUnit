@@ -46,12 +46,12 @@ void loop() {
 
 class LogTest: public TestOnce {
   protected:
-    virtual void setup() override {
+    void setup() override {
       TestOnce::setup();
       container.clear();
     }
 
-    virtual void teardown() override {
+    void teardown() override {
       container.clear();
       TestOnce::teardown();
     }
