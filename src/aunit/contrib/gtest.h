@@ -55,6 +55,11 @@ SOFTWARE.
 
 #define ASSERT_EQ(e, a) assertEqual(static_cast<decltype(a)>(e), a)
 #define ASSERT_NE(e, a) assertNotEqual(static_cast<decltype(a)>(e), a)
+#define ASSERT_LT(e, a) assertLess(static_cast<decltype(a)>(e), a)
+#define ASSERT_GT(e, a) assertMore(static_cast<decltype(a)>(e), a)
+#define ASSERT_LE(e, a) assertLessOrEqual(static_cast<decltype(a)>(e), a)
+#define ASSERT_GE(e, a) assertMoreOrEqual(static_cast<decltype(a)>(e), a)
+
 #define ASSERT_STREQ(e, a) assertEqual(static_cast<decltype(a)>(e), a)
 #define ASSERT_STRNE(e, a) assertNotEqual(static_cast<decltype(a)>(e), a)
 #define ASSERT_STRCASEEQ(e, a) \
