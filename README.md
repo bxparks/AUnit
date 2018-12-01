@@ -1196,6 +1196,41 @@ framework, but let me know if you truly need a timeout of greater than 4m15s).
 
 ***ArduinoUnit Compatibility***: _Only available in AUnit._
 
+## GoogleTest Adapter
+
+It may be possible to run simple unit tests written using
+[Google Test](https://github.com/google/googletest/) API on an Arduino platform
+by using the
+[aunit/contrib/gtest.h](src/aunit/contrib/gtest.h) adapter. This
+adapter layer provides a number of macros Google Test macros which map to
+their equivalent macros in AUnit:
+
+* `ASSERT_EQ(e, a)` - `assertEqual()`
+* `ASSERT_NE(e, a)` - `assertNotEqual()`
+* `ASSERT_LT(e, a)` - `assertLess()`
+* `ASSERT_GT(e, a)` - `assertMore()`
+* `ASSERT_LE(e, a)` - `assertLessOrEqual()`
+* `ASSERT_GE(e, a)` - `assertMoreOrEqual()`
+* `ASSERT_STREQ(e, a)` - `assertEqual()`
+* `ASSERT_STRNE(e, a)` - `assertNotEqual()`
+* `ASSERT_STRCASEEQ(e, a)` - `assertStringCaseEqual()`
+* `ASSERT_STRCASENE(e, a)` - `assertStringCaseNotEqual()`
+* `ASSERT_TRUE(x)` - `assertTrue()`
+* `ASSERT_FALSE(x)` - `assertFalse()`
+
+To use the `gtest.h` adapter, include the following headers:
+```C++
+#include <AUnit.h>
+#include <aunit/contrib/gtest.h>
+```
+
+or
+
+```C++
+#include <AUnitVerbose.h>
+#include <aunit/contrib/gtest.h>
+```
+
 ## Commandline Tools and Continuous Integration
 
 ### AUniter
@@ -1496,6 +1531,8 @@ will incorporate everything, but I will give your ideas serious consideration.
 ## Authors
 
 * Created by Brian T. Park (brian@xparks.net).
+* The Google Test adapter (`gtest.h`) was created by Chris Johnson
+  (chrisjohnsonmail@gmail.com).
 * The design and syntax of many macros (e.g. `test()`, `assertXxx()`) were
   borrowed from the [ArduinoUnit](https://github.com/mmurdoch/arduinounit)
   project to allow AUnit to be almost a drop-in replacement. Many thanks to
