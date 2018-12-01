@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.1.1</span>
+   &#160;<span id="projectnumber">1.2</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -96,69 +96,251 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ad0caec18882d218080708e4335182d8d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#ad0caec18882d218080708e4335182d8d">checkTestDone</a>(name)&#160;&#160;&#160;(test_##name##_instance.isDone())</td></tr>
-<tr class="memdesc:ad0caec18882d218080708e4335182d8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' is done.  <a href="#ad0caec18882d218080708e4335182d8d">More...</a><br /></td></tr>
-<tr class="separator:ad0caec18882d218080708e4335182d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec1a7820643e6e2949915ac62a73239c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#aec1a7820643e6e2949915ac62a73239c">checkTestNotDone</a>(name)&#160;&#160;&#160;(test_##name##_instance.isNotDone())</td></tr>
-<tr class="memdesc:aec1a7820643e6e2949915ac62a73239c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' is not done.  <a href="#aec1a7820643e6e2949915ac62a73239c">More...</a><br /></td></tr>
-<tr class="separator:aec1a7820643e6e2949915ac62a73239c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b2c79b1cb2a807e6acd6074c1921305"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a5b2c79b1cb2a807e6acd6074c1921305">checkTestPass</a>(name)&#160;&#160;&#160;(test_##name##_instance.isPassed())</td></tr>
-<tr class="memdesc:a5b2c79b1cb2a807e6acd6074c1921305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has passed.  <a href="#a5b2c79b1cb2a807e6acd6074c1921305">More...</a><br /></td></tr>
-<tr class="separator:a5b2c79b1cb2a807e6acd6074c1921305"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca7d59a28d1387ca2e32feee45568ada"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#aca7d59a28d1387ca2e32feee45568ada">checkTestNotPass</a>(name)&#160;&#160;&#160;(test_##name##_instance.isNotPassed())</td></tr>
-<tr class="memdesc:aca7d59a28d1387ca2e32feee45568ada"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has not passed.  <a href="#aca7d59a28d1387ca2e32feee45568ada">More...</a><br /></td></tr>
-<tr class="separator:aca7d59a28d1387ca2e32feee45568ada"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3996acf00f54070d06c7df2cf0e0d6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#aa3996acf00f54070d06c7df2cf0e0d6b">checkTestFail</a>(name)&#160;&#160;&#160;(test_##name##_instance.isFailed())</td></tr>
-<tr class="memdesc:aa3996acf00f54070d06c7df2cf0e0d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has failed.  <a href="#aa3996acf00f54070d06c7df2cf0e0d6b">More...</a><br /></td></tr>
-<tr class="separator:aa3996acf00f54070d06c7df2cf0e0d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c739c64bbd3408674c88ec2eb815947"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a7c739c64bbd3408674c88ec2eb815947">checkTestNotFail</a>(name)&#160;&#160;&#160;(test_##name##_instance.isNotFailed())</td></tr>
-<tr class="memdesc:a7c739c64bbd3408674c88ec2eb815947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has not failed.  <a href="#a7c739c64bbd3408674c88ec2eb815947">More...</a><br /></td></tr>
-<tr class="separator:a7c739c64bbd3408674c88ec2eb815947"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a084f35bf7746d6e804336bba4f1fb7bf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a084f35bf7746d6e804336bba4f1fb7bf">checkTestSkip</a>(name)&#160;&#160;&#160;(test_##name##_instance.isSkipped())</td></tr>
-<tr class="memdesc:a084f35bf7746d6e804336bba4f1fb7bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has been skipped.  <a href="#a084f35bf7746d6e804336bba4f1fb7bf">More...</a><br /></td></tr>
-<tr class="separator:a084f35bf7746d6e804336bba4f1fb7bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac68183f44430293594fb5425544f5da5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#ac68183f44430293594fb5425544f5da5">checkTestNotSkip</a>(name)&#160;&#160;&#160;(test_##name##_instance.isNotSkipped())</td></tr>
-<tr class="memdesc:ac68183f44430293594fb5425544f5da5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has not been skipped.  <a href="#ac68183f44430293594fb5425544f5da5">More...</a><br /></td></tr>
-<tr class="separator:ac68183f44430293594fb5425544f5da5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4374c6a07a1306bb93a2459f48262a3e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a4374c6a07a1306bb93a2459f48262a3e">checkTestExpire</a>(name)&#160;&#160;&#160;(test_##name##_instance.isExpired())</td></tr>
-<tr class="memdesc:a4374c6a07a1306bb93a2459f48262a3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has timed out.  <a href="#a4374c6a07a1306bb93a2459f48262a3e">More...</a><br /></td></tr>
-<tr class="separator:a4374c6a07a1306bb93a2459f48262a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a403a29c96327b36b6e39b63627f4cb27"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a403a29c96327b36b6e39b63627f4cb27">checkTestNotExpire</a>(name)&#160;&#160;&#160;(test_##name##_instance.isNotExpired())</td></tr>
-<tr class="memdesc:a403a29c96327b36b6e39b63627f4cb27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has not timed out.  <a href="#a403a29c96327b36b6e39b63627f4cb27">More...</a><br /></td></tr>
-<tr class="separator:a403a29c96327b36b6e39b63627f4cb27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae1db15fc5598a9df577abc10a9f0046"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#aae1db15fc5598a9df577abc10a9f0046">assertTestDone</a>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isDone, kMessageDone)</td></tr>
-<tr class="memdesc:aae1db15fc5598a9df577abc10a9f0046"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' is done.  <a href="#aae1db15fc5598a9df577abc10a9f0046">More...</a><br /></td></tr>
-<tr class="separator:aae1db15fc5598a9df577abc10a9f0046"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b30928df36bf45d557c771c6e53fb1f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a3b30928df36bf45d557c771c6e53fb1f">assertTestNotDone</a>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isNotDone, kMessageNotDone)</td></tr>
-<tr class="memdesc:a3b30928df36bf45d557c771c6e53fb1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' is not done.  <a href="#a3b30928df36bf45d557c771c6e53fb1f">More...</a><br /></td></tr>
-<tr class="separator:a3b30928df36bf45d557c771c6e53fb1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a163b115adb11159acfcae4dfa60033"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a8a163b115adb11159acfcae4dfa60033">assertTestPass</a>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isPassed, kMessagePassed)</td></tr>
-<tr class="memdesc:a8a163b115adb11159acfcae4dfa60033"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has passed.  <a href="#a8a163b115adb11159acfcae4dfa60033">More...</a><br /></td></tr>
-<tr class="separator:a8a163b115adb11159acfcae4dfa60033"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b0df80ae367ac8f9cd1d33958dba693"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a2b0df80ae367ac8f9cd1d33958dba693">assertTestNotPass</a>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isNotPassed, kMessageNotPassed)</td></tr>
-<tr class="memdesc:a2b0df80ae367ac8f9cd1d33958dba693"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has not passed.  <a href="#a2b0df80ae367ac8f9cd1d33958dba693">More...</a><br /></td></tr>
-<tr class="separator:a2b0df80ae367ac8f9cd1d33958dba693"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a66b7d1fa653744cffa141d91eaedc8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a4a66b7d1fa653744cffa141d91eaedc8">assertTestFail</a>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isFailed, kMessageFailed)</td></tr>
-<tr class="memdesc:a4a66b7d1fa653744cffa141d91eaedc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has failed.  <a href="#a4a66b7d1fa653744cffa141d91eaedc8">More...</a><br /></td></tr>
-<tr class="separator:a4a66b7d1fa653744cffa141d91eaedc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9da067a09da78934b7356e12fcd6d594"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a9da067a09da78934b7356e12fcd6d594">assertTestNotFail</a>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isNotFailed, kMessageNotFailed)</td></tr>
-<tr class="memdesc:a9da067a09da78934b7356e12fcd6d594"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has not failed.  <a href="#a9da067a09da78934b7356e12fcd6d594">More...</a><br /></td></tr>
-<tr class="separator:a9da067a09da78934b7356e12fcd6d594"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6d04bfb8589206f0d44229a5c0e178f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#ad6d04bfb8589206f0d44229a5c0e178f">assertTestSkip</a>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isSkipped, kMessageSkipped)</td></tr>
-<tr class="memdesc:ad6d04bfb8589206f0d44229a5c0e178f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has been skipped.  <a href="#ad6d04bfb8589206f0d44229a5c0e178f">More...</a><br /></td></tr>
-<tr class="separator:ad6d04bfb8589206f0d44229a5c0e178f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a439c30d54d91aed8c833b2231c78a8ac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a439c30d54d91aed8c833b2231c78a8ac">assertTestNotSkip</a>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isNotSkipped, kMessageNotSkipped)</td></tr>
-<tr class="memdesc:a439c30d54d91aed8c833b2231c78a8ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has not been skipped.  <a href="#a439c30d54d91aed8c833b2231c78a8ac">More...</a><br /></td></tr>
-<tr class="separator:a439c30d54d91aed8c833b2231c78a8ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a036ed1288ea337e6c8971e99dfd7b8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a9a036ed1288ea337e6c8971e99dfd7b8">assertTestExpire</a>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isExpired, kMessageExpired)</td></tr>
-<tr class="memdesc:a9a036ed1288ea337e6c8971e99dfd7b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has timed out.  <a href="#a9a036ed1288ea337e6c8971e99dfd7b8">More...</a><br /></td></tr>
-<tr class="separator:a9a036ed1288ea337e6c8971e99dfd7b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba5358be0853dc7695695d4468c94e94"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#aba5358be0853dc7695695d4468c94e94">assertTestNotExpire</a>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isNotExpired, kMessageNotExpired)</td></tr>
-<tr class="memdesc:aba5358be0853dc7695695d4468c94e94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has not timed out.  <a href="#aba5358be0853dc7695695d4468c94e94">More...</a><br /></td></tr>
-<tr class="separator:aba5358be0853dc7695695d4468c94e94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a649cb237e48e3637e06a46215240d142"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name,  method,  message)</td></tr>
-<tr class="memdesc:a649cb237e48e3637e06a46215240d142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal helper macro, shouldn't be called directly by users.  <a href="#a649cb237e48e3637e06a46215240d142">More...</a><br /></td></tr>
-<tr class="separator:a649cb237e48e3637e06a46215240d142"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cc2f30e468c354a06cab00a1b2c7841"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a7cc2f30e468c354a06cab00a1b2c7841">checkTestDone</a>(...)</td></tr>
+<tr class="memdesc:a7cc2f30e468c354a06cab00a1b2c7841"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' is done.  <a href="#a7cc2f30e468c354a06cab00a1b2c7841">More...</a><br /></td></tr>
+<tr class="separator:a7cc2f30e468c354a06cab00a1b2c7841"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a796ca7af40081daa7dd754a8a75966c4"><td class="memItemLeft" align="right" valign="top"><a id="a796ca7af40081daa7dd754a8a75966c4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_checkTestDone</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a796ca7af40081daa7dd754a8a75966c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f3d676980e7946339dddc39975bece7"><td class="memItemLeft" align="right" valign="top"><a id="a9f3d676980e7946339dddc39975bece7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestDone1</b>(name)&#160;&#160;&#160;(test_##name##_instance.isDone())</td></tr>
+<tr class="separator:a9f3d676980e7946339dddc39975bece7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38d0c8ffb9d78c25dd7991c32cb3b264"><td class="memItemLeft" align="right" valign="top"><a id="a38d0c8ffb9d78c25dd7991c32cb3b264"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestDone2</b>(testSuite,  name)&#160;&#160;&#160;(testSuite##_##name##_instance.isDone())</td></tr>
+<tr class="separator:a38d0c8ffb9d78c25dd7991c32cb3b264"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fb900ad5737c510aafd210693a364e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a9fb900ad5737c510aafd210693a364e9">checkTestNotDone</a>(...)</td></tr>
+<tr class="memdesc:a9fb900ad5737c510aafd210693a364e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' is not done.  <a href="#a9fb900ad5737c510aafd210693a364e9">More...</a><br /></td></tr>
+<tr class="separator:a9fb900ad5737c510aafd210693a364e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a159de5a21ae9270bbc54d7331450804f"><td class="memItemLeft" align="right" valign="top"><a id="a159de5a21ae9270bbc54d7331450804f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_checkTestNotDone</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a159de5a21ae9270bbc54d7331450804f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fc1e933239086e3f616654853ff6a4b"><td class="memItemLeft" align="right" valign="top"><a id="a3fc1e933239086e3f616654853ff6a4b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestNotDone1</b>(name)&#160;&#160;&#160;(test_##name##_instance.isNotDone())</td></tr>
+<tr class="separator:a3fc1e933239086e3f616654853ff6a4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaf2ebc68884de14079bfd0d5b743762"><td class="memItemLeft" align="right" valign="top"><a id="aaaf2ebc68884de14079bfd0d5b743762"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestNotDone2</b>(testSuite,  name)&#160;&#160;&#160;(testSuite##_##name##_instance.isNotDone())</td></tr>
+<tr class="separator:aaaf2ebc68884de14079bfd0d5b743762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92a08b7b1182797b3b88e6a301c096d8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a92a08b7b1182797b3b88e6a301c096d8">checkTestPass</a>(...)</td></tr>
+<tr class="memdesc:a92a08b7b1182797b3b88e6a301c096d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has passed.  <a href="#a92a08b7b1182797b3b88e6a301c096d8">More...</a><br /></td></tr>
+<tr class="separator:a92a08b7b1182797b3b88e6a301c096d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d5f8dfa4ba2c9f37bc08ea7de384bff"><td class="memItemLeft" align="right" valign="top"><a id="a4d5f8dfa4ba2c9f37bc08ea7de384bff"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_checkTestPass</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a4d5f8dfa4ba2c9f37bc08ea7de384bff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae287cdf71213d436a92fd41780760cc"><td class="memItemLeft" align="right" valign="top"><a id="aae287cdf71213d436a92fd41780760cc"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestPass1</b>(name)&#160;&#160;&#160;(test_##name##_instance.isPassed())</td></tr>
+<tr class="separator:aae287cdf71213d436a92fd41780760cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b5d6a71579b46285a0159ac2dd6e2f7"><td class="memItemLeft" align="right" valign="top"><a id="a9b5d6a71579b46285a0159ac2dd6e2f7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestPass2</b>(testSuite,  name)&#160;&#160;&#160;(testSuite##_##name##_instance.isPassed())</td></tr>
+<tr class="separator:a9b5d6a71579b46285a0159ac2dd6e2f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6024ce15dc32ab14707ef57284c38307"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a6024ce15dc32ab14707ef57284c38307">checkTestNotPass</a>(...)</td></tr>
+<tr class="memdesc:a6024ce15dc32ab14707ef57284c38307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has not passed.  <a href="#a6024ce15dc32ab14707ef57284c38307">More...</a><br /></td></tr>
+<tr class="separator:a6024ce15dc32ab14707ef57284c38307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad75b8d5f17f51e7b63edcc8593d67782"><td class="memItemLeft" align="right" valign="top"><a id="ad75b8d5f17f51e7b63edcc8593d67782"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_checkTestNotPass</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:ad75b8d5f17f51e7b63edcc8593d67782"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a806065a1c49d0bdb6b6625827d9bae6f"><td class="memItemLeft" align="right" valign="top"><a id="a806065a1c49d0bdb6b6625827d9bae6f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestNotPass1</b>(name)&#160;&#160;&#160;(test_##name##_instance.isNotPassed())</td></tr>
+<tr class="separator:a806065a1c49d0bdb6b6625827d9bae6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf792c2584ce2d54fb58c14019b57a73"><td class="memItemLeft" align="right" valign="top"><a id="adf792c2584ce2d54fb58c14019b57a73"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestNotPass2</b>(testSuite,  name)&#160;&#160;&#160;(testSuite##_##name##_instance.isNotPassed())</td></tr>
+<tr class="separator:adf792c2584ce2d54fb58c14019b57a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af10fe7e8ce7fbf3260a3c945854ca7ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#af10fe7e8ce7fbf3260a3c945854ca7ef">checkTestFail</a>(...)</td></tr>
+<tr class="memdesc:af10fe7e8ce7fbf3260a3c945854ca7ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has failed.  <a href="#af10fe7e8ce7fbf3260a3c945854ca7ef">More...</a><br /></td></tr>
+<tr class="separator:af10fe7e8ce7fbf3260a3c945854ca7ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c21ebbb219b3cafa556ccf8e03df0ed"><td class="memItemLeft" align="right" valign="top"><a id="a5c21ebbb219b3cafa556ccf8e03df0ed"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_checkTestFail</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a5c21ebbb219b3cafa556ccf8e03df0ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b936b807cf396ec5fac0ff62fb3a11f"><td class="memItemLeft" align="right" valign="top"><a id="a0b936b807cf396ec5fac0ff62fb3a11f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestFail1</b>(name)&#160;&#160;&#160;(test_##name##_instance.isFailed())</td></tr>
+<tr class="separator:a0b936b807cf396ec5fac0ff62fb3a11f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47a45d11b91567a8a35b9185eb365753"><td class="memItemLeft" align="right" valign="top"><a id="a47a45d11b91567a8a35b9185eb365753"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestFail2</b>(testSuite,  name)&#160;&#160;&#160;(testSuite##_##name##_instance.isFailed())</td></tr>
+<tr class="separator:a47a45d11b91567a8a35b9185eb365753"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b01f52d3887b70775c5519eef700b64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a0b01f52d3887b70775c5519eef700b64">checkTestNotFail</a>(...)</td></tr>
+<tr class="memdesc:a0b01f52d3887b70775c5519eef700b64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has not failed.  <a href="#a0b01f52d3887b70775c5519eef700b64">More...</a><br /></td></tr>
+<tr class="separator:a0b01f52d3887b70775c5519eef700b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29e81a7f09dfc197e505105aceed6dff"><td class="memItemLeft" align="right" valign="top"><a id="a29e81a7f09dfc197e505105aceed6dff"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_checkTestNotFail</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a29e81a7f09dfc197e505105aceed6dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b4f88b468f06a37dc365ca5f60a5953"><td class="memItemLeft" align="right" valign="top"><a id="a1b4f88b468f06a37dc365ca5f60a5953"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestNotFail1</b>(name)&#160;&#160;&#160;(test_##name##_instance.isNotFailed())</td></tr>
+<tr class="separator:a1b4f88b468f06a37dc365ca5f60a5953"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad93acbec9baec71967f87343bdc11bdc"><td class="memItemLeft" align="right" valign="top"><a id="ad93acbec9baec71967f87343bdc11bdc"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestNotFail2</b>(testSuite,  name)&#160;&#160;&#160;(testSuite##_##name##_instance.isNotFailed())</td></tr>
+<tr class="separator:ad93acbec9baec71967f87343bdc11bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ebd4557a1ecf7fc4e57ec497da17f76"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a6ebd4557a1ecf7fc4e57ec497da17f76">checkTestSkip</a>(...)</td></tr>
+<tr class="memdesc:a6ebd4557a1ecf7fc4e57ec497da17f76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has been skipped.  <a href="#a6ebd4557a1ecf7fc4e57ec497da17f76">More...</a><br /></td></tr>
+<tr class="separator:a6ebd4557a1ecf7fc4e57ec497da17f76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0fd63e3298af73e4851db2ed45d3e40"><td class="memItemLeft" align="right" valign="top"><a id="ad0fd63e3298af73e4851db2ed45d3e40"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_checkTestSkip</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:ad0fd63e3298af73e4851db2ed45d3e40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e6c3bc2fb93326fafa9d317e804bd06"><td class="memItemLeft" align="right" valign="top"><a id="a9e6c3bc2fb93326fafa9d317e804bd06"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestSkip1</b>(name)&#160;&#160;&#160;(test_##name##_instance.isSkipped())</td></tr>
+<tr class="separator:a9e6c3bc2fb93326fafa9d317e804bd06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa67cdd9edf36706e32ef13e8eb8061f"><td class="memItemLeft" align="right" valign="top"><a id="afa67cdd9edf36706e32ef13e8eb8061f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestSkip2</b>(testSuite,  name)&#160;&#160;&#160;(testSuite##_##name##_instance.isSkipped())</td></tr>
+<tr class="separator:afa67cdd9edf36706e32ef13e8eb8061f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af19e80b6c32645c01603c6640a2ebc0d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#af19e80b6c32645c01603c6640a2ebc0d">checkTestNotSkip</a>(...)</td></tr>
+<tr class="memdesc:af19e80b6c32645c01603c6640a2ebc0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has not been skipped.  <a href="#af19e80b6c32645c01603c6640a2ebc0d">More...</a><br /></td></tr>
+<tr class="separator:af19e80b6c32645c01603c6640a2ebc0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb8f365c5ae31023b9246bba89ceb699"><td class="memItemLeft" align="right" valign="top"><a id="abb8f365c5ae31023b9246bba89ceb699"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_checkTestNotSkip</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:abb8f365c5ae31023b9246bba89ceb699"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95b52954f04b7f234fd63d8fc730864f"><td class="memItemLeft" align="right" valign="top"><a id="a95b52954f04b7f234fd63d8fc730864f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestNotSkip1</b>(name)&#160;&#160;&#160;(test_##name##_instance.isNotSkipped())</td></tr>
+<tr class="separator:a95b52954f04b7f234fd63d8fc730864f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacbedbe55ed8cc261c1979c54270c465"><td class="memItemLeft" align="right" valign="top"><a id="aacbedbe55ed8cc261c1979c54270c465"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestNotSkip2</b>(testSuite,  name)&#160;&#160;&#160;(testSuite##_##name##_instance.isNotSkipped())</td></tr>
+<tr class="separator:aacbedbe55ed8cc261c1979c54270c465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf9744630ea0dea496b8120fecc3797c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#adf9744630ea0dea496b8120fecc3797c">checkTestExpire</a>(...)</td></tr>
+<tr class="memdesc:adf9744630ea0dea496b8120fecc3797c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has timed out.  <a href="#adf9744630ea0dea496b8120fecc3797c">More...</a><br /></td></tr>
+<tr class="separator:adf9744630ea0dea496b8120fecc3797c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fc3f421b80ea7eddc23486b02571d8e"><td class="memItemLeft" align="right" valign="top"><a id="a3fc3f421b80ea7eddc23486b02571d8e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_checkTestExpire</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a3fc3f421b80ea7eddc23486b02571d8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03b90a0aba065639356b8a2983ab5a75"><td class="memItemLeft" align="right" valign="top"><a id="a03b90a0aba065639356b8a2983ab5a75"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestExpire1</b>(name)&#160;&#160;&#160;(test_##name##_instance.isExpired())</td></tr>
+<tr class="separator:a03b90a0aba065639356b8a2983ab5a75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4bdfabaed01b6af4690f92ca7cdbc34"><td class="memItemLeft" align="right" valign="top"><a id="af4bdfabaed01b6af4690f92ca7cdbc34"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestExpire2</b>(testSuite,  name)&#160;&#160;&#160;(testSuite##_##name##_instance.isExpired())</td></tr>
+<tr class="separator:af4bdfabaed01b6af4690f92ca7cdbc34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8da45b50e8715c0a8c3bb2bfdad10dc3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a8da45b50e8715c0a8c3bb2bfdad10dc3">checkTestNotExpire</a>(...)</td></tr>
+<tr class="memdesc:a8da45b50e8715c0a8c3bb2bfdad10dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' has not timed out.  <a href="#a8da45b50e8715c0a8c3bb2bfdad10dc3">More...</a><br /></td></tr>
+<tr class="separator:a8da45b50e8715c0a8c3bb2bfdad10dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78e3e090436ac133d074e157d17fb7d2"><td class="memItemLeft" align="right" valign="top"><a id="a78e3e090436ac133d074e157d17fb7d2"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_checkTestNotExpire</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a78e3e090436ac133d074e157d17fb7d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05addba71aeb6b987d9a5a02f01cc57f"><td class="memItemLeft" align="right" valign="top"><a id="a05addba71aeb6b987d9a5a02f01cc57f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestNotExpire1</b>(name)&#160;&#160;&#160;(test_##name##_instance.isNotExpired())</td></tr>
+<tr class="separator:a05addba71aeb6b987d9a5a02f01cc57f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae86140265afd343a8f29c4cddee74c05"><td class="memItemLeft" align="right" valign="top"><a id="ae86140265afd343a8f29c4cddee74c05"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>checkTestNotExpire2</b>(testSuite,  name)&#160;&#160;&#160;(testSuite##_##name##_instance.isNotExpired())</td></tr>
+<tr class="separator:ae86140265afd343a8f29c4cddee74c05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25a2bbc1617d261cd7acc36e374a94ac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a25a2bbc1617d261cd7acc36e374a94ac">assertTestDone</a>(...)</td></tr>
+<tr class="memdesc:a25a2bbc1617d261cd7acc36e374a94ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' is done.  <a href="#a25a2bbc1617d261cd7acc36e374a94ac">More...</a><br /></td></tr>
+<tr class="separator:a25a2bbc1617d261cd7acc36e374a94ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d3d5402ac4dacc4c29a17a44576cac9"><td class="memItemLeft" align="right" valign="top"><a id="a9d3d5402ac4dacc4c29a17a44576cac9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_assertTestDone</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a9d3d5402ac4dacc4c29a17a44576cac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a446854173f96811fddcb3db9056e7194"><td class="memItemLeft" align="right" valign="top"><a id="a446854173f96811fddcb3db9056e7194"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestDone1</b>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#ae4f2f494953296e8c5ba9cf21f35fe8f">assertTestStatusInternal1</a>(name, isDone, kMessageDone)</td></tr>
+<tr class="separator:a446854173f96811fddcb3db9056e7194"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcb1d12ea66facc0c8ad5798b885476d"><td class="memItemLeft" align="right" valign="top"><a id="afcb1d12ea66facc0c8ad5798b885476d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestDone2</b>(testSuite,  name)&#160;&#160;&#160;assertTestStatusInternal2(testSuite, name, isDone, kMessageDone)</td></tr>
+<tr class="separator:afcb1d12ea66facc0c8ad5798b885476d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2faee5dc7109fcf4a8e3a266adcdaf90"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a2faee5dc7109fcf4a8e3a266adcdaf90">assertTestNotDone</a>(...)</td></tr>
+<tr class="memdesc:a2faee5dc7109fcf4a8e3a266adcdaf90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' is not done.  <a href="#a2faee5dc7109fcf4a8e3a266adcdaf90">More...</a><br /></td></tr>
+<tr class="separator:a2faee5dc7109fcf4a8e3a266adcdaf90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fa2a2dd011f0a97f7ff4373e6ad3b11"><td class="memItemLeft" align="right" valign="top"><a id="a4fa2a2dd011f0a97f7ff4373e6ad3b11"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_assertTestNotDone</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a4fa2a2dd011f0a97f7ff4373e6ad3b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af23444729ca44a86206ce47ab3b0e5c5"><td class="memItemLeft" align="right" valign="top"><a id="af23444729ca44a86206ce47ab3b0e5c5"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestNotDone1</b>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#ae4f2f494953296e8c5ba9cf21f35fe8f">assertTestStatusInternal1</a>(name, isNotDone, kMessageNotDone)</td></tr>
+<tr class="separator:af23444729ca44a86206ce47ab3b0e5c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42fae79112c2c6458a39685e712c200c"><td class="memItemLeft" align="right" valign="top"><a id="a42fae79112c2c6458a39685e712c200c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestNotDone2</b>(testSuite,  name)&#160;&#160;&#160;assertTestStatusInternal2(testSuite, name, isNotDone, kMessageNotDone)</td></tr>
+<tr class="separator:a42fae79112c2c6458a39685e712c200c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bc0ce470d9c22b67c33b0b5d64b26af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a1bc0ce470d9c22b67c33b0b5d64b26af">assertTestPass</a>(...)</td></tr>
+<tr class="memdesc:a1bc0ce470d9c22b67c33b0b5d64b26af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has passed.  <a href="#a1bc0ce470d9c22b67c33b0b5d64b26af">More...</a><br /></td></tr>
+<tr class="separator:a1bc0ce470d9c22b67c33b0b5d64b26af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0eb5b0e5afa65a01de2d7b04d9c9f005"><td class="memItemLeft" align="right" valign="top"><a id="a0eb5b0e5afa65a01de2d7b04d9c9f005"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_assertTestPass</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a0eb5b0e5afa65a01de2d7b04d9c9f005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15f5c39c33be6a9ed69291b77fa37ee4"><td class="memItemLeft" align="right" valign="top"><a id="a15f5c39c33be6a9ed69291b77fa37ee4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestPass1</b>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#ae4f2f494953296e8c5ba9cf21f35fe8f">assertTestStatusInternal1</a>(name, isPassed, kMessagePassed)</td></tr>
+<tr class="separator:a15f5c39c33be6a9ed69291b77fa37ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a193e579b657eac6acd516da57436a938"><td class="memItemLeft" align="right" valign="top"><a id="a193e579b657eac6acd516da57436a938"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestPass2</b>(testSuite,  name)&#160;&#160;&#160;assertTestStatusInternal2(testSuite, name, isPassed, kMessagePassed)</td></tr>
+<tr class="separator:a193e579b657eac6acd516da57436a938"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f9b938ed02b499fde6907f70d520bb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a7f9b938ed02b499fde6907f70d520bb0">assertTestNotPass</a>(...)</td></tr>
+<tr class="memdesc:a7f9b938ed02b499fde6907f70d520bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has not passed.  <a href="#a7f9b938ed02b499fde6907f70d520bb0">More...</a><br /></td></tr>
+<tr class="separator:a7f9b938ed02b499fde6907f70d520bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb9fc83e64014f6025ba7b73b75edbc3"><td class="memItemLeft" align="right" valign="top"><a id="aeb9fc83e64014f6025ba7b73b75edbc3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_assertTestNotPass</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:aeb9fc83e64014f6025ba7b73b75edbc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3940fa72feac9842114846bbf42d9b53"><td class="memItemLeft" align="right" valign="top"><a id="a3940fa72feac9842114846bbf42d9b53"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestNotPass1</b>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#ae4f2f494953296e8c5ba9cf21f35fe8f">assertTestStatusInternal1</a>(name, isNotPassed, kMessageNotPassed)</td></tr>
+<tr class="separator:a3940fa72feac9842114846bbf42d9b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c2c2e48664ac0b22100cd02425849be"><td class="memItemLeft" align="right" valign="top"><a id="a8c2c2e48664ac0b22100cd02425849be"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestNotPass2</b>(testSuite,  name)&#160;&#160;&#160;assertTestStatusInternal2(testSuite, name, isNotPassed, kMessageNotPassed)</td></tr>
+<tr class="separator:a8c2c2e48664ac0b22100cd02425849be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a049f9d2ca0733ec8f639366382a624f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a049f9d2ca0733ec8f639366382a624f6">assertTestFail</a>(...)</td></tr>
+<tr class="memdesc:a049f9d2ca0733ec8f639366382a624f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has failed.  <a href="#a049f9d2ca0733ec8f639366382a624f6">More...</a><br /></td></tr>
+<tr class="separator:a049f9d2ca0733ec8f639366382a624f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac29af8e6ea7a963d126f0f356a827c5c"><td class="memItemLeft" align="right" valign="top"><a id="ac29af8e6ea7a963d126f0f356a827c5c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_assertTestFail</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:ac29af8e6ea7a963d126f0f356a827c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08633295a12fa7a07d305a445c242209"><td class="memItemLeft" align="right" valign="top"><a id="a08633295a12fa7a07d305a445c242209"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestFail1</b>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#ae4f2f494953296e8c5ba9cf21f35fe8f">assertTestStatusInternal1</a>(name, isFailed, kMessageFailed)</td></tr>
+<tr class="separator:a08633295a12fa7a07d305a445c242209"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09ba2cd0113a8bc4f41ce89ceba456d0"><td class="memItemLeft" align="right" valign="top"><a id="a09ba2cd0113a8bc4f41ce89ceba456d0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestFail2</b>(testSuite,  name)&#160;&#160;&#160;assertTestStatusInternal2(testSuite, name, isFailed, kMessageFailed)</td></tr>
+<tr class="separator:a09ba2cd0113a8bc4f41ce89ceba456d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8028cdca4a5abe06cc98430a1374e7ca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a8028cdca4a5abe06cc98430a1374e7ca">assertTestNotFail</a>(...)</td></tr>
+<tr class="memdesc:a8028cdca4a5abe06cc98430a1374e7ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has not failed.  <a href="#a8028cdca4a5abe06cc98430a1374e7ca">More...</a><br /></td></tr>
+<tr class="separator:a8028cdca4a5abe06cc98430a1374e7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa590bcf5b79432eda50bf53fc9bcfc0b"><td class="memItemLeft" align="right" valign="top"><a id="aa590bcf5b79432eda50bf53fc9bcfc0b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_assertTestNotFail</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:aa590bcf5b79432eda50bf53fc9bcfc0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a786bfae6db44bc1df1f3f2cf926b83da"><td class="memItemLeft" align="right" valign="top"><a id="a786bfae6db44bc1df1f3f2cf926b83da"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestNotFail1</b>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#ae4f2f494953296e8c5ba9cf21f35fe8f">assertTestStatusInternal1</a>(name, isNotFailed, kMessageNotFailed)</td></tr>
+<tr class="separator:a786bfae6db44bc1df1f3f2cf926b83da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbe924a28fa8cd78ac6fa76998cc538c"><td class="memItemLeft" align="right" valign="top"><a id="afbe924a28fa8cd78ac6fa76998cc538c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestNotFail2</b>(testSuite,  name)&#160;&#160;&#160;assertTestStatusInternal2(testSuite, name, isNotFailed, kMessageNotFailed)</td></tr>
+<tr class="separator:afbe924a28fa8cd78ac6fa76998cc538c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f64de830a39d2402bc70e5535e11ff2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a0f64de830a39d2402bc70e5535e11ff2">assertTestSkip</a>(...)</td></tr>
+<tr class="memdesc:a0f64de830a39d2402bc70e5535e11ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has been skipped.  <a href="#a0f64de830a39d2402bc70e5535e11ff2">More...</a><br /></td></tr>
+<tr class="separator:a0f64de830a39d2402bc70e5535e11ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9e226649d7085201861160f85a5c7ea"><td class="memItemLeft" align="right" valign="top"><a id="aa9e226649d7085201861160f85a5c7ea"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_assertTestSkip</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:aa9e226649d7085201861160f85a5c7ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a932921fc7ee1ef4a1469d263ff3ae536"><td class="memItemLeft" align="right" valign="top"><a id="a932921fc7ee1ef4a1469d263ff3ae536"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestSkip1</b>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#ae4f2f494953296e8c5ba9cf21f35fe8f">assertTestStatusInternal1</a>(name, isSkipped, kMessageSkipped)</td></tr>
+<tr class="separator:a932921fc7ee1ef4a1469d263ff3ae536"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4f53a9474940f1eb3f1b8a3ef4ae87c"><td class="memItemLeft" align="right" valign="top"><a id="ab4f53a9474940f1eb3f1b8a3ef4ae87c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestSkip2</b>(testSuite,  name)&#160;&#160;&#160;assertTestStatusInternal2(testSuite, name, isSkipped, kMessageSkipped)</td></tr>
+<tr class="separator:ab4f53a9474940f1eb3f1b8a3ef4ae87c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d66e8a625e77a3a2e1f03d0b31defbb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a7d66e8a625e77a3a2e1f03d0b31defbb">assertTestNotSkip</a>(...)</td></tr>
+<tr class="memdesc:a7d66e8a625e77a3a2e1f03d0b31defbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has not been skipped.  <a href="#a7d66e8a625e77a3a2e1f03d0b31defbb">More...</a><br /></td></tr>
+<tr class="separator:a7d66e8a625e77a3a2e1f03d0b31defbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abea7c4fbe681dc17b352d61bc02610bb"><td class="memItemLeft" align="right" valign="top"><a id="abea7c4fbe681dc17b352d61bc02610bb"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_assertTestNotSkip</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:abea7c4fbe681dc17b352d61bc02610bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aece2b9437cd94a9c6cd2652e590ebcb4"><td class="memItemLeft" align="right" valign="top"><a id="aece2b9437cd94a9c6cd2652e590ebcb4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestNotSkip1</b>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#ae4f2f494953296e8c5ba9cf21f35fe8f">assertTestStatusInternal1</a>(name, isNotSkipped, kMessageNotSkipped)</td></tr>
+<tr class="separator:aece2b9437cd94a9c6cd2652e590ebcb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70ae104f1469595b97cf2731561bed37"><td class="memItemLeft" align="right" valign="top"><a id="a70ae104f1469595b97cf2731561bed37"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestNotSkip2</b>(testSuite,  name)&#160;&#160;&#160;assertTestStatusInternal2(testSuite, name, isNotSkipped, kMessageNotSkipped)</td></tr>
+<tr class="separator:a70ae104f1469595b97cf2731561bed37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84ec6ecc24e0c9fb4b774c3fa16da4d1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a84ec6ecc24e0c9fb4b774c3fa16da4d1">assertTestExpire</a>(...)</td></tr>
+<tr class="memdesc:a84ec6ecc24e0c9fb4b774c3fa16da4d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has timed out.  <a href="#a84ec6ecc24e0c9fb4b774c3fa16da4d1">More...</a><br /></td></tr>
+<tr class="separator:a84ec6ecc24e0c9fb4b774c3fa16da4d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac874c85202f401f01381f028c32571af"><td class="memItemLeft" align="right" valign="top"><a id="ac874c85202f401f01381f028c32571af"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_assertTestExpire</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:ac874c85202f401f01381f028c32571af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a430f22f23fb7024805b13f160548b567"><td class="memItemLeft" align="right" valign="top"><a id="a430f22f23fb7024805b13f160548b567"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestExpire1</b>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#ae4f2f494953296e8c5ba9cf21f35fe8f">assertTestStatusInternal1</a>(name, isExpired, kMessageExpired)</td></tr>
+<tr class="separator:a430f22f23fb7024805b13f160548b567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03e41e3b1b2db3acbea78c48ff89677c"><td class="memItemLeft" align="right" valign="top"><a id="a03e41e3b1b2db3acbea78c48ff89677c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestExpire2</b>(testSuite,  name)&#160;&#160;&#160;assertTestStatusInternal2(testSuite, name, isExpired, kMessageExpired)</td></tr>
+<tr class="separator:a03e41e3b1b2db3acbea78c48ff89677c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa407097256f919be953b2cace9a0a8d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#aa407097256f919be953b2cace9a0a8d2">assertTestNotExpire</a>(...)</td></tr>
+<tr class="memdesc:aa407097256f919be953b2cace9a0a8d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that test 'name' has not timed out.  <a href="#aa407097256f919be953b2cace9a0a8d2">More...</a><br /></td></tr>
+<tr class="separator:aa407097256f919be953b2cace9a0a8d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fd225f4651632b4c1cfbf1ec3c90dce"><td class="memItemLeft" align="right" valign="top"><a id="a5fd225f4651632b4c1cfbf1ec3c90dce"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>get_assertTestNotExpire</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a5fd225f4651632b4c1cfbf1ec3c90dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3edc85740ecb62e9acc142d2dd580ad0"><td class="memItemLeft" align="right" valign="top"><a id="a3edc85740ecb62e9acc142d2dd580ad0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestNotExpire1</b>(name)&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#ae4f2f494953296e8c5ba9cf21f35fe8f">assertTestStatusInternal1</a>(name, isNotExpired, kMessageNotExpired)</td></tr>
+<tr class="separator:a3edc85740ecb62e9acc142d2dd580ad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5924592444040fb1e6088a9b934977f"><td class="memItemLeft" align="right" valign="top"><a id="ae5924592444040fb1e6088a9b934977f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestNotExpire2</b>(testSuite,  name)&#160;&#160;&#160;assertTestStatusInternal2(testSuite, name, isNotExpired, kMessageNotExpired)</td></tr>
+<tr class="separator:ae5924592444040fb1e6088a9b934977f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4f2f494953296e8c5ba9cf21f35fe8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#ae4f2f494953296e8c5ba9cf21f35fe8f">assertTestStatusInternal1</a>(name,  method,  message)</td></tr>
+<tr class="memdesc:ae4f2f494953296e8c5ba9cf21f35fe8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal helper macro, shouldn't be called directly by users.  <a href="#ae4f2f494953296e8c5ba9cf21f35fe8f">More...</a><br /></td></tr>
+<tr class="separator:ae4f2f494953296e8c5ba9cf21f35fe8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72f8cea9bfd6bd9c8dc1f38b3f86f1d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>assertTestStatusInternal2</b>(testSuite,  name,  method,  message)</td></tr>
+<tr class="separator:a72f8cea9bfd6bd9c8dc1f38b3f86f1d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68f34efe2bf76d1b08d118a7a0284f1b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="MetaAssertMacros_8h.html#a68f34efe2bf76d1b08d118a7a0284f1b">checkTestDoneF</a>(testClass,  name)&#160;&#160;&#160;(testClass##_##name##_instance.isDone())</td></tr>
 <tr class="memdesc:a68f34efe2bf76d1b08d118a7a0284f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if test 'name' is done.  <a href="#a68f34efe2bf76d1b08d118a7a0284f1b">More...</a><br /></td></tr>
 <tr class="separator:a68f34efe2bf76d1b08d118a7a0284f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -240,8 +422,8 @@ Macros</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="aae1db15fc5598a9df577abc10a9f0046"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae1db15fc5598a9df577abc10a9f0046">&#9670;&nbsp;</a></span>assertTestDone</h2>
+<a id="a25a2bbc1617d261cd7acc36e374a94ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25a2bbc1617d261cd7acc36e374a94ac">&#9670;&nbsp;</a></span>assertTestDone</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,15 +432,15 @@ Macros</h2></td></tr>
           <td class="memname">#define assertTestDone</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isDone, kMessageDone)</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_assertTestDone(__VA_ARGS__, assertTestDone2, assertTestDone1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Assert that test 'name' is done. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00077">77</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00127">127</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -290,12 +472,12 @@ Macros</h2></td></tr>
 
 <p>Assert that test 'name' is done. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00170">170</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00288">288</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a9a036ed1288ea337e6c8971e99dfd7b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a036ed1288ea337e6c8971e99dfd7b8">&#9670;&nbsp;</a></span>assertTestExpire</h2>
+<a id="a84ec6ecc24e0c9fb4b774c3fa16da4d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84ec6ecc24e0c9fb4b774c3fa16da4d1">&#9670;&nbsp;</a></span>assertTestExpire</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -304,15 +486,15 @@ Macros</h2></td></tr>
           <td class="memname">#define assertTestExpire</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isExpired, kMessageExpired)</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_assertTestExpire(__VA_ARGS__, assertTestExpire2, assertTestExpire1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Assert that test 'name' has timed out. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00109">109</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00207">207</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -344,12 +526,12 @@ Macros</h2></td></tr>
 
 <p>Assert that test 'name' has timed out. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00203">203</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00321">321</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a4a66b7d1fa653744cffa141d91eaedc8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a66b7d1fa653744cffa141d91eaedc8">&#9670;&nbsp;</a></span>assertTestFail</h2>
+<a id="a049f9d2ca0733ec8f639366382a624f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a049f9d2ca0733ec8f639366382a624f6">&#9670;&nbsp;</a></span>assertTestFail</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -358,15 +540,15 @@ Macros</h2></td></tr>
           <td class="memname">#define assertTestFail</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isFailed, kMessageFailed)</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_assertTestFail(__VA_ARGS__, assertTestFail2, assertTestFail1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Assert that test 'name' has failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00093">93</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00167">167</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -398,12 +580,12 @@ Macros</h2></td></tr>
 
 <p>Assert that test 'name' has failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00186">186</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00304">304</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a3b30928df36bf45d557c771c6e53fb1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b30928df36bf45d557c771c6e53fb1f">&#9670;&nbsp;</a></span>assertTestNotDone</h2>
+<a id="a2faee5dc7109fcf4a8e3a266adcdaf90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2faee5dc7109fcf4a8e3a266adcdaf90">&#9670;&nbsp;</a></span>assertTestNotDone</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -412,15 +594,15 @@ Macros</h2></td></tr>
           <td class="memname">#define assertTestNotDone</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isNotDone, kMessageNotDone)</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_assertTestNotDone(__VA_ARGS__, assertTestNotDone2, assertTestNotDone1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Assert that test 'name' is not done. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00081">81</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00137">137</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -452,12 +634,12 @@ Macros</h2></td></tr>
 
 <p>Assert that test 'name' is not done. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00174">174</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00292">292</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="aba5358be0853dc7695695d4468c94e94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba5358be0853dc7695695d4468c94e94">&#9670;&nbsp;</a></span>assertTestNotExpire</h2>
+<a id="aa407097256f919be953b2cace9a0a8d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa407097256f919be953b2cace9a0a8d2">&#9670;&nbsp;</a></span>assertTestNotExpire</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -466,15 +648,15 @@ Macros</h2></td></tr>
           <td class="memname">#define assertTestNotExpire</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isNotExpired, kMessageNotExpired)</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_assertTestNotExpire(__VA_ARGS__, assertTestNotExpire2, assertTestNotExpire1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Assert that test 'name' has not timed out. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00113">113</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00217">217</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -503,16 +685,16 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="MetaAssertMacros_8h.html#ada7021c0388f9dc7e05ea5a30099aedf">assertTestStatusInternalF</a>(testClass, name, isNotExpired, \</div><div class="line">        kMessageNotExpired)</div><div class="ttc" id="MetaAssertMacros_8h_html_ada7021c0388f9dc7e05ea5a30099aedf"><div class="ttname"><a href="MetaAssertMacros_8h.html#ada7021c0388f9dc7e05ea5a30099aedf">assertTestStatusInternalF</a></div><div class="ttdeci">#define assertTestStatusInternalF(testClass, name, method, message)</div><div class="ttdoc">Internal helper macro, shouldn&amp;#39;t be called directly by users. </div><div class="ttdef"><b>Definition:</b> <a href="MetaAssertMacros_8h_source.html#l00212">MetaAssertMacros.h:212</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="MetaAssertMacros_8h.html#ada7021c0388f9dc7e05ea5a30099aedf">assertTestStatusInternalF</a>(testClass, name, isNotExpired, \</div><div class="line">        kMessageNotExpired)</div><div class="ttc" id="MetaAssertMacros_8h_html_ada7021c0388f9dc7e05ea5a30099aedf"><div class="ttname"><a href="MetaAssertMacros_8h.html#ada7021c0388f9dc7e05ea5a30099aedf">assertTestStatusInternalF</a></div><div class="ttdeci">#define assertTestStatusInternalF(testClass, name, method, message)</div><div class="ttdoc">Internal helper macro, shouldn&amp;#39;t be called directly by users. </div><div class="ttdef"><b>Definition:</b> <a href="MetaAssertMacros_8h_source.html#l00330">MetaAssertMacros.h:330</a></div></div>
 </div><!-- fragment -->
 <p>Assert that test 'name' has not timed out. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00207">207</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00325">325</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a9da067a09da78934b7356e12fcd6d594"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9da067a09da78934b7356e12fcd6d594">&#9670;&nbsp;</a></span>assertTestNotFail</h2>
+<a id="a8028cdca4a5abe06cc98430a1374e7ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8028cdca4a5abe06cc98430a1374e7ca">&#9670;&nbsp;</a></span>assertTestNotFail</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -521,15 +703,15 @@ Macros</h2></td></tr>
           <td class="memname">#define assertTestNotFail</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isNotFailed, kMessageNotFailed)</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_assertTestNotFail(__VA_ARGS__, assertTestNotFail2, assertTestNotFail1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Assert that test 'name' has not failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00097">97</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00177">177</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -561,12 +743,12 @@ Macros</h2></td></tr>
 
 <p>Assert that test 'name' has not failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00190">190</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00308">308</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a2b0df80ae367ac8f9cd1d33958dba693"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b0df80ae367ac8f9cd1d33958dba693">&#9670;&nbsp;</a></span>assertTestNotPass</h2>
+<a id="a7f9b938ed02b499fde6907f70d520bb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f9b938ed02b499fde6907f70d520bb0">&#9670;&nbsp;</a></span>assertTestNotPass</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -575,15 +757,15 @@ Macros</h2></td></tr>
           <td class="memname">#define assertTestNotPass</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isNotPassed, kMessageNotPassed)</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_assertTestNotPass(__VA_ARGS__, assertTestNotPass2, assertTestNotPass1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Assert that test 'name' has not passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00089">89</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00157">157</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -615,12 +797,12 @@ Macros</h2></td></tr>
 
 <p>Assert that test 'name' has not passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00182">182</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00300">300</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a439c30d54d91aed8c833b2231c78a8ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a439c30d54d91aed8c833b2231c78a8ac">&#9670;&nbsp;</a></span>assertTestNotSkip</h2>
+<a id="a7d66e8a625e77a3a2e1f03d0b31defbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d66e8a625e77a3a2e1f03d0b31defbb">&#9670;&nbsp;</a></span>assertTestNotSkip</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -629,15 +811,15 @@ Macros</h2></td></tr>
           <td class="memname">#define assertTestNotSkip</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isNotSkipped, kMessageNotSkipped)</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_assertTestNotSkip(__VA_ARGS__, assertTestNotSkip2, assertTestNotSkip1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Assert that test 'name' has not been skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00105">105</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00197">197</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -666,16 +848,16 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="MetaAssertMacros_8h.html#ada7021c0388f9dc7e05ea5a30099aedf">assertTestStatusInternalF</a>(testClass, name, isNotSkipped, \</div><div class="line">        kMessageNotSkipped)</div><div class="ttc" id="MetaAssertMacros_8h_html_ada7021c0388f9dc7e05ea5a30099aedf"><div class="ttname"><a href="MetaAssertMacros_8h.html#ada7021c0388f9dc7e05ea5a30099aedf">assertTestStatusInternalF</a></div><div class="ttdeci">#define assertTestStatusInternalF(testClass, name, method, message)</div><div class="ttdoc">Internal helper macro, shouldn&amp;#39;t be called directly by users. </div><div class="ttdef"><b>Definition:</b> <a href="MetaAssertMacros_8h_source.html#l00212">MetaAssertMacros.h:212</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="MetaAssertMacros_8h.html#ada7021c0388f9dc7e05ea5a30099aedf">assertTestStatusInternalF</a>(testClass, name, isNotSkipped, \</div><div class="line">        kMessageNotSkipped)</div><div class="ttc" id="MetaAssertMacros_8h_html_ada7021c0388f9dc7e05ea5a30099aedf"><div class="ttname"><a href="MetaAssertMacros_8h.html#ada7021c0388f9dc7e05ea5a30099aedf">assertTestStatusInternalF</a></div><div class="ttdeci">#define assertTestStatusInternalF(testClass, name, method, message)</div><div class="ttdoc">Internal helper macro, shouldn&amp;#39;t be called directly by users. </div><div class="ttdef"><b>Definition:</b> <a href="MetaAssertMacros_8h_source.html#l00330">MetaAssertMacros.h:330</a></div></div>
 </div><!-- fragment -->
 <p>Assert that test 'name' has not been skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00198">198</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00316">316</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a8a163b115adb11159acfcae4dfa60033"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a163b115adb11159acfcae4dfa60033">&#9670;&nbsp;</a></span>assertTestPass</h2>
+<a id="a1bc0ce470d9c22b67c33b0b5d64b26af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bc0ce470d9c22b67c33b0b5d64b26af">&#9670;&nbsp;</a></span>assertTestPass</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -684,15 +866,15 @@ Macros</h2></td></tr>
           <td class="memname">#define assertTestPass</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isPassed, kMessagePassed)</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_assertTestPass(__VA_ARGS__, assertTestPass2, assertTestPass1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Assert that test 'name' has passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00085">85</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00147">147</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -724,12 +906,12 @@ Macros</h2></td></tr>
 
 <p>Assert that test 'name' has passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00178">178</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00296">296</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="ad6d04bfb8589206f0d44229a5c0e178f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6d04bfb8589206f0d44229a5c0e178f">&#9670;&nbsp;</a></span>assertTestSkip</h2>
+<a id="a0f64de830a39d2402bc70e5535e11ff2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f64de830a39d2402bc70e5535e11ff2">&#9670;&nbsp;</a></span>assertTestSkip</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -738,15 +920,15 @@ Macros</h2></td></tr>
           <td class="memname">#define assertTestSkip</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="MetaAssertMacros_8h.html#a649cb237e48e3637e06a46215240d142">assertTestStatusInternal</a>(name, isSkipped, kMessageSkipped)</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_assertTestSkip(__VA_ARGS__, assertTestSkip2, assertTestSkip1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Assert that test 'name' has been skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00101">101</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00187">187</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -778,18 +960,18 @@ Macros</h2></td></tr>
 
 <p>Assert that test 'name' has been skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00194">194</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00312">312</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a649cb237e48e3637e06a46215240d142"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a649cb237e48e3637e06a46215240d142">&#9670;&nbsp;</a></span>assertTestStatusInternal</h2>
+<a id="ae4f2f494953296e8c5ba9cf21f35fe8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4f2f494953296e8c5ba9cf21f35fe8f">&#9670;&nbsp;</a></span>assertTestStatusInternal1</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define assertTestStatusInternal</td>
+          <td class="memname">#define assertTestStatusInternal1</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">name, </td>
@@ -813,11 +995,54 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  if (!assertionTestStatus(\</div><div class="line">      __FILE__,__LINE__,#name,<a class="code" href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a>(message),test_##name##_instance.method()))\</div><div class="line">    return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div><div class="ttc" id="Flash_8h_html_af6637cbf5dced7105416585fd58ce29e"><div class="ttname"><a href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a></div><div class="ttdeci">#define AUNIT_FPSTR(pstr_pointer)</div><div class="ttdoc">The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and broken on ESP32...</div><div class="ttdef"><b>Definition:</b> <a href="Flash_8h_source.html#l00075">Flash.h:75</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  if (!assertionTestStatus(\</div><div class="line">      __FILE__,__LINE__,#name,<a class="code" href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a>(message),\</div><div class="line">          test_##name##_instance.method()))\</div><div class="line">    return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div><div class="ttc" id="Flash_8h_html_af6637cbf5dced7105416585fd58ce29e"><div class="ttname"><a href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a></div><div class="ttdeci">#define AUNIT_FPSTR(pstr_pointer)</div><div class="ttdoc">The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and broken on ESP32...</div><div class="ttdef"><b>Definition:</b> <a href="Flash_8h_source.html#l00075">Flash.h:75</a></div></div>
 </div><!-- fragment -->
 <p>Internal helper macro, shouldn't be called directly by users. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00117">117</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00227">227</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+
+</div>
+</div>
+<a id="a72f8cea9bfd6bd9c8dc1f38b3f86f1d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72f8cea9bfd6bd9c8dc1f38b3f86f1d2">&#9670;&nbsp;</a></span>assertTestStatusInternal2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define assertTestStatusInternal2</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">testSuite, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">method, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">message&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {\</div><div class="line">  if (!assertionTestStatus(\</div><div class="line">      __FILE__,__LINE__,#testSuite <span class="stringliteral">&quot;_&quot;</span> #name,<a class="code" href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a>(message),\</div><div class="line">          testSuite##_##name##_instance.method()))\</div><div class="line">    return;\</div><div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div><div class="ttc" id="Flash_8h_html_af6637cbf5dced7105416585fd58ce29e"><div class="ttname"><a href="Flash_8h.html#af6637cbf5dced7105416585fd58ce29e">AUNIT_FPSTR</a></div><div class="ttdeci">#define AUNIT_FPSTR(pstr_pointer)</div><div class="ttdoc">The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and broken on ESP32...</div><div class="ttdef"><b>Definition:</b> <a href="Flash_8h_source.html#l00075">Flash.h:75</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00234">234</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -862,12 +1087,12 @@ Macros</h2></td></tr>
 </div><!-- fragment -->
 <p>Internal helper macro, shouldn't be called directly by users. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00212">212</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00330">330</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="ad0caec18882d218080708e4335182d8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0caec18882d218080708e4335182d8d">&#9670;&nbsp;</a></span>checkTestDone</h2>
+<a id="a7cc2f30e468c354a06cab00a1b2c7841"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cc2f30e468c354a06cab00a1b2c7841">&#9670;&nbsp;</a></span>checkTestDone</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -876,12 +1101,12 @@ Macros</h2></td></tr>
           <td class="memname">#define checkTestDone</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;(test_##name##_instance.isDone())</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_checkTestDone(__VA_ARGS__, checkTestDone2, checkTestDone1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Return true if test 'name' is done. </p>
 
 <p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00044">44</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
@@ -916,12 +1141,12 @@ Macros</h2></td></tr>
 
 <p>Return true if test 'name' is done. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00127">127</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00245">245</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a4374c6a07a1306bb93a2459f48262a3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4374c6a07a1306bb93a2459f48262a3e">&#9670;&nbsp;</a></span>checkTestExpire</h2>
+<a id="adf9744630ea0dea496b8120fecc3797c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf9744630ea0dea496b8120fecc3797c">&#9670;&nbsp;</a></span>checkTestExpire</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -930,15 +1155,15 @@ Macros</h2></td></tr>
           <td class="memname">#define checkTestExpire</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;(test_##name##_instance.isExpired())</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_checkTestExpire(__VA_ARGS__, checkTestExpire2, checkTestExpire1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Return true if test 'name' has timed out. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00068">68</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00108">108</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -970,12 +1195,12 @@ Macros</h2></td></tr>
 
 <p>Return true if test 'name' has timed out. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00159">159</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00277">277</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="aa3996acf00f54070d06c7df2cf0e0d6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3996acf00f54070d06c7df2cf0e0d6b">&#9670;&nbsp;</a></span>checkTestFail</h2>
+<a id="af10fe7e8ce7fbf3260a3c945854ca7ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af10fe7e8ce7fbf3260a3c945854ca7ef">&#9670;&nbsp;</a></span>checkTestFail</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -984,15 +1209,15 @@ Macros</h2></td></tr>
           <td class="memname">#define checkTestFail</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;(test_##name##_instance.isFailed())</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_checkTestFail(__VA_ARGS__, checkTestFail2, checkTestFail1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Return true if test 'name' has failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00056">56</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00076">76</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -1024,12 +1249,12 @@ Macros</h2></td></tr>
 
 <p>Return true if test 'name' has failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00143">143</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00261">261</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="aec1a7820643e6e2949915ac62a73239c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec1a7820643e6e2949915ac62a73239c">&#9670;&nbsp;</a></span>checkTestNotDone</h2>
+<a id="a9fb900ad5737c510aafd210693a364e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fb900ad5737c510aafd210693a364e9">&#9670;&nbsp;</a></span>checkTestNotDone</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1038,15 +1263,15 @@ Macros</h2></td></tr>
           <td class="memname">#define checkTestNotDone</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;(test_##name##_instance.isNotDone())</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_checkTestNotDone(__VA_ARGS__, checkTestNotDone2, checkTestNotDone1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Return true if test 'name' is not done. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00047">47</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00052">52</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -1078,12 +1303,12 @@ Macros</h2></td></tr>
 
 <p>Return true if test 'name' is not done. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00131">131</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00249">249</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a403a29c96327b36b6e39b63627f4cb27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a403a29c96327b36b6e39b63627f4cb27">&#9670;&nbsp;</a></span>checkTestNotExpire</h2>
+<a id="a8da45b50e8715c0a8c3bb2bfdad10dc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8da45b50e8715c0a8c3bb2bfdad10dc3">&#9670;&nbsp;</a></span>checkTestNotExpire</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1092,15 +1317,15 @@ Macros</h2></td></tr>
           <td class="memname">#define checkTestNotExpire</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;(test_##name##_instance.isNotExpired())</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_checkTestNotExpire(__VA_ARGS__, checkTestNotExpire2, checkTestNotExpire1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Return true if test 'name' has not timed out. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00071">71</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00116">116</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -1132,12 +1357,12 @@ Macros</h2></td></tr>
 
 <p>Return true if test 'name' has not timed out. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00163">163</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00281">281</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a7c739c64bbd3408674c88ec2eb815947"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c739c64bbd3408674c88ec2eb815947">&#9670;&nbsp;</a></span>checkTestNotFail</h2>
+<a id="a0b01f52d3887b70775c5519eef700b64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b01f52d3887b70775c5519eef700b64">&#9670;&nbsp;</a></span>checkTestNotFail</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1146,15 +1371,15 @@ Macros</h2></td></tr>
           <td class="memname">#define checkTestNotFail</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;(test_##name##_instance.isNotFailed())</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_checkTestNotFail(__VA_ARGS__, checkTestNotFail2, checkTestNotFail1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Return true if test 'name' has not failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00059">59</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00084">84</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -1186,12 +1411,12 @@ Macros</h2></td></tr>
 
 <p>Return true if test 'name' has not failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00147">147</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00265">265</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="aca7d59a28d1387ca2e32feee45568ada"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca7d59a28d1387ca2e32feee45568ada">&#9670;&nbsp;</a></span>checkTestNotPass</h2>
+<a id="a6024ce15dc32ab14707ef57284c38307"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6024ce15dc32ab14707ef57284c38307">&#9670;&nbsp;</a></span>checkTestNotPass</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1200,15 +1425,15 @@ Macros</h2></td></tr>
           <td class="memname">#define checkTestNotPass</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;(test_##name##_instance.isNotPassed())</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_checkTestNotPass(__VA_ARGS__, checkTestNotPass2, checkTestNotPass1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Return true if test 'name' has not passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00053">53</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00068">68</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -1240,12 +1465,12 @@ Macros</h2></td></tr>
 
 <p>Return true if test 'name' has not passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00139">139</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00257">257</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="ac68183f44430293594fb5425544f5da5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac68183f44430293594fb5425544f5da5">&#9670;&nbsp;</a></span>checkTestNotSkip</h2>
+<a id="af19e80b6c32645c01603c6640a2ebc0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af19e80b6c32645c01603c6640a2ebc0d">&#9670;&nbsp;</a></span>checkTestNotSkip</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1254,15 +1479,15 @@ Macros</h2></td></tr>
           <td class="memname">#define checkTestNotSkip</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;(test_##name##_instance.isNotSkipped())</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_checkTestNotSkip(__VA_ARGS__, checkTestNotSkip2, checkTestNotSkip1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Return true if test 'name' has not been skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00065">65</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00100">100</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -1294,12 +1519,12 @@ Macros</h2></td></tr>
 
 <p>Return true if test 'name' has not been skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00155">155</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00273">273</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a5b2c79b1cb2a807e6acd6074c1921305"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b2c79b1cb2a807e6acd6074c1921305">&#9670;&nbsp;</a></span>checkTestPass</h2>
+<a id="a92a08b7b1182797b3b88e6a301c096d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92a08b7b1182797b3b88e6a301c096d8">&#9670;&nbsp;</a></span>checkTestPass</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1308,15 +1533,15 @@ Macros</h2></td></tr>
           <td class="memname">#define checkTestPass</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;(test_##name##_instance.isPassed())</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_checkTestPass(__VA_ARGS__, checkTestPass2, checkTestPass1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Return true if test 'name' has passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00050">50</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00060">60</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -1348,12 +1573,12 @@ Macros</h2></td></tr>
 
 <p>Return true if test 'name' has passed. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00135">135</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00253">253</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a084f35bf7746d6e804336bba4f1fb7bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a084f35bf7746d6e804336bba4f1fb7bf">&#9670;&nbsp;</a></span>checkTestSkip</h2>
+<a id="a6ebd4557a1ecf7fc4e57ec497da17f76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ebd4557a1ecf7fc4e57ec497da17f76">&#9670;&nbsp;</a></span>checkTestSkip</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1362,15 +1587,15 @@ Macros</h2></td></tr>
           <td class="memname">#define checkTestSkip</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td>&#160;&#160;&#160;(test_##name##_instance.isSkipped())</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">get_checkTestSkip(__VA_ARGS__, checkTestSkip2, checkTestSkip1)\</div><div class="line">      (__VA_ARGS__)</div></div><!-- fragment -->
 <p>Return true if test 'name' has been skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00062">62</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00092">92</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -1402,7 +1627,7 @@ Macros</h2></td></tr>
 
 <p>Return true if test 'name' has been skipped. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00151">151</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00269">269</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -1425,7 +1650,7 @@ Macros</h2></td></tr>
 <p>Expire the current test, print a status message, and return immediately. </p>
 <p>Similar to Test::expire() except that this prints a status message. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00253">253</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00371">371</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -1448,7 +1673,7 @@ Macros</h2></td></tr>
 <p>Fail the current test, return immediately, and print a status message. </p>
 <p>Similar to Test::fail() except that this prints a status message. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00225">225</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00343">343</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -1471,7 +1696,7 @@ Macros</h2></td></tr>
 <p>Pass the current test, print a status message, and return immediately. </p>
 <p>Similar to Test::pass() except that this prints a status message. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00234">234</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00352">352</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>
@@ -1494,7 +1719,7 @@ Macros</h2></td></tr>
 <p>Skip the current test, print a status message, and return immediately. </p>
 <p>Similar to Test::skip() except that this prints a status message. </p>
 
-<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00243">243</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MetaAssertMacros_8h_source.html#l00361">361</a> of file <a class="el" href="MetaAssertMacros_8h_source.html">MetaAssertMacros.h</a>.</p>
 
 </div>
 </div>

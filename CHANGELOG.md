@@ -1,5 +1,10 @@
 # Changelog
 
+* 1.2 (2018-12-01)
+    * Add overloaded 2-argument versions of test() and testing() macros to match
+      the TEST() macro in Google Test which takes 2 arguments.
+    * Merge 4 new Google Test adapter macros into gtest.h.
+    * Add documentation of gtest.h to README.md.
 * 1.1.1 (2018-10-18)
     * Work around compiler crash on Arduino Core >= 1.6.22 (IDE >= 1.8.6)
       due to

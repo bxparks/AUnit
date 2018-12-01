@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.1.1</span>
+   &#160;<span id="projectnumber">1.2</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -79,7 +79,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a392bccd552bcb8e04f00e62be33bee03"><td class="memItemLeft" align="right" valign="top"><a id="a392bccd552bcb8e04f00e62be33bee03"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>TEST</b>(category,  name)&#160;&#160;&#160;<a class="el" href="TestMacros_8h.html#a191e80e8763446a0e725a8e58fb3380b">test</a>(category##_##name)</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>TEST</b>(category,  name)&#160;&#160;&#160;<a class="el" href="TestMacros_8h.html#a152fb8fe682506b1b08ddda59abce668">test</a>(category##_##name)</td></tr>
 <tr class="separator:a392bccd552bcb8e04f00e62be33bee03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75294ee88f1038db3b2e69777331f602"><td class="memItemLeft" align="right" valign="top"><a id="a75294ee88f1038db3b2e69777331f602"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>ASSERT_EQ</b>(e,  a)&#160;&#160;&#160;<a class="el" href="AssertVerboseMacros_8h.html#a8ef465d33a5a36963dd24190de055d2d">assertEqual</a>(static_cast&lt;decltype(a)&gt;(e), a)</td></tr>
@@ -87,6 +87,18 @@ Macros</h2></td></tr>
 <tr class="memitem:a882e92a343fc8a36e2734a8141a8a3e5"><td class="memItemLeft" align="right" valign="top"><a id="a882e92a343fc8a36e2734a8141a8a3e5"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>ASSERT_NE</b>(e,  a)&#160;&#160;&#160;<a class="el" href="AssertVerboseMacros_8h.html#a8b6e553f85b2a168388016b5afbb0939">assertNotEqual</a>(static_cast&lt;decltype(a)&gt;(e), a)</td></tr>
 <tr class="separator:a882e92a343fc8a36e2734a8141a8a3e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe45b1c8b96a36fa83b19695b9383b00"><td class="memItemLeft" align="right" valign="top"><a id="abe45b1c8b96a36fa83b19695b9383b00"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ASSERT_LT</b>(e,  a)&#160;&#160;&#160;<a class="el" href="AssertVerboseMacros_8h.html#a2b58bc2c68f19b93996750d5e576b541">assertLess</a>(static_cast&lt;decltype(a)&gt;(e), a)</td></tr>
+<tr class="separator:abe45b1c8b96a36fa83b19695b9383b00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa848285c5c221ecd4bc12400e6b1e72"><td class="memItemLeft" align="right" valign="top"><a id="aaa848285c5c221ecd4bc12400e6b1e72"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ASSERT_GT</b>(e,  a)&#160;&#160;&#160;<a class="el" href="AssertVerboseMacros_8h.html#ac883a9a1e4f133b441b11235315f43ab">assertMore</a>(static_cast&lt;decltype(a)&gt;(e), a)</td></tr>
+<tr class="separator:aaa848285c5c221ecd4bc12400e6b1e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a462ee3dc7e5cfd8fdf0a3ad61fc02dee"><td class="memItemLeft" align="right" valign="top"><a id="a462ee3dc7e5cfd8fdf0a3ad61fc02dee"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ASSERT_LE</b>(e,  a)&#160;&#160;&#160;<a class="el" href="AssertVerboseMacros_8h.html#a0d297d225f9978905e992fe41975cb5f">assertLessOrEqual</a>(static_cast&lt;decltype(a)&gt;(e), a)</td></tr>
+<tr class="separator:a462ee3dc7e5cfd8fdf0a3ad61fc02dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a713b70a7b87edb0714225f55c0289032"><td class="memItemLeft" align="right" valign="top"><a id="a713b70a7b87edb0714225f55c0289032"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ASSERT_GE</b>(e,  a)&#160;&#160;&#160;<a class="el" href="AssertVerboseMacros_8h.html#a4e12af47bf69ae0007db97421cf12fdd">assertMoreOrEqual</a>(static_cast&lt;decltype(a)&gt;(e), a)</td></tr>
+<tr class="separator:a713b70a7b87edb0714225f55c0289032"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b84542809bd892618b6c466a7a2a5dc"><td class="memItemLeft" align="right" valign="top"><a id="a5b84542809bd892618b6c466a7a2a5dc"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>ASSERT_STREQ</b>(e,  a)&#160;&#160;&#160;<a class="el" href="AssertVerboseMacros_8h.html#a8ef465d33a5a36963dd24190de055d2d">assertEqual</a>(static_cast&lt;decltype(a)&gt;(e), a)</td></tr>
 <tr class="separator:a5b84542809bd892618b6c466a7a2a5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>

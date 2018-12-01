@@ -13,12 +13,24 @@
 
 test(external) {}
 
+test(MyTestSuite, external) {}
+
 testing(slow_pass) {
   static unsigned long start = millis();
   if (millis() - start > 1000) pass();
 }
 
+testing(MyTestSuite, slow_pass) {
+  static unsigned long start = millis();
+  if (millis() - start > 1000) pass();
+}
+
 testing(slow_skip) {
+  static unsigned long start = millis();
+  if (millis() - start > 1000) skip();
+}
+
+testing(MyTestSuite, slow_skip) {
   static unsigned long start = millis();
   if (millis() - start > 1000) skip();
 }

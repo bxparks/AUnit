@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.1.1</span>
+   &#160;<span id="projectnumber">1.2</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -71,7 +71,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Various macros (<a class="el" href="TestMacros_8h.html#a191e80e8763446a0e725a8e58fb3380b" title="Macro to define a test that will be run only once. ">test()</a>, <a class="el" href="TestMacros_8h.html#a4f2798c22904efe9442ce65eb6932a9c" title="Create a test that is derived from a custom TestOnce class. ">testF()</a>, <a class="el" href="TestMacros_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a>, <a class="el" href="TestMacros_8h.html#a648c8cb704b9d942b36d8c4646645c2c" title="Create a test that is derived from a custom TestAgain class. ">testingF()</a>, <a class="el" href="TestMacros_8h.html#a5aec0442c0e47ce1c485be5baffa9c36" title="Create an extern reference to a test() test case object defined elsewhere. ">externTest()</a>, <a class="el" href="TestMacros_8h.html#a411a4acc9c28fd3d2e9e83b63b91e145" title="Create an extern reference to a testF() test case object defined elsewhere. ">externTestF()</a>, <a class="el" href="TestMacros_8h.html#ae3759a8b15c8390bf29e68da59161440" title="Create an extern reference to a testing() test case object defined elsewhere. ">externTesting()</a>, <a class="el" href="TestMacros_8h.html#a00e313531a1972e4ad46c4681b52512a" title="Create an extern reference to a testingF() test case object defined elsewhere. ">externTestingF()</a>) are defined in this header.  
+<p>Various macros (<a class="el" href="TestMacros_8h.html#a152fb8fe682506b1b08ddda59abce668" title="Macro to define a test that will be run only once. ">test()</a>, <a class="el" href="TestMacros_8h.html#a4f2798c22904efe9442ce65eb6932a9c" title="Create a test that is derived from a custom TestOnce class. ">testF()</a>, <a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a>, <a class="el" href="TestMacros_8h.html#a648c8cb704b9d942b36d8c4646645c2c" title="Create a test that is derived from a custom TestAgain class. ">testingF()</a>, <a class="el" href="TestMacros_8h.html#a144a141e11afa7d1071965e962dbfb42" title="Create an extern reference to a test() test case object defined elsewhere. ">externTest()</a>, <a class="el" href="TestMacros_8h.html#a411a4acc9c28fd3d2e9e83b63b91e145" title="Create an extern reference to a testF() test case object defined elsewhere. ">externTestF()</a>, <a class="el" href="TestMacros_8h.html#a6f5d7f585ea78b8e7bee81bc655de07e" title="Create an extern reference to a testing() test case object defined elsewhere. ">externTesting()</a>, <a class="el" href="TestMacros_8h.html#a00e313531a1972e4ad46c4681b52512a" title="Create an extern reference to a testingF() test case object defined elsewhere. ">externTestingF()</a>) are defined in this header.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;Arduino.h&gt;</code><br />
@@ -109,18 +109,46 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a191e80e8763446a0e725a8e58fb3380b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TestMacros_8h.html#a191e80e8763446a0e725a8e58fb3380b">test</a>(name)</td></tr>
-<tr class="memdesc:a191e80e8763446a0e725a8e58fb3380b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to define a test that will be run only once.  <a href="#a191e80e8763446a0e725a8e58fb3380b">More...</a><br /></td></tr>
-<tr class="separator:a191e80e8763446a0e725a8e58fb3380b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8c6ee99d95c8b788bf896974172a7e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TestMacros_8h.html#ae8c6ee99d95c8b788bf896974172a7e5">testing</a>(name)</td></tr>
-<tr class="memdesc:ae8c6ee99d95c8b788bf896974172a7e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to define a test that will run repeatly upon each iteration of the global loop() method, stopping when the something calls Test::pass(), Test::fail() or Test::skip().  <a href="#ae8c6ee99d95c8b788bf896974172a7e5">More...</a><br /></td></tr>
-<tr class="separator:ae8c6ee99d95c8b788bf896974172a7e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5aec0442c0e47ce1c485be5baffa9c36"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TestMacros_8h.html#a5aec0442c0e47ce1c485be5baffa9c36">externTest</a>(name)</td></tr>
-<tr class="memdesc:a5aec0442c0e47ce1c485be5baffa9c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an extern reference to a <a class="el" href="TestMacros_8h.html#a191e80e8763446a0e725a8e58fb3380b" title="Macro to define a test that will be run only once. ">test()</a> test case object defined elsewhere.  <a href="#a5aec0442c0e47ce1c485be5baffa9c36">More...</a><br /></td></tr>
-<tr class="separator:a5aec0442c0e47ce1c485be5baffa9c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3759a8b15c8390bf29e68da59161440"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TestMacros_8h.html#ae3759a8b15c8390bf29e68da59161440">externTesting</a>(name)</td></tr>
-<tr class="memdesc:ae3759a8b15c8390bf29e68da59161440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an extern reference to a <a class="el" href="TestMacros_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> test case object defined elsewhere.  <a href="#ae3759a8b15c8390bf29e68da59161440">More...</a><br /></td></tr>
-<tr class="separator:ae3759a8b15c8390bf29e68da59161440"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a152fb8fe682506b1b08ddda59abce668"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TestMacros_8h.html#a152fb8fe682506b1b08ddda59abce668">test</a>(...)&#160;&#160;&#160;GET_TEST(__VA_ARGS__, TEST2, TEST1)(__VA_ARGS__)</td></tr>
+<tr class="memdesc:a152fb8fe682506b1b08ddda59abce668"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to define a test that will be run only once.  <a href="#a152fb8fe682506b1b08ddda59abce668">More...</a><br /></td></tr>
+<tr class="separator:a152fb8fe682506b1b08ddda59abce668"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bdd139007497e25114e1755c6414eaa"><td class="memItemLeft" align="right" valign="top"><a id="a9bdd139007497e25114e1755c6414eaa"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>GET_TEST</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a9bdd139007497e25114e1755c6414eaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab58e8c02312b2bf4b9422ea4b9e40697"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>TEST1</b>(name)</td></tr>
+<tr class="separator:ab58e8c02312b2bf4b9422ea4b9e40697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bb86dbcf5960cb0603821c9b1df5559"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>TEST2</b>(suiteName,  name)</td></tr>
+<tr class="separator:a9bb86dbcf5960cb0603821c9b1df5559"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f7b0603fa6951be1f019586eafc6e6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b">testing</a>(...)&#160;&#160;&#160;GET_TESTING(__VA_ARGS__, TESTING2, TESTING1)(__VA_ARGS__)</td></tr>
+<tr class="memdesc:a1f7b0603fa6951be1f019586eafc6e6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to define a test that will run repeatly upon each iteration of the global loop() method, stopping when the something calls Test::pass(), Test::fail() or Test::skip().  <a href="#a1f7b0603fa6951be1f019586eafc6e6b">More...</a><br /></td></tr>
+<tr class="separator:a1f7b0603fa6951be1f019586eafc6e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5427dd371de950cb3d3598fdc4fc7b36"><td class="memItemLeft" align="right" valign="top"><a id="a5427dd371de950cb3d3598fdc4fc7b36"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>GET_TESTING</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a5427dd371de950cb3d3598fdc4fc7b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad936de53e2448868a84165a50099b6f9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>TESTING1</b>(name)</td></tr>
+<tr class="separator:ad936de53e2448868a84165a50099b6f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a871ed4b51379e87cd14b922d655da4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>TESTING2</b>(suiteName,  name)</td></tr>
+<tr class="separator:a4a871ed4b51379e87cd14b922d655da4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a144a141e11afa7d1071965e962dbfb42"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TestMacros_8h.html#a144a141e11afa7d1071965e962dbfb42">externTest</a>(...)&#160;&#160;&#160;GET_EXTERN_TEST(__VA_ARGS__, EXTERN_TEST2, EXTERN_TEST1)(__VA_ARGS__)</td></tr>
+<tr class="memdesc:a144a141e11afa7d1071965e962dbfb42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an extern reference to a <a class="el" href="TestMacros_8h.html#a152fb8fe682506b1b08ddda59abce668" title="Macro to define a test that will be run only once. ">test()</a> test case object defined elsewhere.  <a href="#a144a141e11afa7d1071965e962dbfb42">More...</a><br /></td></tr>
+<tr class="separator:a144a141e11afa7d1071965e962dbfb42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c762b4803b5706980cb102e6b37b5d1"><td class="memItemLeft" align="right" valign="top"><a id="a5c762b4803b5706980cb102e6b37b5d1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>GET_EXTERN_TEST</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:a5c762b4803b5706980cb102e6b37b5d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85bc81ca15fb7b517980169da8a8e2b8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>EXTERN_TEST1</b>(name)</td></tr>
+<tr class="separator:a85bc81ca15fb7b517980169da8a8e2b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e0de5cb9eb6fdc69c5abf28c24eca15"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>EXTERN_TEST2</b>(suiteName,  name)</td></tr>
+<tr class="separator:a3e0de5cb9eb6fdc69c5abf28c24eca15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f5d7f585ea78b8e7bee81bc655de07e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TestMacros_8h.html#a6f5d7f585ea78b8e7bee81bc655de07e">externTesting</a>(...)&#160;&#160;&#160;GET_EXTERN_TESTING(__VA_ARGS__, EXTERN_TESTING2, EXTERN_TESTING1)(__VA_ARGS__)</td></tr>
+<tr class="memdesc:a6f5d7f585ea78b8e7bee81bc655de07e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an extern reference to a <a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> test case object defined elsewhere.  <a href="#a6f5d7f585ea78b8e7bee81bc655de07e">More...</a><br /></td></tr>
+<tr class="separator:a6f5d7f585ea78b8e7bee81bc655de07e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd83bd4a050375840cca1ad6537cf8a7"><td class="memItemLeft" align="right" valign="top"><a id="abd83bd4a050375840cca1ad6537cf8a7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>GET_EXTERN_TESTING</b>(_1,  _2,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
+<tr class="separator:abd83bd4a050375840cca1ad6537cf8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24590d579670c63352e00a3efd774ebd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>EXTERN_TESTING1</b>(name)</td></tr>
+<tr class="separator:a24590d579670c63352e00a3efd774ebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a645522933549983fad45502ac78d0454"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>EXTERN_TESTING2</b>(suiteName,  name)</td></tr>
+<tr class="separator:a645522933549983fad45502ac78d0454"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f2798c22904efe9442ce65eb6932a9c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TestMacros_8h.html#a4f2798c22904efe9442ce65eb6932a9c">testF</a>(testClass,  name)</td></tr>
 <tr class="memdesc:a4f2798c22904efe9442ce65eb6932a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a test that is derived from a custom TestOnce class.  <a href="#a4f2798c22904efe9442ce65eb6932a9c">More...</a><br /></td></tr>
 <tr class="separator:a4f2798c22904efe9442ce65eb6932a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,12 +163,120 @@ Macros</h2></td></tr>
 <tr class="separator:a00e313531a1972e4ad46c4681b52512a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Various macros (<a class="el" href="TestMacros_8h.html#a191e80e8763446a0e725a8e58fb3380b" title="Macro to define a test that will be run only once. ">test()</a>, <a class="el" href="TestMacros_8h.html#a4f2798c22904efe9442ce65eb6932a9c" title="Create a test that is derived from a custom TestOnce class. ">testF()</a>, <a class="el" href="TestMacros_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a>, <a class="el" href="TestMacros_8h.html#a648c8cb704b9d942b36d8c4646645c2c" title="Create a test that is derived from a custom TestAgain class. ">testingF()</a>, <a class="el" href="TestMacros_8h.html#a5aec0442c0e47ce1c485be5baffa9c36" title="Create an extern reference to a test() test case object defined elsewhere. ">externTest()</a>, <a class="el" href="TestMacros_8h.html#a411a4acc9c28fd3d2e9e83b63b91e145" title="Create an extern reference to a testF() test case object defined elsewhere. ">externTestF()</a>, <a class="el" href="TestMacros_8h.html#ae3759a8b15c8390bf29e68da59161440" title="Create an extern reference to a testing() test case object defined elsewhere. ">externTesting()</a>, <a class="el" href="TestMacros_8h.html#a00e313531a1972e4ad46c4681b52512a" title="Create an extern reference to a testingF() test case object defined elsewhere. ">externTestingF()</a>) are defined in this header. </p>
+<div class="textblock"><p>Various macros (<a class="el" href="TestMacros_8h.html#a152fb8fe682506b1b08ddda59abce668" title="Macro to define a test that will be run only once. ">test()</a>, <a class="el" href="TestMacros_8h.html#a4f2798c22904efe9442ce65eb6932a9c" title="Create a test that is derived from a custom TestOnce class. ">testF()</a>, <a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a>, <a class="el" href="TestMacros_8h.html#a648c8cb704b9d942b36d8c4646645c2c" title="Create a test that is derived from a custom TestAgain class. ">testingF()</a>, <a class="el" href="TestMacros_8h.html#a144a141e11afa7d1071965e962dbfb42" title="Create an extern reference to a test() test case object defined elsewhere. ">externTest()</a>, <a class="el" href="TestMacros_8h.html#a411a4acc9c28fd3d2e9e83b63b91e145" title="Create an extern reference to a testF() test case object defined elsewhere. ">externTestF()</a>, <a class="el" href="TestMacros_8h.html#a6f5d7f585ea78b8e7bee81bc655de07e" title="Create an extern reference to a testing() test case object defined elsewhere. ">externTesting()</a>, <a class="el" href="TestMacros_8h.html#a00e313531a1972e4ad46c4681b52512a" title="Create an extern reference to a testingF() test case object defined elsewhere. ">externTestingF()</a>) are defined in this header. </p>
 
 <p class="definition">Definition in file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a5aec0442c0e47ce1c485be5baffa9c36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5aec0442c0e47ce1c485be5baffa9c36">&#9670;&nbsp;</a></span>externTest</h2>
+<a id="a85bc81ca15fb7b517980169da8a8e2b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85bc81ca15fb7b517980169da8a8e2b8">&#9670;&nbsp;</a></span>EXTERN_TEST1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EXTERN_TEST1</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_##name : <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">  test_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>();\</div><div class="line">};\</div><div class="line">extern test_##name test_##name##_instance</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<div class="ttc" id="classaunit_1_1TestOnce_html"><div class="ttname"><a href="classaunit_1_1TestOnce.html">aunit::TestOnce</a></div><div class="ttdoc">Similar to TestAgain but performs user-defined test only once. </div><div class="ttdef"><b>Definition:</b> <a href="TestOnce_8h_source.html#l00040">TestOnce.h:40</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00135">135</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+
+</div>
+</div>
+<a id="a3e0de5cb9eb6fdc69c5abf28c24eca15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e0de5cb9eb6fdc69c5abf28c24eca15">&#9670;&nbsp;</a></span>EXTERN_TEST2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EXTERN_TEST2</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">suiteName, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>suiteName##_##name : <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">  suiteName##_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>();\</div><div class="line">};\</div><div class="line">extern suiteName##_##name suiteName##_##name##_instance</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<div class="ttc" id="classaunit_1_1TestOnce_html"><div class="ttname"><a href="classaunit_1_1TestOnce.html">aunit::TestOnce</a></div><div class="ttdoc">Similar to TestAgain but performs user-defined test only once. </div><div class="ttdef"><b>Definition:</b> <a href="TestOnce_8h_source.html#l00040">TestOnce.h:40</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00142">142</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+
+</div>
+</div>
+<a id="a24590d579670c63352e00a3efd774ebd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24590d579670c63352e00a3efd774ebd">&#9670;&nbsp;</a></span>EXTERN_TESTING1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EXTERN_TESTING1</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_ ## name : <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">  test_ ## name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>();\</div><div class="line">};\</div><div class="line">extern test_##name test_##name##_instance</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<div class="ttc" id="classaunit_1_1TestAgain_html"><div class="ttname"><a href="classaunit_1_1TestAgain.html">aunit::TestAgain</a></div><div class="ttdoc">Similar to TestOnce but performs the user-defined test multiple times. </div><div class="ttdef"><b>Definition:</b> <a href="TestAgain_8h_source.html#l00037">TestAgain.h:37</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00163">163</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+
+</div>
+</div>
+<a id="a645522933549983fad45502ac78d0454"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a645522933549983fad45502ac78d0454">&#9670;&nbsp;</a></span>EXTERN_TESTING2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EXTERN_TESTING2</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">suiteName, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>suiteName##_ ## name : <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">  suiteName##_ ## name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>();\</div><div class="line">};\</div><div class="line">extern suiteName##_##name suiteName##_##name##_instance</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<div class="ttc" id="classaunit_1_1TestAgain_html"><div class="ttname"><a href="classaunit_1_1TestAgain.html">aunit::TestAgain</a></div><div class="ttdoc">Similar to TestOnce but performs the user-defined test multiple times. </div><div class="ttdef"><b>Definition:</b> <a href="TestAgain_8h_source.html#l00037">TestAgain.h:37</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00170">170</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+
+</div>
+</div>
+<a id="a144a141e11afa7d1071965e962dbfb42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a144a141e11afa7d1071965e962dbfb42">&#9670;&nbsp;</a></span>externTest</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -149,18 +285,17 @@ Macros</h2></td></tr>
           <td class="memname">#define externTest</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td></td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;GET_EXTERN_TEST(__VA_ARGS__, EXTERN_TEST2, EXTERN_TEST1)(__VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_ ## name : <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">  test_ ## name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>();\</div><div class="line">};\</div><div class="line">extern test_##name test_##name##_instance</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
-<div class="ttc" id="classaunit_1_1TestOnce_html"><div class="ttname"><a href="classaunit_1_1TestOnce.html">aunit::TestOnce</a></div><div class="ttdoc">Similar to TestAgain but performs user-defined test only once. </div><div class="ttdef"><b>Definition:</b> <a href="TestOnce_8h_source.html#l00040">TestOnce.h:40</a></div></div>
-</div><!-- fragment -->
-<p>Create an extern reference to a <a class="el" href="TestMacros_8h.html#a191e80e8763446a0e725a8e58fb3380b" title="Macro to define a test that will be run only once. ">test()</a> test case object defined elsewhere. </p>
-<p>This is only necessary if you use assertTestXxx() or checkTestXxx() when the test is in another file (or defined after the assertion on it). </p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00084">84</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p>Create an extern reference to a <a class="el" href="TestMacros_8h.html#a152fb8fe682506b1b08ddda59abce668" title="Macro to define a test that will be run only once. ">test()</a> test case object defined elsewhere. </p>
+<p>This is only necessary if you use assertTestXxx() or checkTestXxx() when the test is in another file (or defined after the assertion on it).</p>
+<p>Two versions are supported: <a class="el" href="TestMacros_8h.html#a144a141e11afa7d1071965e962dbfb42" title="Create an extern reference to a test() test case object defined elsewhere. ">externTest(name)</a> and <a class="el" href="TestMacros_8h.html#a144a141e11afa7d1071965e962dbfb42" title="Create an extern reference to a test() test case object defined elsewhere. ">externTest(suiteName, name)</a>. The 2-argument <a class="el" href="TestMacros_8h.html#a144a141e11afa7d1071965e962dbfb42" title="Create an extern reference to a test() test case object defined elsewhere. ">externTest(suiteName, name)</a> is a convenience macro which is identical to <a class="el" href="TestMacros_8h.html#a144a141e11afa7d1071965e962dbfb42" title="Create an extern reference to a test() test case object defined elsewhere. ">externTest(suiteName_name)</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00130">130</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -193,12 +328,12 @@ Macros</h2></td></tr>
 <p>Create an extern reference to a <a class="el" href="TestMacros_8h.html#a4f2798c22904efe9442ce65eb6932a9c" title="Create a test that is derived from a custom TestOnce class. ">testF()</a> test case object defined elsewhere. </p>
 <p>This is only necessary if you use assertTestXxx() or checkTestXxx() when the test is in another file (or defined after the assertion on it). </p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00137">137</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00215">215</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="ae3759a8b15c8390bf29e68da59161440"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3759a8b15c8390bf29e68da59161440">&#9670;&nbsp;</a></span>externTesting</h2>
+<a id="a6f5d7f585ea78b8e7bee81bc655de07e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f5d7f585ea78b8e7bee81bc655de07e">&#9670;&nbsp;</a></span>externTesting</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -207,18 +342,17 @@ Macros</h2></td></tr>
           <td class="memname">#define externTesting</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td></td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;GET_EXTERN_TESTING(__VA_ARGS__, EXTERN_TESTING2, EXTERN_TESTING1)(__VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_ ## name : <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">  test_ ## name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>();\</div><div class="line">};\</div><div class="line">extern test_##name test_##name##_instance</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
-<div class="ttc" id="classaunit_1_1TestAgain_html"><div class="ttname"><a href="classaunit_1_1TestAgain.html">aunit::TestAgain</a></div><div class="ttdoc">Similar to TestOnce but performs the user-defined test multiple times. </div><div class="ttdef"><b>Definition:</b> <a href="TestAgain_8h_source.html#l00037">TestAgain.h:37</a></div></div>
-</div><!-- fragment -->
-<p>Create an extern reference to a <a class="el" href="TestMacros_8h.html#ae8c6ee99d95c8b788bf896974172a7e5" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> test case object defined elsewhere. </p>
-<p>This is only necessary if you use assertTestXxx() or checkTestXxx() when the test is in another file (or defined after the assertion on it). </p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00096">96</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p>Create an extern reference to a <a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing()</a> test case object defined elsewhere. </p>
+<p>This is only necessary if you use assertTestXxx() or checkTestXxx() when the test is in another file (or defined after the assertion on it).</p>
+<p>Two versions are supported: <a class="el" href="TestMacros_8h.html#a6f5d7f585ea78b8e7bee81bc655de07e" title="Create an extern reference to a testing() test case object defined elsewhere. ">externTesting(name)</a> and externTesting(suiteName, name). </p>
+
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00158">158</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -251,12 +385,12 @@ Macros</h2></td></tr>
 <p>Create an extern reference to a <a class="el" href="TestMacros_8h.html#a648c8cb704b9d942b36d8c4646645c2c" title="Create a test that is derived from a custom TestAgain class. ">testingF()</a> test case object defined elsewhere. </p>
 <p>This is only necessary if you use assertTestXxx() or checkTestXxx() when the test is in another file (or defined after the assertion on it). </p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00150">150</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00228">228</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="a191e80e8763446a0e725a8e58fb3380b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a191e80e8763446a0e725a8e58fb3380b">&#9670;&nbsp;</a></span>test</h2>
+<a id="a152fb8fe682506b1b08ddda59abce668"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a152fb8fe682506b1b08ddda59abce668">&#9670;&nbsp;</a></span>test</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -265,17 +399,70 @@ Macros</h2></td></tr>
           <td class="memname">#define test</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;GET_TEST(__VA_ARGS__, TEST2, TEST1)(__VA_ARGS__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Macro to define a test that will be run only once. </p>
+<p>Two versions are supported: <a class="el" href="TestMacros_8h.html#a152fb8fe682506b1b08ddda59abce668" title="Macro to define a test that will be run only once. ">test(name)</a> and <a class="el" href="TestMacros_8h.html#a152fb8fe682506b1b08ddda59abce668" title="Macro to define a test that will be run only once. ">test(suiteName, name)</a>. The 2-argument <a class="el" href="TestMacros_8h.html#a152fb8fe682506b1b08ddda59abce668" title="Macro to define a test that will be run only once. ">test(suiteName, name)</a> is a convenience macro which is identical to <a class="el" href="TestMacros_8h.html#a152fb8fe682506b1b08ddda59abce668" title="Macro to define a test that will be run only once. ">test(suiteName_name)</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00062">62</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+
+</div>
+</div>
+<a id="ab58e8c02312b2bf4b9422ea4b9e40697"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab58e8c02312b2bf4b9422ea4b9e40697">&#9670;&nbsp;</a></span>TEST1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST1</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
           <td class="paramname">name</td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_ ## name : <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">  test_ ## name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>() <span class="keyword">override</span>;\</div><div class="line">} test_ ## name ## _instance;\</div><div class="line">test_ ## name :: test_ ## name() {\</div><div class="line">  init(AUNIT_F(#name)); \</div><div class="line">}\</div><div class="line">void test_ ## name :: once()</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_##name : <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">  test_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>() <span class="keyword">override</span>;\</div><div class="line">} test_##name##_instance;\</div><div class="line">test_##name :: test_##name() {\</div><div class="line">  init(AUNIT_F(#name)); \</div><div class="line">}\</div><div class="line">void test_##name :: once()</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
 <div class="ttc" id="classaunit_1_1TestOnce_html"><div class="ttname"><a href="classaunit_1_1TestOnce.html">aunit::TestOnce</a></div><div class="ttdoc">Similar to TestAgain but performs user-defined test only once. </div><div class="ttdef"><b>Definition:</b> <a href="TestOnce_8h_source.html#l00040">TestOnce.h:40</a></div></div>
 </div><!-- fragment -->
-<p>Macro to define a test that will be run only once. </p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00067">67</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00056">56</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+</div>
+</div>
+<a id="a9bb86dbcf5960cb0603821c9b1df5559"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bb86dbcf5960cb0603821c9b1df5559">&#9670;&nbsp;</a></span>TEST2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST2</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">suiteName, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>suiteName##_##name : <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">  suiteName##_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>() <span class="keyword">override</span>;\</div><div class="line">} suiteName##_##name##_instance;\</div><div class="line">suiteName##_##name :: suiteName##_##name() {\</div><div class="line">  init(AUNIT_F(#suiteName <span class="stringliteral">&quot;_&quot;</span> #name)); \</div><div class="line">}\</div><div class="line">void suiteName##_##name :: once()</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<div class="ttc" id="classaunit_1_1TestOnce_html"><div class="ttname"><a href="classaunit_1_1TestOnce.html">aunit::TestOnce</a></div><div class="ttdoc">Similar to TestAgain but performs user-defined test only once. </div><div class="ttdef"><b>Definition:</b> <a href="TestOnce_8h_source.html#l00040">TestOnce.h:40</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00077">77</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -308,12 +495,12 @@ Macros</h2></td></tr>
 <p>Create a test that is derived from a custom TestOnce class. </p>
 <p>The name of the instance is prefixed by '{testClass}_' to avoid name collisions with similarly named tests using other fixtures. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00107">107</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00182">182</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
-<a id="ae8c6ee99d95c8b788bf896974172a7e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8c6ee99d95c8b788bf896974172a7e5">&#9670;&nbsp;</a></span>testing</h2>
+<a id="a1f7b0603fa6951be1f019586eafc6e6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f7b0603fa6951be1f019586eafc6e6b">&#9670;&nbsp;</a></span>testing</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,17 +509,70 @@ Macros</h2></td></tr>
           <td class="memname">#define testing</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;GET_TESTING(__VA_ARGS__, TESTING2, TESTING1)(__VA_ARGS__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Macro to define a test that will run repeatly upon each iteration of the global loop() method, stopping when the something calls Test::pass(), Test::fail() or Test::skip(). </p>
+<p>Two versions are supported: <a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing(name)</a> and <a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing(suiteName, name)</a>. The 2-argument <a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing(suiteName, name)</a> is a convenience macro which is identical to <a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing(suiteName_name)</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00096">96</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+
+</div>
+</div>
+<a id="ad936de53e2448868a84165a50099b6f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad936de53e2448868a84165a50099b6f9">&#9670;&nbsp;</a></span>TESTING1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TESTING1</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
           <td class="paramname">name</td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_ ## name : <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">  test_ ## name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>() <span class="keyword">override</span>;\</div><div class="line">} test_ ## name ## _instance;\</div><div class="line">test_ ## name :: test_ ## name() {\</div><div class="line">  init(AUNIT_F(#name));\</div><div class="line">}\</div><div class="line">void test_ ## name :: again()</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_##name : <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">  test_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>() <span class="keyword">override</span>;\</div><div class="line">} test_##name##_instance;\</div><div class="line">test_##name :: test_##name() {\</div><div class="line">  init(AUNIT_F(#name));\</div><div class="line">}\</div><div class="line">void test_##name :: again()</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
 <div class="ttc" id="classaunit_1_1TestAgain_html"><div class="ttname"><a href="classaunit_1_1TestAgain.html">aunit::TestAgain</a></div><div class="ttdoc">Similar to TestOnce but performs the user-defined test multiple times. </div><div class="ttdef"><b>Definition:</b> <a href="TestAgain_8h_source.html#l00037">TestAgain.h:37</a></div></div>
 </div><!-- fragment -->
-<p>Macro to define a test that will run repeatly upon each iteration of the global loop() method, stopping when the something calls Test::pass(), Test::fail() or Test::skip(). </p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00101">101</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00070">70</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+</div>
+</div>
+<a id="a4a871ed4b51379e87cd14b922d655da4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a871ed4b51379e87cd14b922d655da4">&#9670;&nbsp;</a></span>TESTING2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TESTING2</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">suiteName, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>suiteName##_##name : <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">  suiteName##_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>() <span class="keyword">override</span>;\</div><div class="line">} suiteName##_##name##_instance;\</div><div class="line">suiteName##_##name :: suiteName##_##name() {\</div><div class="line">  init(AUNIT_F(#suiteName <span class="stringliteral">&quot;_&quot;</span> #name));\</div><div class="line">}\</div><div class="line">void suiteName##_##name :: again()</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<div class="ttc" id="classaunit_1_1TestAgain_html"><div class="ttname"><a href="classaunit_1_1TestAgain.html">aunit::TestAgain</a></div><div class="ttdoc">Similar to TestOnce but performs the user-defined test multiple times. </div><div class="ttdef"><b>Definition:</b> <a href="TestAgain_8h_source.html#l00037">TestAgain.h:37</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00111">111</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -363,9 +603,10 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>testClass ## _ ## name : testClass {\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  void again() <span class="keyword">override</span>;\</div><div class="line">} testClass ## _ ## name ## _instance;\</div><div class="line">testClass ## _ ## name :: testClass ## _ ## name() {\</div><div class="line">  init(AUNIT_F(#testClass <span class="stringliteral">&quot;_&quot;</span> #name));\</div><div class="line">}\</div><div class="line">void testClass ## _ ## name :: again()</div></div><!-- fragment -->
 <p>Create a test that is derived from a custom TestAgain class. </p>
-<p>The name of the instance is prefixed by '{testClass}_' to avoid name collisions with similarly named tests using other fixtures. </p>
+<p>The name of the instance is prefixed by '{testClass}_' to avoid name collisions with similarly named tests using other fixtures.</p>
+<p>Note that <a class="el" href="TestMacros_8h.html#a152fb8fe682506b1b08ddda59abce668" title="Macro to define a test that will be run only once. ">test(suiteName, name)</a> is different than <a class="el" href="TestMacros_8h.html#a4f2798c22904efe9442ce65eb6932a9c" title="Create a test that is derived from a custom TestOnce class. ">testF(className, name)</a>, but there will be a name collision if suiteName is the same as className. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00122">122</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00200">200</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
