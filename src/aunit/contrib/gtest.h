@@ -70,4 +70,6 @@ SOFTWARE.
 #define ASSERT_TRUE(x) assertTrue(x)
 #define ASSERT_FALSE(x) assertFalse(x)
 
+#define ASSERT_NEAR(e, a, error) assertNear(static_cast<decltype(a)>(e), a, static_cast<decltype(a)>(error))
+
 #endif
