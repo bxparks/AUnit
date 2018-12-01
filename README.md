@@ -120,8 +120,8 @@ Here are the features in AUnit which are not available in ArduinoUnit 2.2:
     * `TestRunner::include(testClass, name)`
     * `TestRunner::exclude(testClass, name)`
 * Terse and verbose modes:
-    * `#include <AUnit.h>` - terse messages uses less flash memory
-    * `#include <AUnitVerbose.h>` - verbose messages uses more flash memory
+    * `#include <AUnit.h>` - terse messages use less flash memory
+    * `#include <AUnitVerbose.h>` - verbose messages use more flash memory
 * Tested on the following Arduino platforms:
     * AVR (8-bit)
     * Teensy ARM (32-bit)
