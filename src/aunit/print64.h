@@ -22,40 +22,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/**
- * @mainpage AUnit Library
- *
- * This is the Doxygen documentation for the
- * <a href="https://github.com/bxparks/AUnit">AUnit Library</a>.
- */
+#ifndef AUNIT_PRINT_64_H
+#define AUNIT_PRINT_64_H
+
+#include <stddef.h> // size_t
+#include <Print.h>
 
 /**
- * @file AUnit.h
+ * @file print64.h
  *
- * Same as AUnitVerbose.h except that the terse versions of the various
- * assertXxx() macros are provided. These versions print only the values of the
- * parameters given in the assert macros. They do not capture the source text
- * of the assert parameters, which can reduce flash memory by 25-35%.
+ * Helper routines to print 'long long' and 'unsigned long long' because
+ * the Print::print() methods in Print.h do not suport 64-bit integers.
  */
 
-#ifndef AUNIT_AUNIT_H
-#define AUNIT_AUNIT_H
+class Print;
 
-#include "aunit/print64.h"
-#include "aunit/Verbosity.h"
-#include "aunit/Compare.h"
-#include "aunit/Printer.h"
-#include "aunit/Test.h"
-#include "aunit/Assertion.h"
-#include "aunit/MetaAssertion.h"
-#include "aunit/TestOnce.h"
-#include "aunit/TestAgain.h"
-#include "aunit/TestRunner.h"
-#include "aunit/AssertMacros.h" // terse assertXxx() macros
-#include "aunit/MetaAssertMacros.h"
-#include "aunit/TestMacros.h"
+namespace aunit {
+namespace internal {
 
-// Version format: xxyyzz == "xx.yy.zz"; 10200 = 1.2.0
-#define AUNIT_VERSION 10200
+size_t printNumber64(Print& printer, unsigned long long n, uint8_t base = 10);
+
+size_t print64(Print& printer, unsigned long long n, uint8_t base = 10);
+
+size_t print64(Print& printer, long long n, uint8_t base = 10);
+
+size_t println64(Print& printer, unsigned long long n, uint8_t base = 10);
+
+size_t println64(Print& printer, long long n, uint8_t base = 10);
+
+}
+}
 
 #endif
