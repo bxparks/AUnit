@@ -33,6 +33,11 @@ SOFTWARE.
  *
  * Helper routines to print 'long long' and 'unsigned long long' because
  * the Print::print() methods in Print.h do not suport 64-bit integers.
+ *
+ * The division and mod operations for 'long long' types are CPU intensive and
+ * consume significant amounts of flash memory (100s of bytes?) on an 8-bit
+ * processors. I assume that these methods will not be used very often on 8-bit
+ * processors.
  */
 
 class Print;

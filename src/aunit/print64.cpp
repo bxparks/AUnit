@@ -2,11 +2,6 @@
 #include "print64.h"
 
 // Copied and modified from Arduino AVR Core Print.cpp file.
-//
-// The division and mod operations for 'long long' types are CPU intensive and
-// consume significant amounts of flash memory (100s of bytes?) on an 8-bit
-// processors. I assume that these will not be used very often on 8-bit
-// processors.
 
 namespace aunit {
 namespace internal {
