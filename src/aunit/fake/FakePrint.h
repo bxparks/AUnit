@@ -1,3 +1,27 @@
+/*
+MIT License
+
+Copyright (c) 2018 Brian T. Park
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 #ifndef AUNIT_FAKE_PRINT_H
 #define AUNIT_FAKE_PRINT_H
 
@@ -36,13 +60,16 @@ class FakePrint: public Print {
       return size;
     }
 
-    int availableForWrite() override {
-      return kBufSize - 1 - mIndex;
+// ESP32 version of Print class does not define a virtual flush() method.
+#ifdef ESP32
+    void flush() {
+      mIndex = 0;
     }
-
+#else
     void flush() override {
       mIndex = 0;
     }
+#endif
 
     /**
      * Return the NUL terminated string buffer. After the buffer is no longer
