@@ -41,7 +41,7 @@ class FakePrint: public Print {
     /**
      * Size of the internal buffer. This is just large enough to hold the
      * string representation of one 64-bit integer in binary format (64 bytes),
-     * including 2 bytes for the '\r\n' from println() and 1 byte for the
+     * including 2 bytes for the '\\r\\n' from println() and 1 byte for the
      * terminating NUL.
      */
     static const uint8_t kBufSize = 8 * sizeof(long long) + 2 + 1;
