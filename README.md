@@ -9,7 +9,7 @@ AVR, ESP8266, ESP32 and Teensy platforms. The sister AUniter project provides
 command line tools to verify, upload and validate the unit tests. The AUniter
 tools can be used in a continuous integration system like Jenkins.
 
-Version: 1.2 (2018-12-01)
+Version: 1.2.1 (2018-12-22)
 
 [![AUniter Jenkins Badge](https://us-central1-xparks2018.cloudfunctions.net/badge?project=AUnit)](https://github.com/bxparks/AUniter)
 
@@ -99,6 +99,8 @@ Here are the features in AUnit which are not available in ArduinoUnit 2.2:
 * Approximate comparisons:
     * `assertNear()`
     * `asssertNotNear()`
+* Supports 64-bit integer
+    * `assertXxx()` support both `long long` and `unsigned long long`
 * `test()` and `testing()` macros support both 1 and 2 arguments
     * `test(testName)` and `test(suiteName, testName)`
     * `testing(testName)` and `testing(suiteName, testName)`
@@ -411,7 +413,7 @@ are available. These are essentially identical to ArduinoUnit:
 #### Supported Parameter Types
 
 The 6 core assert macros (assertEqual, assertNotEqual, assertLess, assertMore,
-assertLessOrEqual, assertMoreOrEqual) support the following 16
+assertLessOrEqual, assertMoreOrEqual) support the following 18
 combinations for their parameter types:
 
 * `(bool, bool)`
@@ -420,6 +422,8 @@ combinations for their parameter types:
 * `(unsigned int, unsigned int)`
 * `(long, long)`
 * `(unsigned long, unsigned long)`
+* `(long long, long long)`
+* `(unsigned long long, unsigned long long)`
 * `(double, double)`
 * `(const char *, const char *)`
 * `(const char *, const String&)`
@@ -577,7 +581,8 @@ list of supported types is:
 * `double`
 
 Other primitive types (e.g. `char` or `float`) will be automatically converted
-to one of these supported types by the compiler.
+to one of these supported types by the compiler. (64-bit integer types
+`long long` and `unsigned long long` are not supported here.)
 
 Note that the `abs()` of 2 values of a signed integer type can be larger than
 the maximum value that can be represented by the given signed type. Since signed
@@ -1217,6 +1222,7 @@ their equivalent macros in AUnit:
 * `ASSERT_STRCASENE(e, a)` - `assertStringCaseNotEqual()`
 * `ASSERT_TRUE(x)` - `assertTrue()`
 * `ASSERT_FALSE(x)` - `assertFalse()`
+* `ASSERT_NEAR(e, a, error)` - `assertNear()`
 
 To use the `gtest.h` adapter, include the following headers:
 ```C++
