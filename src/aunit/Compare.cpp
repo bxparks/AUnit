@@ -335,6 +335,14 @@ bool compareEqual(unsigned long a, unsigned long b) {
   return (a == b);
 }
 
+bool compareEqual(long long a, long long b) {
+  return (a == b);
+}
+
+bool compareEqual(unsigned long long a, unsigned long long b) {
+  return (a == b);
+}
+
 bool compareEqual(double a, double b) {
   return (a == b);
 }
@@ -400,6 +408,14 @@ bool compareLess(long a, long b) {
 }
 
 bool compareLess(unsigned long a, unsigned long b) {
+  return (a < b);
+}
+
+bool compareLess(long long a, long long b) {
+  return (a < b);
+}
+
+bool compareLess(unsigned long long a, unsigned long long b) {
   return (a < b);
 }
 
@@ -472,6 +488,14 @@ bool compareMore(unsigned long a, unsigned long b) {
   return (a > b);
 }
 
+bool compareMore(long long a, long long b) {
+  return (a > b);
+}
+
+bool compareMore(unsigned long long a, unsigned long long b) {
+  return (a > b);
+}
+
 bool compareMore(double a, double b) {
   return (a > b);
 }
@@ -537,6 +561,14 @@ bool compareLessOrEqual(long a, long b) {
 }
 
 bool compareLessOrEqual(unsigned long a, unsigned long b) {
+  return (a <= b);
+}
+
+bool compareLessOrEqual(long long a, long long b) {
+  return (a <= b);
+}
+
+bool compareLessOrEqual(unsigned long long a, unsigned long long b) {
   return (a <= b);
 }
 
@@ -609,6 +641,14 @@ bool compareMoreOrEqual(unsigned long a, unsigned long b) {
   return (a >= b);
 }
 
+bool compareMoreOrEqual(long long a, long long b) {
+  return (a >= b);
+}
+
+bool compareMoreOrEqual(unsigned long long a, unsigned long long b) {
+  return (a >= b);
+}
+
 bool compareMoreOrEqual(double a, double b) {
   return (a >= b);
 }
@@ -675,6 +715,14 @@ bool compareNotEqual(long a, long b) {
 }
 
 bool compareNotEqual(unsigned long a, unsigned long b) {
+  return (a != b);
+}
+
+bool compareNotEqual(long long a, long long b) {
+  return (a != b);
+}
+
+bool compareNotEqual(unsigned long long a, unsigned long long b) {
   return (a != b);
 }
 

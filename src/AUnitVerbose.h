@@ -35,6 +35,7 @@ SOFTWARE.
 #ifndef AUNIT_AUNIT_VERBOSE_H
 #define AUNIT_AUNIT_VERBOSE_H
 
+#include "aunit/print64.h"
 #include "aunit/Verbosity.h"
 #include "aunit/Compare.h"
 #include "aunit/Printer.h"
@@ -49,6 +50,6 @@ SOFTWARE.
 #include "aunit/TestMacros.h"
 
 // Version format: xxyyzz == "xx.yy.zz"; 10200 = 1.2.0
-#define AUNIT_VERSION 010200
+#define AUNIT_VERSION 010201
 
 #endif

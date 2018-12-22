@@ -1,5 +1,12 @@
 # Changelog
 
+* 1.2.1 (2018-12-22)
+    * Add support for 64-bit integers (`long long` and `unsigned long long`)
+      for various `assertXxx()` statements. Exceptions are: `assertNear()` and
+      `assertNotNear()` which do not support 64-bit integers. This is considered
+      a minor-point release (1.2.1 instead of 1.3) because the user-visible API
+      does not change, just extends to 64-bit integer types.
+    * Add `ASSERT_NEAR()` macro to `contrib/gtest.h` (thanks ciband@).
 * 1.2 (2018-12-01)
     * Add overloaded 2-argument versions of test() and testing() macros to match
       the TEST() macro in Google Test which takes 2 arguments.

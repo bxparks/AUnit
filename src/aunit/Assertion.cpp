@@ -26,6 +26,7 @@ SOFTWARE.
 #include "Flash.h"
 #include "Printer.h"
 #include "Assertion.h"
+#include "print64.h"
 
 namespace aunit {
 
@@ -82,6 +83,50 @@ void printAssertionMessage(Print* printer, bool ok, const char* file,
   printer->print(opName);
   printer->print(" (");
   printer->print(rhs ? "true" : "false");
+  printer->print(')');
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
+// Version for (long long, long long) because Print.h does not support int64.
+void printAssertionMessage(Print* printer, bool ok, const char* file,
+    uint16_t line, long long& lhs, const char* opName, long long& rhs) {
+
+  // Don't use F() strings here. Same reason as above.
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": (");
+  print64(*printer, lhs);
+  printer->print(") ");
+  printer->print(opName);
+  printer->print(" (");
+  print64(*printer, rhs);
+  printer->print(')');
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
+// Version for (unsigned long long, unsigned long long) because Print.h does
+// not support int64.
+void printAssertionMessage(Print* printer, bool ok, const char* file,
+    uint16_t line, unsigned long long& lhs, const char* opName,
+    unsigned long long& rhs) {
+
+  // Don't use F() strings here. Same reason as above.
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": (");
+  print64(*printer, lhs);
+  printer->print(") ");
+  printer->print(opName);
+  printer->print(" (");
+  print64(*printer, rhs);
   printer->print(')');
   printer->print(", file ");
   printer->print(file);
@@ -220,6 +265,33 @@ bool Assertion::assertion(const char* file, uint16_t line, long lhs,
 bool Assertion::assertion(const char* file, uint16_t line, unsigned long lhs,
     const char* opName, bool (*op)(unsigned long lhs, unsigned long rhs),
     unsigned long rhs) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertion(const char* file, uint16_t line, long long lhs,
+    const char* opName, bool (*op)(long long lhs, long long rhs),
+    long long rhs) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertion(const char* file, uint16_t line,
+    unsigned long long lhs, const char* opName,
+    bool (*op)(unsigned long long lhs, unsigned long long rhs),
+    unsigned long long rhs) {
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {
@@ -500,6 +572,60 @@ void printAssertionMessageVerbose(Print* printer, bool ok, const char* file,
   printer->println('.');
 }
 
+// Version for (long long, long long) because Print.h does not support int64.
+void printAssertionMessageVerbose(Print* printer, bool ok, const char* file,
+    uint16_t line, long long& lhs, const __FlashStringHelper* lhsString,
+    const char* opName, long long& rhs, const __FlashStringHelper* rhsString) {
+
+  // Don't use F() strings here. Same reason as above.
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": (");
+  printer->print(lhsString);
+  printer->print('=');
+  print64(*printer, lhs);
+  printer->print(") ");
+  printer->print(opName);
+  printer->print(" (");
+  printer->print(rhsString);
+  printer->print('=');
+  print64(*printer, rhs);
+  printer->print(')');
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
+// Version for (unsigned long long, unsigned long long) because Print.h does
+// not support int64.
+void printAssertionMessageVerbose(Print* printer, bool ok, const char* file,
+    uint16_t line, unsigned long long& lhs,
+    const __FlashStringHelper* lhsString, const char* opName,
+    unsigned long long& rhs, const __FlashStringHelper* rhsString) {
+
+  // Don't use F() strings here. Same reason as above.
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": (");
+  printer->print(lhsString);
+  printer->print('=');
+  print64(*printer, lhs);
+  printer->print(") ");
+  printer->print(opName);
+  printer->print(" (");
+  printer->print(rhsString);
+  printer->print('=');
+  print64(*printer, rhs);
+  printer->print(')');
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
 // Special version for assertTrue(arg) and assertFalse(arg).
 // Prints:
 //    "Assertion passed/failed: (x=arg) is true"
@@ -641,6 +767,35 @@ bool Assertion::assertionVerbose(const char* file, uint16_t line,
     unsigned long lhs, const __FlashStringHelper* lhsString, const char* opName,
     bool (*op)(unsigned long lhs, unsigned long rhs),
     unsigned long rhs, const __FlashStringHelper* rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line, long long lhs,
+    const __FlashStringHelper* lhsString, const char* opName,
+    bool (*op)(long long lhs, long long rhs), long long rhs,
+    const __FlashStringHelper* rhsString) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(const char* file, uint16_t line,
+    unsigned long long lhs, const __FlashStringHelper* lhsString,
+    const char* opName,
+    bool (*op)(unsigned long long lhs, unsigned long long rhs),
+    unsigned long long rhs, const __FlashStringHelper* rhsString) {
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
   if (isOutputEnabled(ok)) {

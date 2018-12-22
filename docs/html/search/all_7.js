@@ -4,6 +4,7 @@ var searchData=
   ['kassertionall',['kAssertionAll',['../classaunit_1_1Verbosity.html#a0cd6d4f516852a511f60a926559842f0',1,'aunit::Verbosity']]],
   ['kassertionfailed',['kAssertionFailed',['../classaunit_1_1Verbosity.html#a97218568d7a5cc9056fb5c79f405ac4c',1,'aunit::Verbosity']]],
   ['kassertionpassed',['kAssertionPassed',['../classaunit_1_1Verbosity.html#addbf202990aff674bd58626ae6f192d5',1,'aunit::Verbosity']]],
+  ['kbufsize',['kBufSize',['../classaunit_1_1fake_1_1FakePrint.html#a20b52e8228ca50714c04f94efb554053',1,'aunit::fake::FakePrint']]],
   ['kdefault',['kDefault',['../classaunit_1_1Verbosity.html#a13fcfa047e24fac22c2bcc5b6d37e60d',1,'aunit::Verbosity']]],
   ['klifecycleasserted',['kLifeCycleAsserted',['../classaunit_1_1Test.html#a946bd7ab3b12030491473edaf0d1bdd7',1,'aunit::Test']]],
   ['klifecycleexcluded',['kLifeCycleExcluded',['../classaunit_1_1Test.html#ab42e3594cf594a6c8f787e27bc6f6cf3',1,'aunit::Test']]],

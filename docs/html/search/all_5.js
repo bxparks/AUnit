@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['getbuffer',['getBuffer',['../classaunit_1_1fake_1_1FakePrint.html#ab3a88258aa921031badaed5f24a676e5',1,'aunit::fake::FakePrint']]],
   ['getcstring',['getCString',['../classaunit_1_1internal_1_1FCString.html#a03e7eb782104ca65cb2dfe161540833e',1,'aunit::internal::FCString']]],
   ['getfstring',['getFString',['../classaunit_1_1internal_1_1FCString.html#a4139be1f5381faebcb54b3d357957cb4',1,'aunit::internal::FCString']]],
   ['getlifecycle',['getLifeCycle',['../classaunit_1_1Test.html#a1796d740730201292f84e40b58167be2',1,'aunit::Test']]],

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.2</span>
+   &#160;<span id="projectnumber">1.2.1</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -117,6 +117,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a66be21c7c9ac991f2d3b793a207423c3"><td class="memItemLeft" align="right" valign="top"><a id="a66be21c7c9ac991f2d3b793a207423c3"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>ASSERT_FALSE</b>(x)&#160;&#160;&#160;<a class="el" href="AssertVerboseMacros_8h.html#ac2a6771f31162d3ce28d3ce1d3aa8020">assertFalse</a>(x)</td></tr>
 <tr class="separator:a66be21c7c9ac991f2d3b793a207423c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe4fb330b944dacbec294a9b1e44908d"><td class="memItemLeft" align="right" valign="top"><a id="abe4fb330b944dacbec294a9b1e44908d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ASSERT_NEAR</b>(e,  a,  error)&#160;&#160;&#160;<a class="el" href="AssertVerboseMacros_8h.html#ab37dc3ab85b61bad53032bdea0a36b26">assertNear</a>(static_cast&lt;decltype(a)&gt;(e), a, static_cast&lt;decltype(a)&gt;(error))</td></tr>
+<tr class="separator:abe4fb330b944dacbec294a9b1e44908d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A simple adapter which allows basic unit tests written using Google Test API (<a href="https://github.com/google/googletest">https://github.com/google/googletest</a>) to run on Arduino platforms using AUnit. </p>
