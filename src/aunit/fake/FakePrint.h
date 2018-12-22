@@ -32,12 +32,18 @@ namespace aunit {
 namespace fake {
 
 /**
- * An implementation of Print that writes to an in-memory buffer.
- * The buffer can be retrieved for unit testing.
+ * An implementation of Print that writes to an in-memory buffer. The buffer
+ * can be retrieved using getBuffer() to verify that the expected string was
+ * written to the Print object.
  */
 class FakePrint: public Print {
   public:
-    // +2 for \r\n in println(), +1 for NUL
+    /**
+     * Size of the internal buffer. This is just large enough to hold the
+     * string representation of one 64-bit integer in binary format (64 bytes),
+     * including 2 bytes for the '\r\n' from println() and 1 byte for the
+     * terminating NUL.
+     */
     static const uint8_t kBufSize = 8 * sizeof(long long) + 2 + 1;
 
     size_t write(uint8_t c) override {
