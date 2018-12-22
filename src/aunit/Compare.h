@@ -151,6 +151,10 @@ bool compareEqual(long a, long b);
 
 bool compareEqual(unsigned long a, unsigned long b);
 
+bool compareEqual(long long a, long long b);
+
+bool compareEqual(unsigned long long a, unsigned long long b);
+
 bool compareEqual(double a, double b);
 
 bool compareEqual(const char* a, const char* b);
@@ -184,6 +188,10 @@ bool compareLess(unsigned int a, unsigned int b);
 bool compareLess(long a, long b);
 
 bool compareLess(unsigned long a, unsigned long b);
+
+bool compareLess(long long a, long long b);
+
+bool compareLess(unsigned long long a, unsigned long long b);
 
 bool compareLess(double a, double b);
 
@@ -219,6 +227,10 @@ bool compareMore(long a, long b);
 
 bool compareMore(unsigned long a, unsigned long b);
 
+bool compareMore(long long a, long long b);
+
+bool compareMore(unsigned long long a, unsigned long long b);
+
 bool compareMore(double a, double b);
 
 bool compareMore(const char* a, const char* b);
@@ -252,6 +264,10 @@ bool compareLessOrEqual(unsigned int a, unsigned int b);
 bool compareLessOrEqual(long a, long b);
 
 bool compareLessOrEqual(unsigned long a, unsigned long b);
+
+bool compareLessOrEqual(long long a, long long b);
+
+bool compareLessOrEqual(unsigned long long a, unsigned long long b);
 
 bool compareLessOrEqual(double a, double b);
 
@@ -288,6 +304,10 @@ bool compareMoreOrEqual(long a, long b);
 
 bool compareMoreOrEqual(unsigned long a, unsigned long b);
 
+bool compareMoreOrEqual(long long a, long long b);
+
+bool compareMoreOrEqual(unsigned long long a, unsigned long long b);
+
 bool compareMoreOrEqual(double a, double b);
 
 bool compareMoreOrEqual(const char* a, const char* b);
@@ -322,6 +342,10 @@ bool compareNotEqual(unsigned int a, unsigned int b);
 bool compareNotEqual(long a, long b);
 
 bool compareNotEqual(unsigned long a, unsigned long b);
+
+bool compareNotEqual(long long a, long long b);
+
+bool compareNotEqual(unsigned long long a, unsigned long long b);
 
 bool compareNotEqual(double a, double b);
 

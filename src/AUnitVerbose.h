@@ -35,6 +35,7 @@ SOFTWARE.
 #ifndef AUNIT_AUNIT_VERBOSE_H
 #define AUNIT_AUNIT_VERBOSE_H
 
+#include "aunit/print64.h"
 #include "aunit/Verbosity.h"
 #include "aunit/Compare.h"
 #include "aunit/Printer.h"

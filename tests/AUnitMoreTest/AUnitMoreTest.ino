@@ -57,6 +57,28 @@ test(assertNotNear) {
   assertNotNear(4.0, 1.1, 0.2);
 }
 
+test(longLong) {
+  long long a = -1234567890123456789LL;
+  long long b = -1234567890123456788LL;
+  assertEqual(a, a);
+  assertLess(a, b);
+  assertMore(b, a);
+  assertNotEqual(a, b);
+  assertLessOrEqual(a, b);
+  assertMoreOrEqual(b, a);
+}
+
+test(unsignedLongLong) {
+  unsigned long long a = 1234567890123456789ULL;
+  unsigned long long b = 1234567890123456790ULL;
+  assertEqual(a, a);
+  assertLess(a, b);
+  assertMore(b, a);
+  assertNotEqual(a, b);
+  assertLessOrEqual(a, b);
+  assertMoreOrEqual(b, a);
+}
+
 // ------------------------------------------------------
 // The main body.
 // ------------------------------------------------------
@@ -68,8 +90,5 @@ void setup() {
 }
 
 void loop() {
-  // Should get something like:
-  // TestRunner summary:
-  //    2 passed, 0 failed, 0 skipped, 0 timed out, out of 2 test(s).
   TestRunner::run();
 }
