@@ -112,8 +112,11 @@ class TestRunner {
     }
 
   private:
-    // 10 second timeout for the runner
+    /** Default total timeout for the test runner. */
     static const TimeoutType kTimeoutDefault = 10;
+
+    /** Maximum length of the joined matching pattern, including NUL. */
+    static const uint8_t kMaxPatternLength = 63 + 1;
 
     /** Return the singleton TestRunner. */
     static TestRunner* getRunner();
@@ -135,10 +138,10 @@ class TestRunner {
     void listTests();
 
     /** Print out message at the start of the run. */
-    void printStartRunner();
+    void printStartRunner() const;
 
     /** Print out the summary of the entire test suite. */
-    void resolveRun();
+    void resolveRun() const;
 
     /** Perform any TestRunner initialization. */
     void setupRunner();
@@ -147,7 +150,9 @@ class TestRunner {
     void setVerbosityFlag(uint8_t verbosity) { mVerbosity = verbosity; }
 
     /** Determine the current verbosity. */
-    bool isVerbosityFlag(uint8_t verbosity) { return mVerbosity & verbosity; }
+    bool isVerbosityFlag(uint8_t verbosity) const {
+      return mVerbosity & verbosity;
+    }
 
     /** Set the status of the tests which match the pattern. */
     void setLifeCycleMatchingPattern(const char* pattern, uint8_t lifeCycle);

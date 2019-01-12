@@ -180,7 +180,7 @@ void printAssertionNearMessage(Print* printer, bool ok, const char* file,
 
 } // namespace
 
-bool Assertion::isOutputEnabled(bool ok) {
+bool Assertion::isOutputEnabled(bool ok) const {
   return (ok && isVerbosity(Verbosity::kAssertionPassed)) ||
       (!ok && isVerbosity(Verbosity::kAssertionFailed));
 }

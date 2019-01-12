@@ -37,11 +37,9 @@ test(display) {}
 
 class CustomOnce: public TestOnce {
   void setup() override {
-    Serial.println(F("CustomOnce::setup()"));
   }
 
   void teardown() override {
-    Serial.println(F("CustomOnce::teardown()"));
   }
 };
 
@@ -50,16 +48,31 @@ testF(CustomOnce, display) {}
 
 class CustomAgain: public TestAgain {
   void setup() override {
-    Serial.println(F("CustomAgain::setup()"));
   }
 
   void teardown() override {
-    Serial.println(F("CustomAgain::teardown()"));
   }
 };
 
 testingF(CustomAgain, configure) { pass(); }
 testingF(CustomAgain, display) { pass(); }
+
+/**
+ * Assert that the given test has the expected lifecycle state. We can't use
+ * the various assertXxx() macros because these need to be used before the
+ * AUnit framework is brought up. So we need to create special assertion macros
+ * just for this test.
+ */
+void assertionLifeCycle(uint8_t expected, const Test& instance, uint16_t line) {
+  if (expected != instance.getLifeCycle()) {
+    Serial.print(F("FAILED: " __FILE__ " on line "));
+    Serial.println(line);
+  }
+}
+
+/** Macro that automatically inserts the __LINE__. */
+#define assertLifeCycle(expected, instance) \
+  assertionLifeCycle(expected, instance, __LINE__)
 
 void setup() {
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
@@ -71,31 +84,53 @@ void setup() {
   // use the new 2-argument versions of include(testClass, pattern) and
   // exclude(testClass, pattern) instead.
 
-  TestRunner::list();
-
-  Serial.println("exclude(\"*\")");
   TestRunner::exclude("*");
-  TestRunner::list();
+  assertLifeCycle(Test::kLifeCycleExcluded, test_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, test_display_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomOnce_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomOnce_display_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomAgain_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomAgain_display_instance);
 
-  Serial.println("include(\"configure*\")");
   TestRunner::include("configure");
-  TestRunner::list();
+  assertLifeCycle(Test::kLifeCycleNew, test_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, test_display_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomOnce_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomOnce_display_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomAgain_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomAgain_display_instance);
 
-  Serial.println("include(\"CustomAgain*\")");
-  TestRunner::include("CustomAgain*");
-  TestRunner::list();
+  TestRunner::include("CustomAgain", "*");
+  assertLifeCycle(Test::kLifeCycleNew, test_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, test_display_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomOnce_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomOnce_display_instance);
+  assertLifeCycle(Test::kLifeCycleNew, CustomAgain_configure_instance);
+  assertLifeCycle(Test::kLifeCycleNew, CustomAgain_display_instance);
 
-  Serial.println("exclude(\"CustomAgain\", \"*\")");
   TestRunner::exclude("CustomAgain", "*");
-  TestRunner::list();
+  assertLifeCycle(Test::kLifeCycleNew, test_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, test_display_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomOnce_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomOnce_display_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomAgain_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomAgain_display_instance);
 
-  Serial.println("include(\"CustomAgain\", \"display\")");
   TestRunner::include("CustomAgain", "display");
-  TestRunner::list();
+  assertLifeCycle(Test::kLifeCycleNew, test_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, test_display_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomOnce_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomOnce_display_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomAgain_configure_instance);
+  assertLifeCycle(Test::kLifeCycleNew, CustomAgain_display_instance);
 
-  Serial.println("include(\"CustomOnce_dis*\")");
-  TestRunner::include("CustomOnce_dis*");
-  TestRunner::list();
+  TestRunner::include("CustomOnce", "dis*");
+  assertLifeCycle(Test::kLifeCycleNew, test_configure_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, test_display_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomOnce_configure_instance);
+  assertLifeCycle(Test::kLifeCycleNew, CustomOnce_display_instance);
+  assertLifeCycle(Test::kLifeCycleExcluded, CustomAgain_configure_instance);
+  assertLifeCycle(Test::kLifeCycleNew, CustomAgain_display_instance);
 }
 
 void loop() {
