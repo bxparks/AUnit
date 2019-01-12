@@ -121,6 +121,9 @@ Here are the features in AUnit which are not available in ArduinoUnit 2.2:
 * Test filters support 2-arguments, matching `testF()` and `testingF()`:
     * `TestRunner::include(testClass, name)`
     * `TestRunner::exclude(testClass, name)`
+* No dynamic allocation of heap memory:
+    * The library does not create a `String` object.
+    * It reads from a `String` if the calling code provides it.
 * Terse and verbose modes:
     * `#include <AUnit.h>` - terse messages use less flash memory
     * `#include <AUnitVerbose.h>` - verbose messages use more flash memory
