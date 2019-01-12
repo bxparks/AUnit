@@ -158,12 +158,12 @@ class Test {
     const internal::FCString& getName() const { return mName; }
 
     /** Get the life cycle state of the test. */
-    uint8_t getLifeCycle() { return mLifeCycle; }
+    uint8_t getLifeCycle() const { return mLifeCycle; }
 
     void setLifeCycle(uint8_t state) { mLifeCycle = state; }
 
     /** Get the status of the test. */
-    uint8_t getStatus() { return mStatus; }
+    uint8_t getStatus() const { return mStatus; }
 
     /**
      * Set the status of the test. All changes to getStatus() should happen
