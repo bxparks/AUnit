@@ -32,6 +32,10 @@ SOFTWARE.
 #include <AUnit.h>
 using namespace aunit;
 
+// -----------------------------------------------------------------------
+// Sample tests which are the targets of the various include() and exclude()
+// -----------------------------------------------------------------------
+
 test(configure) {}
 test(display) {}
 
@@ -57,6 +61,14 @@ class CustomAgain: public TestAgain {
 testingF(CustomAgain, configure) { pass(); }
 testingF(CustomAgain, display) { pass(); }
 
+// -----------------------------------------------------------------------
+// Helper macros and test() to verify that the include() and exclude() methods
+// work as expected.
+// -----------------------------------------------------------------------
+
+/** Global variable to signal if any assertLifeCycle() failed. */
+bool lifeCycleTestsPassed = true;
+
 /**
  * Assert that the given test has the expected lifecycle state. We can't use
  * the various assertXxx() macros because these need to be used before the
@@ -65,24 +77,36 @@ testingF(CustomAgain, display) { pass(); }
  */
 void assertionLifeCycle(uint8_t expected, const Test& instance, uint16_t line) {
   if (expected != instance.getLifeCycle()) {
-    Serial.print(F("FAILED: " __FILE__ " on line "));
+    Serial.print(F("FAILED: FilterTest::setup() failed on line "));
     Serial.println(line);
+    lifeCycleTestsPassed = false;
   }
 }
 
-/** Macro that automatically inserts the __LINE__. */
+/**
+ * Macro that automatically inserts the __LINE__ into the assertionLifeCycle().
+ */
 #define assertLifeCycle(expected, instance) \
   assertionLifeCycle(expected, instance, __LINE__)
+
+// An actual test() to verify that all the assertLifeCycle() in setup()
+// actually passed.
+test(lifeCycle) {
+  assertTrue(lifeCycleTestsPassed);
+}
+
+// -----------------------------------------------------------------------
+// setup() and loop().
+// -----------------------------------------------------------------------
 
 void setup() {
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
   Serial.begin(115200); // ESP8266 default of 74880 not supported on Linux
   while (! Serial); // Wait until Serial is ready - Leonardo
 
-  // Verify that the names of these tests don't collide and can be
-  // independently selected. Name of test is "{testClass}_{name}", but we can
-  // use the new 2-argument versions of include(testClass, pattern) and
-  // exclude(testClass, pattern) instead.
+  // Verify that the include() and exclude() work as expected. The name of test
+  // is either "test_{name}" (1-argument version of test()) or
+  // "{testClass}_{name}" (2-argument version of test()).
 
   TestRunner::exclude("*");
   assertLifeCycle(Test::kLifeCycleExcluded, test_configure_instance);
@@ -131,12 +155,15 @@ void setup() {
   assertLifeCycle(Test::kLifeCycleNew, CustomOnce_display_instance);
   assertLifeCycle(Test::kLifeCycleExcluded, CustomAgain_configure_instance);
   assertLifeCycle(Test::kLifeCycleNew, CustomAgain_display_instance);
+
+  TestRunner::include("lifeCycle");
+  assertLifeCycle(Test::kLifeCycleNew, test_lifeCycle_instance);
 }
 
 void loop() {
   // Should get something like:
   // TestRunner summary:
-  //    3 passed, 0 failed, 3 skipped, 0 timed out, out of 6 test(s).
+  //    4 passed, 0 failed, 3 skipped, 0 timed out, out of 7 test(s).
   //
   // Verify that excluded tests do not execute setup() and teardown(). They
   // go directly into the final Skipped state.
