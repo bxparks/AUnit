@@ -236,7 +236,7 @@ void printSeconds(Print* printer, unsigned long timeMillis) {
 
 }
 
-void TestRunner::printStartRunner() {
+void TestRunner::printStartRunner() const {
   if (!isVerbosity(Verbosity::kTestRunSummary)) return;
 
   Print* printer = Printer::getPrinter();
@@ -245,7 +245,7 @@ void TestRunner::printStartRunner() {
   printer->println(F(" test(s)."));
 }
 
-void TestRunner::resolveRun() {
+void TestRunner::resolveRun() const {
   if (!isVerbosity(Verbosity::kTestRunSummary)) return;
   Print* printer = Printer::getPrinter();
 

@@ -100,7 +100,7 @@ void printStatusNowMessage(const char* file, uint16_t line,
 
 }
 
-bool MetaAssertion::isOutputEnabledForStatus(uint8_t status) {
+bool MetaAssertion::isOutputEnabledForStatus(uint8_t status) const {
   return (status == kStatusFailed && isVerbosity(Verbosity::kTestFailed))
       || (status == kStatusPassed && isVerbosity(Verbosity::kTestPassed))
       || (status == kStatusSkipped && isVerbosity(Verbosity::kTestSkipped))

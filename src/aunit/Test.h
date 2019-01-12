@@ -193,34 +193,34 @@ class Test {
      * from ArduinoUnit and might have been named isAsserted() if this library
      * had been built from scratch.
      */
-    bool isDone() { return mStatus != kStatusUnknown; }
+    bool isDone() const { return mStatus != kStatusUnknown; }
 
     /** Return true if test is not has been asserted. */
-    bool isNotDone() { return !isDone(); }
+    bool isNotDone() const { return !isDone(); }
 
     /** Return true if test is passed. */
-    bool isPassed() { return mStatus == kStatusPassed; }
+    bool isPassed() const { return mStatus == kStatusPassed; }
 
     /** Return true if test is not passed. */
-    bool isNotPassed() { return !isPassed(); }
+    bool isNotPassed() const { return !isPassed(); }
 
     /** Return true if test is failed. */
-    bool isFailed() { return mStatus == kStatusFailed; }
+    bool isFailed() const { return mStatus == kStatusFailed; }
 
     /** Return true if test is not failed. */
-    bool isNotFailed() { return !isFailed(); }
+    bool isNotFailed() const { return !isFailed(); }
 
     /** Return true if test is skipped. */
-    bool isSkipped() { return mStatus == kStatusSkipped; }
+    bool isSkipped() const { return mStatus == kStatusSkipped; }
 
     /** Return true if test is not skipped. */
-    bool isNotSkipped() { return !isSkipped(); }
+    bool isNotSkipped() const { return !isSkipped(); }
 
     /** Return true if test is expired. */
-    bool isExpired() { return mStatus == kStatusExpired; }
+    bool isExpired() const { return mStatus == kStatusExpired; }
 
     /** Return true if test is not expired. */
-    bool isNotExpired() { return !isExpired(); }
+    bool isNotExpired() const { return !isExpired(); }
 
     /**
      * Mark the test as skipped. Use the skipTestNow() macro in a unit test to
@@ -272,10 +272,10 @@ class Test {
     }
 
     /** Determine if any of the given verbosity is enabled. */
-    bool isVerbosity(uint8_t verbosity) { return mVerbosity & verbosity; }
+    bool isVerbosity(uint8_t verbosity) const { return mVerbosity & verbosity; }
 
     /** Get the verbosity. */
-    uint8_t getVerbosity() { return mVerbosity; }
+    uint8_t getVerbosity() const { return mVerbosity; }
 
   private:
     // Disable copy-constructor and assignment operator
