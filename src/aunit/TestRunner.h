@@ -112,8 +112,11 @@ class TestRunner {
     }
 
   private:
-    // 10 second timeout for the runner
+    /** Default total timeout for the test runner. */
     static const TimeoutType kTimeoutDefault = 10;
+
+    /** Maximum length of the joined matching pattern, including NUL. */
+    static const uint8_t kMaxPatternLength = 63 + 1;
 
     /** Return the singleton TestRunner. */
     static TestRunner* getRunner();

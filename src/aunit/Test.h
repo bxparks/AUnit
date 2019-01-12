@@ -145,7 +145,7 @@ class Test {
     virtual void teardown() {}
 
     /**
-     * The user-provided test case function. EEach call to Test::run() makes one
+     * The user-provided test case function. Each call to Test::run() makes one
      * call to this loop() method. The assertXxx() macros, as well as pass(),
      * fail() and skip() functions can be called in here.
      */
