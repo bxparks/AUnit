@@ -33,7 +33,8 @@ test(Print64, fakePrint) {
   fakePrint.flush();
 
   fakePrint.print(-1, 16);
-  assertEqual("FFFFFFFF", fakePrint.getBuffer());
+  const char* expected = (sizeof(long) == 8) ? "FFFFFFFFFFFFFFFF" : "FFFFFFFF";
+  assertEqual(expected, fakePrint.getBuffer());
   fakePrint.flush();
 
   fakePrint.print(INT32_MIN);
