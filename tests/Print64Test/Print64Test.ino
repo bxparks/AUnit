@@ -90,7 +90,9 @@ test(Print64, println64_ULL) {
 }
 
 void setup() {
+  #ifdef ARDUINO
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
+  #endif
   Serial.begin(115200); // ESP8266 default of 74880 not supported on Linux
   while (! Serial); // Wait until Serial is ready - Leonardo
 }
