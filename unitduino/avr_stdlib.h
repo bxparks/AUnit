@@ -3,7 +3,7 @@
  *
  * Non-standard functions from AVR's <stdlib.h> library which do not exist on
  * Linux or MacOS. This contains only the ones required to compile
- * AUnit/uniduino on Linux or MacOS.
+ * AUnit/unitduino on Linux or MacOS.
  */
 
 #ifndef ARDUINO_AVR_STDLIB_H

@@ -1,33 +1,38 @@
-# Include this Makefile to compile an Arduino *.ino file on Linux.
+# Include this Makefile to compile an Arduino *.ino file on Linux or MacOS.
 #
-# Usage:
-#    1) Create a 'Makefile' in the sketch folder, e.g. Blink/Makefile for the
-#       Blink/Blink.ino program.
-#    2) Define 2 parameters:
-#         * 'APP_NAME': base name of the Arduino sketch file,
-#           e.g. 'Blink' not 'Blink.ino'
-#         * 'ARDUINO_LIBS': list of dependent Arduino libraries.
-#           The uniduino directory, and the AUnit library are automatically
-#           included.
-#    3) Include this file using 'include .../uniduino.mk'.
-#    4) Save the Makefile.
-#    5) Type 'make -n' to verify.
-#	 6) Type 'make' to create the $(APP_NAME).out program.
+# Create a 'Makefile' in the sketch folder. For example, for the
+# Blink/Blink.ino program, the makefile will be 'Blink/Makefile'.
+# The content will look like this:
+#
+#      APP_NAME := {name of *.ino file}
+#      ARDUINO_LIBS := AceTime {... additional Arduino libraries}
+#      include ../../../AUnit/unitduino/unitduino.mk
+#
+# The 2 parameters are:
+#   * 'APP_NAME': base name of the Arduino sketch file,
+#     e.g. 'Blink' not 'Blink.ino'
+#   * 'ARDUINO_LIBS': list of dependent Arduino libraries.
+#     The unitduino directory and the AUnit library are automatically
+#     included.
+#
+# Type 'make -n' to verify.
+#
+# Type 'make' to create the $(APP_NAME).out program.
 
 # Detect Linux or MacOS
 UNAME := $(shell uname)
 
-# The directory of uniduino module.
-UNIDUINO_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
+# Unitduino module directory.
+UNITDUINO_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
 # If ARDUINO_LIB_DIR is not defined, assume that it's 2 directories
-# above the uniduino/ directory.
-ARDUINO_LIB_DIR ?= $(realpath $(UNIDUINO_DIR)/../..)
+# above the unitduino/ directory.
+ARDUINO_LIB_DIR ?= $(realpath $(UNITDUINO_DIR)/../..)
 
-# Default modules which are automatically linked in: AUnit and AUnit/uniduino.
-DEFAULT_MODULES := $(UNIDUINO_DIR) ${ARDUINO_LIB_DIR}/AUnit
+# Default modules which are automatically linked in: AUnit and AUnit/unitduino.
+DEFAULT_MODULES := $(UNITDUINO_DIR) ${ARDUINO_LIB_DIR}/AUnit
 
-# Application Modules specified by the ARDUINO_LIBS variable.
+# Application Modules as specified by the application's ARDUINO_LIBS variable.
 APP_MODULES := $(foreach lib,$(ARDUINO_LIBS),${ARDUINO_LIB_DIR}/${lib})
 
 # All dependent modules.
@@ -74,7 +79,7 @@ $(APP_NAME).o: $(APP_NAME).ino
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 # This simple rule does not capture all header dependencies of a given cpp
-# file. Maybe it's better to cause each cpp to depend on all headers of a given
+# file. Maybe it's better to make each cpp to depend on all headers of a given
 # module, and force a recompilation of all cpp files. As far as I understand,
 # this is what the Arduino IDE does upon each compile iteration.
 %.cpp: %.h
