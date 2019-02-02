@@ -3,6 +3,8 @@
 * Unreleased
     * Remove direct creation of `String` object, removing any dynamic
       allocation of heap memory.
+    * Add experimental implementation of `unitduino`, an Anduino emulation
+      layer that allows AUnit tests to compile and run on Linux and MacOS.
 * 1.2.1 (2018-12-22)
     * Add support for 64-bit integers (`long long` and `unsigned long long`)
       for various `assertXxx()` statements. Exceptions are: `assertNear()` and
