@@ -79,6 +79,8 @@ class __FlashStringHelper;
   #include <avr/pgmspace.h>
 #elif defined(ESP8266) || defined(ESP32)
   #include <pgmspace.h>
+#elif defined(__linux__) or defined(__APPLE__)
+  #include <pgmspace.h>
 #else
   #error Unsupported platform
 #endif
@@ -87,6 +89,8 @@ class __FlashStringHelper;
   #define AUNIT_F(x) F(x)
 #elif defined(ESP8266) || defined(ESP32) || defined(__arm__)
   #define AUNIT_F(x) AUNIT_FPSTR(x)
+#elif defined(__linux__) or defined(__APPLE__)
+  #define AUNIT_F(x) F(x)
 #else
   #error Unsupported platform
 #endif
