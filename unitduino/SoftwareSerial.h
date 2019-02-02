@@ -1,5 +1,11 @@
-#ifndef ARDUINO_SOFTWARE_SERIAL_H
-#define ARDUINO_SOFTWARE_SERIAL_H
+/**
+ * @file SoftwareSerial.h
+ *
+ * A version of SoftwareSerial that supports AUnit tests on Linux or MaxOS.
+ */
+
+#ifndef UNITDUINO_SOFTWARE_SERIAL_H
+#define UNITDUINO_SOFTWARE_SERIAL_H
 
 #include "Print.h"
 

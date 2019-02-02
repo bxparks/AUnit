@@ -1,5 +1,12 @@
-#ifndef ARDUINO_PGMSPACE_H
-#define ARDUINO_PGMSPACE_H
+/**
+ * @file pgmspace.h
+ *
+ * A version of the <avr/pgmspace.h> file in the Arduino environment with
+ * enough mappings to allow AUnit tests to compile and run on Linux or MacOS.
+ */
+
+#ifndef UNITDUINO_PGMSPACE_H
+#define UNITDUINO_PGMSPACE_H
 
 #define PGM_P const char *
 #define PGM_VOID_P const void *

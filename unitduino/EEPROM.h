@@ -18,8 +18,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef EEPROM_h
-#define EEPROM_h
+#ifndef UNITDUINO_EEPROM_H
+#define UNITDUINO_EEPROM_H
 
 #include <inttypes.h>
 /*

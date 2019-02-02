@@ -19,8 +19,8 @@
   Modified 2012 by Todd Krein (todd@krein.org) to implement repeated starts
 */
 
-#ifndef TwoWire_h
-#define TwoWire_h
+#ifndef UNITDUINO_WIRE_H
+#define UNITDUINO_WIRE_H
 
 #include <inttypes.h>
 #include "Stream.h"

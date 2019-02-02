@@ -17,8 +17,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef ARDUINO_PRINT_H
-#define ARDUINO_PRINT_H
+#ifndef UNITDUINO_PRINT_H
+#define UNITDUINO_PRINT_H
 
 #include <inttypes.h>
 #include <string.h> // strlen()

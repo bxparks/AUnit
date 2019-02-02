@@ -17,8 +17,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef ARDUINO_PRINTABLE_H
-#define ARDUINO_PRINTABLE_H
+#ifndef UNITDUINO_PRINTABLE_H
+#define UNITDUINO_PRINTABLE_H
 
 #include <stdlib.h>
 

@@ -1,5 +1,5 @@
-#ifndef ARDUINO_ARDUINO_H
-#define ARDUINO_ARDUINO_H
+#ifndef UNITDUINO_ARDUINO_H
+#define UNITDUINO_ARDUINO_H
 
 #include "Print.h"
 #include "SoftwareSerial.h"

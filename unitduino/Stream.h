@@ -19,8 +19,8 @@
   parsing functions based on TextFinder library by Michael Margolis
 */
 
-#ifndef Stream_h
-#define Stream_h
+#ifndef UNITDUINO_STREAM_H
+#define UNITDUINO_STREAM_H
 
 #include <inttypes.h>
 #include "Print.h"

@@ -3,11 +3,11 @@
  *
  * Non-standard functions from AVR's <stdlib.h> library which do not exist on
  * Linux or MacOS. This contains only the ones required to compile
- * AUnit/unitduino on Linux or MacOS.
+ * AUnit tests on Linux or MacOS.
  */
 
-#ifndef ARDUINO_AVR_STDLIB_H
-#define ARDUINO_AVR_STDLIB_H
+#ifndef UNITDUINO_AVR_STDLIB_H
+#define UNITDUINO_AVR_STDLIB_H
 
 extern char *itoa(int n, char *str, int base);
 extern char *utoa(unsigned n, char *str, int base);
