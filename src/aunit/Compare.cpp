@@ -858,7 +858,7 @@ bool compareNear(int a, int b, int error) {
 }
 
 bool compareNear(unsigned int a, unsigned int b, unsigned int error) {
-  return abs(a - b) <= error;
+  return (unsigned int) abs((int)(a - b)) <= error;
 }
 
 bool compareNear(long a, long b, long error) {
@@ -866,7 +866,7 @@ bool compareNear(long a, long b, long error) {
 }
 
 bool compareNear(unsigned long a, unsigned long b, unsigned long error) {
-  return abs(a - b) <= error;
+  return (unsigned long) abs((long)(a - b)) <= error;
 }
 
 bool compareNear(double a, double b, double error) {
