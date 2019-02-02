@@ -109,6 +109,9 @@ void TestRunner::runTest() {
       mEndTime = millis();
       resolveRun();
       mIsResolved = true;
+      #ifdef __linux__
+      exit(0);
+      #endif
     }
     return;
   }
