@@ -109,7 +109,7 @@ void TestRunner::runTest() {
       mEndTime = millis();
       resolveRun();
       mIsResolved = true;
-      #ifdef __linux__
+      #ifndef ARDUINO
       exit(0);
       #endif
     }

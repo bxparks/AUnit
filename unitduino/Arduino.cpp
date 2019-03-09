@@ -17,6 +17,10 @@ unsigned long millis() {
   return ms;
 }
 
+void digitalWrite(uint8_t pin, uint8_t val) {}
+
+void pinMode(uint8_t pin, uint8_t mode) {}
+
 int main(int argc, char** argv) {
   setup();
   while (true) {
