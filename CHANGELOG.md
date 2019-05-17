@@ -1,10 +1,11 @@
 # Changelog
 
 * Unreleased
-    * Remove direct creation of `String` object, removing any dynamic
-      allocation of heap memory.
+    * Remove direct creation of `String` object, removing last remaining dynamic
+      allocation of heap memory from library.
     * Add experimental implementation of `unitduino`, an Anduino emulation
       layer that allows AUnit tests to compile and run on Linux and MacOS.
+    * Fix broken compile of print64.cpp on ESP8266 Arduino Core 2.5.1.
 * 1.2.1 (2018-12-22)
     * Add support for 64-bit integers (`long long` and `unsigned long long`)
       for various `assertXxx()` statements. Exceptions are: `assertNear()` and
