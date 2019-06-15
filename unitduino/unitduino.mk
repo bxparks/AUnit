@@ -64,7 +64,7 @@ SRCS_EXPANSION = $(wildcard $(module)/*.cpp) \
 	$(wildcard $(module)/src/*/*/*.cpp) \
 	$(wildcard $(module)/src/*/*/*/*.cpp)
 SRCS := $(foreach module,$(ALL_MODULES),$(SRCS_EXPANSION))
-SRCS := ${SRCS} $(wildcard *.cpp)
+SRCS := ${SRCS} $(wildcard *.cpp) $(wildcard */*.cpp)
 
 # Objects including *.o from *.ino
 OBJS := $(SRCS:%.cpp=%.o) $(APP_NAME).o
