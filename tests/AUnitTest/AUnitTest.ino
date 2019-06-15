@@ -38,6 +38,7 @@ SOFTWARE.
   #else
     #include <AUnitVerbose.h>
   #endif
+  #include <aunit/string_util.h>
   using namespace aunit;
   using namespace aunit::internal;
 
@@ -315,6 +316,10 @@ test(FCStringTest, compareToN) {
 
 #endif
 
+// ------------------------------------------------------
+// Test the various assertXxx() macros.
+// ------------------------------------------------------
+
 test(assertEqual) {
   assertEqual(true, true);
   assertEqual(true, true);
@@ -526,6 +531,24 @@ test(flashString) {
   assertMoreOrEqual(hh, gg);
 }
 
+// -------------------------------------------------------------------------
+// Test the string_join() method.
+// -------------------------------------------------------------------------
+
+test(string_join) {
+  const uint8_t SIZE = 10;
+  char dest[SIZE];
+
+  assertTrue(internal::string_join(dest, SIZE, '_', "a", "b"));
+  assertEqual("a_b", dest);
+
+  assertTrue(internal::string_join(dest, SIZE, '_', "12345", "678"));
+  assertEqual("12345_678", dest);
+
+  assertFalse(internal::string_join(dest, SIZE, '_', "12345", "6789"));
+  assertEqual("", dest);
+}
+
 #if USE_AUNIT == 1
 
 // -------------------------------------------------------------------------
@@ -639,7 +662,9 @@ CustomTestOnce myTestOnce2("customTestOnce2");
 // ------------------------------------------------------
 
 void setup() {
+  #ifdef ARDUINO
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
+  #endif
   Serial.begin(115200); // ESP8266 default of 74880 not supported on Linux
   while (! Serial); // Wait until Serial is ready - Leonardo/Micro
 

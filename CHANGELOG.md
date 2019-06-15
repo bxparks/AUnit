@@ -1,5 +1,16 @@
 # Changelog
 
+* Unreleased
+* 1.3 (2019-06-15)
+    * Remove direct creation of `String` object, removing last remaining dynamic
+      allocation of heap memory from library.
+    * Add experimental implementation of `unitduino`, an Anduino emulation
+      layer that allows AUnit tests to compile and run on Linux and MacOS.
+    * Fix broken compile of print64.cpp on ESP8266 Arduino Core 2.5.1.
+    * Use `class` instead of `struct` in the various `test()` macros when
+      creating subclasses for each test. Fixes warnings about mismatch between
+      'struct' and 'class' in clang++ when forward declaring the tests in code
+      that gives access to private members to tests.
 * 1.2.1 (2018-12-22)
     * Add support for 64-bit integers (`long long` and `unsigned long long`)
       for various `assertXxx()` statements. Exceptions are: `assertNear()` and

@@ -65,7 +65,8 @@ SOFTWARE.
 #define GET_TEST(_1, _2, NAME, ...) NAME
 
 #define TEST1(name) \
-struct test_##name : aunit::TestOnce {\
+class test_##name : public aunit::TestOnce {\
+public:\
   test_##name();\
   void once() override;\
 } test_##name##_instance;\
@@ -75,7 +76,8 @@ test_##name :: test_##name() {\
 void test_##name :: once()
 
 #define TEST2(suiteName, name) \
-struct suiteName##_##name : aunit::TestOnce {\
+class suiteName##_##name : public aunit::TestOnce {\
+public:\
   suiteName##_##name();\
   void once() override;\
 } suiteName##_##name##_instance;\
@@ -99,7 +101,8 @@ void suiteName##_##name :: once()
 #define GET_TESTING(_1, _2, NAME, ...) NAME
 
 #define TESTING1(name) \
-struct test_##name : aunit::TestAgain {\
+class test_##name : public aunit::TestAgain {\
+public:\
   test_##name();\
   void again() override;\
 } test_##name##_instance;\
@@ -109,7 +112,8 @@ test_##name :: test_##name() {\
 void test_##name :: again()
 
 #define TESTING2(suiteName, name) \
-struct suiteName##_##name : aunit::TestAgain {\
+class suiteName##_##name : public aunit::TestAgain {\
+public:\
   suiteName##_##name();\
   void again() override;\
 } suiteName##_##name##_instance;\
@@ -133,14 +137,16 @@ void suiteName##_##name :: again()
 #define GET_EXTERN_TEST(_1, _2, NAME, ...) NAME
 
 #define EXTERN_TEST1(name) \
-struct test_##name : aunit::TestOnce {\
+class test_##name : public aunit::TestOnce {\
+public:\
   test_##name();\
   void once();\
 };\
 extern test_##name test_##name##_instance
 
 #define EXTERN_TEST2(suiteName, name) \
-struct suiteName##_##name : aunit::TestOnce {\
+class suiteName##_##name : public aunit::TestOnce {\
+public:\
   suiteName##_##name();\
   void once();\
 };\
@@ -161,14 +167,16 @@ extern suiteName##_##name suiteName##_##name##_instance
 #define GET_EXTERN_TESTING(_1, _2, NAME, ...) NAME
 
 #define EXTERN_TESTING1(name) \
-struct test_ ## name : aunit::TestAgain {\
+class test_ ## name : public aunit::TestAgain {\
+public:\
   test_ ## name();\
   void again();\
 };\
 extern test_##name test_##name##_instance
 
 #define EXTERN_TESTING2(suiteName, name) \
-struct suiteName##_ ## name : aunit::TestAgain {\
+class suiteName##_ ## name : public aunit::TestAgain {\
+public:\
   suiteName##_ ## name();\
   void again();\
 };\
@@ -180,7 +188,8 @@ extern suiteName##_##name suiteName##_##name##_instance
  * name collisions with similarly named tests using other fixtures.
  */
 #define testF(testClass, name) \
-struct testClass ## _ ## name : testClass {\
+class testClass ## _ ## name : public testClass {\
+public:\
   testClass ## _ ## name();\
   void once() override;\
 } testClass ## _ ## name ## _instance;\
@@ -198,7 +207,8 @@ void testClass ## _ ## name :: once()
  * but there will be a name collision if suiteName is the same as className.
  */
 #define testingF(testClass, name) \
-struct testClass ## _ ## name : testClass {\
+class testClass ## _ ## name : public testClass {\
+public:\
   testClass ## _ ## name();\
   void again() override;\
 } testClass ## _ ## name ## _instance;\
@@ -213,7 +223,8 @@ void testClass ## _ ## name :: again()
  * test is in another file (or defined after the assertion on it).
  */
 #define externTestF(testClass, name) \
-struct testClass ## _ ## name : testClass {\
+class testClass ## _ ## name : public testClass {\
+public:\
   testClass ## _ ## name();\
   void once() override;\
 };\
@@ -226,7 +237,8 @@ extern testClass ## _ ## name testClass##_##name##_instance
  * assertion on it).
  */
 #define externTestingF(testClass, name) \
-struct testClass ## _ ## name : testClass {\
+class testClass ## _ ## name : public testClass {\
+public:\
   testClass ## _ ## name();\
   void again() override;\
 };\

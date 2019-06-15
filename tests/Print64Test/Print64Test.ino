@@ -33,7 +33,8 @@ test(Print64, fakePrint) {
   fakePrint.flush();
 
   fakePrint.print(-1, 16);
-  assertEqual("FFFFFFFF", fakePrint.getBuffer());
+  const char* expected = (sizeof(long) == 8) ? "FFFFFFFFFFFFFFFF" : "FFFFFFFF";
+  assertEqual(expected, fakePrint.getBuffer());
   fakePrint.flush();
 
   fakePrint.print(INT32_MIN);
@@ -90,7 +91,9 @@ test(Print64, println64_ULL) {
 }
 
 void setup() {
+  #ifdef ARDUINO
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
+  #endif
   Serial.begin(115200); // ESP8266 default of 74880 not supported on Linux
   while (! Serial); // Wait until Serial is ready - Leonardo
 }

@@ -31,6 +31,7 @@ SOFTWARE.
 #include "Verbosity.h"
 #include "Test.h"
 #include "TestRunner.h"
+#include "string_util.h"
 
 namespace aunit {
 
@@ -67,14 +68,17 @@ void TestRunner::setLifeCycleMatchingPattern(const char* pattern,
 
 void TestRunner::setLifeCycleMatchingPattern(const char* testClass,
     const char* pattern, uint8_t lifeCycle) {
+  // The effective pattern is the join of testClass and pattern with a '_'
+  // delimiter. This must match the algorithm used by testF() and testingF().
+  // We use string_join() instead of String so that AUnit can avoid a direct
+  // dependency on the String class. AUnit thus avoids allocating any memory on
+  // the heap.
+  char fullPattern[kMaxPatternLength];
+  bool status = internal::string_join(fullPattern, kMaxPatternLength, '_',
+      testClass, pattern);
+  if (!status) return;
 
-  // Form the effective pattern by concatenating the two. This must match the
-  // algorithm used by testF() and testingF().
-  String fullPattern(testClass);
-  fullPattern.concat('_');
-  fullPattern.concat(pattern);
-
-  setLifeCycleMatchingPattern(fullPattern.c_str(), lifeCycle);
+  setLifeCycleMatchingPattern(fullPattern, lifeCycle);
 }
 
 TestRunner::TestRunner():
@@ -105,6 +109,9 @@ void TestRunner::runTest() {
       mEndTime = millis();
       resolveRun();
       mIsResolved = true;
+      #ifndef ARDUINO
+      exit(0);
+      #endif
     }
     return;
   }
@@ -232,7 +239,7 @@ void printSeconds(Print* printer, unsigned long timeMillis) {
 
 }
 
-void TestRunner::printStartRunner() {
+void TestRunner::printStartRunner() const {
   if (!isVerbosity(Verbosity::kTestRunSummary)) return;
 
   Print* printer = Printer::getPrinter();
@@ -241,7 +248,7 @@ void TestRunner::printStartRunner() {
   printer->println(F(" test(s)."));
 }
 
-void TestRunner::resolveRun() {
+void TestRunner::resolveRun() const {
   if (!isVerbosity(Verbosity::kTestRunSummary)) return;
   Print* printer = Printer::getPrinter();
 

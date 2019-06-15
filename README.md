@@ -9,7 +9,7 @@ AVR, ESP8266, ESP32 and Teensy platforms. The sister AUniter project provides
 command line tools to verify, upload and validate the unit tests. The AUniter
 tools can be used in a continuous integration system like Jenkins.
 
-Version: 1.2.1 (2018-12-22)
+Version: 1.3 (2018-06-15)
 
 [![AUniter Jenkins Badge](https://us-central1-xparks2018.cloudfunctions.net/badge?project=AUnit)](https://github.com/bxparks/AUniter)
 
@@ -121,6 +121,9 @@ Here are the features in AUnit which are not available in ArduinoUnit 2.2:
 * Test filters support 2-arguments, matching `testF()` and `testingF()`:
     * `TestRunner::include(testClass, name)`
     * `TestRunner::exclude(testClass, name)`
+* No dynamic allocation of heap memory:
+    * The library does not create a `String` object.
+    * It reads from a `String` if the calling code provides it.
 * Terse and verbose modes:
     * `#include <AUnit.h>` - terse messages use less flash memory
     * `#include <AUnitVerbose.h>` - verbose messages use more flash memory
@@ -1527,12 +1530,11 @@ I will occasionally test on the following hardware as a sanity check:
 ## Feedback and Support
 
 If you have any questions, comments, bug reports, or feature requests, please
-file a GitHub ticket or send me an email. I'd love to hear about how this
-software and its documentation can be improved. Instead of forking the
-repository to modify or add a feature for your own projects, let me have a
-chance to incorporate the change into the main repository so that your external
-dependencies are simpler and so that others can benefit. I can't promise that I
-will incorporate everything, but I will give your ideas serious consideration.
+file a GitHub ticket instead of emailing me unless the content is sensitive.
+(The problem with email is that I cannot reference the email conversation when
+other people ask similar questions later.) I'd love to hear about how this
+software and its documentation can be improved. I can't promise that I will
+incorporate everything, but I will give your ideas serious consideration.
 
 ## Authors
 

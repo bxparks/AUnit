@@ -35,6 +35,17 @@ namespace fake {
  * An implementation of Print that writes to an in-memory buffer. The buffer
  * can be retrieved using getBuffer() to verify that the expected string was
  * written to the Print object.
+ *
+ * Usage:
+ * @verbatim
+ * {
+ *   FakePrint fakePrint;
+ *   object.printTo(fakePrint);
+ *   assertEqual("expected", fakePrint.getBuffer());
+ *   fakePrint.flush();
+ *   ...
+ * }
+ * @endverbatim
  */
 class FakePrint: public Print {
   public:

@@ -58,7 +58,7 @@ class Assertion: public Test {
     Assertion() {}
 
     /** Returns true if an assertion message should be printed. */
-    bool isOutputEnabled(bool ok);
+    bool isOutputEnabled(bool ok) const;
 
     // Terse assertions. Prints only the argument values.
 

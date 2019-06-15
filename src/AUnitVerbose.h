@@ -49,7 +49,8 @@ SOFTWARE.
 #include "aunit/MetaAssertMacros.h"
 #include "aunit/TestMacros.h"
 
-// Version format: xxyyzz == "xx.yy.zz"; 10200 = 1.2.0
-#define AUNIT_VERSION 010201
+// Version format: xxyyzz == "xx.yy.zz"
+#define AUNIT_VERSION 010300
+#define AUNIT_VERSION_STRING "1.3"
 
 #endif

@@ -31,16 +31,16 @@ size_t printNumber64(Print& printer, unsigned long long n, uint8_t base) {
 
 size_t print64(Print& printer, unsigned long long n, uint8_t base) {
   if (base == 0) {
-    return printer.write(n);
-  } else {
-    return printNumber64(printer, n, base);
+    base = 10;
   }
+  return printNumber64(printer, n, base);
 }
 
 size_t print64(Print& printer, long long n, uint8_t base) {
   if (base == 0) {
-    return printer.write(n);
-  } else if (base == 10) {
+    base = 10;
+  }
+  if (base == 10) {
     if (n < 0) {
       size_t t = printer.write('-');
       return printNumber64(printer, -n, base) + t;
