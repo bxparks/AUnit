@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.2.1</span>
+   &#160;<span id="projectnumber">1.3</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -81,15 +81,11 @@ $(function() {
 Inheritance diagram for aunit::fake::FakePrint:</div>
 <div class="dyncontent">
 <div class="center"><img src="classaunit_1_1fake_1_1FakePrint__inherit__graph.png" border="0" usemap="#aunit_1_1fake_1_1FakePrint_inherit__map" alt="Inheritance graph"/></div>
-<map name="aunit_1_1fake_1_1FakePrint_inherit__map" id="aunit_1_1fake_1_1FakePrint_inherit__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for aunit::fake::FakePrint:</div>
 <div class="dyncontent">
 <div class="center"><img src="classaunit_1_1fake_1_1FakePrint__coll__graph.png" border="0" usemap="#aunit_1_1fake_1_1FakePrint_coll__map" alt="Collaboration graph"/></div>
-<map name="aunit_1_1fake_1_1FakePrint_coll__map" id="aunit_1_1fake_1_1FakePrint_coll__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -115,9 +111,16 @@ Static Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An implementation of Print that writes to an in-memory buffer. </p>
-<p>The buffer can be retrieved using <a class="el" href="classaunit_1_1fake_1_1FakePrint.html#ab3a88258aa921031badaed5f24a676e5" title="Return the NUL terminated string buffer. ">getBuffer()</a> to verify that the expected string was written to the Print object. </p>
-
-<p class="definition">Definition at line <a class="el" href="FakePrint_8h_source.html#l00039">39</a> of file <a class="el" href="FakePrint_8h_source.html">FakePrint.h</a>.</p>
+<p>The buffer can be retrieved using <a class="el" href="classaunit_1_1fake_1_1FakePrint.html#ab3a88258aa921031badaed5f24a676e5" title="Return the NUL terminated string buffer. ">getBuffer()</a> to verify that the expected string was written to the Print object.</p>
+<p>Usage: </p><pre class="fragment">* {
+*   FakePrint fakePrint;
+*   object.printTo(fakePrint);
+*   assertEqual("expected", fakePrint.getBuffer());
+*   fakePrint.flush();
+*   ...
+* }
+* </pre> 
+<p class="definition">Definition at line <a class="el" href="FakePrint_8h_source.html#l00050">50</a> of file <a class="el" href="FakePrint_8h_source.html">FakePrint.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab3a88258aa921031badaed5f24a676e5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab3a88258aa921031badaed5f24a676e5">&#9670;&nbsp;</a></span>getBuffer()</h2>
@@ -145,7 +148,7 @@ Static Public Attributes</h2></td></tr>
 <p>Return the NUL terminated string buffer. </p>
 <p>After the buffer is no longer needed, the flush() method should be called to reset the internal buffer index to 0. </p>
 
-<p class="definition">Definition at line <a class="el" href="FakePrint_8h_source.html#l00085">85</a> of file <a class="el" href="FakePrint_8h_source.html">FakePrint.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FakePrint_8h_source.html#l00096">96</a> of file <a class="el" href="FakePrint_8h_source.html">FakePrint.h</a>.</p>
 
 </div>
 </div>
@@ -173,7 +176,7 @@ Static Public Attributes</h2></td></tr>
 <p>Size of the internal buffer. </p>
 <p>This is just large enough to hold the string representation of one 64-bit integer in binary format (64 bytes), including 2 bytes for the '\r\n' from println() and 1 byte for the terminating NUL. </p>
 
-<p class="definition">Definition at line <a class="el" href="FakePrint_8h_source.html#l00047">47</a> of file <a class="el" href="FakePrint_8h_source.html">FakePrint.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FakePrint_8h_source.html#l00058">58</a> of file <a class="el" href="FakePrint_8h_source.html">FakePrint.h</a>.</p>
 
 </div>
 </div>

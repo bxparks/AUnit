@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.2.1</span>
+   &#160;<span id="projectnumber">1.3</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -182,10 +182,10 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_##name : <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">  test_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>();\</div><div class="line">};\</div><div class="line">extern test_##name test_##name##_instance</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>test_##name : <span class="keyword">public</span> <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">public:\</div><div class="line">  test_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>();\</div><div class="line">};\</div><div class="line">extern test_##name test_##name##_instance</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
 <div class="ttc" id="classaunit_1_1TestOnce_html"><div class="ttname"><a href="classaunit_1_1TestOnce.html">aunit::TestOnce</a></div><div class="ttdoc">Similar to TestAgain but performs user-defined test only once. </div><div class="ttdef"><b>Definition:</b> <a href="TestOnce_8h_source.html#l00040">TestOnce.h:40</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00135">135</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00139">139</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -214,10 +214,10 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>suiteName##_##name : <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">  suiteName##_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>();\</div><div class="line">};\</div><div class="line">extern suiteName##_##name suiteName##_##name##_instance</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>suiteName##_##name : <span class="keyword">public</span> <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">public:\</div><div class="line">  suiteName##_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>();\</div><div class="line">};\</div><div class="line">extern suiteName##_##name suiteName##_##name##_instance</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
 <div class="ttc" id="classaunit_1_1TestOnce_html"><div class="ttname"><a href="classaunit_1_1TestOnce.html">aunit::TestOnce</a></div><div class="ttdoc">Similar to TestAgain but performs user-defined test only once. </div><div class="ttdef"><b>Definition:</b> <a href="TestOnce_8h_source.html#l00040">TestOnce.h:40</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00142">142</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00147">147</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -236,10 +236,10 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_ ## name : <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">  test_ ## name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>();\</div><div class="line">};\</div><div class="line">extern test_##name test_##name##_instance</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>test_ ## name : <span class="keyword">public</span> <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">public:\</div><div class="line">  test_ ## name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>();\</div><div class="line">};\</div><div class="line">extern test_##name test_##name##_instance</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
 <div class="ttc" id="classaunit_1_1TestAgain_html"><div class="ttname"><a href="classaunit_1_1TestAgain.html">aunit::TestAgain</a></div><div class="ttdoc">Similar to TestOnce but performs the user-defined test multiple times. </div><div class="ttdef"><b>Definition:</b> <a href="TestAgain_8h_source.html#l00037">TestAgain.h:37</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00163">163</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00169">169</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -268,10 +268,10 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>suiteName##_ ## name : <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">  suiteName##_ ## name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>();\</div><div class="line">};\</div><div class="line">extern suiteName##_##name suiteName##_##name##_instance</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>suiteName##_ ## name : <span class="keyword">public</span> <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">public:\</div><div class="line">  suiteName##_ ## name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>();\</div><div class="line">};\</div><div class="line">extern suiteName##_##name suiteName##_##name##_instance</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
 <div class="ttc" id="classaunit_1_1TestAgain_html"><div class="ttname"><a href="classaunit_1_1TestAgain.html">aunit::TestAgain</a></div><div class="ttdoc">Similar to TestOnce but performs the user-defined test multiple times. </div><div class="ttdef"><b>Definition:</b> <a href="TestAgain_8h_source.html#l00037">TestAgain.h:37</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00170">170</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00177">177</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -295,7 +295,7 @@ Macros</h2></td></tr>
 <p>This is only necessary if you use assertTestXxx() or checkTestXxx() when the test is in another file (or defined after the assertion on it).</p>
 <p>Two versions are supported: <a class="el" href="TestMacros_8h.html#a144a141e11afa7d1071965e962dbfb42" title="Create an extern reference to a test() test case object defined elsewhere. ">externTest(name)</a> and <a class="el" href="TestMacros_8h.html#a144a141e11afa7d1071965e962dbfb42" title="Create an extern reference to a test() test case object defined elsewhere. ">externTest(suiteName, name)</a>. The 2-argument <a class="el" href="TestMacros_8h.html#a144a141e11afa7d1071965e962dbfb42" title="Create an extern reference to a test() test case object defined elsewhere. ">externTest(suiteName, name)</a> is a convenience macro which is identical to <a class="el" href="TestMacros_8h.html#a144a141e11afa7d1071965e962dbfb42" title="Create an extern reference to a test() test case object defined elsewhere. ">externTest(suiteName_name)</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00130">130</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00134">134</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -324,11 +324,11 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>testClass ## _ ## name : testClass {\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  void once() <span class="keyword">override</span>;\</div><div class="line">};\</div><div class="line">extern testClass ## _ ## name testClass##_##name##_instance</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>testClass ## _ ## name : <span class="keyword">public</span> testClass {\</div><div class="line">public:\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  void once() <span class="keyword">override</span>;\</div><div class="line">};\</div><div class="line">extern testClass ## _ ## name testClass##_##name##_instance</div></div><!-- fragment -->
 <p>Create an extern reference to a <a class="el" href="TestMacros_8h.html#a4f2798c22904efe9442ce65eb6932a9c" title="Create a test that is derived from a custom TestOnce class. ">testF()</a> test case object defined elsewhere. </p>
 <p>This is only necessary if you use assertTestXxx() or checkTestXxx() when the test is in another file (or defined after the assertion on it). </p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00215">215</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00225">225</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -352,7 +352,7 @@ Macros</h2></td></tr>
 <p>This is only necessary if you use assertTestXxx() or checkTestXxx() when the test is in another file (or defined after the assertion on it).</p>
 <p>Two versions are supported: <a class="el" href="TestMacros_8h.html#a6f5d7f585ea78b8e7bee81bc655de07e" title="Create an extern reference to a testing() test case object defined elsewhere. ">externTesting(name)</a> and externTesting(suiteName, name). </p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00158">158</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00164">164</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -381,11 +381,11 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>testClass ## _ ## name : testClass {\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  void again() <span class="keyword">override</span>;\</div><div class="line">};\</div><div class="line">extern testClass ## _ ## name testClass##_##name##_instance</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>testClass ## _ ## name : <span class="keyword">public</span> testClass {\</div><div class="line">public:\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  void again() <span class="keyword">override</span>;\</div><div class="line">};\</div><div class="line">extern testClass ## _ ## name testClass##_##name##_instance</div></div><!-- fragment -->
 <p>Create an extern reference to a <a class="el" href="TestMacros_8h.html#a648c8cb704b9d942b36d8c4646645c2c" title="Create a test that is derived from a custom TestAgain class. ">testingF()</a> test case object defined elsewhere. </p>
 <p>This is only necessary if you use assertTestXxx() or checkTestXxx() when the test is in another file (or defined after the assertion on it). </p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00228">228</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00239">239</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -427,7 +427,7 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_##name : <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">  test_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>() <span class="keyword">override</span>;\</div><div class="line">} test_##name##_instance;\</div><div class="line">test_##name :: test_##name() {\</div><div class="line">  init(AUNIT_F(#name)); \</div><div class="line">}\</div><div class="line">void test_##name :: once()</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>test_##name : <span class="keyword">public</span> <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">public:\</div><div class="line">  test_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>() <span class="keyword">override</span>;\</div><div class="line">} test_##name##_instance;\</div><div class="line">test_##name :: test_##name() {\</div><div class="line">  init(AUNIT_F(#name)); \</div><div class="line">}\</div><div class="line">void test_##name :: once()</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
 <div class="ttc" id="classaunit_1_1TestOnce_html"><div class="ttname"><a href="classaunit_1_1TestOnce.html">aunit::TestOnce</a></div><div class="ttdoc">Similar to TestAgain but performs user-defined test only once. </div><div class="ttdef"><b>Definition:</b> <a href="TestOnce_8h_source.html#l00040">TestOnce.h:40</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00067">67</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
@@ -459,10 +459,10 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>suiteName##_##name : <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">  suiteName##_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>() <span class="keyword">override</span>;\</div><div class="line">} suiteName##_##name##_instance;\</div><div class="line">suiteName##_##name :: suiteName##_##name() {\</div><div class="line">  init(AUNIT_F(#suiteName <span class="stringliteral">&quot;_&quot;</span> #name)); \</div><div class="line">}\</div><div class="line">void suiteName##_##name :: once()</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>suiteName##_##name : <span class="keyword">public</span> <a class="code" href="classaunit_1_1TestOnce.html">aunit::TestOnce</a> {\</div><div class="line">public:\</div><div class="line">  suiteName##_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">once</a>() <span class="keyword">override</span>;\</div><div class="line">} suiteName##_##name##_instance;\</div><div class="line">suiteName##_##name :: suiteName##_##name() {\</div><div class="line">  init(AUNIT_F(#suiteName <span class="stringliteral">&quot;_&quot;</span> #name)); \</div><div class="line">}\</div><div class="line">void suiteName##_##name :: once()</div><div class="ttc" id="classaunit_1_1TestOnce_html_a064675c6adcce5ddb8562628e573ccc1"><div class="ttname"><a href="classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1">aunit::TestOnce::once</a></div><div class="ttdeci">virtual void once()=0</div><div class="ttdoc">User-provided test case. </div></div>
 <div class="ttc" id="classaunit_1_1TestOnce_html"><div class="ttname"><a href="classaunit_1_1TestOnce.html">aunit::TestOnce</a></div><div class="ttdoc">Similar to TestAgain but performs user-defined test only once. </div><div class="ttdef"><b>Definition:</b> <a href="TestOnce_8h_source.html#l00040">TestOnce.h:40</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00077">77</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00078">78</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -491,11 +491,11 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>testClass ## _ ## name : testClass {\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  void once() <span class="keyword">override</span>;\</div><div class="line">} testClass ## _ ## name ## _instance;\</div><div class="line">testClass ## _ ## name :: testClass ## _ ## name() {\</div><div class="line">  init(AUNIT_F(#testClass <span class="stringliteral">&quot;_&quot;</span> #name));\</div><div class="line">}\</div><div class="line">void testClass ## _ ## name :: once()</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>testClass ## _ ## name : <span class="keyword">public</span> testClass {\</div><div class="line">public:\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  void once() <span class="keyword">override</span>;\</div><div class="line">} testClass ## _ ## name ## _instance;\</div><div class="line">testClass ## _ ## name :: testClass ## _ ## name() {\</div><div class="line">  init(AUNIT_F(#testClass <span class="stringliteral">&quot;_&quot;</span> #name));\</div><div class="line">}\</div><div class="line">void testClass ## _ ## name :: once()</div></div><!-- fragment -->
 <p>Create a test that is derived from a custom TestOnce class. </p>
 <p>The name of the instance is prefixed by '{testClass}_' to avoid name collisions with similarly named tests using other fixtures. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00182">182</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00190">190</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -518,7 +518,7 @@ Macros</h2></td></tr>
 <p>Macro to define a test that will run repeatly upon each iteration of the global loop() method, stopping when the something calls Test::pass(), Test::fail() or Test::skip(). </p>
 <p>Two versions are supported: <a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing(name)</a> and <a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing(suiteName, name)</a>. The 2-argument <a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing(suiteName, name)</a> is a convenience macro which is identical to <a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method...">testing(suiteName_name)</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00096">96</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00098">98</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -537,10 +537,10 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>test_##name : <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">  test_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>() <span class="keyword">override</span>;\</div><div class="line">} test_##name##_instance;\</div><div class="line">test_##name :: test_##name() {\</div><div class="line">  init(AUNIT_F(#name));\</div><div class="line">}\</div><div class="line">void test_##name :: again()</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>test_##name : <span class="keyword">public</span> <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">public:\</div><div class="line">  test_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>() <span class="keyword">override</span>;\</div><div class="line">} test_##name##_instance;\</div><div class="line">test_##name :: test_##name() {\</div><div class="line">  init(AUNIT_F(#name));\</div><div class="line">}\</div><div class="line">void test_##name :: again()</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
 <div class="ttc" id="classaunit_1_1TestAgain_html"><div class="ttname"><a href="classaunit_1_1TestAgain.html">aunit::TestAgain</a></div><div class="ttdoc">Similar to TestOnce but performs the user-defined test multiple times. </div><div class="ttdef"><b>Definition:</b> <a href="TestAgain_8h_source.html#l00037">TestAgain.h:37</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00101">101</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00103">103</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -569,10 +569,10 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>suiteName##_##name : <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">  suiteName##_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>() <span class="keyword">override</span>;\</div><div class="line">} suiteName##_##name##_instance;\</div><div class="line">suiteName##_##name :: suiteName##_##name() {\</div><div class="line">  init(AUNIT_F(#suiteName <span class="stringliteral">&quot;_&quot;</span> #name));\</div><div class="line">}\</div><div class="line">void suiteName##_##name :: again()</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>suiteName##_##name : <span class="keyword">public</span> <a class="code" href="classaunit_1_1TestAgain.html">aunit::TestAgain</a> {\</div><div class="line">public:\</div><div class="line">  suiteName##_##name();\</div><div class="line">  void <a class="code" href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">again</a>() <span class="keyword">override</span>;\</div><div class="line">} suiteName##_##name##_instance;\</div><div class="line">suiteName##_##name :: suiteName##_##name() {\</div><div class="line">  init(AUNIT_F(#suiteName <span class="stringliteral">&quot;_&quot;</span> #name));\</div><div class="line">}\</div><div class="line">void suiteName##_##name :: again()</div><div class="ttc" id="classaunit_1_1TestAgain_html_abb140ff8224ec77ace6bd379c5ef13a8"><div class="ttname"><a href="classaunit_1_1TestAgain.html#abb140ff8224ec77ace6bd379c5ef13a8">aunit::TestAgain::again</a></div><div class="ttdeci">virtual void again()=0</div><div class="ttdoc">User-provided test case. </div></div>
 <div class="ttc" id="classaunit_1_1TestAgain_html"><div class="ttname"><a href="classaunit_1_1TestAgain.html">aunit::TestAgain</a></div><div class="ttdoc">Similar to TestOnce but performs the user-defined test multiple times. </div><div class="ttdef"><b>Definition:</b> <a href="TestAgain_8h_source.html#l00037">TestAgain.h:37</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00111">111</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00114">114</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
@@ -601,12 +601,12 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">struct </span>testClass ## _ ## name : testClass {\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  void again() <span class="keyword">override</span>;\</div><div class="line">} testClass ## _ ## name ## _instance;\</div><div class="line">testClass ## _ ## name :: testClass ## _ ## name() {\</div><div class="line">  init(AUNIT_F(#testClass <span class="stringliteral">&quot;_&quot;</span> #name));\</div><div class="line">}\</div><div class="line">void testClass ## _ ## name :: again()</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">class </span>testClass ## _ ## name : <span class="keyword">public</span> testClass {\</div><div class="line">public:\</div><div class="line">  testClass ## _ ## name();\</div><div class="line">  void again() <span class="keyword">override</span>;\</div><div class="line">} testClass ## _ ## name ## _instance;\</div><div class="line">testClass ## _ ## name :: testClass ## _ ## name() {\</div><div class="line">  init(AUNIT_F(#testClass <span class="stringliteral">&quot;_&quot;</span> #name));\</div><div class="line">}\</div><div class="line">void testClass ## _ ## name :: again()</div></div><!-- fragment -->
 <p>Create a test that is derived from a custom TestAgain class. </p>
 <p>The name of the instance is prefixed by '{testClass}_' to avoid name collisions with similarly named tests using other fixtures.</p>
 <p>Note that <a class="el" href="TestMacros_8h.html#a152fb8fe682506b1b08ddda59abce668" title="Macro to define a test that will be run only once. ">test(suiteName, name)</a> is different than <a class="el" href="TestMacros_8h.html#a4f2798c22904efe9442ce65eb6932a9c" title="Create a test that is derived from a custom TestOnce class. ">testF(className, name)</a>, but there will be a name collision if suiteName is the same as className. </p>
 
-<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00200">200</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestMacros_8h_source.html#l00209">209</a> of file <a class="el" href="TestMacros_8h_source.html">TestMacros.h</a>.</p>
 
 </div>
 </div>
