@@ -1,6 +1,7 @@
 # Changelog
 
 * Unreleased
+* 1.3 (2019-06-15)
     * Remove direct creation of `String` object, removing last remaining dynamic
       allocation of heap memory from library.
     * Add experimental implementation of `unitduino`, an Anduino emulation
