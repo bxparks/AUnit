@@ -1,8 +1,8 @@
 /*
 Copyright (c) 2019 Brian T. Park
 
-Parts derived from on Arduino.h - Main include file for the Arduino SDK
-Copyright (c) 2005-2013 Arduino Team.  All right reserved.
+Parts derived from the Arduino SDK
+Copyright (c) 2005-2013 Arduino Team
 */
 
 #ifndef UNITDUINO_ARDUINO_H
@@ -38,7 +38,9 @@ Copyright (c) 2005-2013 Arduino Team.  All right reserved.
 extern void delay(unsigned long ms);
 extern void yield();
 extern unsigned long millis();
+extern unsigned long micros();
 extern void digitalWrite(uint8_t pin, uint8_t val);
+extern int digitalRead(uint8_t pin);
 extern void pinMode(uint8_t pin, uint8_t mode);
 
 /** Provided in the client code's *.ino file. */
