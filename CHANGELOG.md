@@ -1,6 +1,11 @@
 # Changelog
 
 * Unreleased
+    * unitduino: Add `pgm_read*()` macros to `pgmspace.h`.
+    * unitduino: Add stubs for digitalRead() and micros().
+    * unitduino: Add OBJS and GENERATED parameters to support generated source
+      files.
+    * Add `examples/AUnitPlatformIO` to verify that AUnit works on PlatformIO.
 * 1.3 (2019-06-15)
     * Remove direct creation of `String` object, removing last remaining dynamic
       allocation of heap memory from library.
