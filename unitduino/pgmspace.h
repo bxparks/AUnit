@@ -14,7 +14,11 @@
 
 #define PROGMEM
 
-#define pgm_read_byte(address_short)    (*(address_short))
+#define pgm_read_byte(p) (* (const uint8_t*) (p))
+#define pgm_read_word(p) (* (const uint16_t*) (p))
+#define pgm_read_dword(p) (* (const uint32_t*) (p))
+#define pgm_read_float(p) (* (const float*) (p))
+#define pgm_read_ptr(p) (* (const void* const*) (p))
 
 #define strlen_P strlen
 #define strcat_P strcat
