@@ -8,6 +8,8 @@
 #ifndef UNITDUINO_PGMSPACE_H
 #define UNITDUINO_PGMSPACE_H
 
+#include <string.h>
+
 #define PGM_P const char *
 #define PGM_VOID_P const void *
 #define PSTR(str) (str)
@@ -27,5 +29,7 @@
 #define strcmp_P strcmp
 #define strncmp_P strncmp
 #define strcasecmp_P strcasecmp
+#define strchr_P strchr
+#define strrchr_P strrchr
 
 #endif
