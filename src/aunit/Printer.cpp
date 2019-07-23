@@ -25,8 +25,11 @@ SOFTWARE.
 #include <Arduino.h> // Serial
 #include "Printer.h"
 
-// All other SAMD boards define SERIAL_PORT_MONITOR as SerialUSB, except for
-// the Zero, which defines it to be Serial, which doesn't work. Clobber it.
+// The Arduino Zero using "Native USB Port" uses SerialUSB, but
+// SERIAL_PORT_MONITOR continues to point to Serial, which causes nothing to
+// appear on the Serial Monitor. Clobber SERIAL_PORT_MONITOR to point to
+// SerialUSB. This is the correct setting on the Chinese SAMD21 M0 Mini
+// clones which claim to be compatible with the Arduino Zero.
 #if defined(ARDUINO_SAMD_ZERO)
   #undef SERIAL_PORT_MONITOR
   #define SERIAL_PORT_MONITOR SerialUSB
