@@ -35,18 +35,22 @@ Copyright (c) 2005-2013 Arduino Team
 #define FALLING 2
 #define RISING 3
 
-extern void delay(unsigned long ms);
-extern void yield();
-extern unsigned long millis();
-extern unsigned long micros();
-extern void digitalWrite(uint8_t pin, uint8_t val);
-extern int digitalRead(uint8_t pin);
-extern void pinMode(uint8_t pin, uint8_t mode);
+extern "C" {
+
+void delay(unsigned long ms);
+void yield();
+unsigned long millis();
+unsigned long micros();
+void digitalWrite(uint8_t pin, uint8_t val);
+int digitalRead(uint8_t pin);
+void pinMode(uint8_t pin, uint8_t mode);
 
 /** Provided in the client code's *.ino file. */
-extern void setup();
+void setup();
 
 /** Provided in the client code's *.ino file. */
-extern void loop();
+void loop();
+
+}
 
 #endif
