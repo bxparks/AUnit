@@ -30,8 +30,9 @@ SOFTWARE.
 #if defined(ARDUINO_SAMD_ZERO)
   #undef SERIAL_PORT_MONITOR
   #define SERIAL_PORT_MONITOR SerialUSB
+#elif defined(ESP32)
+  #define SERIAL_PORT_MONITOR Serial
 #elif defined(__linux__) or defined(__APPLE__)
-  #undef SERIAL_PORT_MONITOR
   #define SERIAL_PORT_MONITOR Serial
 #endif
 
