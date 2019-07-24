@@ -77,8 +77,8 @@ bool lifeCycleTestsPassed = true;
  */
 void assertionLifeCycle(uint8_t expected, const Test& instance, uint16_t line) {
   if (expected != instance.getLifeCycle()) {
-    Serial.print(F("FAILED: FilterTest::setup() failed on line "));
-    Serial.println(line);
+    SERIAL_PORT_MONITOR.print(F("FAILED: FilterTest::setup() failed on line "));
+    SERIAL_PORT_MONITOR.println(line);
     lifeCycleTestsPassed = false;
   }
 }
@@ -100,11 +100,11 @@ test(lifeCycle) {
 // -----------------------------------------------------------------------
 
 void setup() {
-  #ifdef ARDUINO
+#ifdef ARDUINO
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
-  #endif
-  Serial.begin(115200); // ESP8266 default of 74880 not supported on Linux
-  while (! Serial); // Wait until Serial is ready - Leonardo
+#endif
+  SERIAL_PORT_MONITOR.begin(115200);
+  while (! SERIAL_PORT_MONITOR); // Wait until Serial is ready - Leonardo
 
   // Verify that the include() and exclude() work as expected. The name of test
   // is either "test_{name}" (1-argument version of test()) or
