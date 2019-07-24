@@ -95,4 +95,29 @@ class __FlashStringHelper;
   #error Unsupported platform
 #endif
 
+// Define SERIAL_PORT_MONITOR consistently. We should also rename this file to
+// something like "compat.h".
+#if defined(ARDUINO_SAMD_ZERO)
+  // If have a real Arduino Zero and using the "Arduino/Genuino Zero (Native
+  // USB Port)" configuration on the Arduino IDE,  you may need to uncomment
+  // the following to clobber SERIAL_PORT_MONITOR to point to the correct
+  // SerialUSB.
+  //
+  // On the other hand, if you are using a SparkFun breakout board, or one of
+  // the "SAMD21 M0 Mini" clones, you should be using the SparkFun SAMD Boards,
+  // and selecting the "SparkFun SAMD21 Dev Breakout" or the "SparkFun SAMD21
+  // Mini Breakout" settings, which will set the SERIAL_PORT_MONITOR macro
+  // correctly to SerialUSB.
+  #if 0
+    #undef SERIAL_PORT_MONITOR
+    #define SERIAL_PORT_MONITOR SerialUSB
+  #endif
+#elif defined(ESP32)
+  #if ! defined(SERIAL_PORT_MONITOR)
+    #define SERIAL_PORT_MONITOR Serial
+  #endif
+#elif defined(__linux__) or defined(__APPLE__)
+  #define SERIAL_PORT_MONITOR Serial
+#endif
+
 #endif
