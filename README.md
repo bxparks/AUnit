@@ -1500,28 +1500,40 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## System Requirements
 
+### Tool Chain
+
 This library was developed and tested using:
-* [Arduino IDE 1.8.5](https://www.arduino.cc/en/Main/Software)
-* [Teensyduino 1.41](https://www.pjrc.com/teensy/td_download.html)
-* [ESP8266 Arduino Core 2.4.1](https://arduino-esp8266.readthedocs.io/en/2.4.1/)
-* [arduino-esp32](https://github.com/espressif/arduino-esp32)
+* [Arduino IDE 1.8.9](https://www.arduino.cc/en/Main/Software)
+* [Arduino AVR Boards 1.6.23](https://github.com/arduino/ArduinoCore-avr)
+* [Arduino SAMD Boards 1.8.3](https://github.com/arduino/ArduinoCore-samd)
+* [SparkFun AVR Boards 1.1.12](https://github.com/sparkfun/Arduino_Boards)
+* [SparkFun SAMD Boards 1.6.2](https://github.com/sparkfun/Arduino_Boards)
+* [ESP8266 Arduino 2.5.2](https://github.com/esp8266/Arduino)
+* [ESP32 Arduino 1.0.2](https://github.com/espressif/arduino-esp32)
+* [Teensydino 1.46](https://www.pjrc.com/teensy/td_download.html)
 
-I used MacOS 10.13.3 and Ubuntu 17.10 for most of my development.
+It should work with [PlatformIO](https://platformio.org/) but I have
+not tested it extensively.
 
-The library is tested on the following hardware before each release:
+### Operating System
+
+I used MacOS 10.13.3 and Ubuntu 18.04 for most of my development.
+
+### Hardware
+
+The library is tested extensively on the following boards:
 
 * Arduino Nano clone (16 MHz ATmega328P)
 * SparkFun Pro Micro clone (16 MHz ATmega32U4)
-* Teensy 3.2 (72 MHz ARM Cortex-M4)
 * NodeMCU 1.0 clone (ESP-12E module, 80 MHz ESP8266)
+* WeMos D1 Mini clone (ESP-12E module, 80 MHz ESP8266)
 * ESP32 dev board (ESP-WROOM-32 module, 240 MHz dual core Tensilica LX6)
+* SAMD21 M0 Mini board (Arduino Zero compatible, 48 MHz ARM Cortex-M0+)
 
 I will occasionally test on the following hardware as a sanity check:
 
-* Arduino UNO R3 clone (16 MHz ATmega328P)
-* Arduino Pro Mini clone (16 MHz ATmega328P)
-* Teensy LC (48 MHz ARM Cortex-M0+)
-* ESP-01 (ESP-01 module, 80 MHz ESP8266)
+* Teensy 3.2 (72 MHz ARM Cortex-M4)
+* Mini Mega 2560 (Arduino Mega 2560 compatible, 16 MHz ATmega2560)
 
 ## License
 
