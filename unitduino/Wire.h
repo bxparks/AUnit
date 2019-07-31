@@ -1,6 +1,7 @@
 /*
   TwoWire.h - TWI/I2C library for Arduino & Wiring
   Copyright (c) 2006 Nicholas Zambetti.  All right reserved.
+  Modified by Brian T. Park 2019.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -30,6 +31,10 @@
 // WIRE_HAS_END means Wire has end()
 #define WIRE_HAS_END 1
 
+/**
+ * This class is just a stub under Linux and MacOS. It does not do anything
+ * real.
+ */
 class TwoWire : public Stream
 {
   private:

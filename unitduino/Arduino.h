@@ -1,15 +1,16 @@
 /*
-Copyright (c) 2019 Brian T. Park
-
-Parts derived from the Arduino SDK
-Copyright (c) 2005-2013 Arduino Team
-*/
+ * Copyright (c) 2019 Brian T. Park
+ * MIT License
+ * 
+ * Parts derived from the Arduino SDK
+ * Copyright (c) 2005-2013 Arduino Team
+ */
 
 #ifndef UNITDUINO_ARDUINO_H
 #define UNITDUINO_ARDUINO_H
 
 #include "Print.h"
-#include "SoftwareSerial.h"
+#include "StdioSerial.h"
 
 #define HIGH 0x1
 #define LOW  0x0

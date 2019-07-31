@@ -1,6 +1,7 @@
 /*
   TwoWire.cpp - TWI/I2C library for Wiring & Arduino
   Copyright (c) 2006 Nicholas Zambetti.  All right reserved.
+  Modified by Brian T. Park 2019.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public

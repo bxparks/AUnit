@@ -1,19 +1,19 @@
-/**
- * @file SoftwareSerial.h
- *
- * A version of SoftwareSerial that supports AUnit tests on Linux or MaxOS.
+/*
+ * Copyright (c) 2019 Brian T. Park
+ * MIT License
  */
 
-#ifndef UNITDUINO_SOFTWARE_SERIAL_H
-#define UNITDUINO_SOFTWARE_SERIAL_H
+#ifndef UNITDUINO_STDIO_SERIAL_H
+#define UNITDUINO_STDIO_SERIAL_H
 
 #include "Print.h"
 #include "Stream.h"
 
-// Ring buffer size (should be a power of 2 for efficiency).
-#define SOFTWARE_SERIAL_BUF_SIZE 128
-
-class SoftwareSerial: public Stream {
+/**
+ * A version of Serial that reads from STDIN and sends output to STDOUT on
+ * Linux or MacOS (untested).
+ */
+class StdioSerial: public Stream {
   public:
     void begin(unsigned long baud) { }
 
@@ -28,7 +28,7 @@ class SoftwareSerial: public Stream {
         return -1;
       } else {
         char c = mBuffer[mHead];
-        mHead = (mHead + 1) % SOFTWARE_SERIAL_BUF_SIZE;
+        mHead = (mHead + 1) % kBufSize;
         return c;
       }
     }
@@ -39,7 +39,7 @@ class SoftwareSerial: public Stream {
 
     /** Insert a character into the ring buffer. */
     void insertChar(char c) {
-      int newTail = (mTail + 1) % SOFTWARE_SERIAL_BUF_SIZE;
+      int newTail = (mTail + 1) % kBufSize;
       if (newTail == mHead) {
         // Buffer full, drop the character. (Strictly speaking, there's one
         // remaining slot in the buffer, but we can't use it because we need to
@@ -51,11 +51,14 @@ class SoftwareSerial: public Stream {
     }
 
   private:
-    char mBuffer[SOFTWARE_SERIAL_BUF_SIZE];
+    // Ring buffer size (should be a power of 2 for efficiency).
+    static const int kBufSize = 128;
+
+    char mBuffer[kBufSize];
     int mHead = 0;
     int mTail = 0;
 };
 
-extern SoftwareSerial Serial;
+extern StdioSerial Serial;
 
 #endif

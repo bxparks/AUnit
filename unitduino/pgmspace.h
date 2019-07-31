@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019 Brian T. Park
+ * MIT License
+ */
+
 /**
  * @file pgmspace.h
  *

@@ -2,6 +2,7 @@
   EEPROM.h - EEPROM library
   Original Copyright (c) 2006 David A. Mellis.  All right reserved.
   New version by Christopher Andrews 2015.
+  Modified by Brian T. Park 2019.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public

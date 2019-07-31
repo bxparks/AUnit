@@ -1,16 +1,19 @@
 /*
-Copyright (c) 2019 Brian T. Park
-
-Parts derived from the Arduino SDK
-Copyright (c) 2005-2013 Arduino Team
-
-Parts from [Entering raw
-mode](https://viewsourcecode.org/snaptoken/kilo/02.enteringRawMode.html).
-
-The 'Serial' object sends output to STDOUT, and receives input from STDIN in
-'raw' mode. The main() loop checks the STDIN and if it finds a character,
-inserts it into the Serial buffer.
-*/
+ * Copyright (c) 2019 Brian T. Park
+ * 
+ * Parts derived from the Arduino SDK
+ * Copyright (c) 2005-2013 Arduino Team
+ * 
+ * Parts inspired by [Entering raw
+ * mode](https://viewsourcecode.org/snaptoken/kilo/02.enteringRawMode.html).
+ *
+ * Parts inspired by [ESP8266 Host
+ * Emulation](https://github.com/esp8266/Arduino/tree/master/tests/host).
+ * 
+ * The 'Serial' object sends output to STDOUT, and receives input from STDIN in
+ * 'raw' mode. The main() loop checks the STDIN and if it finds a character,
+ * inserts it into the Serial buffer.
+ */
 
 #include <inttypes.h>
 #include <unistd.h> // usleep()
@@ -30,7 +33,7 @@ void delay(unsigned long ms) {
 }
 
 void yield() {
-  usleep(1000);
+  usleep(1000); // prevents program from consuming 100% CPU
 }
 
 unsigned long millis() {
@@ -54,18 +57,19 @@ int digitalRead(uint8_t pin) { return 0; }
 void pinMode(uint8_t pin, uint8_t mode) {}
 
 // -----------------------------------------------------------------------
-// Additional Unix stuff to put STDIN into raw mode, and trap Ctrl-C
+// Unix compatibility. Put STDIN into raw mode and hook it into the 'Serial'
+// object. Trap Ctrl-C and perform appropriate clean up.
 // -----------------------------------------------------------------------
 
 static struct termios orig_termios;
 static bool inRawMode = false;
 
-void die(const char* s) {
+static void die(const char* s) {
 	perror(s);
   exit(1);
 }
 
-void disableRawMode() {
+static void disableRawMode() {
   if (!inRawMode) return;
   if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios) == -1) {
     inRawMode = false; // prevent exit(1) from being called twice
@@ -73,7 +77,7 @@ void disableRawMode() {
 	}
 }
 
-void enableRawMode() {
+static void enableRawMode() {
   if (!isatty(STDIN_FILENO)) {
     die("enableRawMode(): redirection on STDIN not supported");
   }
@@ -101,7 +105,7 @@ void enableRawMode() {
   inRawMode = true;
 }
 
-void handleControlC(int /*sig*/) {
+static void handleControlC(int /*sig*/) {
   if (inRawMode) {
     // If this returns an error, don't call die() because it will call exit(),
     // which may call this again, causing an infinite recursion.
@@ -113,9 +117,8 @@ void handleControlC(int /*sig*/) {
   exit(1);
 }
 
-
 // -----------------------------------------------------------------------
-// Main loop
+// Main loop. User code will provide setup() and loop().
 // -----------------------------------------------------------------------
 
 int main(int argc, char** argv) {

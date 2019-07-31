@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019 Brian T. Park
+ * MIT License
+ */
+
 /**
  * @file avr_stdlib.h
  *
@@ -9,11 +14,14 @@
 #ifndef UNITDUINO_AVR_STDLIB_H
 #define UNITDUINO_AVR_STDLIB_H
 
-extern char *itoa(int n, char *str, int base);
-extern char *utoa(unsigned n, char *str, int base);
-extern char *ltoa(long n, char *str, int base);
-extern char *ultoa(unsigned long n, char *str, int base);
-extern char *dtostrf(double val, signed char width, unsigned char prec,
-    char *s);
+extern "C" {
+
+char *itoa(int n, char *str, int base);
+char *utoa(unsigned n, char *str, int base);
+char *ltoa(long n, char *str, int base);
+char *ultoa(unsigned long n, char *str, int base);
+char *dtostrf(double val, signed char width, unsigned char prec, char *s);
+
+}
 
 #endif
