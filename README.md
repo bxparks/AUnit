@@ -9,7 +9,7 @@ AVR, ESP8266, ESP32 and Teensy platforms. The sister AUniter project provides
 command line tools to verify, upload and validate the unit tests. The AUniter
 tools can be used in a continuous integration system like Jenkins.
 
-Version: 1.3 (2018-06-15)
+Version: 1.3.1 (2018-07-31)
 
 [![AUniter Jenkins Badge](https://us-central1-xparks2018.cloudfunctions.net/badge?project=AUnit)](https://github.com/bxparks/AUniter)
 

@@ -1,5 +1,5 @@
-# See https://github.com/bxparks/UnixHostDuino for documentation about this
-# Makefile to compile and run Arduino programs natively on Linux or MacOS.
+# see https://github.com/bxparks/unixhostduino for documentation about this
+# makefile to compile and run arduino programs natively on linux or macos.
 
 APP_NAME := AUnitTest
 ARDUINO_LIBS := AUnit
