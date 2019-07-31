@@ -60,15 +60,18 @@ The following functions and features of the Arduino framework are implemented:
 * `yield()`
 * `millis()`
 * `Serial`
-* `Serial.print()`
-* `Serial.println()`
+    * `Serial.print()`
+    * `Serial.println()`
+    * `Serial.read()`
 * `String`
 * `Print`
-* `Stream` (untested)
 * `<pgmspace.h>` (limited)
 * `PROGMEM`
 * `F()` macro
 * `EEPROM` (compilation only)
+
+The `Serial` object sends the output to the `STDOUT`. It can also read from the
+`STDIN` (in raw mode).
 
 ## Additional Arduino Libraries
 
