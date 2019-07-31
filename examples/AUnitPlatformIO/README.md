@@ -2,8 +2,8 @@
 
 This is an example unit test that runs on the PlatformIO environment. Created to
 track down [AUnit#50](https://github.com/bxparks/AUnit/issues/50) where
-`unitduino/` directory seems to break PlatformIO because it tries to compile it.
-Unfortunately, I cannot reproduce it. This seems to work fine on my machine.
+`UnixHostDuino/` directory seems to break PlatformIO because it tries to compile
+it. Unfortunately, I cannot reproduce it. This seems to work fine on my machine.
 
 ## Updating PlatformIO
 
