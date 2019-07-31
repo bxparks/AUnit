@@ -1,6 +1,7 @@
 # Changelog
 
 * Unreleased
+* 1.3.1 (2019-07-31)
     * Add `examples/AUnitPlatformIO` to verify that AUnit works on PlatformIO.
     * Rename unitduino to UnixHostDuino and move to its own repository at
       `https://github.com/bxparks/UnixHostDuino`.
