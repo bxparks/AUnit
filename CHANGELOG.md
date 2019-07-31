@@ -5,6 +5,7 @@
     * Rename unitduino to UnixHostDuino and move to its own repository at
       `https://github.com/bxparks/UnixHostDuino`.
     * Add UnixHostDuino Makefile to all unit tests.
+    * Support SAMD21 and ATmega2560 boards.
     * Call `exit(1)` upon failure or timeout, `exit(0)` upon success when using
       UnixHostDuino (#51).
 * 1.3 (2019-06-15)
