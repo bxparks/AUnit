@@ -23,10 +23,11 @@ SOFTWARE.
 */
 
 #include <Arduino.h> // Serial
+#include "Flash.h"
 #include "Printer.h"
 
 namespace aunit {
 
-Print* Printer::sPrinter = &Serial;
+Print* Printer::sPrinter = &SERIAL_PORT_MONITOR;
 
 }
