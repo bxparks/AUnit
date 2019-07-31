@@ -1283,6 +1283,39 @@ The AUniter tools have been integrated into the [Jenkins](https://jenkins.io)
 continuous integration service. See details in
 [Continuous Integration with Jenkins](https://github.com/bxparks/AUniter/tree/develop/jenkins).
 
+### UnixHostDuino
+
+AUnit unit tests can often be compiled and executed natively on Linux or MacOS
+machines using the [UnixHostDuino](https://github.com/bxparks/UnixHostDuino)
+library because most unit tests depend on just the `Serial` port (which
+UnixHostDuino binds to `stdout` and `stdin`).
+
+The [unit tests for AUnit itself](tests) have all been upgraded to run
+under UnixHostDuino. Here are a few tips when writing unit tests
+to run under UnixHostDuino:
+
+**Delay(1000)**
+
+For real Arduino boards, you get more reliable unit tests if you add a
+`delay(1000)` at the start of the program. For UnixHostDuino, this is not
+necessary, so I recommend calling this only on real Arduino boards, like this:
+```C++
+void setup() {
+#ifdef ARDUINO
+  delay(1000); // Wait for stability on some boards, otherwise garage on Serial
+#endif
+  ...
+```
+
+**Exit() Status Code**
+
+On real Arduino boards, the unit test (or any program for that matter) never
+terminates. The `loop()` function executes forever. On Linux or MacOS using
+UnixHostDuino, the test program will terminate at the end through the
+`exit()` function. If the tests are successful (i.e. passing or skipped), it
+will call `exit(0)`. If there are any failing tests (i.e. failed or timed out),
+it will call `exit(1)`.
+
 ## Tips
 
 Collection of useful tidbits.
