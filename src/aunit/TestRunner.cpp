@@ -81,18 +81,7 @@ void TestRunner::setLifeCycleMatchingPattern(const char* testClass,
   setLifeCycleMatchingPattern(fullPattern, lifeCycle);
 }
 
-TestRunner::TestRunner():
-    mCurrent(nullptr),
-    mIsResolved(false),
-    mIsSetup(false),
-    mIsRunning(false),
-    mVerbosity(Verbosity::kDefault),
-    mCount(0),
-    mPassedCount(0),
-    mFailedCount(0),
-    mSkippedCount(0),
-    mStatusErrorCount(0),
-    mTimeout(kTimeoutDefault) {}
+TestRunner::TestRunner() {}
 
 void TestRunner::runTest() {
   setupRunner();
@@ -109,9 +98,9 @@ void TestRunner::runTest() {
       mEndTime = millis();
       resolveRun();
       mIsResolved = true;
-      #ifndef ARDUINO
-      exit(0);
-      #endif
+    #if UNIX_HOST_DUINO
+      exit((mFailedCount || mExpiredCount) ? 1 : 0);
+    #endif
     }
     return;
   }

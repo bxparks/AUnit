@@ -2,9 +2,11 @@
 
 * Unreleased
     * Add `examples/AUnitPlatformIO` to verify that AUnit works on PlatformIO.
-    * Rename unitduino to UnixHostduino and move to its own repository at
+    * Rename unitduino to UnixHostDuino and move to its own repository at
       `https://github.com/bxparks/UnixHostDuino`.
     * Add UnixHostDuino Makefile to all unit tests.
+    * Call `exit(1)` upon failure or timeout, `exit(0)` upon success when using
+      UnixHostDuino (#51).
 * 1.3 (2019-06-15)
     * Remove direct creation of `String` object, removing last remaining dynamic
       allocation of heap memory from library.

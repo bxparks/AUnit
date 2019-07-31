@@ -170,19 +170,19 @@ class TestRunner {
     // The current test case is represented by a pointer to a pointer. This
     // allows treating the root node the same as all the other nodes, and
     // simplifies the code traversing the singly-linked list significantly.
-    Test** mCurrent;
+    Test** mCurrent = nullptr;
 
-    bool mIsResolved;
-    bool mIsSetup;
-    bool mIsRunning;
-    uint8_t mVerbosity;
-    uint16_t mCount;
-    uint16_t mPassedCount;
-    uint16_t mFailedCount;
-    uint16_t mSkippedCount;
-    uint16_t mExpiredCount;
-    uint16_t mStatusErrorCount;
-    TimeoutType mTimeout;
+    bool mIsResolved = false;
+    bool mIsSetup = false;
+    bool mIsRunning = false;
+    uint8_t mVerbosity = Verbosity::kDefault;
+    uint16_t mCount = 0;
+    uint16_t mPassedCount = 0;
+    uint16_t mFailedCount = 0;
+    uint16_t mSkippedCount = 0;
+    uint16_t mExpiredCount = 0;
+    uint16_t mStatusErrorCount = 0;
+    TimeoutType mTimeout = kTimeoutDefault;
     unsigned long mStartTime;
     unsigned long mEndTime;
 };
