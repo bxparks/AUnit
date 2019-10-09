@@ -9,7 +9,7 @@ natively on Linux or MacOS using the
 [UnixHostDuino](https://github.com/bxparks/UnixHostDuino) companion project.
 
 AUnit is almost a drop-in replacement of ArduinoUnit with some advantages. AUnit
-supports timeouts and test fixtures. It somtimes consume 50% less flash memory
+supports timeouts and test fixtures. It somtimes consumes 50% less flash memory
 on the AVR platform, and it has been tested to work on the AVR, ESP8266, ESP32
 and Teensy platforms. Another companion project
 [AUniter](https://github.com/bxparks/AUniter) project provides command line
