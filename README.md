@@ -345,7 +345,7 @@ class CustomTestAgain: public TestAgain {
     // optional
     void teardown() override {
       ...teardown code...
-      TestOnce::teardown();
+      TestAgain::teardown();
     }
 
     void assertBigStuff() {
