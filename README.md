@@ -1,27 +1,27 @@
 # AUnit
 
-A unit testing framework for Arduino platforms inspired by ArduinoUnit and
-Google Test. The unit tests run in the embedded controller, not in a simulator
-or emulator. It is almost a drop-in replacement of ArduinoUnit with some
-advantages. AUnit supports timeouts and test fixtures. It somtimes consume 50%
-less flash memory on the AVR platform, and it has been tested to work on the
-AVR, ESP8266, ESP32 and Teensy platforms. The sister AUniter project provides
-command line tools to verify, upload and validate the unit tests. The AUniter
-tools can be used in a continuous integration system like Jenkins.
+A unit testing framework for Arduino platforms inspired by by
+[ArduinoUnit](https://github.com/mmurdoch/arduinounit) and [Google
+Test](https://github.com/google/googletest/). The unit tests usually run on the
+embedded controller which allows detection of architecture-specific problems.
+But for faster development, many unit tests can be compiled and executed
+natively on Linux or MacOS using the
+[UnixHostDuino](https://github.com/bxparks/UnixHostDuino) companion project.
 
-Version: 1.3.1 (2018-07-31)
+AUnit is almost a drop-in replacement of ArduinoUnit with some advantages. AUnit
+supports timeouts and test fixtures. It somtimes consumes 50% less flash memory
+on the AVR platform, and it has been tested to work on the AVR, ESP8266, ESP32
+and Teensy platforms. Another companion project
+[AUniter](https://github.com/bxparks/AUniter) project provides command line
+tools to verify, upload and validate the unit tests to the microcontroller,
+instead of having to go through the Arduino IDE. Both the AUniter and
+UnixHostDuino tools can be used in a continuous integration system like Jenkins.
+
+Version: 1.3.2 (2020-02-29)
 
 [![AUniter Jenkins Badge](https://us-central1-xparks2018.cloudfunctions.net/badge?project=AUnit)](https://github.com/bxparks/AUniter)
 
 ## Summary
-
-**AUnit** (rhymes with "JUnit") is a unit testing framework inspired
-by [ArduinoUnit](https://github.com/mmurdoch/arduinounit)
-and [Google Test](https://github.com/google/googletest/).
-It is almost a drop-in replacement for the API implemented by ArduinoUnit 2.2.
-Just like ArduinoUnit, the unit tests run directly on the microcontrollers
-themselves, not on emulators or simulators. The test results are printed on the
-`Serial` object by default, but can be redirected to another `Print` object.
 
 AUnit was created to solve 3 problems with ArduinoUnit 2.2:
 * ArduinoUnit consumes too much flash memory on an AVR platform (e.g.
@@ -46,6 +46,12 @@ the local machine, and validate the output of the AUnit test runner. In
 addition, the AUniter script can be integrated into a
 [Jenkins](https://jenkins.io) continuous integration service running on the
 local machine, and the unit tests can be monitored automatically.
+
+Unit tests written using AUnit can often be compiled and executed natively on
+Linux or MacOS using the
+[UnixHostDuino](https://github.com/bxparks/UnixHostDuino) library. The output on
+the `Serial` object is redirected to the `stdout` of the Unix host. This
+provides another avenue for implementing continuous builds or integration.
 
 ### ArduinoUnit Compatible Features
 
@@ -339,7 +345,7 @@ class CustomTestAgain: public TestAgain {
     // optional
     void teardown() override {
       ...teardown code...
-      TestOnce::teardown();
+      TestAgain::teardown();
     }
 
     void assertBigStuff() {
