@@ -1216,7 +1216,7 @@ It may be possible to run simple unit tests written using
 [Google Test](https://github.com/google/googletest/) API on an Arduino platform
 by using the
 [aunit/contrib/gtest.h](src/aunit/contrib/gtest.h) adapter. This
-adapter layer provides a number of macros Google Test macros which map to
+adapter layer provides a number of Google Test macros which map to
 their equivalent macros in AUnit:
 
 * `ASSERT_EQ(e, a)` - `assertEqual()`
@@ -1419,7 +1419,7 @@ integer type.
 
 ### Testing Private Helper Methods
 
-There is a school of throught which says that unit tests should test only the
+There is a school of thought which says that unit tests should test only the
 publically exposed methods of a class or library. I agree mostly with that
 sentiment, but not rigidly. I think it is sometimes useful to write unit tests
 for `protected` or `private` methods. For example, when creating a chain of
