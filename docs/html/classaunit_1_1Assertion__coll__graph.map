@@ -1,3 +1,4 @@
 <map id="aunit::Assertion" name="aunit::Assertion">
-<area shape="rect" id="node2" href="$classaunit_1_1Test.html" title="Base class of all test cases. " alt="" coords="20,5,104,32"/>
+<area shape="rect" id="node1" title="An Assertion class is a subclass of Test and provides various overloaded assertion() functions." alt="" coords="5,80,129,107"/>
+<area shape="rect" id="node2" href="$classaunit_1_1Test.html" title="Base class of all test cases." alt="" coords="23,5,112,32"/>
 </map>

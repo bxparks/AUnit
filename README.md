@@ -17,7 +17,9 @@ tools to verify, upload and validate the unit tests to the microcontroller,
 instead of having to go through the Arduino IDE. Both the AUniter and
 UnixHostDuino tools can be used in a continuous integration system like Jenkins.
 
-Version: 1.3.2 (2020-02-29)
+**Version**: 1.3.3 (2020-09-15)
+
+**Changelog**: [CHANGELOG.md](CHANGELOG.md).
 
 [![AUniter Jenkins Badge](https://us-central1-xparks2018.cloudfunctions.net/badge?project=AUnit)](https://github.com/bxparks/AUniter)
 
@@ -1181,10 +1183,14 @@ which accidentally runs forever because the code forgets to call an explicit
 `pass()`, `fail()` or `skip()`.
 
 The `TestRunner` in AUnit applies a time out value to all the test cases that it
-runs. The default time out is 10 seconds. Currently, the
-time out value is global to all test cases, individual test time out values
-cannot be set independently. If a test does not finish before that time, then
-the test is marked as `timed out` (internally implemented by the
+runs. The default time out is 10 seconds. A timeout value of `0` means an
+infinite timeout, which means that the `testing()` test case may run forever.
+The value of the timeout is stored as a `uint16_t` type, so the maximum timeout
+is 65535 seconds or a bit over 18 hours.
+
+Currently, the time out value is global to all test cases, individual test time
+out values cannot be set independently. If a test does not finish before that
+time, then the test is marked as `timed out` (internally implemented by the
 `Test::expire()` method) and a message is printed like this:
 ```
 Test looping_until timed out.
@@ -1201,13 +1207,6 @@ void setup() {
 }
 ```
 
-A timeout value of `0` means an infinite timeout, which means that the
-`testing()` test case may run forever. To conserve static memory, the value of
-the timeout is stored as a single byte `uint8_t`, so the maximum timeout is 255
-seconds or 4m15s. (It could be argued that a test taking longer than this is not
-really a unit test but an integration test, and should probably use a different
-framework, but let me know if you truly need a timeout of greater than 4m15s).
-
 ***ArduinoUnit Compatibility***: _Only available in AUnit._
 
 ## GoogleTest Adapter
@@ -1216,7 +1215,7 @@ It may be possible to run simple unit tests written using
 [Google Test](https://github.com/google/googletest/) API on an Arduino platform
 by using the
 [aunit/contrib/gtest.h](src/aunit/contrib/gtest.h) adapter. This
-adapter layer provides a number of macros Google Test macros which map to
+adapter layer provides a number of Google Test macros which map to
 their equivalent macros in AUnit:
 
 * `ASSERT_EQ(e, a)` - `assertEqual()`
@@ -1419,7 +1418,7 @@ integer type.
 
 ### Testing Private Helper Methods
 
-There is a school of throught which says that unit tests should test only the
+There is a school of thought which says that unit tests should test only the
 publically exposed methods of a class or library. I agree mostly with that
 sentiment, but not rigidly. I think it is sometimes useful to write unit tests
 for `protected` or `private` methods. For example, when creating a chain of
@@ -1533,10 +1532,6 @@ ESP8266 - ESP-01 (static)  |   47356 |     compile |       33128 |
 Not all unit test sketches will experience a savings of 65% of flash memory with
 AUnit, but a savings of 30-50% seems to be common.
 
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md).
-
 ## System Requirements
 
 ### Tool Chain
@@ -1592,6 +1587,9 @@ incorporate everything, but I will give your ideas serious consideration.
 * Created by Brian T. Park (brian@xparks.net).
 * The Google Test adapter (`gtest.h`) was created by Chris Johnson
   (chrisjohnsonmail@gmail.com).
+* @brewmanz increased the maximum allowed value of `TestRunner::setTimeout()`
+  from 255 seconds to 65535 seconds (18.2 hours). (See [Issue
+  #57](https://github.com/bxparks/AUnit/issues/57)).
 * The design and syntax of many macros (e.g. `test()`, `assertXxx()`) were
   borrowed from the [ArduinoUnit](https://github.com/mmurdoch/arduinounit)
   project to allow AUnit to be almost a drop-in replacement. Many thanks to

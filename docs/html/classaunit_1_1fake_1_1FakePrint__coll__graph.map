@@ -1,2 +1,4 @@
 <map id="aunit::fake::FakePrint" name="aunit::fake::FakePrint">
+<area shape="rect" id="node1" title="An implementation of Print that writes to an in&#45;memory buffer." alt="" coords="5,80,164,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="59,5,111,32"/>
 </map>

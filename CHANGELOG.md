@@ -1,6 +1,10 @@
 # Changelog
 
 * Unreleased
+* 1.3.3 (2020-09-15)
+    * Increase maximum allowed `setTimeout()` from 255 seconds to 65535 seconds
+      (18.2 hours). (See [Issue
+      #57](https://github.com/bxparks/AUnit/issues/57)).
 * 1.3.2 (2020-02-29)
     * Fix typos in README.md. No functional change.
 * 1.3.1 (2019-07-31)
