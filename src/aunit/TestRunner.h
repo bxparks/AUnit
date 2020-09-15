@@ -40,8 +40,8 @@ namespace aunit {
  */
 class TestRunner {
   public:
-    /** Integer type of the timeout parameter. Seconds. */
-    typedef uint8_t TimeoutType;
+    /** Integer type of the timeout parameter. Seconds. Default is kTimeoutDefault = 10 */
+    typedef unsigned int TimeoutType;
 
     /** Run all tests using the current runner. */
     static void run() { getRunner()->runTest(); }
