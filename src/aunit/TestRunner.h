@@ -40,8 +40,8 @@ namespace aunit {
  */
 class TestRunner {
   public:
-    /** Integer type of the timeout parameter. Seconds. */
-    typedef uint8_t TimeoutType;
+    /** Integer type of the timeout parameter. Seconds. Default is kTimeoutDefault = 10 */
+    typedef uint16_t TimeoutType;
 
     /** Run all tests using the current runner. */
     static void run() { getRunner()->runTest(); }
@@ -105,7 +105,7 @@ class TestRunner {
      * Set test runner timeout across all tests, in seconds. Set to 0 for
      * infinite timeout. Useful for preventing testing() test cases that never
      * end. This is a timeout for the TestRunner itself, not for individual
-     * tests.
+     * tests. Upper limit is 65535 seconds (just over 18 hours).
      */
     static void setTimeout(TimeoutType seconds) {
       getRunner()->setRunnerTimeout(seconds);
