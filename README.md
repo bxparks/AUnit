@@ -17,7 +17,9 @@ tools to verify, upload and validate the unit tests to the microcontroller,
 instead of having to go through the Arduino IDE. Both the AUniter and
 UnixHostDuino tools can be used in a continuous integration system like Jenkins.
 
-Version: 1.3.2 (2020-02-29)
+**Version**: 1.3.3 (2020-09-15)
+
+**Changelog**: [CHANGELOG.md](CHANGELOG.md).
 
 [![AUniter Jenkins Badge](https://us-central1-xparks2018.cloudfunctions.net/badge?project=AUnit)](https://github.com/bxparks/AUniter)
 
@@ -1529,10 +1531,6 @@ ESP8266 - ESP-01 (static)  |   47356 |     compile |       33128 |
 
 Not all unit test sketches will experience a savings of 65% of flash memory with
 AUnit, but a savings of 30-50% seems to be common.
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md).
 
 ## System Requirements
 
