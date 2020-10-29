@@ -1,5 +1,9 @@
 #line 2 "fixture.ino"
 
+/*
+ * Unit test that shows how to use test fixtures using the testF() macro.
+ */
+
 #include <stdarg.h>
 #include <AUnit.h>
 
@@ -33,16 +37,6 @@ class Container {
 
 // Create an instance of the Container.
 Container container;
-
-void setup() {
-  delay(1000); // Wait for stability on some boards, otherwise garage on Serial
-  Serial.begin(115200); // ESP8266 default of 74880 not supported on Linux
-  while (!Serial); // for the Arduino Leonardo/Micro only
-}
-
-void loop() {
-  TestRunner::run();
-}
 
 class LogTest: public TestOnce {
   protected:
@@ -96,4 +90,24 @@ testF(LogTest, insert) {
   // This statement will not execute if assertRecords() fails because the
   // above assertEqual() will return.
   container.insert("plane", 4);
+}
+
+//----------------------------------------------------------------------------
+// setup() and loop()
+//----------------------------------------------------------------------------
+
+void setup() {
+  delay(1000); // Wait for stability on some boards, otherwise garage on Serial
+  Serial.begin(115200); // ESP8266 default of 74880 not supported on Linux
+  while (!Serial); // for the Arduino Leonardo/Micro only
+
+  Serial.println(F("This test should produce the following:"));
+  Serial.println(
+    F("1 passed, 0 failed, 0 skipped, 0 timed out, out of 1 test(s).")
+  );
+  Serial.println(F("----"));
+}
+
+void loop() {
+  TestRunner::run();
 }

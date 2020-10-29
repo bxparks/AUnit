@@ -24,6 +24,7 @@ $ pio run
 ```
 
 ## Upload and Monitor
+
 Here is the commnad to compile, upload and monitor the test to an Arduino Nano
 on /dev/ttyUSB0:
 
