@@ -6,6 +6,10 @@ test(exampleTest) {
   assertEqual(3, 3);
 }
 
+//----------------------------------------------------------------------------
+// setup() and loop()
+//----------------------------------------------------------------------------
+
 void setup() {
 #if ARDUINO
   delay(1000); // wait for stability on some boards to prevent garbage Serial
