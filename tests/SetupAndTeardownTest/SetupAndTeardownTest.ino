@@ -84,14 +84,17 @@ void setup() {
   SERIAL_PORT_MONITOR.begin(115200);
   while (! SERIAL_PORT_MONITOR); // Wait until Serial is ready - Leonardo/Micro
 
+  SERIAL_PORT_MONITOR.println(F("This test should produce the following:"));
+  SERIAL_PORT_MONITOR.println(
+    F("2 passed, 2 failed, 4 skipped, 2 timed out, out of 10 test(s).")
+  );
+  SERIAL_PORT_MONITOR.println(F("----"));
+
   TestRunner::exclude("CustomOnce", "excluded");
   TestRunner::exclude("CustomAgain", "excluded");
   TestRunner::list();
 }
 
 void loop() {
-  // Should get something like:
-  // TestRunner summary:
-  //     2 passed, 2 failed, 4 skipped, 2 timed out, out of 10 test(s).
   TestRunner::run();
 }
