@@ -1,8 +1,38 @@
+PASSING_TESTS := AUnitMetaTest \
+AUnitMoreTest \
+AUnitTest \
+FilterTest \
+Print64Test
+
+FAILING_TESTS := FailingTest \
+SetupAndTeardownTest
+
 tests:
-	for i in *Test/Makefile ; do make -C $$(dirname $$i) -j ; done
+	set -e; \
+	for dir in $(PASSING_TESTS) $(FAILING_TESTS); do \
+		make -C $$dir -j; \
+	done
+
+# $ make runtests | grep failed
+runtests:
+	set -e; \
+	for dir in $(PASSING_TESTS); do \
+		echo '==== Running:' $$dir; \
+		$$dir/$$dir.out; \
+	done
+
+# These contain purposefully failing tests, so must be manually verified to run
+# and fail in the expected way.
+# $ make run_manual_tests
+runfailingtests:
+	for dir in $(FAILING_TESTS); do \
+		echo '==== Running:' $$dir; \
+		$$dir/$$dir.out; \
+	done
 
 clean:
-	for i in *Test/Makefile ; do echo $$i ; make -C $$(dirname $$i) clean ; done
-
-runtests:
-	for i in *Test/Makefile ; do $$(dirname $$i)/$$(dirname $$i).out ; done
+	set -e; \
+	for dir in $(PASSING_TESTS) $(FAILING_TESTS); do \
+		echo $$dir; \
+		make -C $$dir clean; \
+	done

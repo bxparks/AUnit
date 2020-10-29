@@ -264,11 +264,14 @@ void setup() {
 #endif
   SERIAL_PORT_MONITOR.begin(115200);
   while (! SERIAL_PORT_MONITOR); // Wait until Serial is ready - Leonardo/Micro
+
+  SERIAL_PORT_MONITOR.println(F("This test should produce the following:"));
+  SERIAL_PORT_MONITOR.println(
+    F("6 passed, 5 failed, 1 skipped, 4 timed out, out of 16 test(s).")
+  );
+  SERIAL_PORT_MONITOR.println(F("----"));
 }
 
 void loop() {
-  // Should get something like:
-  // TestRunner summary:
-  //    6 passed, 5 failed, 1 skipped, 4 timed out, out of 16 test(s).
   TestRunner::run();
 }

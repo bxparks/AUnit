@@ -53,17 +53,24 @@ testingF(MyTestAgain, again) {
   }
 }
 
+//----------------------------------------------------------------------------
+// setup() and loop()
+//----------------------------------------------------------------------------
+
 void setup() {
   delay(1000); // wait for stability on some boards to prevent garbage Serial
   Serial.begin(115200); // ESP8266 default of 74880 not supported on Linux
   while (!Serial); // for the Arduino Leonardo/Micro only
 
-  TestRunner::setVerbosity(Verbosity::kAll);
+  //TestRunner::setVerbosity(Verbosity::kAll);
+
+  Serial.println(F("This test should produce the following:"));
+  Serial.println(
+    F("3 passed, 1 failed, 0 skipped, 0 timed out, out of 4 test(s).")
+  );
+  Serial.println(F("----"));
 }
 
 void loop() {
-  // Should get:
-  // TestRunner summary:
-  //    3 passed, 1 failed, 0 skipped, 0 timed out, out of 8 test(s).
   TestRunner::run();
 }
