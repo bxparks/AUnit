@@ -1,6 +1,9 @@
 # Changelog
 
 * Unreleased
+    * Add `assertEqual(const void*, const void*)` and
+      `assertNotEqual(const void*, const void*)`. Fixes [Issue
+      #34](https://github.com/bxparks/AUnit/issues/34).
 * 1.3.3 (2020-09-15)
     * Increase maximum allowed `setTimeout()` from 255 seconds to 65535 seconds
       (18.2 hours). (See [Issue

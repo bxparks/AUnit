@@ -202,7 +202,7 @@ currently have 3 Arduino project using AUnit extensively
       backwards compatible. They do not use the new features of AUnit.
 * [AceRoutine](https://github.com/bxparks/AceRoutine)
     * Demonstrates the full power of AUnit better.
-* [AceSegment](https://github.com/bxparks/AceSegment)
+* [AceTime](https://github.com/bxparks/AceTime)
     * Demonstrates the full power of AUnit better.
 
 ## Usage
@@ -423,9 +423,9 @@ are available. These are essentially identical to ArduinoUnit:
 
 #### Supported Parameter Types
 
-The 6 core assert macros (assertEqual, assertNotEqual, assertLess, assertMore,
-assertLessOrEqual, assertMoreOrEqual) support the following 18
-combinations for their parameter types:
+The 6 core assert macros (`assertEqual()`, `assertNotEqual()`, `assertLess()`,
+`assertMore()`, `assertLessOrEqual()`, `assertMoreOrEqual()`) support the
+following 18 combinations for their parameter types:
 
 * `(bool, bool)`
 * `(char, char)`
@@ -446,7 +446,12 @@ combinations for their parameter types:
 * `(const __FlashStringHelper*, const String&)`
 * `(const __FlashStringHelper*, const __FlashStringHelper*)`
 
-As you can see, all 9 combinations of the 3 string types (`char*`, `String`, and
+The `assertEqual()` and `assertNotEqual()` support arbitary pointer types
+through implicit casts to `const void*`:
+
+* `(const void*, const void*)` (since v1.4)
+
+All 9 combinations of the 3 string types (`char*`, `String`, and
 `__FlashStringHelper*`) are supported.
 
 These macros perform deep comparisons for string types instead of just comparing
@@ -471,6 +476,7 @@ For example, the following type conversions will occur:
 * `char*` -> `const char*`.
 * `char[N]` -> `const char*`
 * `float` -> `double`
+* pointer types -> `const void*`
 
 Note that `char`, `signed char`, and `unsigned char` are 3 distinct types in
 C++, so a `(char, char)` will match exactly to one of the `assertXxx()`
@@ -535,6 +541,59 @@ The integer type promotion rules and function overload matching rules can be
 difficult to remember (and sometimes difficult to understand). The best way to
 avoid these compiler errors is to make sure that the assertion parameter types
 are identical, potentially using explicit casting.
+
+### Pointer Comparisons
+
+Version 1.4 adds pointer comparison to `assertEqual()` and `assertNotEqual()`.
+Arbritary pointers are implicitly cast to a `const void*` and compared to
+each other. If the assertion fails, the pointer is converted to an integer type,
+and the hexadecimal value of the pointer is printed. For example,
+
+```C++
+test(voidPointer) {
+  const int aa[] = {1, 2};
+  const long bb[] = {1, 2};
+
+  assertEqual(aa, bb);
+}
+```
+
+This test will fail with the following error message:
+```
+Assertion failed: (aa=0x3FFFFF38) == (bb=0x3FFFFF30), file AUnitTest.ino, line 338.
+Test voidPointer failed.
+```
+
+Comparison against the `nullptr` will work:
+
+```C++
+test(nullPointer) {
+  const int aa[] = {1, 2};
+  assertEqual(aa, nullptr);
+}
+```
+
+prints the following:
+
+```
+Assertion failed: (aa=0x3FFFFF58) == (nullptr=0x0), file AUnitTest.ino, line 348.
+Test nullPointer failed.
+```
+
+Comparing a string type (i.e. `const char*`, or `const __FlashStringHelper*`)
+to a `nullptr` will cause an error due to ambiguous matches on overloaded
+functions. The solution is to explicitly cast the `nullptr` to the corresponding
+string type:
+
+```C+++
+test(stringPointer) {
+  const char aa[] = "abc";
+
+  // assertEqual(aa, nullptr); // Causes errors
+
+  assertEqual(aa, (const char*) nullptr); // Works.
+}
+```
 
 ### Case Insensitive String Comparisons
 
@@ -1406,15 +1465,6 @@ allowed those assertion statements to have access to the internal states of the
 failure) slightly easier to implement. For the most part, the end-users can
 ignore the existence of the `Assertion` and `MetaAssertion` classes and think of
 this as a simple 2-level inheritance tree.
-
-### Comparing Pointers
-
-Currently the `assertEqual()` and other `assertXxx()` methods do not support
-comparing arbitrary pointers (i.e. `(void*)`. This could change if
-[Issue #34](https://github.com/bxparks/AUnit/issues/34) is
-resolved. In the meantime, a workaround is to cast the pointer to a `uintptr_t`
-integer type from `#include <stdint.h>` and then calling `assertEqual()` on the
-integer type.
 
 ### Testing Private Helper Methods
 
