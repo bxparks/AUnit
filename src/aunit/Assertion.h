@@ -150,6 +150,15 @@ class Assertion: public Test {
         bool (*op)(double lhs, double rhs),
         double rhs);
 
+    /** Used by assertXxx(const void*, const void*). */
+    bool assertion(
+        const char* file,
+        uint16_t line,
+        const void* lhs,
+        const char* opName,
+        bool (*op)(const void* lhs, const void* rhs),
+        const void* rhs);
+
     /** Used by assertXxx(const char*, const char*). */
     bool assertion(
         const char* file,
@@ -396,6 +405,17 @@ class Assertion: public Test {
         const char* opName,
         bool (*op)(double lhs, double rhs),
         double rhs,
+        const __FlashStringHelper* rhsString);
+
+    /** Used by assertXxx(const void*, const void*). */
+    bool assertionVerbose(
+        const char* file,
+        uint16_t line,
+        const void* lhs,
+        const __FlashStringHelper* lhsString,
+        const char* opName,
+        bool (*op)(const void* lhs, const void* rhs),
+        const void* rhs,
         const __FlashStringHelper* rhsString);
 
     /** Used by assertXxx(const char*, const char*). */

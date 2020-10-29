@@ -314,6 +314,25 @@ test(FCStringTest, compareToN) {
   assertLess(fa.compareToN(F("aa"), 2), 0);
 }
 
+test(voidPointer) {
+  const int aa[] = {1, 2};
+  const long bb[] = {1, 2};
+  const char cc[] = "ab";
+  const int* dd = nullptr;
+
+  assertFalse(compareEqual(aa, bb));
+  assertFalse(compareEqual(aa, cc));
+  assertTrue(compareEqual(aa, aa));
+  assertTrue(compareNotEqual(bb, nullptr));
+  assertTrue(compareEqual(dd, nullptr));
+
+  assertNotEqual(aa, bb);
+  assertNotEqual(aa, cc);
+  assertEqual(aa, aa);
+  assertNotEqual(aa, nullptr);
+  assertEqual(dd, nullptr);
+}
+
 #endif
 
 // ------------------------------------------------------
