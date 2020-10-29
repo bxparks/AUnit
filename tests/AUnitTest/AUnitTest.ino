@@ -314,27 +314,6 @@ test(FCStringTest, compareToN) {
   assertLess(fa.compareToN(F("aa"), 2), 0);
 }
 
-test(voidPointer) {
-  const int aa[] = {1, 2};
-  const long bb[] = {1, 2};
-  const char cc[] = "ab";
-  const int* dd = nullptr;
-
-  assertFalse(compareEqual(aa, bb));
-  assertFalse(compareEqual(aa, cc));
-  assertTrue(compareEqual(aa, aa));
-  assertTrue(compareNotEqual(bb, nullptr));
-  assertTrue(compareEqual(dd, nullptr));
-
-  assertNotEqual(aa, bb);
-  assertNotEqual(aa, cc);
-  assertEqual(aa, aa);
-  assertNotEqual(aa, nullptr);
-  assertEqual(dd, nullptr);
-}
-
-#endif
-
 // ------------------------------------------------------
 // Test the various assertXxx() macros.
 // ------------------------------------------------------
@@ -549,6 +528,45 @@ test(flashString) {
   assertMoreOrEqual(hh, ff);
   assertMoreOrEqual(hh, gg);
 }
+
+// ------------------------------------------------------
+// Test assertEqual() for pointers.
+// ------------------------------------------------------
+
+test(voidPointer) {
+  const int aa[] = {1, 2};
+  const long bb[] = {1, 2};
+  const char cc[] = "ab";
+  const int* dd = nullptr;
+
+  assertTrue(compareEqual(aa, aa));
+  assertFalse(compareEqual(aa, bb));
+  assertFalse(compareEqual(aa, cc));
+  assertFalse(compareEqual(aa, dd));
+
+  assertEqual(aa, aa);
+  assertNotEqual(aa, bb);
+  assertNotEqual(aa, cc);
+  assertNotEqual(aa, dd);
+}
+
+test(nullPointer) {
+  const int aa[] = {1, 2};
+  const long bb[] = {1, 2};
+  const int* dd = nullptr;
+
+  assertFalse(compareEqual(aa, nullptr));
+  assertFalse(compareEqual(bb, nullptr));
+  // assertFalse(compareEqual(cc, nullptr)); // ambiguous
+  assertTrue(compareEqual(dd, nullptr));
+
+  assertNotEqual(aa, nullptr);
+  assertNotEqual(bb, nullptr);
+  // assertNotEqual(cc, nullptr); // ambiguous
+  assertEqual(dd, nullptr);
+}
+
+#endif
 
 // -------------------------------------------------------------------------
 // Test the string_join() method.
