@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include <stdint.h>
 #include <Arduino.h>  // definition of Print
 #include "Flash.h"
 #include "Printer.h"
@@ -154,6 +155,37 @@ void printAssertionMessage(
   printer->print(opName);
   printer->print(" (");
   print64(*printer, rhs);
+  printer->print(')');
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
+// Special version for (const void*, const void*).
+void printAssertionMessage(
+    Print* printer,
+    bool ok,
+    const char* file,
+    uint16_t line,
+    const void* lhs,
+    const char* opName,
+    const void* rhs
+) {
+
+  // Don't use F() strings here. Same reason as above.
+  // Technically, we should cast to (uintptr_t). But all Arduino
+  // microcontrollers are 32-bit, so we can cast to (unsigned long) to avoid
+  // calling print64().
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": (0x");
+  printer->print((unsigned long) lhs, HEX);
+  printer->print(") ");
+  printer->print(opName);
+  printer->print(" (0x");
+  printer->print((unsigned long) rhs, HEX);
   printer->print(')');
   printer->print(", file ");
   printer->print(file);
@@ -392,6 +424,24 @@ bool Assertion::assertion(
     const char* opName,
     bool (*op)(double lhs, double rhs),
     double rhs
+) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessage(Printer::getPrinter(), ok, file, line,
+        lhs, opName, rhs);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertion(
+    const char* file,
+    uint16_t line,
+    const void* lhs,
+    const char* opName,
+    bool (*op)(const void* lhs, const void* rhs),
+    const void* rhs
 ) {
   if (isDone()) return false;
   bool ok = op(lhs, rhs);
@@ -814,6 +864,43 @@ void printAssertionMessageVerbose(
   printer->println('.');
 }
 
+// Special version for (const void*, const void *).
+void printAssertionMessageVerbose(
+    Print* printer,
+    bool ok,
+    const char* file,
+    uint16_t line,
+    const void* lhs,
+    const __FlashStringHelper* lhsString,
+    const char* opName,
+    const void* rhs,
+    const __FlashStringHelper* rhsString
+) {
+
+  // Don't use F() strings here. Same reason as above.
+  // Technically, we should cast to (uintptr_t). But all Arduino
+  // microcontrollers are 32-bit, so we can cast to (unsigned long) to avoid
+  // calling print64().
+  printer->print("Assertion ");
+  printer->print(ok ? "passed" : "failed");
+  printer->print(": (");
+  printer->print(lhsString);
+  printer->print("=0x");
+  printer->print((unsigned long) lhs, HEX);
+  printer->print(") ");
+  printer->print(opName);
+  printer->print(" (");
+  printer->print(rhsString);
+  printer->print("=0x");
+  printer->print((unsigned long) rhs, HEX);
+  printer->print(')');
+  printer->print(", file ");
+  printer->print(file);
+  printer->print(", line ");
+  printer->print(line);
+  printer->println('.');
+}
+
 // Special version for assertTrue(arg) and assertFalse(arg).
 // Prints:
 //    "Assertion passed/failed: (x=arg) is true"
@@ -1069,6 +1156,26 @@ bool Assertion::assertionVerbose(
     const char* opName,
     bool (*op)(double lhs, double rhs),
     double rhs,
+    const __FlashStringHelper* rhsString
+) {
+  if (isDone()) return false;
+  bool ok = op(lhs, rhs);
+  if (isOutputEnabled(ok)) {
+    printAssertionMessageVerbose(Printer::getPrinter(), ok, file, line,
+        lhs, lhsString, opName, rhs, rhsString);
+  }
+  setPassOrFail(ok);
+  return ok;
+}
+
+bool Assertion::assertionVerbose(
+    const char* file,
+    uint16_t line,
+    const void* lhs,
+    const __FlashStringHelper* lhsString,
+    const char* opName,
+    bool (*op)(const void* lhs, const void* rhs),
+    const void* rhs,
     const __FlashStringHelper* rhsString
 ) {
   if (isDone()) return false;
