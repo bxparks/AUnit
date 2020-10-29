@@ -15,13 +15,14 @@ and Teensy platforms. Another companion project
 [AUniter](https://github.com/bxparks/AUniter) project provides command line
 tools to verify, upload and validate the unit tests to the microcontroller,
 instead of having to go through the Arduino IDE. Both the AUniter and
-UnixHostDuino tools can be used in a continuous integration system like Jenkins.
+UnixHostDuino tools can be used in a continuous integration system like Jenkins,
+or with [GitHub Actions](https://github.com/features/actions).
 
 **Version**: 1.3.3 (2020-09-15)
 
-**Changelog**: [CHANGELOG.md](CHANGELOG.md).
+**Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
-[![AUniter Jenkins Badge](https://us-central1-xparks2018.cloudfunctions.net/badge?project=AUnit)](https://github.com/bxparks/AUniter)
+![AUnit Tests](https://github.com/bxparks/AUnit/workflows/AUnit%20Tests/badge.svg)
 
 ## Summary
 
@@ -1343,9 +1344,24 @@ some quick examples copied from the `AUniter/README.md` file:
 
 ### Continuous Integration
 
-The AUniter tools have been integrated into the [Jenkins](https://jenkins.io)
-continuous integration service. See details in
-[Continuous Integration with Jenkins](https://github.com/bxparks/AUniter/tree/develop/jenkins).
+There are at least 2 ways to incorporate AUnit into a continuous integration
+system:
+
+* You can use [Jenkins](https://jenkins.io) on a local machine and use the
+  AUniter tools (https://github.com/bxparks/AUniter) as explained in
+  [Continuous Integration with
+  Jenkins](https://github.com/bxparks/AUniter/tree/develop/jenkins).
+    * Not Recommended anymore because it is too difficult to maintain
+      a local Jenkins service. And using the Arduino IDE as the command line
+      compiler is too slow.
+* You can compile and run the AUnit tests using the GNU `make` command under
+  Linux or MacOS using the UnixHostDuino framework
+  (https://github.com/bxparks/UnixHostDuino). The `make` commands can be readily
+  integrated into a continuous integration service like [GitHub
+  Actions](https://github.com/features/actions).
+    * **Recommended**
+    * See the `.github/workflows/aunit_tests.yml` file in this repository
+      for an example.
 
 ### UnixHostDuino
 
@@ -1354,7 +1370,7 @@ machines using the [UnixHostDuino](https://github.com/bxparks/UnixHostDuino)
 library because most unit tests depend on just the `Serial` port (which
 UnixHostDuino binds to `stdout` and `stdin`).
 
-The [unit tests for AUnit itself](tests) have all been upgraded to run
+The unit tests for AUnit itself uner `./tests` have all been upgraded to run
 under UnixHostDuino. Here are a few tips when writing unit tests
 to run under UnixHostDuino:
 
