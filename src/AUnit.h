@@ -27,6 +27,10 @@ SOFTWARE.
  *
  * This is the Doxygen documentation for the
  * <a href="https://github.com/bxparks/AUnit">AUnit Library</a>.
+ *
+ * Click on the "Classes" menu above to see the list of classes.
+ *
+ * Click on the "Files" menu above to see the list of header files.
  */
 
 /**
