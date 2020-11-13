@@ -1,6 +1,9 @@
 # Changelog
 
 * Unreleased
+* 1.4.1 (2020-11-12)
+    * Add Table of Contents to README.md to help navigation.
+    * No functional change in this release.
 * 1.4 (2020-10-28)
     * Support comparison of 2 arbitrary pointers using
       `assertEqual(const void*, const void*)` and

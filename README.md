@@ -18,12 +18,69 @@ instead of having to go through the Arduino IDE. Both the AUniter and
 UnixHostDuino tools can be used in a continuous integration system like Jenkins,
 or with [GitHub Actions](https://github.com/features/actions).
 
-**Version**: 1.4 (2020-10-28)
+**Version**: 1.4.1 (2020-11-12)
 
 **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
 ![AUnit Tests](https://github.com/bxparks/AUnit/workflows/AUnit%20Tests/badge.svg)
 
+**Table of Contents**
+
+* [Summary](#Summary)
+    * [ArduinoUnit Compatible Features](#ArduinoUnitCompatible)
+    * [Missing Features](#MissingFeatures)
+    * [Added Features](#AddedFeatures)
+* [Installation](#Installation)
+    * [Source Code](#SourceCode)
+    * [Documentation](#Documentation)
+    * [Examples](#Examples)
+* [Usage](#Usage)
+    * [Header and Namespace](#HeaderAndNamespace)
+    * [Verbose Mode](#VerboseMode)
+    * [Defining the Tests](#DefiningTests)
+    * [Generated Class and Instance Names](#GeneratedClass)
+    * [Binary Assertions](#BinaryAssertions)
+        * [Supported Parameter Types](#SupportedParameterTypes)
+        * [Parameter Types Must Match](#ParameterTypesMustMatch)
+        * [Pointer Comparisons](#PointerComparisons)
+        * [Case Insensitive String Comparisons](#CaseInsensitiveStrings)
+    * [Approximate Comparisons](#ApproximateComparisons)
+    * [Boolean Assertions](#BooleanAssertions)
+    * [Test Fixtures](#TestFixtures)
+    * [Early Return and Delayed Assertions](#EarlyReturnDelayedAssertions)
+    * [Meta Assertions](#MetaAssertions)
+    * [Unconditional Termination](#UnconditionalTermination)
+    * [Overridable Methods](#OverridableMethods)
+    * [Running the Tests](#RunningTests)
+    * [Filering Test Cases](#FilteringTestCases)
+    * [Output Printer](#OutputPrinter)
+    * [Controlling Verbosity](#ControllingVerbosity)
+    * [Line Number Mismatch](#LineNumberMismatch)
+    * [Test Framework Messages](#TestFrameworkMessages)
+        * [Assertion Message](#AssertionMessage)
+        * [Verbose Mode Message](#VerboseModeMessage)
+        * [Test Case Summary](#TestCaseSummary)
+        * [Test Runner Summary](#TestRunnerSummary)
+    * [Test Timeout](#TestTimeout)
+* [GoogleTest Adapter](#GoogleTestAdapter)
+* [Command Line Tools and Continuous Integration](#CommandLine)
+    * [AUniter](#AUniter)
+    * [Continuous Integration](#ContinuousIntegration)
+    * [UnixHostDuino](#UnixHostDuino)
+* [Tips](#Tips)
+    * [Debugging Assertions in Fixtures](#DebuggingFixtures)
+    * [Class Hierarchy](#ClassHierarchy)
+    * [Testing Private Helper Methods](#PrivateHelperMethods)
+* [Benchmarks](#Benchmarks)
+* [System Requirements](#SystemRequirements)
+    * [Tool Chain](#ToolChains)
+    * [Operating System](#ToolChains)
+    * [Hardware](#Hardware)
+* [License](#License)
+* [Feedback and Support](#Feedback)
+* [Authors](#Authors)
+
+<a name="Summary"></a>
 ## Summary
 
 AUnit was created to solve 3 problems with ArduinoUnit 2.2:
@@ -56,6 +113,7 @@ Linux or MacOS using the
 the `Serial` object is redirected to the `stdout` of the Unix host. This
 provides another avenue for implementing continuous builds or integration.
 
+<a name="ArduinoUnitCompatible"></a>
 ### ArduinoUnit Compatible Features
 
 For basic unit tests written using ArduinoUnit 2.2, only two changes are
@@ -82,6 +140,7 @@ the `Verbosity` flags on per test basis:
 * `enableVerbosity()`
 * `disableVerbosity()`
 
+<a name="MissingFeatures"></a>
 ### Missing Features
 
 Here are the features which have *not* been ported over from ArduinoUnit 2.2:
@@ -90,6 +149,7 @@ Here are the features which have *not* been ported over from ArduinoUnit 2.2:
   methods. AUnit supports only a single `*` wildcard and it must occur at the
   end if present.
 
+<a name="AddedFeatures"></a>
 ### Added Features
 
 Here are the features in AUnit which are not available in ArduinoUnit 2.2:
@@ -144,6 +204,7 @@ Here are the features in AUnit which are not available in ArduinoUnit 2.2:
 
 Every feature of AUnit is unit tested using AUnit itself.
 
+<a name="Installation"></a>
 ## Installation
 
 The latest stable release is available in the Arduino IDE Library Manager.
@@ -160,6 +221,7 @@ sketch directory. The `master` branch contains the stable release.
 Using either installation method, you may need to restart the Arduino IDE to
 pick up the new library.
 
+<a name="SourceCode"></a>
 ### Source Code
 
 The source files are organized as follows:
@@ -169,11 +231,14 @@ The source files are organized as follows:
 * `tests/` - unit tests written using AUnit itself
 * `examples/` - example sketches
 
-### Docs
+<a name="Documentation"></a>
+### Documentation
 
-The [docs/](docs/) directory contains the
-[Doxygen docs published on GitHub Pages](https://bxparks.github.io/AUnit/html).
+* [README.md](README.md) - this file
+* [Doxygen docs](https://bxparks.github.io/AUnit/html) published on GitHub
+  Pages can help navigate the classes and header files
 
+<a name="Examples"></a>
 ### Examples
 
 The `examples/` directory has a number of examples:
@@ -206,11 +271,13 @@ currently have 3 Arduino project using AUnit extensively
 * [AceTime](https://github.com/bxparks/AceTime)
     * Demonstrates the full power of AUnit better.
 
+<a name="Usage"></a>
 ## Usage
 
 In this section, information about differences between AUnit and ArduinoUnit
 will appear in a note marked by ***ArduinoUnit Compatibility***.
 
+<a name="HeaderAndNamespace"></a>
 ### Header and Namespace
 
 To prevent name clashes with other libraries and code, all classes in the AUnit
@@ -233,6 +300,7 @@ Similar to ArduinoUnit, many of the "functions" in this framework (e.g.
 in the global namespace, so it is usually not necessary to import the entire
 `aunit` namespace.
 
+<a name="VerboseMode"></a>
 ### Verbose Mode
 
 By default, AUnit generates terse assertion messages by leaving out
@@ -249,6 +317,7 @@ large tests. On Teensy ARM, ESP8266 or ESP32, the increased memory size probably
 does not matter too much because these microcontrollers have far more flash and
 static memory.
 
+<a name="DefiningTests"></a>
 ### Defining the Tests
 
 The usage of **AUnit** is basically identical to **ArduinoUnit**. The following
@@ -382,6 +451,7 @@ and the two-argument versions of `test()` and `testing()` which
 are not available in ArduinoUnit. The `Test` class in ArduinoUnit has been
 replaced with the `TestAgain` class in AUnit._
 
+<a name="GeneratedClass"></a>
 ### Generated Class and Instance Names
 
 The arguments to the various `test*()` macros are used to generate the name for
@@ -410,6 +480,7 @@ instances of those classes. For reference, here are the rules:
 The instance name is available within the test code using the `Test::getName()`
 method.
 
+<a name="BinaryAssertions"></a>
 ### Binary Assertions
 
 Inside the `test()` and `testing()` macros, the following assertions
@@ -422,6 +493,7 @@ are available. These are essentially identical to ArduinoUnit:
 * `assertLessOrEqual(a, b)`
 * `assertMoreOrEqual(a, b)`
 
+<a name="SupportedParameterTypes"></a>
 #### Supported Parameter Types
 
 The 6 core assert macros (`assertEqual()`, `assertNotEqual()`, `assertLess()`,
@@ -491,7 +563,8 @@ different types, at the expense of a compiler warning. In AUnit, the
 warning becomes a compiler error. See the "Parameters Must Match Types" section
 below._
 
-#### Parameters Must Match Types
+<a name="ParameterTypesMustMatch"></a>
+#### Parameter Types Must Match
 
 In ArduinoUnit, the `assertXxx()` macros could be slightly different types, for
 example:
@@ -543,7 +616,8 @@ difficult to remember (and sometimes difficult to understand). The best way to
 avoid these compiler errors is to make sure that the assertion parameter types
 are identical, potentially using explicit casting.
 
-### Pointer Comparisons
+<a name="PointerComparisons"></a>
+#### Pointer Comparisons
 
 Version 1.4 adds pointer comparison to `assertEqual()` and `assertNotEqual()`.
 Arbritary pointers are implicitly cast to a `const void*` and compared to
@@ -596,7 +670,8 @@ test(stringPointer) {
 }
 ```
 
-### Case Insensitive String Comparisons
+<a name="CaseInsensitiveStrings"></a>
+#### Case Insensitive String Comparisons
 
 Two macros provide case-insensitive string comparisons (analogous to
 `ASSERT_STRCASEEQ()` and `ASSERT_STRCASENE()` in Google Test):
@@ -618,6 +693,7 @@ The supported types for `(a, b)` are all 9 combinations of Arduino string types:
 
 ***ArduinoUnit Compatibility***: _Not available in ArduinoUnit._
 
+<a name="ApproximateComparisons"></a>
 ### Approximate Comparisons
 
 Floating point values are difficult to compare because of internal rounding
@@ -666,6 +742,7 @@ Technically, a similar problem exists for the floating point types (which are
 naturally signed), but it is unlikely that you are dealing with floating point
 values so close to the maximum values.
 
+<a name="BooleanAssertions"></a>
 ### Boolean Assertions
 
 The following boolean asserts are also available:
@@ -675,6 +752,7 @@ The following boolean asserts are also available:
 
 ***ArduinoUnit Compatibility***: _These are identical to ArduinoUnit._
 
+<a name="TestFixtures"></a>
 ### Test Fixtures
 
 When the unit tests become more complex, using test fixtures will allow you to
@@ -772,6 +850,7 @@ macro.
 and the `teardown()` virtual method are available only in AUnit (and Google
 Test), not ArduinoUnit._
 
+<a name="EarlyReturnDelayedAssertions"></a>
 ### Early Return and Delayed Assertions
 
 AUnit (like ArduinoUnit and Google Test) does not use C++ exceptions. Instead,
@@ -836,6 +915,7 @@ Google Test has a
 macro that can guard against this possibility. AUnit does not have that macro,
 but we get the equivalent effect by doing a `assertTrue(true)` shown above.
 
+<a name="MetaAssertions"></a>
 ### Meta Assertions
 
 The following methods from ArduinoUnit have also been implemented:
@@ -896,6 +976,7 @@ AUnitTest.ino, line 439.
 _AUnit has a separate message handler to print a customized message for the
 assertTestXxx() meta assertion macros._
 
+<a name="UnconditionalTermination"></a>
 ### Unconditional Termination
 
 The following macros can be used inside the body of `test()` or `testing()`
@@ -934,6 +1015,7 @@ from a passing test.
 ***ArduinoUnit Compatibility***:
 _The method(s) marked by [&ast;] are only available in AUnit._
 
+<a name="OverridableMethods"></a>
 ### Overridable Methods
 
 The following methods are defined at the `Test` base class level:
@@ -952,6 +1034,7 @@ except with different class names. Instead of `Test` use `TestAgain`. Instead
 of `Test::loop` use `TestAgain::again()`. ArduinoUnit does not support a
 `teardown()` method._
 
+<a name="RunningTests"></a>
 ### Running the Tests
 
 We run the test cases in the global `loop()` method by calling
@@ -977,6 +1060,7 @@ ArduinoUnit, each call to `Test::run()` will process the entire list of
 currently active test cases. In AUnit, each call to `TestRunner::run()` performs
 only a single test case, then returns._
 
+<a name="FilteringTestCases"></a>
 ### Filtering Test Cases
 
 We can `exclude()` or `include()` test cases using a pattern match:
@@ -1020,6 +1104,7 @@ following are accepted:_
 
 _AUnit provides 2-argument versions of `include()` and `exclude()`_
 
+<a name="OutputPrinter"></a>
 ### Output Printer
 
 The default output printer is the `Serial` instance. This can be
@@ -1046,6 +1131,7 @@ void loop() {
 _This is the equivalent of the `Test::out` static member variable in
 ArduinoUnit._
 
+<a name="ControllingVerbosity"></a>
 ### Controlling the Verbosity
 
 The default verbosity of the test results can be controlled using the
@@ -1118,6 +1204,7 @@ _The bit field constants have slightly different names:_
 * {no equivalent} <- `Verbosity::kDefault`
 * {no equivalent} <- `Verbosity::kTestExpired`
 
+<a name="LineNumberMismatch"></a>
 ### Line Number Mismatch
 
 AUnit suffers from the same compiler/preprocessor bug as ArduinoUnit that causes
@@ -1129,7 +1216,11 @@ as the first line of a unit test sketch.
 
 ***ArduinoUnit Compatibility***: _This problem is identical to ArduinoUnit._
 
-### Assertion Message
+<a name="TestFrameworkMessages"></a>
+### Test Framework Messages
+
+<a name="AssertionMessage"></a>
+#### Assertion Message
 
 The various `assertXxx()` macros in AUnit print a message upon pass or fail. For
 example, if the assertion was:
@@ -1185,7 +1276,8 @@ _The messages for asserts with bool values are customized for better clarity
 (partially to compensate for the lack of capture of the string of the actual
 arguments, and are different from ArduinoUnit._
 
-#### Verbose Mode
+<a name="VerboseModeMessage"></a>
+#### Verbose Mode Message
 
 If you use the verbose header:
 ```C++
@@ -1203,7 +1295,8 @@ Assertion failed: (ok=false) is true, file AUnitTest.ino, line 134.
 _The verbose mode produces the same messages as ArduinoUnit, at the cost of
 increased flash memory usage._
 
-### Test Summary
+<a name="TestCaseSummary"></a>
+#### Test Case Summary
 
 As each test case finishes, the `TestRunner` prints out the summary of the test
 case like this:
@@ -1219,7 +1312,8 @@ Test looping_until timed out.
 except that the "timed out" status is new to AUnit. See Test Timeout
 section below._
 
-### Test Runner Summary
+<a name="TestRunnerSummary"></a>
+#### Test Runner Summary
 
 At the end of the test run, the `TestRunner` prints out the summary
 of all test cases, like this:
@@ -1234,6 +1328,7 @@ ArduinoUnit. I changed "Test summary" to "TestRunner summary" because the former
 looks identical to the message that could have been printed by a `test(summary)`
 test case. AUnit also adds information about tests which timed out. See below._
 
+<a name="TestTimeout"></a>
 ### Test Timeout
 
 ***ArduinoUnit Compatibility***: _Only available in AUnit._
@@ -1242,21 +1337,21 @@ From my experience, it seems incredibly easy to write a `testing()` test case
 which accidentally runs forever because the code forgets to call an explicit
 `pass()`, `fail()` or `skip()`.
 
-The `TestRunner` in AUnit applies a time out value to all the test cases that it
-runs. The default time out is 10 seconds. A timeout value of `0` means an
-infinite timeout, which means that the `testing()` test case may run forever.
-The value of the timeout is stored as a `uint16_t` type, so the maximum timeout
-is 65535 seconds or a bit over 18 hours.
+The `TestRunner` in AUnit applies a timeout value to all the test cases that it
+runs. The **default timeout is 10 seconds**. A timeout value of `0` means an
+**infinite** timeout, which means that the `testing()` test case may run
+forever. The value of the timeout is stored as a `uint16_t` type, so the maximum
+timeout is 65535 seconds or a bit over 18 hours.
 
-Currently, the time out value is global to all test cases, individual test time
-out values cannot be set independently. If a test does not finish before that
-time, then the test is marked as `timed out` (internally implemented by the
+Currently, the timeout value is global to all test cases. Time out values for
+individual tests cannot be set independently. If a test does not finish before
+that time, then the test is marked as `timed out` (internally implemented by the
 `Test::expire()` method) and a message is printed like this:
 ```
 Test looping_until timed out.
 ```
 
-The time out value can be changed by calling the static
+The timeout value can be changed by calling the static
 `TestRunner::setTimeout()` method. Here is an example that sets the timeout to
 30 seconds instead:
 ```C++
@@ -1269,6 +1364,7 @@ void setup() {
 
 ***ArduinoUnit Compatibility***: _Only available in AUnit._
 
+<a name="GoogleTestAdapter"></a>
 ## GoogleTest Adapter
 
 It may be possible to run simple unit tests written using
@@ -1305,8 +1401,10 @@ or
 #include <aunit/contrib/gtest.h>
 ```
 
-## Commandline Tools and Continuous Integration
+<a name="CommandLine"></a>
+## Command Line Tools and Continuous Integration
 
+<a name="AUniter"></a>
 ### AUniter
 
 The command line tools have been moved into the
@@ -1342,6 +1440,7 @@ some quick examples copied from the `AUniter/README.md` file:
     * upload the `Blink.ino` sketch and monitor the serial port using a
       user-configurable terminal program (e.g. `picocom`) on `/dev/ttyUSB0`
 
+<a name="ContinuousIntegration"></a>
 ### Continuous Integration
 
 There are at least 2 ways to incorporate AUnit into a continuous integration
@@ -1363,6 +1462,7 @@ system:
     * See the `.github/workflows/aunit_tests.yml` file in this repository
       for an example.
 
+<a name="UnixHostDuino"></a>
 ### UnixHostDuino
 
 AUnit unit tests can often be compiled and executed natively on Linux or MacOS
@@ -1370,7 +1470,7 @@ machines using the [UnixHostDuino](https://github.com/bxparks/UnixHostDuino)
 library because most unit tests depend on just the `Serial` port (which
 UnixHostDuino binds to `stdout` and `stdin`).
 
-The unit tests for AUnit itself uner `./tests` have all been upgraded to run
+The unit tests for AUnit itself under `./tests` have all been upgraded to run
 under UnixHostDuino. Here are a few tips when writing unit tests
 to run under UnixHostDuino:
 
@@ -1396,10 +1496,12 @@ UnixHostDuino, the test program will terminate at the end through the
 will call `exit(0)`. If there are any failing tests (i.e. failed or timed out),
 it will call `exit(1)`.
 
+<a name="Tips"></a>
 ## Tips
 
 Collection of useful tidbits.
 
+<a name="DebuggingFixtures"></a>
 ### Debugging Assertions in Fixtures
 
 When using test fixtures with the `testF()` and `testingF()` macros, it's often
@@ -1444,7 +1546,8 @@ testF(CustomTestOnce, calculate) {
 }
 ```
 
-### Class Name Differences
+<a name="ClassHierarchy"></a>
+### Class Hierarchy
 
 To support test fixtures in a more natural way, the class hierarchy
 in AUnit is slightly different than ArduinoUnit. In ArduinoUnit we have a
@@ -1482,6 +1585,7 @@ failure) slightly easier to implement. For the most part, the end-users can
 ignore the existence of the `Assertion` and `MetaAssertion` classes and think of
 this as a simple 2-level inheritance tree.
 
+<a name="PrivateHelperMethods"></a>
 ### Testing Private Helper Methods
 
 There is a school of thought which says that unit tests should test only the
@@ -1500,7 +1604,7 @@ users will tend to ignore such comments if the helper functions are useful.
 I think a better way is to keep the helper functions `private` but make
 the unit tests a `friend class` of the target class. The syntax for doing this
 can be tricky, it took me a number of attempts to get this right, especially if
-you are also using namespaces for your target class:
+when using namespaces for the target class:
 
 ```C++
 //------------------- Target.h -------------
@@ -1557,11 +1661,12 @@ testF(TargetTest, helper) {
 
 ```
 
-The tricky part is that in `Target.h` you need a forward declaration of the
-various auto-generated AUnit test classes, and within the `Target` class itsef,
-the `friend` declaration needs to have a global scope `::` specifier before the
-name of the test class.
+The tricky part is that `Target.h` must have forward declarations of the various
+auto-generated AUnit test classes. And within the `Target` class itsef, the
+`friend` declarations need to have a global scope `::` specifier before the name
+of the test class.
 
+<a name="Benchmarks"></a>
 ## Benchmarks
 
 AUnit consumes as much as 65% less flash memory than ArduinoUnit 2.2 on an AVR
@@ -1576,6 +1681,7 @@ containing 26 test cases using 331 `assertXxx()`
 statements, compiled using AUnit and ArduinoUnit 2.2 on 5 different
 microcontrollers:
 ```
+---------------------------+---------+-------------+-------------+
 Platform (resource)        |     Max | ArduinoUnit |       AUnit |
 ---------------------------+---------+-------------+-------------|
 Arduino Nano (flash)       |   30720 |       54038 |       18928 |
@@ -1592,14 +1698,16 @@ ESP8266 - ESP-12E (static) |   81920 |     compile |       33128 |
 ---------------------------+---------+-------------+-------------|
 ESP8266 - ESP-01 (flash)   |  499696 |    does not |      268236 |
 ESP8266 - ESP-01 (static)  |   47356 |     compile |       33128 |
----------------------------+---------+-------------+-------------|
+---------------------------+---------+-------------+-------------+
 ```
 
 Not all unit test sketches will experience a savings of 65% of flash memory with
 AUnit, but a savings of 30-50% seems to be common.
 
+<a name="SystemRequirements"></a>
 ## System Requirements
 
+<a name="ToolChain"></a>
 ### Tool Chain
 
 This library was developed and tested using:
@@ -1615,10 +1723,12 @@ This library was developed and tested using:
 It should work with [PlatformIO](https://platformio.org/) but I have
 not tested it extensively.
 
+<a name="OperatingSystem"></a>
 ### Operating System
 
-I used MacOS 10.13.3 and Ubuntu 18.04 for most of my development.
+I used MacOS 10.13.3, Ubuntu 18.04, and Ubuntu 20.04 for most of my development.
 
+<a name="Hardware"></a>
 ### Hardware
 
 The library is tested extensively on the following boards:
@@ -1635,10 +1745,12 @@ I will occasionally test on the following hardware as a sanity check:
 * Teensy 3.2 (72 MHz ARM Cortex-M4)
 * Mini Mega 2560 (Arduino Mega 2560 compatible, 16 MHz ATmega2560)
 
+<a name="License"></a>
 ## License
 
 [MIT License](https://opensource.org/licenses/MIT)
 
+<a name="Feedback"></a>
 ## Feedback and Support
 
 If you have any questions, comments, bug reports, or feature requests, please
@@ -1648,6 +1760,7 @@ other people ask similar questions later.) I'd love to hear about how this
 software and its documentation can be improved. I can't promise that I will
 incorporate everything, but I will give your ideas serious consideration.
 
+<a name="Authors"></a>
 ## Authors
 
 * Created by Brian T. Park (brian@xparks.net).

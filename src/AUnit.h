@@ -27,6 +27,10 @@ SOFTWARE.
  *
  * This is the Doxygen documentation for the
  * <a href="https://github.com/bxparks/AUnit">AUnit Library</a>.
+ *
+ * Click on the "Classes" menu above to see the list of classes.
+ *
+ * Click on the "Files" menu above to see the list of header files.
  */
 
 /**
@@ -56,7 +60,7 @@ SOFTWARE.
 #include "aunit/TestMacros.h"
 
 // Version format: xxyyzz == "xx.yy.zz"
-#define AUNIT_VERSION 10400
-#define AUNIT_VERSION_STRING "1.4"
+#define AUNIT_VERSION 10401
+#define AUNIT_VERSION_STRING "1.4.1"
 
 #endif
