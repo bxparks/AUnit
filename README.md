@@ -18,7 +18,7 @@ instead of having to go through the Arduino IDE. Both the AUniter and
 UnixHostDuino tools can be used in a continuous integration system like Jenkins,
 or with [GitHub Actions](https://github.com/features/actions).
 
-**Version**: 1.4 (2020-10-28)
+**Version**: 1.4.1 (2020-11-12)
 
 **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
