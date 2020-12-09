@@ -1,5 +1,7 @@
 # AUnit
 
+![AUnit Tests](https://github.com/bxparks/AUnit/workflows/AUnit%20Tests/badge.svg)
+
 A unit testing framework for Arduino platforms inspired by by
 [ArduinoUnit](https://github.com/mmurdoch/arduinounit) and [Google
 Test](https://github.com/google/googletest/). The unit tests usually run on the
@@ -22,9 +24,7 @@ or with [GitHub Actions](https://github.com/features/actions).
 
 **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
-![AUnit Tests](https://github.com/bxparks/AUnit/workflows/AUnit%20Tests/badge.svg)
-
-**Table of Contents**
+## Table of Contents
 
 * [Summary](#Summary)
     * [ArduinoUnit Compatible Features](#ArduinoUnitCompatible)
@@ -32,7 +32,7 @@ or with [GitHub Actions](https://github.com/features/actions).
     * [Added Features](#AddedFeatures)
 * [Installation](#Installation)
     * [Source Code](#SourceCode)
-    * [Documentation](#Documentation)
+* [Documentation](#Documentation)
     * [Examples](#Examples)
 * [Usage](#Usage)
     * [Header and Namespace](#HeaderAndNamespace)
@@ -232,7 +232,7 @@ The source files are organized as follows:
 * `examples/` - example sketches
 
 <a name="Documentation"></a>
-### Documentation
+## Documentation
 
 * [README.md](README.md) - this file
 * [Doxygen docs](https://bxparks.github.io/AUnit/html) published on GitHub
