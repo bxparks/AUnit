@@ -1610,8 +1610,9 @@ git clone --branch master https://github.com/bxparks/UnixHostDuino
 git clone --branch master https://github.com/bxparks/AUnit
 ```
 
-This is my recommended configuration for running AUnit tests because it is easy
-to setup and maintain and the tests run fast.
+Using UnixHostDuino with a cloud CI provider (like GitHub Actions) is my
+recommended configuration for running AUnit tests because it is easy to setup
+and maintain and the tests run fast.
 
 <a name="Tips"></a>
 ## Tips
