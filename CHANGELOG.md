@@ -1,6 +1,12 @@
 # Changelog
 
 * Unreleased
+    * Add support for STM32duino.
+    * Blacklist megaAVR boards due to incompatibility with new Arduino API.
+      See Issue #56 (https://github.com/bxparks/AUnit/issues/56).
+    * Blacklist SAMD21 boards using `arduino:samd` core version >= 1.8.10
+      due to incompatibility with new Arduino API. See Issue #66
+      (https://github.com/bxparks/AUnit/issues/66).
 * 1.4.1 (2020-11-12)
     * Add Table of Contents to README.md to help navigation.
     * No functional change in this release.
