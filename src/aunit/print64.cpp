@@ -6,7 +6,7 @@
 namespace aunit {
 namespace internal {
 
-size_t printNumber64(Print& printer, unsigned long long n, uint8_t base) {
+size_t printNumber64(Print& printer, unsigned long long n, int base) {
   if ((n & 0xFFFFFFFF00000000) == 0) {
     return printer.print((unsigned long) n, base);
   }
@@ -29,14 +29,14 @@ size_t printNumber64(Print& printer, unsigned long long n, uint8_t base) {
   return printer.write(str);
 }
 
-size_t print64(Print& printer, unsigned long long n, uint8_t base) {
+size_t print64(Print& printer, unsigned long long n, int base) {
   if (base == 0) {
     base = 10;
   }
   return printNumber64(printer, n, base);
 }
 
-size_t print64(Print& printer, long long n, uint8_t base) {
+size_t print64(Print& printer, long long n, int base) {
   if (base == 0) {
     base = 10;
   }
@@ -52,12 +52,12 @@ size_t print64(Print& printer, long long n, uint8_t base) {
   }
 }
 
-size_t println64(Print& printer, unsigned long long n, uint8_t base) {
+size_t println64(Print& printer, unsigned long long n, int base) {
   size_t len = print64(printer, n, base);
   return len + printer.println();
 }
 
-size_t println64(Print& printer, long long n, uint8_t base) {
+size_t println64(Print& printer, long long n, int base) {
   size_t len = print64(printer, n, base);
   return len + printer.println();
 }
