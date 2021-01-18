@@ -77,9 +77,9 @@ or with [GitHub Actions](https://github.com/features/actions).
     * [Testing Private Helper Methods](#PrivateHelperMethods)
 * [Benchmarks](#Benchmarks)
 * [System Requirements](#SystemRequirements)
+    * [Hardware](#Hardware)
     * [Tool Chain](#ToolChains)
     * [Operating System](#ToolChains)
-    * [Hardware](#Hardware)
 * [License](#License)
 * [Feedback and Support](#Feedback)
 * [Authors](#Authors)
@@ -1825,18 +1825,50 @@ AUnit, but a savings of 30-50% seems to be common.
 <a name="SystemRequirements"></a>
 ## System Requirements
 
+<a name="Hardware"></a>
+### Hardware
+
+The library is tested on the following boards:
+
+* Arduino Nano clone (16 MHz ATmega328P)
+* SparkFun Pro Micro clone (16 MHz ATmega32U4)
+* NodeMCU 1.0 (ESP-12E module, 80 MHz ESP8266)
+* WeMos D1 Mini (ESP-12E module, 80 MHz ESP8266)
+* ESP32 dev board (ESP-WROOM-32 module, 240 MHz dual core Tensilica LX6)
+* SAMD21 M0 Mini board (Arduino Zero compatible, 48 MHz ARM Cortex-M0+)
+* STM32 "Blue Pill" (72 MHz STM32F103C8)
+
+I will occasionally test on the following hardware as a sanity check:
+
+* Teensy 3.2 (72 MHz ARM Cortex-M4)
+* Mini Mega 2560 (Arduino Mega 2560 compatible, 16 MHz ATmega2560)
+
+The following boards are *not* supported:
+
+* megaAVR (e.g. Nano Every)
+* SAMD21 boards w/ `arduino:samd` version >= 1.8.10 (e.g. MKR1000, MKRZero)
+
 <a name="ToolChain"></a>
 ### Tool Chain
 
-This library was developed and tested using:
-* [Arduino IDE 1.8.9](https://www.arduino.cc/en/Main/Software)
-* [Arduino AVR Boards 1.6.23](https://github.com/arduino/ArduinoCore-avr)
-* [Arduino SAMD Boards 1.8.3](https://github.com/arduino/ArduinoCore-samd)
-* [SparkFun AVR Boards 1.1.12](https://github.com/sparkfun/Arduino_Boards)
-* [SparkFun SAMD Boards 1.6.2](https://github.com/sparkfun/Arduino_Boards)
-* [ESP8266 Arduino 2.5.2](https://github.com/esp8266/Arduino)
-* [ESP32 Arduino 1.0.2](https://github.com/espressif/arduino-esp32)
-* [Teensydino 1.46](https://www.pjrc.com/teensy/td_download.html)
+This library was validated using:
+* [Arduino IDE 1.8.13](https://www.arduino.cc/en/Main/Software)
+* [Arduino AVR Boards 1.8.3](https://github.com/arduino/ArduinoCore-avr)
+* [Arduino SAMD Boards 1.8.9](https://github.com/arduino/ArduinoCore-samd)
+* [SparkFun AVR Boards 1.1.13](https://github.com/sparkfun/Arduino_Boards)
+* [SparkFun SAMD Boards 1.8.1](https://github.com/sparkfun/Arduino_Boards)
+* [ESP8266 Arduino 2.7.4](https://github.com/esp8266/Arduino)
+* [ESP32 Arduino 1.0.4](https://github.com/espressif/arduino-esp32)
+* [Teensyduino 1.53](https://www.pjrc.com/teensy/td_download.html)
+* [STM32duino 1.9.0](https://github.com/stm32duino/Arduino_Core_STM32)
+
+This library is *not* compatible with:
+* [Arduino SAMD Boards >=1.8.10](https://github.com/arduino/ArduinoCore-samd)
+* [Arduino megaAVR](https://github.com/arduino/ArduinoCore-megaavr/)
+* [MegaCoreX](https://github.com/MCUdude/MegaCoreX)
+
+(See [Issue #56](https://github.com/bxparks/AUnit/issues/56)
+and [Issue #66](https://github.com/bxparks/AUnit/issues/66)).
 
 It should work with [PlatformIO](https://platformio.org/) but I have
 not tested it extensively.
@@ -1845,23 +1877,6 @@ not tested it extensively.
 ### Operating System
 
 I used MacOS 10.13.3, Ubuntu 18.04, and Ubuntu 20.04 for most of my development.
-
-<a name="Hardware"></a>
-### Hardware
-
-The library is tested extensively on the following boards:
-
-* Arduino Nano clone (16 MHz ATmega328P)
-* SparkFun Pro Micro clone (16 MHz ATmega32U4)
-* NodeMCU 1.0 clone (ESP-12E module, 80 MHz ESP8266)
-* WeMos D1 Mini clone (ESP-12E module, 80 MHz ESP8266)
-* ESP32 dev board (ESP-WROOM-32 module, 240 MHz dual core Tensilica LX6)
-* SAMD21 M0 Mini board (Arduino Zero compatible, 48 MHz ARM Cortex-M0+)
-
-I will occasionally test on the following hardware as a sanity check:
-
-* Teensy 3.2 (72 MHz ARM Cortex-M4)
-* Mini Mega 2560 (Arduino Mega 2560 compatible, 16 MHz ATmega2560)
 
 <a name="License"></a>
 ## License
@@ -1877,6 +1892,11 @@ file a GitHub ticket instead of emailing me unless the content is sensitive.
 other people ask similar questions later.) I'd love to hear about how this
 software and its documentation can be improved. I can't promise that I will
 incorporate everything, but I will give your ideas serious consideration.
+
+If you find this library useful, consider starring this project on GitHub. It is
+usually the only feedback that I get from my users. Given limited time and
+resources, the stars will let me prioritize the more popular libraries over the
+less popular one.
 
 <a name="Authors"></a>
 ## Authors
