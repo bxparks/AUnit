@@ -36,29 +36,33 @@ SOFTWARE.
  * On Teensy-ARM, flash strings are *not* supported, but F(), PSTR() and (const
  * __FlashStringHelper*) are defined. The useful FPSTR() macro is not defined.
  *
- * On the ESP8266 platform, flash strings are implemented, and the F(),
- * PSTR() and __FlashStringHelper are defined, but the implementation is
- * brittle and can fail with obscure errors messages. For a single compilation
- * unit, a flash string cannot be defined in both an inline and non-inline
- * contexts (see https://github.com/esp8266/Arduino/issues/3369). In some cases
- * (e.g. TestMacros.h), we were able to move the F() macro into a non-inline
- * context. But in other cases (e.g. AssertVerboseMacros.h), the end-user can
- * choose to use an assertXxx() macro inside an inline function, which breaks
- * the compiler. Therefore, I chose to use normal (const char*) strings instead
- * of flash strings in those assertXxx() macros. In addition, the ESP8266
- * platform defines a useful FPSTR() macro which converts a (const char*)
- * returned by PSTR() into a (const __FlashStringHelper*) pointer.
+ * STM32duino seems to have forked from Teensyduino, so it too has F() and
+ * PSTR(), but no FPSTR() macro.
  *
- * On the ESP32, flash strings are *not* implemented, but the various F(),
- * PSTR() and __FlashStringHelper symbols are defined for compatibility,
- * similar to Teensy-ARM. However, the implementation of FPSTR() is incorrect,
- * see https://github.com/espressif/arduino-esp32/issues/1371. That macro
- * should return a (const __FlashStringHelper*) pointer, but is defined to
- * return a (const char*) pointer.
+ * On the ESP8266 platform, flash strings are implemented, and the F(), PSTR()
+ * and __FlashStringHelper are defined, but the implementation used to be
+ * brittle and fail with obscure errors messages. For a single compilation
+ * unit, a flash string could not be defined in both an inline and non-inline
+ * contexts (see https://github.com/esp8266/Arduino/issues/3369). This bug was
+ * fixed in Dec 2018, so we can use normal F(), PSTR(), and FPSTR() macros on
+ * the ESP8266.
  *
- * To make AUnit work under all of the above platforms, I chose to support
- * flash strings only on the AVR. I create custom versions of the F() and
- * FPSTR() macros below to accomplish this.
+ * On the ESP32, flash strings are not implemented, but the various F(), PSTR()
+ * and __FlashStringHelper symbols are defined for compatibility, similar to
+ * Teensy-ARM. Unfortunately, the implementation of FPSTR() was incorrectly
+ * defined (https://github.com/espressif/arduino-esp32/issues/1371), but the
+ * bug was fixed in ESP32 Core 1.0.3 around Sept 2019. Therefore, ESP32 can now
+ * use normal F(), PSTR() and FPSTR() macros.
+ *
+ * On megaAVR, the F() does not return a (const __FlashStringHelper*), but
+ * returns a (const char*). Unfortunately, this breaks AUnit
+ * (https://github.com/bxparks/AUnit/issues/56) because a lot of code is
+ * generated through macros, which assume that the F() macro returns the
+ * correct type.
+ *
+ * Previously, AUnit used the F() only for the AVR platforms. But with the
+ * various fixes, I think it can be activated for ESP8266 and other platforms.
+ * Except for megaAVR whose F() returns the wrong type.
  */
 
 #ifndef AUNIT_FLASH_H
@@ -67,32 +71,62 @@ SOFTWARE.
 class __FlashStringHelper;
 
 /**
- * The FPSTR() macro is defined on ESP8266, not defined on Teensy and AVR, and
- * broken on ESP32. We define our onw version to make this work on all 4
- * platforms. We might be able to use just FPSTR() if
- * https://github.com/espressif/arduino-esp32/issues/1371 is fixed.
+ * The FPSTR() macro is defined on ESP8266 and ESP32, but not on other
+ * platforms (e.g. AVR, SAMD, Teensyduino, and STM32duino). We define our own
+ * version to make this work on the various platforms.
  */
-#define AUNIT_FPSTR(pstr_pointer) \
-    (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
+#define AUNIT_FPSTR(pstr) reinterpret_cast<const __FlashStringHelper *>(pstr)
 
-#if defined(__AVR__) || defined(__arm__)
+#if defined(ARDUINO_ARCH_AVR)
+
   #include <avr/pgmspace.h>
-#elif defined(ESP8266) || defined(ESP32)
-  #include <pgmspace.h>
-#elif defined(__linux__) or defined(__APPLE__)
-  #include <pgmspace.h>
-#else
-  #error Unsupported platform
-#endif
+  #define AUNIT_F(x) F(x)
 
-#if defined(__AVR__)
+#elif defined(ARDUINO_ARCH_SAMD)
+
+  #include <avr/pgmspace.h>
   #define AUNIT_F(x) F(x)
-#elif defined(ESP8266) || defined(ESP32) || defined(__arm__)
-  #define AUNIT_F(x) AUNIT_FPSTR(x)
-#elif defined(__linux__) or defined(__APPLE__)
+
+#elif defined(ESP8266)
+
+  #include <pgmspace.h>
   #define AUNIT_F(x) F(x)
+
+#elif defined(ESP32)
+
+  #include <pgmspace.h>
+  #define AUNIT_F(x) F(x)
+
+  // ESP32 cores don't seem to define SERIAL_PORT_MONITOR
+  #if ! defined(SERIAL_PORT_MONITOR)
+    #define SERIAL_PORT_MONITOR Serial
+  #endif
+
+#elif defined(ARDUINO_ARCH_STM32)
+
+  #include <avr/pgmspace.h>
+  #define AUNIT_F(x) F(x)
+
+#elif defined(UNIX_HOST_DUINO)
+
+  #include <pgmspace.h>
+  #define AUNIT_F(x) F(x)
+
+#elif defined(ARDUINO_ARCH_MEGAAVR)
+
+  #error MegaAVR not supported, https://github.com/bxparks/AUnit/issues/56
+
 #else
-  #error Unsupported platform
+
+  #warning Untested platform, guessing various defaults
+
+  #include <avr/pgmspace.h>
+  #define AUNIT_F(x) F(x)
+
+  #if ! defined(SERIAL_PORT_MONITOR)
+    #define SERIAL_PORT_MONITOR Serial
+  #endif
+
 #endif
 
 // Define SERIAL_PORT_MONITOR consistently. We should also rename this file to
@@ -112,12 +146,7 @@ class __FlashStringHelper;
     #undef SERIAL_PORT_MONITOR
     #define SERIAL_PORT_MONITOR SerialUSB
   #endif
-#elif defined(ESP32)
-  #if ! defined(SERIAL_PORT_MONITOR)
-    #define SERIAL_PORT_MONITOR Serial
-  #endif
-#elif defined(__linux__) or defined(__APPLE__)
-  #define SERIAL_PORT_MONITOR Serial
-#endif
 
-#endif
+#endif // ARDUINO_SAMD_ZERO
+
+#endif // AUNIT_FLASH_H
