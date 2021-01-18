@@ -43,15 +43,6 @@ SOFTWARE.
 #include "TestOnce.h"
 #include "TestAgain.h"
 
-// On the ESP8266 platform, the F() string cannot be placed in an inline
-// context, because it interferes with other PROGMEM strings. See
-// https://github.com/esp8266/Arduino/issues/3369. The solution was to move the
-// constructor definition out from an inline function into a normal function
-// defined outside of the class declaration. Unfortunately, if the user code
-// has any other usage of F() in an inline context, those interfere with the
-// F() used below. I have abandoned supporting the F() macro for these test*()
-// macros on the ESP8266.
-
 /**
  * Macro to define a test that will be run only once.
  *

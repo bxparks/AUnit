@@ -118,7 +118,7 @@ class __FlashStringHelper;
 
 #else
 
-  #warning Untested platform, guessing various defaults
+  #warning Untested platform, AUnit may still work...
 
   #include <avr/pgmspace.h>
   #define AUNIT_F(x) F(x)
