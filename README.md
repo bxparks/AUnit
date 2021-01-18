@@ -1,5 +1,7 @@
 # AUnit
 
+![AUnit Tests](https://github.com/bxparks/AUnit/workflows/AUnit%20Tests/badge.svg)
+
 A unit testing framework for Arduino platforms inspired by by
 [ArduinoUnit](https://github.com/mmurdoch/arduinounit) and [Google
 Test](https://github.com/google/googletest/). The unit tests usually run on the
@@ -18,13 +20,11 @@ instead of having to go through the Arduino IDE. Both the AUniter and
 UnixHostDuino tools can be used in a continuous integration system like Jenkins,
 or with [GitHub Actions](https://github.com/features/actions).
 
-**Version**: 1.4.1 (2020-11-12)
+**Version**: 1.5 (2021-01-18)
 
 **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
-![AUnit Tests](https://github.com/bxparks/AUnit/workflows/AUnit%20Tests/badge.svg)
-
-**Table of Contents**
+## Table of Contents
 
 * [Summary](#Summary)
     * [ArduinoUnit Compatible Features](#ArduinoUnitCompatible)
@@ -32,7 +32,7 @@ or with [GitHub Actions](https://github.com/features/actions).
     * [Added Features](#AddedFeatures)
 * [Installation](#Installation)
     * [Source Code](#SourceCode)
-    * [Documentation](#Documentation)
+* [Documentation](#Documentation)
     * [Examples](#Examples)
 * [Usage](#Usage)
     * [Header and Namespace](#HeaderAndNamespace)
@@ -63,19 +63,23 @@ or with [GitHub Actions](https://github.com/features/actions).
         * [Test Runner Summary](#TestRunnerSummary)
     * [Test Timeout](#TestTimeout)
 * [GoogleTest Adapter](#GoogleTestAdapter)
-* [Command Line Tools and Continuous Integration](#CommandLine)
+* [Command Line Tools](#CommandLineTools)
     * [AUniter](#AUniter)
-    * [Continuous Integration](#ContinuousIntegration)
     * [UnixHostDuino](#UnixHostDuino)
+* [Continuous Integration](#ContinuousIntegration)
+    * [Arduino IDE/CLI + Cloud](#IdePlusCloud)
+    * [Arduino IDE/CLI + Jenkins](#IdePlusJenkins)
+    * [UnixHostDuino + Jenkins](#UnixHostDuinoPlusJenkins)
+    * [UnixHostDuino + Cloud (Recommmended)](#UnixHostDuinoPlusCloud)
 * [Tips](#Tips)
     * [Debugging Assertions in Fixtures](#DebuggingFixtures)
     * [Class Hierarchy](#ClassHierarchy)
     * [Testing Private Helper Methods](#PrivateHelperMethods)
 * [Benchmarks](#Benchmarks)
 * [System Requirements](#SystemRequirements)
+    * [Hardware](#Hardware)
     * [Tool Chain](#ToolChains)
     * [Operating System](#ToolChains)
-    * [Hardware](#Hardware)
 * [License](#License)
 * [Feedback and Support](#Feedback)
 * [Authors](#Authors)
@@ -232,7 +236,7 @@ The source files are organized as follows:
 * `examples/` - example sketches
 
 <a name="Documentation"></a>
-### Documentation
+## Documentation
 
 * [README.md](README.md) - this file
 * [Doxygen docs](https://bxparks.github.io/AUnit/html) published on GitHub
@@ -1401,19 +1405,28 @@ or
 #include <aunit/contrib/gtest.h>
 ```
 
-<a name="CommandLine"></a>
-## Command Line Tools and Continuous Integration
+<a name="CommandLineTools"></a>
+## Command Line Tools
+
+Each unit test is an independent `*.ino` program. You can run it using your
+Ardunio IDE. But there are 2 command line tools that can be used to run them.
 
 <a name="AUniter"></a>
 ### AUniter
 
-The command line tools have been moved into the
-[AUniter](https://github.com/bxparks/AUniter) project.
-The `auniter.sh` script can compile, upload and validate multiple AUnit tests on
-multiple Arduino boards. The script can monitor the serial port and determine if
-the unit test passed or failed, and it will print out a summary of all unit
-tests at the end. Full details are given in the AUniter project, but here are
-some quick examples copied from the `AUniter/README.md` file:
+The `auniter.sh` script used to be part of this project, but now lives in
+its own AUniter (https://github.com/bxparks/AUniter) project. The `auniter.sh`
+script is a wrapper around:
+* [Arduino IDE in command line mode](https://github.com/arduino/Arduino/blob/master/build/shared/manpage.adoc), and
+* [Arduino CLI tool](https://github.com/arduino/arduino-cli)
+
+Using `auniter.sh`, you can compile, upload and validate multiple AUnit tests on
+multiple Arduino boards using a single command.
+
+The script can monitor the serial port and determine if the unit test passed or
+failed, and it will print out a summary of all unit tests at the end. Full
+details are given in the AUniter project, but here are some quick examples
+copied from the `AUniter/README.md` file:
 
 * `$ auniter envs`
     * list the environments configured in the `auniter.ini` config file
@@ -1440,39 +1453,31 @@ some quick examples copied from the `AUniter/README.md` file:
     * upload the `Blink.ino` sketch and monitor the serial port using a
       user-configurable terminal program (e.g. `picocom`) on `/dev/ttyUSB0`
 
-<a name="ContinuousIntegration"></a>
-### Continuous Integration
-
-There are at least 2 ways to incorporate AUnit into a continuous integration
-system:
-
-* You can use [Jenkins](https://jenkins.io) on a local machine and use the
-  AUniter tools (https://github.com/bxparks/AUniter) as explained in
-  [Continuous Integration with
-  Jenkins](https://github.com/bxparks/AUniter/tree/develop/jenkins).
-    * Not Recommended anymore because it is too difficult to maintain
-      a local Jenkins service. And using the Arduino IDE as the command line
-      compiler is too slow.
-* You can compile and run the AUnit tests using the GNU `make` command under
-  Linux or MacOS using the UnixHostDuino framework
-  (https://github.com/bxparks/UnixHostDuino). The `make` commands can be readily
-  integrated into a continuous integration service like [GitHub
-  Actions](https://github.com/features/actions).
-    * **Recommended**
-    * See the `.github/workflows/aunit_tests.yml` file in this repository
-      for an example.
-
 <a name="UnixHostDuino"></a>
 ### UnixHostDuino
 
-AUnit unit tests can often be compiled and executed natively on Linux or MacOS
-machines using the [UnixHostDuino](https://github.com/bxparks/UnixHostDuino)
-library because most unit tests depend on just the `Serial` port (which
-UnixHostDuino binds to `stdout` and `stdin`).
+Instead of running the unit tests on the actual microcontrollers themselves, you
+can compile and execute AUnit unit tests natively on Linux or MacOS machines
+using the UnixHostDuino (https://github.com/bxparks/UnixHostDuino) project.
+UnixHostDuino provides a minimal Arduino programming environment that is usually
+sufficient to compile and run AUnit test units on the Unix host machine. It
+relies on the native C++ compiler, GNU Make, and `Makefile` files for each
+`*.ino` unit test like this:
 
-The unit tests for AUnit itself under `./tests` have all been upgraded to run
-under UnixHostDuino. Here are a few tips when writing unit tests
-to run under UnixHostDuino:
+```
+APP_NAME := SampleTest
+ARDUINO_LIBS := AUnit
+include ../../../UnixHostDuino/UnixHostDuino.mk
+```
+
+The unit test is compiled into a binary (`SampleTest.out`) using the `make
+command, and the binary can be executed like this:
+```
+$ make
+$ ./SampleTest.out
+```
+
+Here are a few tips when writing unit tests to run under UnixHostDuino:
 
 **Delay(1000)**
 
@@ -1495,6 +1500,119 @@ UnixHostDuino, the test program will terminate at the end through the
 `exit()` function. If the tests are successful (i.e. passing or skipped), it
 will call `exit(0)`. If there are any failing tests (i.e. failed or timed out),
 it will call `exit(1)`.
+
+<a name="ContinuousIntegration"></a>
+## Continuous Integration
+
+There are several ways to incorporate AUnit into a continuous integration
+system. At the infrastructure level, you can use either a system like
+[Jenkins](https://jenkins.io) running on a local machine, or use a cloud-based
+continuous integration system like [GitHub
+Actions](https://github.com/features/actions). For each of those
+infrastructures, you can choose to use the Arduino IDE or CLI build tools, or
+you can use UnixHostDuino to compile and run against a Linux or MacOS
+environment.
+
+The option matrix looks like this:
+
+```
++----------------+-------------------------+------------------------+
+|\ CI environment|                         |                        |
+| \____________  | Local (e.g. Jenkins)    | Cloud (e.g. GitHub)    |
+|              \ |                         |                        |
+| Build tool    \|                         |                        |
++----------------+-------------------------+------------------------+
+|                | * can execute tests     | * verify compile-only  |
+|                |   on microcontroller    | * cannot actually run  |
+| Arduino        | * complex setup and     |   tests on             |
+| IDE/CLI        | * maintenance           |   microcontroller      |
+|                | * can be slow           | * complex installation |
+|                | * (not recommended)     |   and setup            |
+|                |                         | * (unverified)         |
++----------------+-------------------------+------------------------+
+|                | * verify execution on   | * verify execution on  |
+|                |   Unix environment      |   Unix environment     |
+| UnixHostDuino  | * faster than IDE/CLI   | * simple setup and     |
+|                | * complex setup and     |   maintenance          |
+|                |   and maintenance       | * very fast            |
+|                | * (unnecessary)         | * (recommended)        |
++----------------+-------------------------+------------------------+
+```
+
+<a name="IdePlusCloud"></a>
+### Arduino IDE/CLI + Cloud
+
+The big advantage of using the Arduino IDE/CLI to run the AUnit unit tests is
+that you can compile them using the precise compiler and tool chain that will be
+used against the specific microcontroller that you are interested in verifying.
+There can be subtle compiler differences (e.g. size of `int`) or differences in
+how the Arduino programming environment was implemented (e.g. availability of
+the `FPSTR()` macro). If you use a cloud-based CI infrastructure, then you must
+install the complete Arduino IDE/CLI environment into your cloud test runner.
+Although I think it's theoretically possible, I have never actually verified
+that this can be done.
+
+<a name="IdePlusJenkins"></a>
+### Arduion IDE/CLI + Jenkins
+
+This setup is described in [Continuous Integration with
+Jenkins](https://github.com/bxparks/AUniter/tree/develop/jenkins), and it worked
+reasonably well for small number of unit tests. The problem is that the Arduino
+IDE is far too slow when the number of unit tests become non-trivial. And it
+also takes too much effort to maintain the local Jenkins infrastructure. The
+Jenkins environment seems to be brittle due to its complexity of all of its
+moving parts. This is the only environment where you can connect a real Arduino
+microcontroller to the local machine and have the unit tests run on the actual
+microcontroller. Perhaps for certain situations, running the unit tests on
+actual hardware is a requirement. But for most people, I no longer recommend
+this environment.
+
+<a name="UnixHostDuinoPlusJenkins"></a>
+### UnixHostDuino + Jenkins
+
+Once the Jenkins environment is up and running, I have verified that it is easy
+to run the unit tests using UnixHostDuino, since it needs just a C++ compiler
+and GNU Make. Things will compile and run a lot faster than using the Arduino
+IDE/CLI. However, this combination suffers from the same problem of maintaining
+the Jenkins environment. If the unit tests are running in an Unix environment
+anyway, it seems far easier to just run them in the cloud. So I don't recommend
+using this setup. Just use a cloud CI provider as described below.
+
+<a name="UnixHostDuinoPlusCloud"></a>
+### UnixHostDuino + Cloud (Recommended)
+
+A cloud-based continuous integration service like [GitHub
+Actions](https://github.com/features/actions) is easy to setup for
+UnixHostDuino. Often the C++ compiler and GNU `make` tools are already installed
+in the Docker container used by the CI system. The only additional setup is
+to install UnixHostDuino, AUnit and other dependent Arduino libraries.
+
+Here are some example YAML files for GitHub Actions:
+* https://github.com/bxparks/AceTime/tree/develop/.github/workflows
+* https://github.com/bxparks/AceButton/tree/develop/.github/workflows
+* https://github.com/bxparks/AceRoutine/tree/develop/.github/workflows
+* https://github.com/bxparks/AceCRC/tree/develop/.github/workflows
+
+In the various `aunit_tests.yml` files, the `Setup` step installs the various
+dependent libraries using the `git clone` command, for example:
+```
+git clone https://github.com/bxparks/UnixHostDuino
+git clone https://github.com/bxparks/AUnit
+```
+
+These commands install the default branch for those repositories, which for most
+of my libraries will be the `develop` branch. This makes sense for me because I
+want the unit tests to run against the latest commits. However, for many others,
+it is probably better to use the `master` branch because it contains the stable
+releases:
+```
+git clone --branch master https://github.com/bxparks/UnixHostDuino
+git clone --branch master https://github.com/bxparks/AUnit
+```
+
+Using UnixHostDuino with a cloud CI provider (like GitHub Actions) is my
+recommended configuration for running AUnit tests because it is easy to setup
+and maintain and the tests run fast.
 
 <a name="Tips"></a>
 ## Tips
@@ -1707,18 +1825,50 @@ AUnit, but a savings of 30-50% seems to be common.
 <a name="SystemRequirements"></a>
 ## System Requirements
 
+<a name="Hardware"></a>
+### Hardware
+
+The library is tested on the following boards:
+
+* Arduino Nano clone (16 MHz ATmega328P)
+* SparkFun Pro Micro clone (16 MHz ATmega32U4)
+* NodeMCU 1.0 (ESP-12E module, 80 MHz ESP8266)
+* WeMos D1 Mini (ESP-12E module, 80 MHz ESP8266)
+* ESP32 dev board (ESP-WROOM-32 module, 240 MHz dual core Tensilica LX6)
+* SAMD21 M0 Mini board (Arduino Zero compatible, 48 MHz ARM Cortex-M0+)
+* STM32 "Blue Pill" (72 MHz STM32F103C8)
+
+I will occasionally test on the following hardware as a sanity check:
+
+* Teensy 3.2 (72 MHz ARM Cortex-M4)
+* Mini Mega 2560 (Arduino Mega 2560 compatible, 16 MHz ATmega2560)
+
+The following boards are *not* supported:
+
+* megaAVR (e.g. Nano Every)
+* SAMD21 boards w/ `arduino:samd` version >= 1.8.10 (e.g. MKR1000, MKRZero)
+
 <a name="ToolChain"></a>
 ### Tool Chain
 
-This library was developed and tested using:
-* [Arduino IDE 1.8.9](https://www.arduino.cc/en/Main/Software)
-* [Arduino AVR Boards 1.6.23](https://github.com/arduino/ArduinoCore-avr)
-* [Arduino SAMD Boards 1.8.3](https://github.com/arduino/ArduinoCore-samd)
-* [SparkFun AVR Boards 1.1.12](https://github.com/sparkfun/Arduino_Boards)
-* [SparkFun SAMD Boards 1.6.2](https://github.com/sparkfun/Arduino_Boards)
-* [ESP8266 Arduino 2.5.2](https://github.com/esp8266/Arduino)
-* [ESP32 Arduino 1.0.2](https://github.com/espressif/arduino-esp32)
-* [Teensydino 1.46](https://www.pjrc.com/teensy/td_download.html)
+This library was validated using:
+* [Arduino IDE 1.8.13](https://www.arduino.cc/en/Main/Software)
+* [Arduino AVR Boards 1.8.3](https://github.com/arduino/ArduinoCore-avr)
+* [Arduino SAMD Boards 1.8.9](https://github.com/arduino/ArduinoCore-samd)
+* [SparkFun AVR Boards 1.1.13](https://github.com/sparkfun/Arduino_Boards)
+* [SparkFun SAMD Boards 1.8.1](https://github.com/sparkfun/Arduino_Boards)
+* [ESP8266 Arduino 2.7.4](https://github.com/esp8266/Arduino)
+* [ESP32 Arduino 1.0.4](https://github.com/espressif/arduino-esp32)
+* [Teensyduino 1.53](https://www.pjrc.com/teensy/td_download.html)
+* [STM32duino 1.9.0](https://github.com/stm32duino/Arduino_Core_STM32)
+
+This library is *not* compatible with:
+* [Arduino SAMD Boards >=1.8.10](https://github.com/arduino/ArduinoCore-samd)
+* [Arduino megaAVR](https://github.com/arduino/ArduinoCore-megaavr/)
+* [MegaCoreX](https://github.com/MCUdude/MegaCoreX)
+
+(See [Issue #56](https://github.com/bxparks/AUnit/issues/56)
+and [Issue #66](https://github.com/bxparks/AUnit/issues/66)).
 
 It should work with [PlatformIO](https://platformio.org/) but I have
 not tested it extensively.
@@ -1727,23 +1877,6 @@ not tested it extensively.
 ### Operating System
 
 I used MacOS 10.13.3, Ubuntu 18.04, and Ubuntu 20.04 for most of my development.
-
-<a name="Hardware"></a>
-### Hardware
-
-The library is tested extensively on the following boards:
-
-* Arduino Nano clone (16 MHz ATmega328P)
-* SparkFun Pro Micro clone (16 MHz ATmega32U4)
-* NodeMCU 1.0 clone (ESP-12E module, 80 MHz ESP8266)
-* WeMos D1 Mini clone (ESP-12E module, 80 MHz ESP8266)
-* ESP32 dev board (ESP-WROOM-32 module, 240 MHz dual core Tensilica LX6)
-* SAMD21 M0 Mini board (Arduino Zero compatible, 48 MHz ARM Cortex-M0+)
-
-I will occasionally test on the following hardware as a sanity check:
-
-* Teensy 3.2 (72 MHz ARM Cortex-M4)
-* Mini Mega 2560 (Arduino Mega 2560 compatible, 16 MHz ATmega2560)
 
 <a name="License"></a>
 ## License
@@ -1759,6 +1892,11 @@ file a GitHub ticket instead of emailing me unless the content is sensitive.
 other people ask similar questions later.) I'd love to hear about how this
 software and its documentation can be improved. I can't promise that I will
 incorporate everything, but I will give your ideas serious consideration.
+
+If you find this library useful, consider starring this project on GitHub. It is
+usually the only feedback that I get from my users. Given limited time and
+resources, the stars will let me prioritize the more popular libraries over the
+less popular one.
 
 <a name="Authors"></a>
 ## Authors

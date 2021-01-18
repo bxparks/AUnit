@@ -27,7 +27,10 @@ SOFTWARE.
 #include "Flash.h"
 #include "Printer.h"
 #include "Assertion.h"
+
+#if ! defined(ARDUINO_ARCH_STM32)
 #include "print64.h"
+#endif
 
 namespace aunit {
 
@@ -106,6 +109,8 @@ void printAssertionMessage(
   printer->println('.');
 }
 
+#if ! defined(ARDUINO_ARCH_STM32)
+
 // Version for (long long, long long) because Print.h does not support int64.
 void printAssertionMessage(
     Print* printer,
@@ -162,6 +167,8 @@ void printAssertionMessage(
   printer->print(line);
   printer->println('.');
 }
+
+#endif // ARDUINO_ARCH_STM32
 
 // Special version for (const void*, const void*).
 void printAssertionMessage(
@@ -795,6 +802,8 @@ void printAssertionMessageVerbose(
   printer->println('.');
 }
 
+#if ! defined(ARDUINO_ARCH_STM32)
+
 // Version for (long long, long long) because Print.h does not support int64.
 void printAssertionMessageVerbose(
     Print* printer,
@@ -863,6 +872,8 @@ void printAssertionMessageVerbose(
   printer->print(line);
   printer->println('.');
 }
+
+#endif // ARDUINO_ARCH_STM32
 
 // Special version for (const void*, const void *).
 void printAssertionMessageVerbose(

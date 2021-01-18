@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -138,10 +138,10 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>kFStr
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A union of (const char*) and (const __FlashStringHelper*) with a discriminator. </p>
 <p>This allows us to treat these 2 strings like a single object. The major reason this class is needed is because the F() cannot be used outside a function, it can only be used inside a function, so we are forced to use normal c-strings instead of F() strings when manually creating <a class="el" href="classaunit_1_1Test.html" title="Base class of all test cases.">Test</a> or <a class="el" href="classaunit_1_1TestOnce.html" title="Similar to TestAgain but performs user-defined test only once.">TestOnce</a> instances.</p>
-<p>I deliberately decided not to inherit from Printable. While it is convenient to be able to call Print::print() with an instance of this class, the cost is 2 (AVR) or 4 (Teensy-ARM or ESP8266) extra bytes of static memory for the v-table pointer for each instance. But each instance is only 3 (AVR) or 5 (Teensy-ARM or ESP8266) bytes big, so the cost of 50-100 bytes of static memory for a large suite of 25 unit tests does not seem worth the minor convenience.</p>
-<p>Instead, the <a class="el" href="classaunit_1_1internal_1_1FCString.html#ac4a029df196558927f210314c2e28944" title="Convenience method for printing an FCString.">print()</a> and <a class="el" href="classaunit_1_1internal_1_1FCString.html#ae2e214a9db25ed35ae6f448cf133ed1e" title="Convenience method for printing an FCString.">println()</a> methods invert the dependency and accept a pointer to 'Print'. </p>
+<p>I deliberately decided not to inherit from Printable. While it is convenient to be able to call Print::print() with an instance of this class, the cost is 2 bytes (8-bit processors) or 4 bytes (32-bit processors) of extra static memory for the v-table pointer for each instance. But each instance is only 3 bytes (8-bits) or 5 bytes (32-bits) big, so the cost of 50-100 bytes of static memory for a large suite of 25 unit tests does not seem worth the minor convenience.</p>
+<p>Use the <a class="el" href="classaunit_1_1internal_1_1FCString.html#ac4a029df196558927f210314c2e28944" title="Convenience method for printing an FCString.">print()</a> and <a class="el" href="classaunit_1_1internal_1_1FCString.html#ae2e214a9db25ed35ae6f448cf133ed1e" title="Convenience method for printing an FCString.">println()</a> methods to print to the given 'Print'. In hindsight, with more Arduino programming under my belt, I think these functions should accept a reference <code>Print&amp;</code> instead of a pointer <code>Print*</code>. That is how I implemented this in a subsequent version of this class in the AceCommon library. </p>
 
-<p class="definition">Definition at line <a class="el" href="FCString_8h_source.html#l00055">55</a> of file <a class="el" href="FCString_8h_source.html">FCString.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FCString_8h_source.html#l00058">58</a> of file <a class="el" href="FCString_8h_source.html">FCString.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a88450f2b8adcd7b37c356d318abae777"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a88450f2b8adcd7b37c356d318abae777">&#9670;&nbsp;</a></span>compareToN() <span class="overload">[1/2]</span></h2>

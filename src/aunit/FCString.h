@@ -43,14 +43,17 @@ namespace internal {
  *
  * I deliberately decided not to inherit from Printable. While it is convenient
  * to be able to call Print::print() with an instance of this class, the cost
- * is 2 (AVR) or 4 (Teensy-ARM or ESP8266) extra bytes of static memory for the
- * v-table pointer for each instance. But each instance is only 3 (AVR) or 5
- * (Teensy-ARM or ESP8266) bytes big, so the cost of 50-100 bytes of static
- * memory for a large suite of 25 unit tests does not seem worth the minor
- * convenience.
+ * is 2 bytes (8-bit processors) or 4 bytes (32-bit processors) of extra static
+ * memory for the v-table pointer for each instance. But each instance is only
+ * 3 bytes (8-bits) or 5 bytes (32-bits) big, so the cost of 50-100 bytes of
+ * static memory for a large suite of 25 unit tests does not seem worth the
+ * minor convenience.
  *
- * Instead, the print() and println() methods invert the dependency and
- * accept a pointer to 'Print'.
+ * Use the print() and println() methods to print to the given 'Print'. In
+ * hindsight, with more Arduino programming under my belt, I think these
+ * functions should accept a reference `Print&` instead of a pointer `Print*`.
+ * That is how I implemented this in a subsequent version of this class in the
+ * AceCommon library.
  */
 class FCString {
   public:

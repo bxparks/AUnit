@@ -46,6 +46,16 @@ namespace fake {
  *   ...
  * }
  * @endverbatim
+ *
+ * The internal buffer size is just big enough to hold a `long long` (8 bytes)
+ * with 3 bytes to hold the `\\r\\n` from a `println()` statement and the
+ * terminating NUL character.
+ *
+ * This class is an early version of the PrintStr class of the AceCommon
+ * library. We don't want to change AUnit to use PrintStr instead because we
+ * use AUnit to write the unit tests for AceCommon itself, and it would cause a
+ * conceptual cyclic dependency. Also we want AUnit to be self-contained
+ * without additional dependencies.
  */
 class FakePrint: public Print {
   public:
@@ -77,16 +87,14 @@ class FakePrint: public Print {
       return size;
     }
 
-// ESP32 version of Print class does not define a virtual flush() method.
-#ifdef ESP32
+// ESP32 and STM32duino do not provide a virtual Print::flush() method.
+#if defined(ESP32) || defined(ARDUINO_ARCH_STM32)
     void flush() {
-      mIndex = 0;
-    }
 #else
     void flush() override {
+#endif
       mIndex = 0;
     }
-#endif
 
     /**
      * Return the NUL terminated string buffer. After the buffer is no longer

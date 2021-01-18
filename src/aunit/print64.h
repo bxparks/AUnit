@@ -45,15 +45,15 @@ class Print;
 namespace aunit {
 namespace internal {
 
-size_t printNumber64(Print& printer, unsigned long long n, uint8_t base = 10);
+size_t printNumber64(Print& printer, unsigned long long n, int base = 10);
 
-size_t print64(Print& printer, unsigned long long n, uint8_t base = 10);
+size_t print64(Print& printer, unsigned long long n, int base = 10);
 
-size_t print64(Print& printer, long long n, uint8_t base = 10);
+size_t print64(Print& printer, long long n, int base = 10);
 
-size_t println64(Print& printer, unsigned long long n, uint8_t base = 10);
+size_t println64(Print& printer, unsigned long long n, int base = 10);
 
-size_t println64(Print& printer, long long n, uint8_t base = 10);
+size_t println64(Print& printer, long long n, int base = 10);
 
 }
 }
