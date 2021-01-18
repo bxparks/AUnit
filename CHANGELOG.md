@@ -1,6 +1,7 @@
 # Changelog
 
 * Unreleased
+* 1.5 (2021-01-18)
     * Add support for STM32duino.
     * Blacklist megaAVR boards due to incompatibility with new Arduino API.
       See Issue #56 (https://github.com/bxparks/AUnit/issues/56).
