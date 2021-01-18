@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -130,8 +130,10 @@ Static Public Attributes</h2></td></tr>
 *   fakePrint.flush();
 *   ...
 * }
-* </pre> 
-<p class="definition">Definition at line <a class="el" href="FakePrint_8h_source.html#l00050">50</a> of file <a class="el" href="FakePrint_8h_source.html">FakePrint.h</a>.</p>
+* </pre><p>The internal buffer size is just big enough to hold a <code>long long</code> (8 bytes) with 3 bytes to hold the <code>\\r\\n</code> from a <code>println()</code> statement and the terminating NUL character.</p>
+<p>This class is an early version of the PrintStr class of the AceCommon library. We don't want to change AUnit to use PrintStr instead because we use AUnit to write the unit tests for AceCommon itself, and it would cause a conceptual cyclic dependency. Also we want AUnit to be self-contained without additional dependencies. </p>
+
+<p class="definition">Definition at line <a class="el" href="FakePrint_8h_source.html#l00060">60</a> of file <a class="el" href="FakePrint_8h_source.html">FakePrint.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab3a88258aa921031badaed5f24a676e5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab3a88258aa921031badaed5f24a676e5">&#9670;&nbsp;</a></span>getBuffer()</h2>
@@ -159,7 +161,7 @@ Static Public Attributes</h2></td></tr>
 <p>Return the NUL terminated string buffer. </p>
 <p>After the buffer is no longer needed, the flush() method should be called to reset the internal buffer index to 0. </p>
 
-<p class="definition">Definition at line <a class="el" href="FakePrint_8h_source.html#l00096">96</a> of file <a class="el" href="FakePrint_8h_source.html">FakePrint.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FakePrint_8h_source.html#l00104">104</a> of file <a class="el" href="FakePrint_8h_source.html">FakePrint.h</a>.</p>
 
 </div>
 </div>
@@ -187,7 +189,7 @@ Static Public Attributes</h2></td></tr>
 <p>Size of the internal buffer. </p>
 <p>This is just large enough to hold the string representation of one 64-bit integer in binary format (64 bytes), including 2 bytes for the '\r\n' from println() and 1 byte for the terminating NUL. </p>
 
-<p class="definition">Definition at line <a class="el" href="FakePrint_8h_source.html#l00058">58</a> of file <a class="el" href="FakePrint_8h_source.html">FakePrint.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FakePrint_8h_source.html#l00068">68</a> of file <a class="el" href="FakePrint_8h_source.html">FakePrint.h</a>.</p>
 
 </div>
 </div>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.5</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -102,21 +102,21 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1f71deac105aff0827f6b4b31f2dcab1"><td class="memItemLeft" align="right" valign="top"><a id="a1f71deac105aff0827f6b4b31f2dcab1"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::printNumber64</b> (Print &amp;printer, unsigned long long n, uint8_t base)</td></tr>
-<tr class="separator:a1f71deac105aff0827f6b4b31f2dcab1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4728aa94dd046e9587f329c0542654f"><td class="memItemLeft" align="right" valign="top"><a id="ae4728aa94dd046e9587f329c0542654f"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::print64</b> (Print &amp;printer, unsigned long long n, uint8_t base)</td></tr>
-<tr class="separator:ae4728aa94dd046e9587f329c0542654f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dae6536e7034bb298ba41399bca6e86"><td class="memItemLeft" align="right" valign="top"><a id="a5dae6536e7034bb298ba41399bca6e86"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::print64</b> (Print &amp;printer, long long n, uint8_t base)</td></tr>
-<tr class="separator:a5dae6536e7034bb298ba41399bca6e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10218359aaf2d2d5af4a4e91383d3535"><td class="memItemLeft" align="right" valign="top"><a id="a10218359aaf2d2d5af4a4e91383d3535"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::println64</b> (Print &amp;printer, unsigned long long n, uint8_t base)</td></tr>
-<tr class="separator:a10218359aaf2d2d5af4a4e91383d3535"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa66a77bd96f7160bc136ea84bd8b37e7"><td class="memItemLeft" align="right" valign="top"><a id="aa66a77bd96f7160bc136ea84bd8b37e7"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::println64</b> (Print &amp;printer, long long n, uint8_t base)</td></tr>
-<tr class="separator:aa66a77bd96f7160bc136ea84bd8b37e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf58fba65b7d5a4d98622019bde05cb7"><td class="memItemLeft" align="right" valign="top"><a id="adf58fba65b7d5a4d98622019bde05cb7"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::printNumber64</b> (Print &amp;printer, unsigned long long n, int base)</td></tr>
+<tr class="separator:adf58fba65b7d5a4d98622019bde05cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a200c315bcc45e7ef02b7623ea035469d"><td class="memItemLeft" align="right" valign="top"><a id="a200c315bcc45e7ef02b7623ea035469d"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::print64</b> (Print &amp;printer, unsigned long long n, int base)</td></tr>
+<tr class="separator:a200c315bcc45e7ef02b7623ea035469d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac098f75eec2e444dca8ed081daced636"><td class="memItemLeft" align="right" valign="top"><a id="ac098f75eec2e444dca8ed081daced636"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::print64</b> (Print &amp;printer, long long n, int base)</td></tr>
+<tr class="separator:ac098f75eec2e444dca8ed081daced636"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac85aa842c55e4257bd90bea299e63b29"><td class="memItemLeft" align="right" valign="top"><a id="ac85aa842c55e4257bd90bea299e63b29"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::println64</b> (Print &amp;printer, unsigned long long n, int base)</td></tr>
+<tr class="separator:ac85aa842c55e4257bd90bea299e63b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a483cc2ac55d97fa93cc1d6d1ac6d56df"><td class="memItemLeft" align="right" valign="top"><a id="a483cc2ac55d97fa93cc1d6d1ac6d56df"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::println64</b> (Print &amp;printer, long long n, int base)</td></tr>
+<tr class="separator:a483cc2ac55d97fa93cc1d6d1ac6d56df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Helper routines to print 'long long' and 'unsigned long long' because the Print::print() methods in Print.h do not suport 64-bit integers.</p>
