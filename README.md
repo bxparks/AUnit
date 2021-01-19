@@ -1886,17 +1886,16 @@ I used MacOS 10.13.3, Ubuntu 18.04, and Ubuntu 20.04 for most of my development.
 <a name="Feedback"></a>
 ## Feedback and Support
 
+If you find this library useful, consider starring this project on GitHub. The
+stars will let me prioritize the more popular libraries over the less popular
+ones.
+
 If you have any questions, comments, bug reports, or feature requests, please
 file a GitHub ticket instead of emailing me unless the content is sensitive.
 (The problem with email is that I cannot reference the email conversation when
 other people ask similar questions later.) I'd love to hear about how this
 software and its documentation can be improved. I can't promise that I will
 incorporate everything, but I will give your ideas serious consideration.
-
-If you find this library useful, consider starring this project on GitHub. It is
-usually the only feedback that I get from my users. Given limited time and
-resources, the stars will let me prioritize the more popular libraries over the
-less popular one.
 
 <a name="Authors"></a>
 ## Authors
