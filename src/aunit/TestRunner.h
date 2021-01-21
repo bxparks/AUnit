@@ -40,7 +40,10 @@ namespace aunit {
  */
 class TestRunner {
   public:
-    /** Integer type of the timeout parameter. Seconds. Default is kTimeoutDefault = 10 */
+    /**
+     * Integer type of the timeout parameter. Seconds. Default is
+     * kTimeoutDefault = 10
+     */
     typedef uint16_t TimeoutType;
 
     /** Run all tests using the current runner. */
