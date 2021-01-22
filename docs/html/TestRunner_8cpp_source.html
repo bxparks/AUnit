@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.5</span>
+   &#160;<span id="projectnumber">1.5.1</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -171,7 +171,7 @@ $(function() {
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      mEndTime = millis();</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      resolveRun();</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      mIsResolved = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">    #if UNIX_HOST_DUINO</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">    #if EPOXY_DUINO</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;      exit((mFailedCount || mExpiredCount) ? 1 : 0);</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">    #endif</span></div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
@@ -357,7 +357,7 @@ $(function() {
 <div class="ttc" id="aclassaunit_1_1Test_html_a5c8d37f2f2418a3223a972345c0d4263"><div class="ttname"><a href="classaunit_1_1Test.html#a5c8d37f2f2418a3223a972345c0d4263">aunit::Test::kStatusPassed</a></div><div class="ttdeci">static const uint8_t kStatusPassed</div><div class="ttdoc">Test has passed, or pass() was called.</div><div class="ttdef"><b>Definition:</b> <a href="Test_8h_source.html#l00099">Test.h:99</a></div></div>
 <div class="ttc" id="aclassaunit_1_1Test_html_a80a20f0e267db30cf06419272468eed6"><div class="ttname"><a href="classaunit_1_1Test.html#a80a20f0e267db30cf06419272468eed6">aunit::Test::kStatusExpired</a></div><div class="ttdeci">static const uint8_t kStatusExpired</div><div class="ttdoc">Test has timed out, or expire() called.</div><div class="ttdef"><b>Definition:</b> <a href="Test_8h_source.html#l00108">Test.h:108</a></div></div>
 <div class="ttc" id="aclassaunit_1_1Verbosity_html_a2e445ccd89e9e4f53b1bc658c353bcea"><div class="ttname"><a href="classaunit_1_1Verbosity.html#a2e445ccd89e9e4f53b1bc658c353bcea">aunit::Verbosity::kTestRunSummary</a></div><div class="ttdeci">static const uint8_t kTestRunSummary</div><div class="ttdoc">Print TestRunner summary message.</div><div class="ttdef"><b>Definition:</b> <a href="Verbosity_8h_source.html#l00058">Verbosity.h:58</a></div></div>
-<div class="ttc" id="aclassaunit_1_1TestRunner_html_a6e9df4eb9d16fe3b56afd17603e45baa"><div class="ttname"><a href="classaunit_1_1TestRunner.html#a6e9df4eb9d16fe3b56afd17603e45baa">aunit::TestRunner::isVerbosity</a></div><div class="ttdeci">static bool isVerbosity(uint8_t verbosity)</div><div class="ttdoc">Returns true if ANY of the bit flags of 'verbosity' is set.</div><div class="ttdef"><b>Definition:</b> <a href="TestRunner_8h_source.html#l00097">TestRunner.h:97</a></div></div>
+<div class="ttc" id="aclassaunit_1_1TestRunner_html_a6e9df4eb9d16fe3b56afd17603e45baa"><div class="ttname"><a href="classaunit_1_1TestRunner.html#a6e9df4eb9d16fe3b56afd17603e45baa">aunit::TestRunner::isVerbosity</a></div><div class="ttdeci">static bool isVerbosity(uint8_t verbosity)</div><div class="ttdoc">Returns true if ANY of the bit flags of 'verbosity' is set.</div><div class="ttdef"><b>Definition:</b> <a href="TestRunner_8h_source.html#l00100">TestRunner.h:100</a></div></div>
 <div class="ttc" id="aclassaunit_1_1Test_html_aa5053bd59bb037bc60c0df76ba5b5a32"><div class="ttname"><a href="classaunit_1_1Test.html#aa5053bd59bb037bc60c0df76ba5b5a32">aunit::Test::kStatusSkipped</a></div><div class="ttdeci">static const uint8_t kStatusSkipped</div><div class="ttdoc">Test is skipped through the exclude() method or skip() was called.</div><div class="ttdef"><b>Definition:</b> <a href="Test_8h_source.html#l00105">Test.h:105</a></div></div>
 <div class="ttc" id="aclassaunit_1_1Test_html_a2ae1646a3b0870eef61b2e091a35e80f"><div class="ttname"><a href="classaunit_1_1Test.html#a2ae1646a3b0870eef61b2e091a35e80f">aunit::Test::kLifeCycleNew</a></div><div class="ttdeci">static const uint8_t kLifeCycleNew</div><div class="ttdoc">Test is new, needs to be setup.</div><div class="ttdef"><b>Definition:</b> <a href="Test_8h_source.html#l00057">Test.h:57</a></div></div>
 <div class="ttc" id="aclassaunit_1_1Test_html_ac166f92c4945d675b4e289db1bb7d217"><div class="ttname"><a href="classaunit_1_1Test.html#ac166f92c4945d675b4e289db1bb7d217">aunit::Test::getNext</a></div><div class="ttdeci">Test ** getNext()</div><div class="ttdoc">Return the next pointer as a pointer to the pointer, similar to getRoot().</div><div class="ttdef"><b>Definition:</b> <a href="Test_8h_source.html#l00188">Test.h:188</a></div></div>
