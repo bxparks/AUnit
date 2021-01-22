@@ -1,6 +1,9 @@
 # Changelog
 
 * Unreleased
+* 1.5.1 (2021-01-21)
+    * Update UnixHostDuino 0.4 to EpoxyDuino 0.5.
+    * No functional change in this release.
 * 1.5 (2021-01-18)
     * Add support for STM32duino.
     * Blacklist megaAVR boards due to incompatibility with new Arduino API.
@@ -30,7 +33,7 @@
 * 1.3.1 (2019-07-31)
     * Add `examples/AUnitPlatformIO` to verify that AUnit works on PlatformIO.
     * Rename unitduino to UnixHostDuino and move to its own repository at
-      `https://github.com/bxparks/UnixHostDuino`.
+      `https://github.com/bxparks/EpoxyDuino`.
     * Add UnixHostDuino Makefile to all unit tests.
     * Support SAMD21 and ATmega2560 boards.
     * Call `exit(1)` upon failure or timeout, `exit(0)` upon success when using

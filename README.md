@@ -8,7 +8,7 @@ Test](https://github.com/google/googletest/). The unit tests usually run on the
 embedded controller which allows detection of architecture-specific problems.
 But for faster development, many unit tests can be compiled and executed
 natively on Linux or MacOS using the
-[UnixHostDuino](https://github.com/bxparks/UnixHostDuino) companion project.
+[EpoxyDuino](https://github.com/bxparks/EpoxyDuino) companion project.
 
 AUnit is almost a drop-in replacement of ArduinoUnit with some advantages. AUnit
 supports timeouts and test fixtures. It somtimes consumes 50% less flash memory
@@ -17,10 +17,10 @@ and Teensy platforms. Another companion project
 [AUniter](https://github.com/bxparks/AUniter) project provides command line
 tools to verify, upload and validate the unit tests to the microcontroller,
 instead of having to go through the Arduino IDE. Both the AUniter and
-UnixHostDuino tools can be used in a continuous integration system like Jenkins,
+EpoxyDuino tools can be used in a continuous integration system like Jenkins,
 or with [GitHub Actions](https://github.com/features/actions).
 
-**Version**: 1.5 (2021-01-18)
+**Version**: 1.5.1 (2021-01-21)
 
 **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
@@ -65,12 +65,12 @@ or with [GitHub Actions](https://github.com/features/actions).
 * [GoogleTest Adapter](#GoogleTestAdapter)
 * [Command Line Tools](#CommandLineTools)
     * [AUniter](#AUniter)
-    * [UnixHostDuino](#UnixHostDuino)
+    * [EpoxyDuino](#EpoxyDuino)
 * [Continuous Integration](#ContinuousIntegration)
     * [Arduino IDE/CLI + Cloud](#IdePlusCloud)
     * [Arduino IDE/CLI + Jenkins](#IdePlusJenkins)
-    * [UnixHostDuino + Jenkins](#UnixHostDuinoPlusJenkins)
-    * [UnixHostDuino + Cloud (Recommmended)](#UnixHostDuinoPlusCloud)
+    * [EpoxyDuino + Jenkins](#EpoxyDuinoPlusJenkins)
+    * [EpoxyDuino + Cloud (Recommmended)](#EpoxyDuinoPlusCloud)
 * [Tips](#Tips)
     * [Debugging Assertions in Fixtures](#DebuggingFixtures)
     * [Class Hierarchy](#ClassHierarchy)
@@ -113,7 +113,7 @@ local machine, and the unit tests can be monitored automatically.
 
 Unit tests written using AUnit can often be compiled and executed natively on
 Linux or MacOS using the
-[UnixHostDuino](https://github.com/bxparks/UnixHostDuino) library. The output on
+[EpoxyDuino](https://github.com/bxparks/EpoxyDuino) library. The output on
 the `Serial` object is redirected to the `stdout` of the Unix host. This
 provides another avenue for implementing continuous builds or integration.
 
@@ -1453,13 +1453,13 @@ copied from the `AUniter/README.md` file:
     * upload the `Blink.ino` sketch and monitor the serial port using a
       user-configurable terminal program (e.g. `picocom`) on `/dev/ttyUSB0`
 
-<a name="UnixHostDuino"></a>
-### UnixHostDuino
+<a name="EpoxyDuino"></a>
+### EpoxyDuino
 
 Instead of running the unit tests on the actual microcontrollers themselves, you
 can compile and execute AUnit unit tests natively on Linux or MacOS machines
-using the UnixHostDuino (https://github.com/bxparks/UnixHostDuino) project.
-UnixHostDuino provides a minimal Arduino programming environment that is usually
+using the EpoxyDuino (https://github.com/bxparks/EpoxyDuino) project.
+EpoxyDuino provides a minimal Arduino programming environment that is usually
 sufficient to compile and run AUnit test units on the Unix host machine. It
 relies on the native C++ compiler, GNU Make, and `Makefile` files for each
 `*.ino` unit test like this:
@@ -1467,7 +1467,7 @@ relies on the native C++ compiler, GNU Make, and `Makefile` files for each
 ```
 APP_NAME := SampleTest
 ARDUINO_LIBS := AUnit
-include ../../../UnixHostDuino/UnixHostDuino.mk
+include ../../../EpoxyDuino/EpoxyDuino.mk
 ```
 
 The unit test is compiled into a binary (`SampleTest.out`) using the `make
@@ -1477,12 +1477,12 @@ $ make
 $ ./SampleTest.out
 ```
 
-Here are a few tips when writing unit tests to run under UnixHostDuino:
+Here are a few tips when writing unit tests to run under EpoxyDuino:
 
 **Delay(1000)**
 
 For real Arduino boards, you get more reliable unit tests if you add a
-`delay(1000)` at the start of the program. For UnixHostDuino, this is not
+`delay(1000)` at the start of the program. For EpoxyDuino, this is not
 necessary, so I recommend calling this only on real Arduino boards, like this:
 ```C++
 void setup() {
@@ -1496,7 +1496,7 @@ void setup() {
 
 On real Arduino boards, the unit test (or any program for that matter) never
 terminates. The `loop()` function executes forever. On Linux or MacOS using
-UnixHostDuino, the test program will terminate at the end through the
+EpoxyDuino, the test program will terminate at the end through the
 `exit()` function. If the tests are successful (i.e. passing or skipped), it
 will call `exit(0)`. If there are any failing tests (i.e. failed or timed out),
 it will call `exit(1)`.
@@ -1510,7 +1510,7 @@ system. At the infrastructure level, you can use either a system like
 continuous integration system like [GitHub
 Actions](https://github.com/features/actions). For each of those
 infrastructures, you can choose to use the Arduino IDE or CLI build tools, or
-you can use UnixHostDuino to compile and run against a Linux or MacOS
+you can use EpoxyDuino to compile and run against a Linux or MacOS
 environment.
 
 The option matrix looks like this:
@@ -1532,7 +1532,7 @@ The option matrix looks like this:
 +----------------+-------------------------+------------------------+
 |                | * verify execution on   | * verify execution on  |
 |                |   Unix environment      |   Unix environment     |
-| UnixHostDuino  | * faster than IDE/CLI   | * simple setup and     |
+| EpoxyDuino     | * faster than IDE/CLI   | * simple setup and     |
 |                | * complex setup and     |   maintenance          |
 |                |   and maintenance       | * very fast            |
 |                | * (unnecessary)         | * (recommended)        |
@@ -1567,25 +1567,25 @@ microcontroller. Perhaps for certain situations, running the unit tests on
 actual hardware is a requirement. But for most people, I no longer recommend
 this environment.
 
-<a name="UnixHostDuinoPlusJenkins"></a>
-### UnixHostDuino + Jenkins
+<a name="EpoxyDuinoPlusJenkins"></a>
+### EpoxyDuino + Jenkins
 
 Once the Jenkins environment is up and running, I have verified that it is easy
-to run the unit tests using UnixHostDuino, since it needs just a C++ compiler
+to run the unit tests using EpoxyDuino, since it needs just a C++ compiler
 and GNU Make. Things will compile and run a lot faster than using the Arduino
 IDE/CLI. However, this combination suffers from the same problem of maintaining
 the Jenkins environment. If the unit tests are running in an Unix environment
 anyway, it seems far easier to just run them in the cloud. So I don't recommend
 using this setup. Just use a cloud CI provider as described below.
 
-<a name="UnixHostDuinoPlusCloud"></a>
-### UnixHostDuino + Cloud (Recommended)
+<a name="EpoxyDuinoPlusCloud"></a>
+### EpoxyDuino + Cloud (Recommended)
 
 A cloud-based continuous integration service like [GitHub
 Actions](https://github.com/features/actions) is easy to setup for
-UnixHostDuino. Often the C++ compiler and GNU `make` tools are already installed
+EpoxyDuino. Often the C++ compiler and GNU `make` tools are already installed
 in the Docker container used by the CI system. The only additional setup is
-to install UnixHostDuino, AUnit and other dependent Arduino libraries.
+to install EpoxyDuino, AUnit and other dependent Arduino libraries.
 
 Here are some example YAML files for GitHub Actions:
 * https://github.com/bxparks/AceTime/tree/develop/.github/workflows
@@ -1596,7 +1596,7 @@ Here are some example YAML files for GitHub Actions:
 In the various `aunit_tests.yml` files, the `Setup` step installs the various
 dependent libraries using the `git clone` command, for example:
 ```
-git clone https://github.com/bxparks/UnixHostDuino
+git clone https://github.com/bxparks/EpoxyDuino
 git clone https://github.com/bxparks/AUnit
 ```
 
@@ -1606,11 +1606,11 @@ want the unit tests to run against the latest commits. However, for many others,
 it is probably better to use the `master` branch because it contains the stable
 releases:
 ```
-git clone --branch master https://github.com/bxparks/UnixHostDuino
+git clone --branch master https://github.com/bxparks/EpoxyDuino
 git clone --branch master https://github.com/bxparks/AUnit
 ```
 
-Using UnixHostDuino with a cloud CI provider (like GitHub Actions) is my
+Using EpoxyDuino with a cloud CI provider (like GitHub Actions) is my
 recommended configuration for running AUnit tests because it is easy to setup
 and maintain and the tests run fast.
 
@@ -1886,17 +1886,16 @@ I used MacOS 10.13.3, Ubuntu 18.04, and Ubuntu 20.04 for most of my development.
 <a name="Feedback"></a>
 ## Feedback and Support
 
+If you find this library useful, consider starring this project on GitHub. The
+stars will let me prioritize the more popular libraries over the less popular
+ones.
+
 If you have any questions, comments, bug reports, or feature requests, please
 file a GitHub ticket instead of emailing me unless the content is sensitive.
 (The problem with email is that I cannot reference the email conversation when
 other people ask similar questions later.) I'd love to hear about how this
 software and its documentation can be improved. I can't promise that I will
 incorporate everything, but I will give your ideas serious consideration.
-
-If you find this library useful, consider starring this project on GitHub. It is
-usually the only feedback that I get from my users. Given limited time and
-resources, the stars will let me prioritize the more popular libraries over the
-less popular one.
 
 <a name="Authors"></a>
 ## Authors

@@ -107,7 +107,7 @@ class __FlashStringHelper;
   #include <avr/pgmspace.h>
   #define AUNIT_F(x) F(x)
 
-#elif defined(UNIX_HOST_DUINO)
+#elif defined(EPOXY_DUINO)
 
   #include <pgmspace.h>
   #define AUNIT_F(x) F(x)

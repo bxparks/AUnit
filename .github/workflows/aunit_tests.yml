@@ -13,7 +13,7 @@ jobs:
     - name: Setup
       run: |
         cd ..
-        git clone https://github.com/bxparks/UnixHostDuino
+        git clone https://github.com/bxparks/EpoxyDuino
 
     - name: Verify examples
       run: |
