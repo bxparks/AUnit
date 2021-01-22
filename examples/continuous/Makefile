@@ -1,6 +1,6 @@
-# see https://github.com/bxparks/unixhostduino for documentation about this
-# makefile to compile and run arduino programs natively on linux or macos.
+# See https://github.com/bxparks/EpoxyDuino for documentation about this
+# Makefile to compile and run Arduino programs natively on Linux or MacOS.
 
 APP_NAME := continuous
 ARDUINO_LIBS := AUnit
-include ../../../UnixHostDuino/UnixHostDuino.mk
+include ../../../EpoxyDuino/EpoxyDuino.mk

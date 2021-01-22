@@ -30,7 +30,7 @@
 * 1.3.1 (2019-07-31)
     * Add `examples/AUnitPlatformIO` to verify that AUnit works on PlatformIO.
     * Rename unitduino to UnixHostDuino and move to its own repository at
-      `https://github.com/bxparks/UnixHostDuino`.
+      `https://github.com/bxparks/EpoxyDuino`.
     * Add UnixHostDuino Makefile to all unit tests.
     * Support SAMD21 and ATmega2560 boards.
     * Call `exit(1)` upon failure or timeout, `exit(0)` upon success when using

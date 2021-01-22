@@ -98,7 +98,7 @@ void TestRunner::runTest() {
       mEndTime = millis();
       resolveRun();
       mIsResolved = true;
-    #if UNIX_HOST_DUINO
+    #if EPOXY_DUINO
       exit((mFailedCount || mExpiredCount) ? 1 : 0);
     #endif
     }

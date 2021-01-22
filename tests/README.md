@@ -13,7 +13,7 @@ on the various supported platforms.
 ## Running the Tests
 
 The best way to run these tests is to use
-[UnixHostDuino](https://github.com/bxparks/UnixHostDuino) on a Linux or MacOS
+[EpoxyDuino](https://github.com/bxparks/EpoxyDuino) on a Linux or MacOS
 machine.
 
 ```
@@ -61,6 +61,6 @@ However, the Arduino IDE has shown to be too slow and too flaky to be
 used as the basis for continuous integration.
 
 Starting from v1.4, I use
-[UnixHostDuino](https://github.com/bxparks/UnixHostDuino) to run the unit tests
+[EpoxyDuino](https://github.com/bxparks/EpoxyDuino) to run the unit tests
 on a Linux machine. These are integrated into the GitHub workflow for continuous
 integration.
