@@ -1,7 +1,7 @@
 # Changelog
 
 * Unreleased
-* 1.5.1 (2021-01-21)
+* 1.5.1 (2021-01-22)
     * Update UnixHostDuino 0.4 to EpoxyDuino 0.5.
     * No functional change in this release.
 * 1.5 (2021-01-18)
