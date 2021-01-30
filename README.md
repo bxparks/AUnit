@@ -1193,7 +1193,7 @@ _The bit field constants have slightly different names:_
 * `TEST_VERBOSITY_TESTS_SUMMARY` -> `Verbosity::kTestRunSummary`
 * `TEST_VERBOSITY_TESTS_FAILED` -> `Verbosity::kTestFailed`
 * `TEST_VERBOSITY_TESTS_PASSED` -> `Verbosity::kTestPassed`
-* `TEST_VERBOSITY_TESTS_SKIPPED` -> `Verbosity::kTestPassed`
+* `TEST_VERBOSITY_TESTS_SKIPPED` -> `Verbosity::kTestSkipped`
 * `TEST_VERBOSITY_TESTS_ALL` -> `Verbosity::kTestAll`
 * `TEST_VERBOSITY_ASSERTIONS_FAILED` -> `Verbosity::kAssertionFailed`
 * `TEST_VERBOSITY_ASSERTIONS_PASSED` -> `Verbosity::kAssertionPassed`
