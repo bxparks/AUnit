@@ -1,6 +1,8 @@
 # Changelog
 
 * Unreleased
+* 1.5.3 (2021-02-23)
+    * I botched the 1.5.2 release. Try again as 1.5.3.
 * 1.5.2 (2021-02-23)
     * Convert `examples/AUnitPlatformIO/src/AUnitPlatformIO.ino` from
       a symlink to a regular file. The Arduino Library Manager apparently does
