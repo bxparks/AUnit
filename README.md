@@ -12,15 +12,15 @@ natively on Linux or MacOS using the
 
 AUnit is almost a drop-in replacement of ArduinoUnit with some advantages. AUnit
 supports timeouts and test fixtures. It somtimes consumes 50% less flash memory
-on the AVR platform, and it has been tested to work on the AVR, ESP8266, ESP32
-and Teensy platforms. Another companion project
+on the AVR platform, and it has been tested to work on the AVR, SAMD21, STM32,
+ESP8266, ESP32 and Teensy platforms. Another companion project
 [AUniter](https://github.com/bxparks/AUniter) project provides command line
 tools to verify, upload and validate the unit tests to the microcontroller,
 instead of having to go through the Arduino IDE. Both the AUniter and
 EpoxyDuino tools can be used in a continuous integration system like Jenkins,
 or with [GitHub Actions](https://github.com/features/actions).
 
-**Version**: 1.5.1 (2021-01-21)
+**Version**: 1.5.3 (2021-02-23)
 
 **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
@@ -200,11 +200,6 @@ Here are the features in AUnit which are not available in ArduinoUnit 2.2:
 * Terse and verbose modes:
     * `#include <AUnit.h>` - terse messages use less flash memory
     * `#include <AUnitVerbose.h>` - verbose messages use more flash memory
-* Tested on the following Arduino platforms:
-    * AVR (8-bit)
-    * Teensy ARM (32-bit)
-    * ESP8266 (32-bit)
-    * ESP32 (32-bit)
 
 Every feature of AUnit is unit tested using AUnit itself.
 
@@ -1198,7 +1193,7 @@ _The bit field constants have slightly different names:_
 * `TEST_VERBOSITY_TESTS_SUMMARY` -> `Verbosity::kTestRunSummary`
 * `TEST_VERBOSITY_TESTS_FAILED` -> `Verbosity::kTestFailed`
 * `TEST_VERBOSITY_TESTS_PASSED` -> `Verbosity::kTestPassed`
-* `TEST_VERBOSITY_TESTS_SKIPPED` -> `Verbosity::kTestPassed`
+* `TEST_VERBOSITY_TESTS_SKIPPED` -> `Verbosity::kTestSkipped`
 * `TEST_VERBOSITY_TESTS_ALL` -> `Verbosity::kTestAll`
 * `TEST_VERBOSITY_ASSERTIONS_FAILED` -> `Verbosity::kAssertionFailed`
 * `TEST_VERBOSITY_ASSERTIONS_PASSED` -> `Verbosity::kAssertionPassed`
@@ -1832,35 +1827,37 @@ The library is tested on the following boards:
 
 * Arduino Nano clone (16 MHz ATmega328P)
 * SparkFun Pro Micro clone (16 MHz ATmega32U4)
+* SAMD21 M0 Mini board (Arduino Zero compatible, 48 MHz ARM Cortex-M0+)
+* STM32 Blue Pill (STM32F103C8, 72 MHz ARM Cortex-M3)
 * NodeMCU 1.0 (ESP-12E module, 80 MHz ESP8266)
 * WeMos D1 Mini (ESP-12E module, 80 MHz ESP8266)
 * ESP32 dev board (ESP-WROOM-32 module, 240 MHz dual core Tensilica LX6)
-* SAMD21 M0 Mini board (Arduino Zero compatible, 48 MHz ARM Cortex-M0+)
-* STM32 "Blue Pill" (72 MHz STM32F103C8)
+* Teensy 3.2 (96 MHz ARM Cortex-M4)
 
 I will occasionally test on the following hardware as a sanity check:
 
-* Teensy 3.2 (72 MHz ARM Cortex-M4)
 * Mini Mega 2560 (Arduino Mega 2560 compatible, 16 MHz ATmega2560)
+* Teensy LC (48 MHz ARM Cortex-M0+)
 
 The following boards are *not* supported:
 
 * megaAVR (e.g. Nano Every)
-* SAMD21 boards w/ `arduino:samd` version >= 1.8.10 (e.g. MKR1000, MKRZero)
+* SAMD21 boards w/ `arduino:samd` version >= 1.8.10 (e.g. MKRZero)
 
 <a name="ToolChain"></a>
 ### Tool Chain
 
 This library was validated using:
 * [Arduino IDE 1.8.13](https://www.arduino.cc/en/Main/Software)
+* [Arduino CLI 0.14.0](https://arduino.github.io/arduino-cli)
 * [Arduino AVR Boards 1.8.3](https://github.com/arduino/ArduinoCore-avr)
 * [Arduino SAMD Boards 1.8.9](https://github.com/arduino/ArduinoCore-samd)
 * [SparkFun AVR Boards 1.1.13](https://github.com/sparkfun/Arduino_Boards)
 * [SparkFun SAMD Boards 1.8.1](https://github.com/sparkfun/Arduino_Boards)
+* [STM32duino 1.9.0](https://github.com/stm32duino/Arduino_Core_STM32)
 * [ESP8266 Arduino 2.7.4](https://github.com/esp8266/Arduino)
 * [ESP32 Arduino 1.0.4](https://github.com/espressif/arduino-esp32)
 * [Teensyduino 1.53](https://www.pjrc.com/teensy/td_download.html)
-* [STM32duino 1.9.0](https://github.com/stm32duino/Arduino_Core_STM32)
 
 This library is *not* compatible with:
 * [Arduino SAMD Boards >=1.8.10](https://github.com/arduino/ArduinoCore-samd)
