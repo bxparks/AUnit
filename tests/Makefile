@@ -10,7 +10,7 @@ SetupAndTeardownTest
 tests:
 	set -e; \
 	for dir in $(PASSING_TESTS) $(FAILING_TESTS); do \
-		make -C $$dir -j; \
+		$(MAKE) -C $$dir -j; \
 	done
 
 # $ make runtests | grep failed
@@ -34,5 +34,5 @@ clean:
 	set -e; \
 	for dir in $(PASSING_TESTS) $(FAILING_TESTS); do \
 		echo $$dir; \
-		make -C $$dir clean; \
+		$(MAKE) -C $$dir clean; \
 	done
