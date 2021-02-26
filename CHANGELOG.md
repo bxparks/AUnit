@@ -1,6 +1,9 @@
 # Changelog
 
 * Unreleased
+    * Implement `assertNoFatalFailure(statement)` macro to prevent continued
+      execution if `statement` contains assertion failures. Fixes
+      [Issue #11](https://github.com/bxparks/AUnit/issues/11).
 * 1.5.3 (2021-02-23)
     * I botched the 1.5.2 release. Try again as 1.5.3.
 * 1.5.2 (2021-02-23)

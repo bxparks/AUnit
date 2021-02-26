@@ -84,6 +84,7 @@ assertTrue	KEYWORD2
 assertFalse	KEYWORD2
 assertNear	KEYWORD2
 assertNotNear	KEYWORD2
+assertNoFatalFailure	KEYWORD2
 
 # Public macros from MetaAssertMacros.h
 checkTestDone	KEYWORD2

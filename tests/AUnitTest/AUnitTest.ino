@@ -48,11 +48,9 @@ SOFTWARE.
 
 #endif
 
-// Defined in ESP8266, not defined in AVR or Teensy, broken in ESP32.
-#if !defined(ESP8266)
-  #undef FPSTR
-  #define FPSTR(pstr_pointer) \
-      (reinterpret_cast<const __FlashStringHelper *>(pstr_pointer))
+// Defined in ESP8266 and ESP32, not defined in AVR or Teensy.
+#ifndef FPSTR
+  #define FPSTR(pstr) (reinterpret_cast<const __FlashStringHelper *>(pstr))
 #endif
 
 signed char sc = 4;
@@ -603,7 +601,7 @@ class CustomOnceFixture: public TestOnce {
       TestOnce::teardown();
     }
 
-    void assertCommon(int m) {
+    void testCommon(int m) {
       assertLess(m, subject);
     }
 
@@ -615,7 +613,7 @@ class CustomOnceFixture: public TestOnce {
 };
 
 testF(CustomOnceFixture, common) {
-  assertCommon(5);
+  assertNoFatalFailure(testCommon(5));
   assertEqual(6, subject);
 }
 
@@ -630,7 +628,7 @@ class CustomAgainFixture: public TestAgain {
       TestAgain::teardown();
     }
 
-    void assertCommon(int m) {
+    void testCommon(int m) {
       assertLess(m, subject);
     }
 
@@ -638,7 +636,7 @@ class CustomAgainFixture: public TestAgain {
 };
 
 testingF(CustomAgainFixture, common) {
-  assertCommon(5);
+  assertNoFatalFailure(testCommon(5));
   assertEqual(6, subject);
   pass();
 }
@@ -651,7 +649,7 @@ testingF(CustomAgainFixture, common) {
 // because testingF() overrides an again() method which doesn't exist in
 // TestOnce.
 testingF(CustomOnceFixture, crossedOnce) {
-  assertCommon();
+  testCommon();
 }
 #endif
 
@@ -659,7 +657,7 @@ testingF(CustomOnceFixture, crossedOnce) {
 // Test a testF() macro with a TestAgain class. Should get compiler error
 // because testF() overrides a once() method which doesn't exist in TestAgain.
 testF(CustomAgainFixture, crossedAgain) {
-  assertCommon();
+  testCommon();
 }
 #endif
 
@@ -692,7 +690,7 @@ class CustomTestOnce: public TestOnce {
 CustomTestOnce myTestOnce1("customTestOnce1");
 CustomTestOnce myTestOnce2("customTestOnce2");
 
-#endif
+#endif // USE_AUNIT
 
 // ------------------------------------------------------
 // The main body.
