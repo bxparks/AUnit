@@ -20,7 +20,7 @@ instead of having to go through the Arduino IDE. Both the AUniter and
 EpoxyDuino tools can be used in a continuous integration system like Jenkins,
 or with [GitHub Actions](https://github.com/features/actions).
 
-**Version**: 1.5.3 (2021-02-23)
+**Version**: 1.5.4 (2021-03-02)
 
 **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
@@ -862,57 +862,46 @@ method only. The statement after the `assertCustomStuff()` will continue to
 execute.
 
 In other words, in the following example, if the `assertCustomStuff()` fails,
-then `doStuff()` inside `testF()` will execute:
+then `assertMoreStuff()` inside `testF()` will execute:
 
 ```C++
 class CustomTestOnce: public TestOnce {
   protected:
-    // optional
-    void setup() override {
-      TestOnce::setup();
-      ...setup code...
-    }
-
-    // optional
-    void teardown() override {
-      ...teardown code...
-      TestOnce::teardown();
-    }
-
     void assertCustomStuff() {
       assertEqual(sharedValue, 3);
 
-      // This will not execute if the assertEqual() failed.
+      // This will not execute if the assertEqual() above fails.
       assertLess(...);
+    }
+
+    void assertMoreStuff() {
+      assertEqual(...);
     }
 
     int sharedValue;
 };
 
-testF(CustomTestOnce, calculate) {
+// DON'T DO THIS
+testF(CustomTestOnce, dontDoThis) {
   assertCustomStuff();
 
-  // This will execute even if assertCustomStuff() failed.
-  doStuff();
+  // This will execute even if assertCustomStuff() fails.
+  assertMoreStuff();
+}
 
-  // This will immediately exit this method if assertCustomStuff() failed.
-  assertTrue(true);
-
-  // This will NOT execute if assertCustomStuff() failed.
-  doMoreStuff();
+// DO THIS INSTEAD
+testF(CustomTestOnce, doThis) {
+  assertNoFatalFailure(assertCustomStuff());
+  assertNoFatalFailure(assertMoreStuff());
 }
 ```
 
-AUnit tries to mitigate this problem by having every `assertXxx()` macro
-perform a check to see if a previous assert statement raise an error condition
-for the test. If so, then the assert macro immediately exits. In the code above,
-`doMoreStuff()` will not execute, because the `assertNotEqual()` will immidately
-exit upon detecting the failure of `assertCustomStuff()`.
-
-Google Test has a
-[ASSERT_NO_FATAL_FAILURE( statement)](https://github.com/google/googletest/blob/master/googletest/docs/AdvancedGuide.md)
-macro that can guard against this possibility. AUnit does not have that macro,
-but we get the equivalent effect by doing a `assertTrue(true)` shown above.
+The solution is to use the `assertNoFatalFailure(statement)` macro which checks
+whether the inner `statement` returned with a fatal assertion. If so, then it
+returns immediately, preventing execution from continuing to the code that
+follows. This macro is modeled after the
+[ASSERT_NO_FATAL_FAILURE(statement)](https://github.com/google/googletest/blob/master/docs/advanced.md)
+macro in Google Test that provides the same functionality.
 
 <a name="MetaAssertions"></a>
 ### Meta Assertions

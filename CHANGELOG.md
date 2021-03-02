@@ -1,6 +1,10 @@
 # Changelog
 
 * Unreleased
+* 1.5.4 (2021-03-02)
+    * Implement `assertNoFatalFailure(statement)` macro to prevent continued
+      execution if `statement` contains assertion failures. Fixes
+      [Issue #11](https://github.com/bxparks/AUnit/issues/11).
 * 1.5.3 (2021-02-23)
     * I botched the 1.5.2 release. Try again as 1.5.3.
 * 1.5.2 (2021-02-23)
@@ -8,7 +12,7 @@
       a symlink to a regular file. The Arduino Library Manager apparently does
       not allow symlinks (see
       https://github.com/arduino/Arduino/wiki/Library-Manager-FAQ). So when I
-      created the symlink at v1.3 on 2019-06-05, the Library Manager stopped
+      created the symlink at v1.3.1 on 2019-07-31, the Library Manager stopped
       updating the library for almost 2 years, until I removed the symlink at
       v1.5.2.
     * No functional change in this release.

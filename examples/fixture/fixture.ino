@@ -77,18 +77,18 @@ testF(LogTest, insert) {
   // Very useful for debugging assertRecords()
   // enableVerbosity(Verbosity::kAssertionPassed);
 
-  assertRecords(2, "bike", 1, "car", 2);
+  // The assertNoFatalFailure() macro prevents execution from continuing if
+  // assertRecords() contains a failure.
+  assertNoFatalFailure(assertRecords(2, "bike", 1, "car", 2));
 
-  // Warning: This statement will execute even if assertRecords() fails. See
-  // README.md about "early returns" from assert statements.
+  // The assertNoFatalFailure() above prevents this statement from executing if
+  // assertRecords() fails.
   container.insert("train", 3);
 
-  // This assert will return immediately if assertRecords() fails. See
-  // README.md about delayed status verification.
+  // This assert will return immediately upon failure.
   assertEqual(3, container.numRecords);
 
-  // This statement will not execute if assertRecords() fails because the
-  // above assertEqual() will return.
+  // This statement will not execute if the above assertEqual() fails.
   container.insert("plane", 4);
 }
 

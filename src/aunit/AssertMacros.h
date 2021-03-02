@@ -100,4 +100,15 @@ SOFTWARE.
     return;\
 } while (false)
 
+/**
+ * Assert that the inner 'statement' returns with no fatal assertions. This is
+ * required because AUnit does not use exceptions, so we have to check the
+ * assertion state after calling an inner function. This macro is similar to
+ * the `ASSERT_NO_FATAL_FAILURE(statement)` in GoogleTest.
+ */
+#define assertNoFatalFailure(statement) do { \
+  statement; \
+  if (isDone()) return; \
+} while (false)
+
 #endif
