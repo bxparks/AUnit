@@ -1,6 +1,6 @@
 # AUnit
 
-![AUnit Tests](https://github.com/bxparks/AUnit/workflows/AUnit%20Tests/badge.svg)
+[![AUnit Tests](https://github.com/bxparks/AUnit/actions/workflows/aunit_tests.yml/badge.svg)](https://github.com/bxparks/AUnit/actions/workflows/aunit_tests.yml)
 
 A unit testing framework for Arduino platforms inspired by by
 [ArduinoUnit](https://github.com/mmurdoch/arduinounit) and [Google
