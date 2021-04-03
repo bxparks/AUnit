@@ -28,6 +28,6 @@ SOFTWARE.
 
 namespace aunit {
 
-Print* Printer::sPrinter = &SERIAL_PORT_MONITOR;
+Print* Printer::sPrinter = nullptr;
 
 }

@@ -25,10 +25,17 @@ SOFTWARE.
 #ifndef AUNIT_TEST_RUNNER_H
 #define AUNIT_TEST_RUNNER_H
 
+#if defined(EPOXY_DUINO)
+#include <stdlib.h> // exit()
+#endif
 #include <stdint.h>
+#include <Arduino.h> // SERIAL_PORT_MONITOR, F(), Print
 #include "Test.h"
 
-class Print;
+// ESP32 does not defined SERIAL_PORT_MONITOR
+#ifndef SERIAL_PORT_MONITOR
+#define SERIAL_PORT_MONITOR Serial
+#endif
 
 namespace aunit {
 
@@ -47,10 +54,14 @@ class TestRunner {
     typedef uint16_t TimeoutType;
 
     /** Run all tests using the current runner. */
-    static void run() { getRunner()->runTest(); }
+    static void run() {
+      getRunner()->runTest();
+    }
 
     /** Print out the known tests. For debugging only. */
-    static void list() { getRunner()->listTests(); }
+    static void list() {
+      getRunner()->listTests();
+    }
 
     /**
      * Exclude the tests which match the pattern.
@@ -132,13 +143,145 @@ class TestRunner {
     TestRunner& operator=(const TestRunner&) = delete;
 
     /** Constructor. */
-    TestRunner();
+    TestRunner() {}
 
-    /** Run the current test case and print out the result. */
-    void runTest();
+    /**
+     * Run the current test case and print out the result.
+     *
+     * The entire implementation code for this method is placed in the header
+     * file, instead of the cpp file, to prevent the `HardwareSerial` class from
+     * being pulled in unnecessarily, causing an 800 byte increase in flash size
+     * on AVR platforms. See the docstring for setupRunner().
+     */
+    void runTest() {
+      setupRunner();
 
-    /** Print out the known tests. For debugging only. */
-    void listTests();
+      // Print initial header if this is the first run.
+      if (!mIsRunning) {
+        printStartRunner();
+        mIsRunning = true;
+      }
+
+      // If no more test cases, then print out summary of run.
+      if (*Test::getRoot() == nullptr) {
+        if (!mIsResolved) {
+          mEndTime = millis();
+          resolveRun();
+          mIsResolved = true;
+        #if EPOXY_DUINO
+          exit((mFailedCount || mExpiredCount) ? 1 : 0);
+        #endif
+        }
+        return;
+      }
+
+      // If reached the end and there are still test cases left, start from the
+      // beginning again.
+      if (*mCurrent == nullptr) {
+        mCurrent = Test::getRoot();
+      }
+
+      // Implement a finite state machine that calls the (*mCurrent)->setup() or
+      // (*mCurrent)->loop(), then changes the test case's mStatus.
+      switch ((*mCurrent)->getLifeCycle()) {
+        case Test::kLifeCycleNew:
+          // Transfer the verbosity of the TestRunner to the Test.
+          (*mCurrent)->enableVerbosity(mVerbosity);
+          (*mCurrent)->setup();
+
+          // Support assertXxx() statements inside the setup() method by
+          // moving to the next lifeCycle state if an assertXxx() did not fail
+          // inside the setup().
+          if ((*mCurrent)->getLifeCycle() == Test::kLifeCycleNew) {
+            (*mCurrent)->setLifeCycle(Test::kLifeCycleSetup);
+          }
+          break;
+        case Test::kLifeCycleExcluded:
+          // If a test is excluded, go directly to LifeCycleFinished, without
+          // calling setup() or teardown().
+          (*mCurrent)->enableVerbosity(mVerbosity);
+          (*mCurrent)->setStatus(Test::kStatusSkipped);
+          mSkippedCount++;
+          (*mCurrent)->setLifeCycle(Test::kLifeCycleFinished);
+          break;
+        case Test::kLifeCycleSetup:
+          {
+            // Check for timeout. mTimeout == 0 means infinite timeout. NOTE: It
+            // feels like this code should go into the Test::loop() method (like
+            // the extra bit of code in TestOnce::loop()) because it seems like
+            // we could want the timeout to be configurable on a case by case
+            // basis. This would cause the testing() code to move down into a
+            // new again() virtual method dispatched from Test::loop(),
+            // analogous to once(). But let's keep the code here for now.
+            unsigned long now = millis();
+            if (mTimeout > 0 && now >= mStartTime + 1000L * mTimeout) {
+              (*mCurrent)->expire();
+            } else {
+              (*mCurrent)->loop();
+
+              // If test status is unresolved (i.e. still in kLifeCycleNew
+              // state) after loop(), then this is a continuous testing() test
+              // case, so skip to the next test. Otherwise, stay on the current
+              // test so that the next iteration of runTest() can resolve the
+              // current test.
+              if ((*mCurrent)->getLifeCycle() == Test::kLifeCycleSetup) {
+                // skip to the next one, but keep current test in the list
+                mCurrent = (*mCurrent)->getNext();
+              }
+            }
+          }
+          break;
+        case Test::kLifeCycleAsserted:
+          switch ((*mCurrent)->getStatus()) {
+            case Test::kStatusSkipped:
+              mSkippedCount++;
+              break;
+            case Test::kStatusPassed:
+              mPassedCount++;
+              break;
+            case Test::kStatusFailed:
+              mFailedCount++;
+              break;
+            case Test::kStatusExpired:
+              mExpiredCount++;
+              break;
+            default:
+              // should never get here
+              mStatusErrorCount++;
+              break;
+          }
+          (*mCurrent)->teardown();
+          (*mCurrent)->setLifeCycle(Test::kLifeCycleFinished);
+          break;
+        case Test::kLifeCycleFinished:
+          (*mCurrent)->resolve();
+          // skip to the next one by taking current test out of the list
+          *mCurrent = *(*mCurrent)->getNext();
+          break;
+      }
+    }
+
+    /**
+     * Print out the known tests. For debugging only.
+     *
+     * The entire implementation code for this method is placed in the header
+     * file, instead of the cpp file, to prevent the `HardwareSerial` class from
+     * being pulled in unnecessarily, causing an 800 byte increase in flash size
+     * on AVR platforms. See the docstring for setupRunner().
+     */
+    void listTests() {
+      setupRunner();
+
+      Print* printer = Printer::getPrinter();
+      printer->print(F("TestRunner test count: "));
+      printer->println(mCount);
+      for (Test** p = Test::getRoot(); (*p) != nullptr; p = (*p)->getNext()) {
+        printer->print(F("Test "));
+        (*p)->getName().print(printer);
+        printer->print(F("; lifeCycle: "));
+        printer->println((*p)->getLifeCycle());
+      }
+    }
 
     /** Print out message at the start of the run. */
     void printStartRunner() const;
@@ -146,8 +289,73 @@ class TestRunner {
     /** Print out the summary of the entire test suite. */
     void resolveRun() const;
 
-    /** Perform any TestRunner initialization. */
-    void setupRunner();
+    /**
+     * Perform TestRunner initialization. The default Printer::getPrinter()
+     * is set to `SERIAL_PORT_MONITOR` if it was not already set by something
+     * else in the global setup() function.
+     *
+     * Important flash memory optimization:
+     *
+     * The `setupRunner()`, `runTest()` and `listTests()` methods are
+     * implemented completely in the header file, instead of the cpp file, to
+     * prevent accidental and unnecessary consumption of flash memory on certain
+     * platforms, particularly the AVR, but also ESP8266 and ESP32.
+     *
+     * If the compiler sees a reference to setupRunner() in any cpp file, it
+     * pulls in the dependency to `SERIAL_PORT_MONITOR` below, which is usually
+     * the global `Serial` object, even if the `SERIAL_PORT_MONITOR` is never
+     * used in the final binary. Apparently the C++ compiler (or linker) is not
+     * smart enough to realize that it is never used. On the other hand, if
+     * these methods are fully defined in only the header file, the compiler
+     * understands that `SERIAL_PORT_MONITOR` is never used, and will not pull
+     * in the code for `HardwareSerial`. The savings is about about 800 bytes of
+     * flash for the AVR processors, 3kB of flash for an ESP8266, and about 5kB
+     * of flash for an ESP32. Since the AVR processors have the least amount of
+     * flash (e.g. 32kB), this optimization is quite important for AVR
+     * processors.
+     *
+     * The most common way for some other library to pull in a dependency to
+     * AUnit is by creating helper test classes under a subdirectory in the
+     * library. As an example, my libraries usually have a directory structure
+     * like the following, where the `src/` directory contains the main code,
+     * and the `testing/` subdirectory contains classes which are used only for
+     * AUnit tests:
+     *
+     * @verbatim
+     *  FooLibrary/
+     *    |-- library.properties
+     *    |-- src/
+     *    |-- src/FooLibrary.h
+     *    |-- src/foo/Bar.cpp
+     *    |-- src/foo/Bar.h
+     *    |-- src/foo/testing/TestableBar.cpp
+     *    |-- src/foo/testing/TestableBar.h
+     * @endverbatim
+     *
+     * Let's suppose the `TestableBar` class is a subclass of the `TestOnce`
+     * class. Then `TestableBar.cpp` must include the `AUnit.h` header, which
+     * will then pulls in `TestRunner.h`. If `SERIAL_PORT_MONITOR` appears in
+     * the `TestRunner.cpp` file, then the compiler seems to pull in the code
+     * for `HardwareSerial`, even if the final application code never uses
+     * `testing/TestableBar.h`.
+     *
+     * If the entire implementation code that requires `SERIAL_PORT_MONITOR` is
+     * placed in the header file, it seems that the compiler is able to figure
+     * out that `HardwareSerial` is not used by the final binary, and does not
+     * include the code.
+     */
+    void setupRunner() {
+      if (mIsSetup) return;
+
+      if (! Printer::getPrinter()) {
+        Printer::setPrinter(&SERIAL_PORT_MONITOR);
+      }
+
+      mIsSetup = true;
+      mCount = countTests();
+      mCurrent = Test::getRoot();
+      mStartTime = millis();
+    }
 
     /** Enables the given verbosity. */
     void setVerbosityFlag(uint8_t verbosity) { mVerbosity = verbosity; }
@@ -170,6 +378,7 @@ class TestRunner {
     /** Set the test runner timeout. */
     void setRunnerTimeout(TimeoutType seconds);
 
+  private:
     // The current test case is represented by a pointer to a pointer. This
     // allows treating the root node the same as all the other nodes, and
     // simplifies the code traversing the singly-linked list significantly.
