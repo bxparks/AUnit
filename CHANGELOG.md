@@ -6,6 +6,9 @@
       `Printer::sPrinter`. Move reference to `SERIAL_PORT_MONITOR` from
       TestRunner.cpp to TestRunner.h. Saves about 800 bytes on AVR applications
       which don't use `Serial` at all.
+    * Activate
+      [GitHub Discussions](https://github.com/bxparks/AUnit/discussions)
+      for this project.
 * 1.5.4 (2021-03-02)
     * Implement `assertNoFatalFailure(statement)` macro to prevent continued
       execution if `statement` contains assertion failures. Fixes
