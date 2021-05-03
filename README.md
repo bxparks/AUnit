@@ -1833,10 +1833,17 @@ I will occasionally test on the following hardware as a sanity check:
 * Mini Mega 2560 (Arduino Mega 2560 compatible, 16 MHz ATmega2560)
 * Teensy LC (48 MHz ARM Cortex-M0+)
 
-The following boards are *not* supported:
+The following boards are **not** supported:
 
-* megaAVR (e.g. Nano Every)
-* SAMD21 boards w/ `arduino:samd` version >= 1.8.10 (e.g. MKRZero)
+* megaAVR (e.g. Nano Every) using ArduinoCore-megaavr
+  (https://github.com/arduino/ArduinoCore-megaavr/)
+* SAMD21 boards (e.g. MKRZero) using ArduinoCore-samd
+  (https://github.com/arduino/ArduinoCore-samd) starting with
+  `arduino:samd` version >= 1.8.10
+* Raspberry Pi Pico (RP2040) using Arduino-Pico
+  (https://github.com/earlephilhower/arduino-pico)
+* Any other platform using the ArduinoCore-API
+  (https://github.com/arduino/ArduinoCore-api)
 
 <a name="ToolChain"></a>
 ### Tool Chain
@@ -1850,7 +1857,7 @@ This library was validated using:
 * [SparkFun SAMD Boards 1.8.1](https://github.com/sparkfun/Arduino_Boards)
 * [STM32duino 1.9.0](https://github.com/stm32duino/Arduino_Core_STM32)
 * [ESP8266 Arduino 2.7.4](https://github.com/esp8266/Arduino)
-* [ESP32 Arduino 1.0.4](https://github.com/espressif/arduino-esp32)
+* [ESP32 Arduino 1.0.6](https://github.com/espressif/arduino-esp32)
 * [Teensyduino 1.53](https://www.pjrc.com/teensy/td_download.html)
 
 This library is *not* compatible with:

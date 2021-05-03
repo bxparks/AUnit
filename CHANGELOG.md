@@ -9,6 +9,9 @@
     * Activate
       [GitHub Discussions](https://github.com/bxparks/AUnit/discussions)
       for this project.
+    * Blacklist all other platforms using ArduinoCore-API (e.g. RP2040) to
+      generate a user-friendly error message instead of pages of obscure
+      compiler errors.
 * 1.5.4 (2021-03-02)
     * Implement `assertNoFatalFailure(statement)` macro to prevent continued
       execution if `statement` contains assertion failures. Fixes

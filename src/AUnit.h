@@ -52,6 +52,8 @@ SOFTWARE.
 #error MegaAVR not supported, https://github.com/bxparks/AUnit/issues/56
 #elif defined(ARDUINO_ARCH_SAMD) && defined(ARDUINO_API_VERSION)
 #error SAMD21 with arduino:samd >= 1.8.10 not supported, https://github.com/bxparks/AUnit/issues/66
+#elif defined(ARDUINO_API_VERSION)
+#error Platforms using ArduinoCore-API not supported
 #endif
 
 #include "aunit/print64.h"
