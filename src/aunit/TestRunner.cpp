@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <Arduino.h>  // definition of 'Serial'
+#include <Arduino.h>  // 'Serial' or SERIAL_PORT_MONITOR
 #include <string.h>
 #include <stdint.h>
 #include "FCString.h"
@@ -79,124 +79,6 @@ void TestRunner::setLifeCycleMatchingPattern(const char* testClass,
   if (!status) return;
 
   setLifeCycleMatchingPattern(fullPattern, lifeCycle);
-}
-
-TestRunner::TestRunner() {}
-
-void TestRunner::runTest() {
-  setupRunner();
-
-  // Print initial header if this is the first run.
-  if (!mIsRunning) {
-    printStartRunner();
-    mIsRunning = true;
-  }
-
-  // If no more test cases, then print out summary of run.
-  if (*Test::getRoot() == nullptr) {
-    if (!mIsResolved) {
-      mEndTime = millis();
-      resolveRun();
-      mIsResolved = true;
-    #if EPOXY_DUINO
-      exit((mFailedCount || mExpiredCount) ? 1 : 0);
-    #endif
-    }
-    return;
-  }
-
-  // If reached the end and there are still test cases left, start from the
-  // beginning again.
-  if (*mCurrent == nullptr) {
-    mCurrent = Test::getRoot();
-  }
-
-  // Implement a finite state machine that calls the (*mCurrent)->setup() or
-  // (*mCurrent)->loop(), then changes the test case's mStatus.
-  switch ((*mCurrent)->getLifeCycle()) {
-    case Test::kLifeCycleNew:
-      // Transfer the verbosity of the TestRunner to the Test.
-      (*mCurrent)->enableVerbosity(mVerbosity);
-      (*mCurrent)->setup();
-
-      // Support assertXxx() statements inside the setup() method by
-      // moving to the next lifeCycle state if an assertXxx() did not fail
-      // inside the setup().
-      if ((*mCurrent)->getLifeCycle() == Test::kLifeCycleNew) {
-        (*mCurrent)->setLifeCycle(Test::kLifeCycleSetup);
-      }
-      break;
-    case Test::kLifeCycleExcluded:
-      // If a test is excluded, go directly to LifeCycleFinished, without
-      // calling setup() or teardown().
-      (*mCurrent)->enableVerbosity(mVerbosity);
-      (*mCurrent)->setStatus(Test::kStatusSkipped);
-      mSkippedCount++;
-      (*mCurrent)->setLifeCycle(Test::kLifeCycleFinished);
-      break;
-    case Test::kLifeCycleSetup:
-      {
-        // Check for timeout. mTimeout == 0 means infinite timeout.
-        // NOTE: It feels like this code should go into the Test::loop() method
-        // (like the extra bit of code in TestOnce::loop()) because it seems
-        // like we could want the timeout to be configurable on a case by case
-        // basis. This would cause the testing() code to move down into a new
-        // again() virtual method dispatched from Test::loop(), analogous to
-        // once(). But let's keep the code here for now.
-        unsigned long now = millis();
-        if (mTimeout > 0 && now >= mStartTime + 1000L * mTimeout) {
-          (*mCurrent)->expire();
-        } else {
-          (*mCurrent)->loop();
-
-          // If test status is unresolved (i.e. still in kLifeCycleNew state)
-          // after loop(), then this is a continuous testing() test case, so
-          // skip to the next test. Otherwise, stay on the current test so that
-          // the next iteration of runTest() can resolve the current test.
-          if ((*mCurrent)->getLifeCycle() == Test::kLifeCycleSetup) {
-            // skip to the next one, but keep current test in the list
-            mCurrent = (*mCurrent)->getNext();
-          }
-        }
-      }
-      break;
-    case Test::kLifeCycleAsserted:
-      switch ((*mCurrent)->getStatus()) {
-        case Test::kStatusSkipped:
-          mSkippedCount++;
-          break;
-        case Test::kStatusPassed:
-          mPassedCount++;
-          break;
-        case Test::kStatusFailed:
-          mFailedCount++;
-          break;
-        case Test::kStatusExpired:
-          mExpiredCount++;
-          break;
-        default:
-          // should never get here
-          mStatusErrorCount++;
-          break;
-      }
-      (*mCurrent)->teardown();
-      (*mCurrent)->setLifeCycle(Test::kLifeCycleFinished);
-      break;
-    case Test::kLifeCycleFinished:
-      (*mCurrent)->resolve();
-      // skip to the next one by taking current test out of the list
-      *mCurrent = *(*mCurrent)->getNext();
-      break;
-  }
-}
-
-void TestRunner::setupRunner() {
-  if (!mIsSetup) {
-    mIsSetup = true;
-    mCount = countTests();
-    mCurrent = Test::getRoot();
-    mStartTime = millis();
-  }
 }
 
 // Count the number of tests in TestRunner instead of Test::insert() to avoid
@@ -257,20 +139,6 @@ void TestRunner::resolveRun() const {
   printer->print(F(" timed out, out of "));
   printer->print(mCount);
   printer->println(F(" test(s)."));
-}
-
-void TestRunner::listTests() {
-  setupRunner();
-
-  Print* printer = Printer::getPrinter();
-  printer->print(F("TestRunner test count: "));
-  printer->println(mCount);
-  for (Test** p = Test::getRoot(); (*p) != nullptr; p = (*p)->getNext()) {
-    printer->print(F("Test "));
-    (*p)->getName().print(printer);
-    printer->print(F("; lifeCycle: "));
-    printer->println((*p)->getLifeCycle());
-  }
 }
 
 void TestRunner::setRunnerTimeout(TimeoutType timeout) {

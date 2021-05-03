@@ -1,6 +1,11 @@
 # AUnit
 
-![AUnit Tests](https://github.com/bxparks/AUnit/workflows/AUnit%20Tests/badge.svg)
+[![AUnit Tests](https://github.com/bxparks/AUnit/actions/workflows/aunit_tests.yml/badge.svg)](https://github.com/bxparks/AUnit/actions/workflows/aunit_tests.yml)
+
+**New**: [GitHub Discussions](https://github.com/bxparks/AUnit/discussions)
+for this project is now active! Let's use that for general support questions,
+and reserve the [GitHub Issues](https://github.com/bxparks/AUnit/issues)
+section for bugs and feature requests.
 
 A unit testing framework for Arduino platforms inspired by by
 [ArduinoUnit](https://github.com/mmurdoch/arduinounit) and [Google
@@ -20,7 +25,7 @@ instead of having to go through the Arduino IDE. Both the AUniter and
 EpoxyDuino tools can be used in a continuous integration system like Jenkins,
 or with [GitHub Actions](https://github.com/features/actions).
 
-**Version**: 1.5.4 (2021-03-02)
+**Version**: 1.5.5 (2021-05-03)
 
 **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
@@ -81,7 +86,7 @@ or with [GitHub Actions](https://github.com/features/actions).
     * [Tool Chain](#ToolChains)
     * [Operating System](#ToolChains)
 * [License](#License)
-* [Feedback and Support](#Feedback)
+* [Feedback and Support](#FeedbackAndSupport)
 * [Authors](#Authors)
 
 <a name="Summary"></a>
@@ -1828,10 +1833,17 @@ I will occasionally test on the following hardware as a sanity check:
 * Mini Mega 2560 (Arduino Mega 2560 compatible, 16 MHz ATmega2560)
 * Teensy LC (48 MHz ARM Cortex-M0+)
 
-The following boards are *not* supported:
+The following boards are **not** supported:
 
-* megaAVR (e.g. Nano Every)
-* SAMD21 boards w/ `arduino:samd` version >= 1.8.10 (e.g. MKRZero)
+* megaAVR (e.g. Nano Every) using ArduinoCore-megaavr
+  (https://github.com/arduino/ArduinoCore-megaavr/)
+* SAMD21 boards (e.g. MKRZero) using ArduinoCore-samd
+  (https://github.com/arduino/ArduinoCore-samd) starting with
+  `arduino:samd` version >= 1.8.10
+* Raspberry Pi Pico (RP2040) using Arduino-Pico
+  (https://github.com/earlephilhower/arduino-pico)
+* Any other platform using the ArduinoCore-API
+  (https://github.com/arduino/ArduinoCore-api)
 
 <a name="ToolChain"></a>
 ### Tool Chain
@@ -1845,7 +1857,7 @@ This library was validated using:
 * [SparkFun SAMD Boards 1.8.1](https://github.com/sparkfun/Arduino_Boards)
 * [STM32duino 1.9.0](https://github.com/stm32duino/Arduino_Core_STM32)
 * [ESP8266 Arduino 2.7.4](https://github.com/esp8266/Arduino)
-* [ESP32 Arduino 1.0.4](https://github.com/espressif/arduino-esp32)
+* [ESP32 Arduino 1.0.6](https://github.com/espressif/arduino-esp32)
 * [Teensyduino 1.53](https://www.pjrc.com/teensy/td_download.html)
 
 This library is *not* compatible with:
@@ -1869,19 +1881,25 @@ I used MacOS 10.13.3, Ubuntu 18.04, and Ubuntu 20.04 for most of my development.
 
 [MIT License](https://opensource.org/licenses/MIT)
 
-<a name="Feedback"></a>
+<a name="FeedbackAndSupport"></a>
 ## Feedback and Support
 
 If you find this library useful, consider starring this project on GitHub. The
 stars will let me prioritize the more popular libraries over the less popular
 ones.
 
-If you have any questions, comments, bug reports, or feature requests, please
-file a GitHub ticket instead of emailing me unless the content is sensitive.
-(The problem with email is that I cannot reference the email conversation when
-other people ask similar questions later.) I'd love to hear about how this
-software and its documentation can be improved. I can't promise that I will
-incorporate everything, but I will give your ideas serious consideration.
+If you have any questions, comments and other support questions about how to
+use this library, please use the
+[GitHub Discussions](https://github.com/bxparks/AUnit/discussions)
+for this project. If you have bug reports or feature requests, please file a
+ticket in [GitHub Issues](https://github.com/bxparks/AUnit/issues).
+I'd love to hear about how this software and its documentation can be improved.
+I can't promise that I will incorporate everything, but I will give your ideas
+serious consideration.
+
+Please refrain from emailing me directly unless the content is sensitive. The
+problem with email is that I cannot reference the email conversation when other
+people ask similar questions later.
 
 <a name="Authors"></a>
 ## Authors
