@@ -25,7 +25,7 @@ instead of having to go through the Arduino IDE. Both the AUniter and
 EpoxyDuino tools can be used in a continuous integration system like Jenkins,
 or with [GitHub Actions](https://github.com/features/actions).
 
-**Version**: 1.5.4 (2021-03-02)
+**Version**: 1.5.5 (2021-05-03)
 
 **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 

@@ -1,6 +1,7 @@
 # Changelog
 
 * Unreleased
+* 1.5.5 (2021-05-03)
     * Prevent accidental inclusion of `HardwareSerial` class (via the `Serial`
       global variable). Remove reference to `SERIAL_PORT_MONITOR` from
       `Printer::sPrinter`. Move reference to `SERIAL_PORT_MONITOR` from
