@@ -2,11 +2,6 @@
 
 [![AUnit Tests](https://github.com/bxparks/AUnit/actions/workflows/aunit_tests.yml/badge.svg)](https://github.com/bxparks/AUnit/actions/workflows/aunit_tests.yml)
 
-**New**: [GitHub Discussions](https://github.com/bxparks/AUnit/discussions)
-for this project is now active! Let's use that for general support questions,
-and reserve the [GitHub Issues](https://github.com/bxparks/AUnit/issues)
-section for bugs and feature requests.
-
 A unit testing framework for Arduino platforms inspired by by
 [ArduinoUnit](https://github.com/mmurdoch/arduinounit) and [Google
 Test](https://github.com/google/googletest/). The unit tests usually run on the
