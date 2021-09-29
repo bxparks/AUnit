@@ -391,6 +391,9 @@ class TestRunner {
     void setLifeCycleMatchingSubstring(
         const char* substring, uint8_t lifeCycle);
 
+    /** Forcibly exclude all tests. */
+    void excludeAll();
+
     /** Set the test runner timeout. */
     void setRunnerTimeout(TimeoutType seconds);
 
@@ -404,6 +407,8 @@ class TestRunner {
     bool mIsSetup = false;
     bool mIsRunning = false;
     uint8_t mVerbosity = Verbosity::kDefault;
+    // True if any include(), exclude(), includesub(), excludesub() was invoked.
+    bool hasBeenFiltered = false;
     uint16_t mCount = 0;
     uint16_t mPassedCount = 0;
     uint16_t mFailedCount = 0;

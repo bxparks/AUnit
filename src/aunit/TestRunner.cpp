@@ -50,6 +50,12 @@ void TestRunner::setPrinter(Print* printer) {
 
 void TestRunner::setLifeCycleMatchingPattern(const char* pattern,
     uint8_t lifeCycle) {
+  // Do an implicit excludeAll() if the first filter is an include().
+  if (!hasBeenFiltered && lifeCycle == Test::kLifeCycleNew) {
+    excludeAll();
+  }
+  hasBeenFiltered = true;
+
   size_t length = strlen(pattern);
   if (length > 0 && pattern[length - 1] == '*') {
     // prefix match
@@ -68,6 +74,13 @@ void TestRunner::setLifeCycleMatchingPattern(const char* pattern,
 
 void TestRunner::setLifeCycleMatchingPattern(const char* testClass,
     const char* pattern, uint8_t lifeCycle) {
+
+  // Do an implicit excludeAll() if the first filter is an include().
+  if (!hasBeenFiltered && lifeCycle == Test::kLifeCycleNew) {
+    excludeAll();
+  }
+  hasBeenFiltered = true;
+
   // The effective pattern is the join of testClass and pattern with a '_'
   // delimiter. This must match the algorithm used by testF() and testingF().
   // We use string_join() instead of String so that AUnit can avoid a direct
@@ -83,10 +96,23 @@ void TestRunner::setLifeCycleMatchingPattern(const char* testClass,
 
 void TestRunner::setLifeCycleMatchingSubstring(
     const char* substring, uint8_t lifeCycle) {
+
+  // Do an implicit excludeAll() if the first filter is an include().
+  if (!hasBeenFiltered && lifeCycle == Test::kLifeCycleNew) {
+    excludeAll();
+  }
+  hasBeenFiltered = true;
+
   for (Test** p = Test::getRoot(); *p != nullptr; p = (*p)->getNext()) {
     if ((*p)->getName().hasSubstring(substring)) {
       (*p)->setLifeCycle(lifeCycle);
     }
+  }
+}
+
+void TestRunner::excludeAll() {
+  for (Test** p = Test::getRoot(); *p != nullptr; p = (*p)->getNext()) {
+    (*p)->setLifeCycle(Test::kLifeCycleExcluded);
   }
 }
 
