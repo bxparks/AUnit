@@ -81,6 +81,15 @@ void TestRunner::setLifeCycleMatchingPattern(const char* testClass,
   setLifeCycleMatchingPattern(fullPattern, lifeCycle);
 }
 
+void TestRunner::setLifeCycleMatchingSubstring(
+    const char* substring, uint8_t lifeCycle) {
+  for (Test** p = Test::getRoot(); *p != nullptr; p = (*p)->getNext()) {
+    if ((*p)->getName().hasSubstring(substring)) {
+      (*p)->setLifeCycle(lifeCycle);
+    }
+  }
+}
+
 // Count the number of tests in TestRunner instead of Test::insert() to avoid
 // another C++ static initialization ordering problem.
 uint16_t TestRunner::countTests() {

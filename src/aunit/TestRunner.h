@@ -102,6 +102,18 @@ class TestRunner {
           Test::kLifeCycleNew);
     }
 
+    /** Exclude the tests which match the substring. */
+    static void excludesub(const char* substring) {
+      getRunner()->setLifeCycleMatchingSubstring(
+          substring, Test::kLifeCycleExcluded);
+    }
+
+    /** Include the tests which match the substring. */
+    static void includesub(const char* substring) {
+      getRunner()->setLifeCycleMatchingSubstring(
+          substring, Test::kLifeCycleNew);
+    }
+
     /** Set the verbosity flag. */
     static void setVerbosity(uint8_t verbosity) {
       getRunner()->setVerbosityFlag(verbosity);
@@ -374,6 +386,10 @@ class TestRunner {
      */
     void setLifeCycleMatchingPattern(const char* testClass, const char* pattern,
         uint8_t lifeCycle);
+
+    /** Set the status of the tests which match the substring. */
+    void setLifeCycleMatchingSubstring(
+        const char* substring, uint8_t lifeCycle);
 
     /** Set the test runner timeout. */
     void setRunnerTimeout(TimeoutType seconds);

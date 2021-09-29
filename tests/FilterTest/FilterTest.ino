@@ -89,8 +89,8 @@ void assertionLifeCycle(uint8_t expected, const Test& instance, uint16_t line) {
 #define assertLifeCycle(expected, instance) \
   assertionLifeCycle(expected, instance, __LINE__)
 
-// An actual test() to verify that all the assertLifeCycle() in setup()
-// actually passed.
+// An actual test() to verify that all the assertLifeCycle() in setup() actually
+// passed. This fails if *any* call to assertionLifeCycle() fails.
 test(lifeCycle) {
   assertTrue(lifeCycleTestsPassed);
 }
@@ -157,6 +157,12 @@ void setup() {
   assertLifeCycle(Test::kLifeCycleNew, CustomOnce_display_instance);
   assertLifeCycle(Test::kLifeCycleExcluded, CustomAgain_configure_instance);
   assertLifeCycle(Test::kLifeCycleNew, CustomAgain_display_instance);
+
+  TestRunner::includesub("ycle");
+  assertLifeCycle(Test::kLifeCycleNew, test_lifeCycle_instance);
+
+  TestRunner::excludesub("ife");
+  assertLifeCycle(Test::kLifeCycleExcluded, test_lifeCycle_instance);
 
   TestRunner::include("lifeCycle");
   assertLifeCycle(Test::kLifeCycleNew, test_lifeCycle_instance);
