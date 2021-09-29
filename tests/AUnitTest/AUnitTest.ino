@@ -175,6 +175,14 @@ test(FCStringTest, compareToN) {
   assertLess(fa.compareToN(F("aa"), 2), 0);
 }
 
+test(FCStringTest, hasSubstring) {
+  FCString f("abc");
+
+  assertTrue(f.hasSubstring(""));
+  assertTrue(f.hasSubstring("bc"));
+  assertFalse(f.hasSubstring("dc"));
+}
+
 // ------------------------------------------------------
 // Test the various assertXxx() macros.
 // ------------------------------------------------------
