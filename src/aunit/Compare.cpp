@@ -308,6 +308,92 @@ int compareStringN(const __FlashStringHelper* a, const __FlashStringHelper* b,
 }
 
 //---------------------------------------------------------------------------
+// compareSubstring(haystack, needle)
+//---------------------------------------------------------------------------
+
+bool compareSubstring(const char* haystack, const char* needle) {
+  return strstr(haystack, needle) != nullptr;
+}
+
+bool compareSubstring(const char* haystack, const String& needle) {
+  return strstr(haystack, needle.c_str()) != nullptr;
+}
+
+bool compareSubstring(const char* haystack, const __FlashStringHelper* needle) {
+  return strstr_P(haystack, (const char*) needle) != nullptr;
+}
+
+bool compareSubstring(const String& haystack, const char* needle) {
+  return strstr(haystack.c_str(), needle) != nullptr;
+}
+
+bool compareSubstring(const String& haystack, const String& needle) {
+  return strstr(haystack.c_str(), needle.c_str()) != nullptr;
+}
+
+bool compareSubstring(const String& haystack, const __FlashStringHelper* needle) {
+  return strstr(haystack.c_str(), (const char*) needle) != nullptr;
+}
+
+// An inefficient O(M*N) implementation of strstr() for PROGMEM strings.
+// The KMP algorithm
+// https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
+// is faster, but this brute force implementation is probably good enough.
+bool compareSubstring(
+    const __FlashStringHelper* haystack,
+    const char* needle) {
+
+  const char* hay = (const char*) haystack;
+  for (uint8_t ch = pgm_read_byte(hay); ch != '\0'; hay++) {
+    const char* subhay = hay;
+    const char* subneedle = needle;
+    while (true) {
+      uint8_t chay = pgm_read_byte(subhay);
+      uint8_t cneedle = *subneedle;
+      if (cneedle == '\0') return true;
+      if (chay == '\0') return false;
+      if (chay != cneedle) break;
+      subhay++;
+      subneedle++;
+    }
+  }
+
+  return false;
+}
+
+bool compareSubstring(
+    const __FlashStringHelper* haystack,
+    const String& needle) {
+  return compareSubstring(haystack, needle.c_str());
+}
+
+// An inefficient O(M*N) implementation of strstr() for PROGMEM strings.
+// The KMP algorithm
+// https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
+// is faster, but this brute force implementation is probably good enough.
+bool compareSubstring(
+    const __FlashStringHelper* haystack,
+    const __FlashStringHelper* needle) {
+
+  const char* hay = reinterpret_cast<const char*>(haystack);
+  for (uint8_t ch = pgm_read_byte(hay); ch != '\0'; hay++) {
+    const char* subhay = hay;
+    const char* subneedle = (const char*) needle;
+    while (true) {
+      uint8_t chay = pgm_read_byte(subhay);
+      uint8_t cneedle = pgm_read_byte(subneedle);
+      if (cneedle == '\0') return true;
+      if (chay == '\0') return false;
+      if (chay != cneedle) break;
+      subhay++;
+      subneedle++;
+    }
+  }
+
+  return false;
+}
+
+//---------------------------------------------------------------------------
 // compareEqual()
 //---------------------------------------------------------------------------
 

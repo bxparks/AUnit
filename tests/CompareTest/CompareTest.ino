@@ -77,8 +77,11 @@ const __FlashStringHelper* FF = FPSTR(FF_UPPER_PROGMEM);
 const __FlashStringHelper* GG = FPSTR(GG_UPPER_PROGMEM);
 const __FlashStringHelper* HH = FPSTR(HH_UPPER_PROGMEM);
 
-// We use if-statements instead of assertXxx() because compareXxx() is a
-// lower-level function that the assertXxx() methods depend on.
+//----------------------------------------------------------------------------
+// We use if-statements instead of assertXxx() because compareXxx() are
+// lower-level functions that the assertXxx() methods depend on.
+//----------------------------------------------------------------------------
+
 test(compareString) {
   if (!(compareString(a, a) == 0)) { failTestNow(); }
   if (!(compareString(a, f) == 0)) { failTestNow(); }
@@ -216,9 +219,45 @@ test(compareStringN_WithNulls) {
   if (!(compareString(NULL_FSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
 }
 
-// ------------------------------------------------------
-// The main body.
-// ------------------------------------------------------
+test(compareSubstring) {
+  if (!compareSubstring("abc", "")) { failTestNow(); }
+  if (!compareSubstring("abc", "bc")) { failTestNow(); }
+  if (compareSubstring("abc", "dc")) { failTestNow(); }
+
+  if (!compareSubstring("abc", String(""))) { failTestNow(); }
+  if (!compareSubstring("abc", String("bc"))) { failTestNow(); }
+  if (compareSubstring("abc", String("dc"))) { failTestNow(); }
+
+  if (!compareSubstring("abc", F(""))) { failTestNow(); }
+  if (!compareSubstring("abc", F("bc"))) { failTestNow(); }
+  if (compareSubstring("abc", F("dc"))) { failTestNow(); }
+
+  if (!compareSubstring(String("abc"), "")) { failTestNow(); }
+  if (!compareSubstring(String("abc"), "bc")) { failTestNow(); }
+  if (compareSubstring(String("abc"), "dc")) { failTestNow(); }
+
+  if (!compareSubstring(String("abc"), String(""))) { failTestNow(); }
+  if (!compareSubstring(String("abc"), String("bc"))) { failTestNow(); }
+  if (compareSubstring(String("abc"), String("dc"))) { failTestNow(); }
+
+  if (!compareSubstring(String("abc"), F(""))) { failTestNow(); }
+  if (!compareSubstring(String("abc"), F("bc"))) { failTestNow(); }
+  if (compareSubstring(String("abc"), F("dc"))) { failTestNow(); }
+
+  if (!compareSubstring(F("abc"), "")) { failTestNow(); }
+  if (!compareSubstring(F("abc"), "bc")) { failTestNow(); }
+  if (compareSubstring(F("abc"), "dc")) { failTestNow(); }
+
+  if (!compareSubstring(F("abc"), String(""))) { failTestNow(); }
+  if (!compareSubstring(F("abc"), String("bc"))) { failTestNow(); }
+  if (compareSubstring(F("abc"), String("dc"))) { failTestNow(); }
+
+  if (!compareSubstring(F("abc"), F(""))) { failTestNow(); }
+  if (!compareSubstring(F("abc"), F("bc"))) { failTestNow(); }
+  if (compareSubstring(F("abc"), F("dc"))) { failTestNow(); }
+}
+
+//----------------------------------------------------------------------------
 
 void setup() {
 #ifndef EPOXY_DUINO
@@ -229,8 +268,5 @@ void setup() {
 }
 
 void loop() {
-  // Should get something like:
-  // TestRunner summary:
-  //    21 passed, 0 failed, 0 skipped, 0 timed out, out of 23 test(s).
   TestRunner::run();
 }
