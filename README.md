@@ -11,7 +11,7 @@ natively on Linux or MacOS using the
 [EpoxyDuino](https://github.com/bxparks/EpoxyDuino) companion project.
 
 AUnit is almost a drop-in replacement of ArduinoUnit with some advantages. AUnit
-supports timeouts and test fixtures. It somtimes consumes 50% less flash memory
+supports timeouts and test fixtures. It sometimes consumes 50% less flash memory
 on the AVR platform, and it has been tested to work on the AVR, SAMD21, STM32,
 ESP8266, ESP32 and Teensy platforms. Another companion project
 [AUniter](https://github.com/bxparks/AUniter) project provides command line
@@ -52,7 +52,7 @@ or with [GitHub Actions](https://github.com/features/actions).
     * [Unconditional Termination](#UnconditionalTermination)
     * [Overridable Methods](#OverridableMethods)
     * [Running the Tests](#RunningTests)
-    * [Filering Test Cases](#FilteringTestCases)
+    * [Filtering Test Cases](#FilteringTestCases)
     * [Output Printer](#OutputPrinter)
     * [Controlling Verbosity](#ControllingVerbosity)
     * [Line Number Mismatch](#LineNumberMismatch)
@@ -70,7 +70,7 @@ or with [GitHub Actions](https://github.com/features/actions).
     * [Arduino IDE/CLI + Cloud](#IdePlusCloud)
     * [Arduino IDE/CLI + Jenkins](#IdePlusJenkins)
     * [EpoxyDuino + Jenkins](#EpoxyDuinoPlusJenkins)
-    * [EpoxyDuino + Cloud (Recommmended)](#EpoxyDuinoPlusCloud)
+    * [EpoxyDuino + Cloud (Recommended)](#EpoxyDuinoPlusCloud)
 * [Tips](#Tips)
     * [Debugging Assertions in Fixtures](#DebuggingFixtures)
     * [Class Hierarchy](#ClassHierarchy)
@@ -647,7 +647,7 @@ test(nullPointer) {
 }
 ```
 
-prints the following:
+This will print the following:
 
 ```
 Assertion failed: (aa=0x3FFFFF58) == (nullptr=0x0), file AUnitTest.ino, line 348.
@@ -705,7 +705,7 @@ errors. Google Test provides
   `a` and `b` is within the given `error`
 
 Since floating point operations are relatively rare in Arduino programming,
-AUnit offers only the equilvalent of `ASSERT_NEAR()` function:
+AUnit offers only the equivalent of `ASSERT_NEAR()` function:
 
 * `assertNear(a, b, error)`
 * `assertNotNear(a, b, error)`
@@ -756,7 +756,7 @@ The following boolean asserts are also available:
 
 When the unit tests become more complex, using test fixtures will allow you to
 place common data objects and methods into a class that can be shared among
-multiple test cases. This concept matches very closely to the the test fixtures
+multiple test cases. This concept matches very closely to the test fixtures
 in
 [Google Test](https://github.com/google/googletest/blob/master/googletest/docs/Primer.md).
 
@@ -1071,7 +1071,7 @@ void setup() {
 ```
 
 Excluded tests bypass their `setup()` and `teardown()` methods and terminate
-immidiately. For the purposes of reporting, however, excluded tests are
+immediately. For the purposes of reporting, however, excluded tests are
 counted as "skipped".
 
 The 2-argument versions of `include()` and `exclude()` correspond to the
@@ -1393,7 +1393,7 @@ or
 ## Command Line Tools
 
 Each unit test is an independent `*.ino` program. You can run it using your
-Ardunio IDE. But there are 2 command line tools that can be used to run them.
+Arduino IDE. But there are 2 command line tools that can be used to run them.
 
 <a name="AUniter"></a>
 ### AUniter
@@ -1537,7 +1537,7 @@ Although I think it's theoretically possible, I have never actually verified
 that this can be done.
 
 <a name="IdePlusJenkins"></a>
-### Arduion IDE/CLI + Jenkins
+### Arduino IDE/CLI + Jenkins
 
 This setup is described in [Continuous Integration with
 Jenkins](https://github.com/bxparks/AUniter/tree/develop/jenkins), and it worked
@@ -1830,15 +1830,15 @@ I will occasionally test on the following hardware as a sanity check:
 
 The following boards are **not** supported:
 
-* megaAVR (e.g. Nano Every) using ArduinoCore-megaavr
-  (https://github.com/arduino/ArduinoCore-megaavr/)
-* SAMD21 boards (e.g. MKRZero) using ArduinoCore-samd
-  (https://github.com/arduino/ArduinoCore-samd) starting with
-  `arduino:samd` version >= 1.8.10
-* Raspberry Pi Pico (RP2040) using Arduino-Pico
-  (https://github.com/earlephilhower/arduino-pico)
-* Any other platform using the ArduinoCore-API
-  (https://github.com/arduino/ArduinoCore-api)
+* Any platform using the ArduinoCore-API
+  (https://github.com/arduino/ArduinoCore-api), such as:
+    * megaAVR (e.g. Nano Every) using ArduinoCore-megaavr
+      (https://github.com/arduino/ArduinoCore-megaavr/)
+    * SAMD21 boards (e.g. MKRZero) using ArduinoCore-samd
+      (https://github.com/arduino/ArduinoCore-samd) starting with
+      `arduino:samd` version >= 1.8.10
+    * Raspberry Pi Pico (RP2040) using Arduino-Pico
+      (https://github.com/earlephilhower/arduino-pico)
 
 <a name="ToolChain"></a>
 ### Tool Chain
@@ -1850,15 +1850,18 @@ This library was validated using:
 * [Arduino SAMD Boards 1.8.9](https://github.com/arduino/ArduinoCore-samd)
 * [SparkFun AVR Boards 1.1.13](https://github.com/sparkfun/Arduino_Boards)
 * [SparkFun SAMD Boards 1.8.1](https://github.com/sparkfun/Arduino_Boards)
-* [STM32duino 1.9.0](https://github.com/stm32duino/Arduino_Core_STM32)
+* [STM32duino 2.0.0](https://github.com/stm32duino/Arduino_Core_STM32)
 * [ESP8266 Arduino 2.7.4](https://github.com/esp8266/Arduino)
 * [ESP32 Arduino 1.0.6](https://github.com/espressif/arduino-esp32)
-* [Teensyduino 1.53](https://www.pjrc.com/teensy/td_download.html)
+* [Teensyduino 1.54](https://www.pjrc.com/teensy/td_download.html)
 
 This library is *not* compatible with:
-* [Arduino SAMD Boards >=1.8.10](https://github.com/arduino/ArduinoCore-samd)
-* [Arduino megaAVR](https://github.com/arduino/ArduinoCore-megaavr/)
-* [MegaCoreX](https://github.com/MCUdude/MegaCoreX)
+
+* Any platform using the
+  [ArduinoCore-API](https://github.com/arduino/ArduinoCore-api), for example:
+    * [Arduino SAMD Boards >=1.8.10](https://github.com/arduino/ArduinoCore-samd)
+    * [Arduino megaAVR](https://github.com/arduino/ArduinoCore-megaavr/)
+    * [MegaCoreX](https://github.com/MCUdude/MegaCoreX)
 
 (See [Issue #56](https://github.com/bxparks/AUnit/issues/56)
 and [Issue #66](https://github.com/bxparks/AUnit/issues/66)).
@@ -1869,7 +1872,8 @@ not tested it extensively.
 <a name="OperatingSystem"></a>
 ### Operating System
 
-I used MacOS 10.13.3, Ubuntu 18.04, and Ubuntu 20.04 for most of my development.
+I use Ubuntu 20.04 for the vast majority of my development. I expect that the
+library will work fine under MacOS and Windows, but I have not tested them.
 
 <a name="License"></a>
 ## License
@@ -1878,10 +1882,6 @@ I used MacOS 10.13.3, Ubuntu 18.04, and Ubuntu 20.04 for most of my development.
 
 <a name="FeedbackAndSupport"></a>
 ## Feedback and Support
-
-If you find this library useful, consider starring this project on GitHub. The
-stars will let me prioritize the more popular libraries over the less popular
-ones.
 
 If you have any questions, comments and other support questions about how to
 use this library, please use the
