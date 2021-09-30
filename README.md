@@ -66,6 +66,7 @@ or with [GitHub Actions](https://github.com/features/actions).
 * [Command Line Tools](#CommandLineTools)
     * [AUniter](#AUniter)
     * [EpoxyDuino](#EpoxyDuino)
+    * [Command Line Flags and Arguments](#CommandLineFlagsAndArguments)
 * [Continuous Integration](#ContinuousIntegration)
     * [Arduino IDE/CLI + Cloud](#IdePlusCloud)
     * [Arduino IDE/CLI + Jenkins](#IdePlusJenkins)
@@ -1051,31 +1052,44 @@ only a single test case, then returns._
 <a name="FilteringTestCases"></a>
 ### Filtering Test Cases
 
-We can `exclude()` or `include()` test cases using a pattern match:
+Six filtering methods are available on the `TestRunner` class:
+* `TestRunner::include(pattern)` - prefix match
+* `TestRunner::include(testClass, pattern)` - prefix match
+* `TestRunner::exclude(pattern)` - prefix match
+* `TestRunner::exclude(testClass, pattern)` - prefix match
+* `TestRunner::includesub(substring)` - substring match (v1.6)
+* `TestRunner::excludesub(substring)` - substring match (v1.6)
 
-* `TestRunner::exclude(pattern)`
-* `TestRunner::exclude(testClass, pattern)`
-* `TestRunner::include(pattern)`
-* `TestRunner::include(testClass, pattern)`
-
-These methods are called from the global `setup()` method:
+These methods are called from the global `setup()` method, for example:
 
 ```C++
 void setup() {
-  TestRunner::exclude("*");
   TestRunner::include("looping*");
   TestRunner::exclude("CustomTestAgain", "*");
   TestRunner::include("CustomTestAgain", "test*");
+  TestRunner::include("CustomTestAgain", "test*");
+  TestRunner::includesub("net");
+  TestRunner::excludesub("net");
   ...
 }
 ```
 
-Excluded tests bypass their `setup()` and `teardown()` methods and terminate
-immediately. For the purposes of reporting, however, excluded tests are
-counted as "skipped".
+Excluded tests bypass their `Test::setup()` and `Test::teardown()` methods and
+terminate immediately. For the purposes of reporting, excluded tests are counted
+as "skipped".
 
 The 2-argument versions of `include()` and `exclude()` correspond to the
 2 arguments of `testF()` and `testingF()`.
+
+The filtering methods are also available as command line flags and arguments
+(`--include`, `--exclude`, `--includesub` `--excludesub`) if the test
+program is compiled using EpoxyDuino under a Unix-like environment. See
+the [EpoxyDuino](#EpoxyDuino) section below.
+
+**Implicit Exclude All**: If the *first* filtering request is an "include" (i.e.
+`include(pattern)`, `include(testClass, pattern)`, `includesub(substring)`),
+all tests are excluded by default initially, instead of being included by
+default. Otherwise, the first "include" statement would have no effect.
 
 ***ArduinoUnit Compatibility***:
 _The equivalent versions in ArduinoUnit are `Test::exclude()` and
@@ -1484,6 +1498,65 @@ EpoxyDuino, the test program will terminate at the end through the
 `exit()` function. If the tests are successful (i.e. passing or skipped), it
 will call `exit(0)`. If there are any failing tests (i.e. failed or timed out),
 it will call `exit(1)`.
+
+<a name="CommandLineFlagsAndArguments"></a>
+### Command Line Flags and Arguments
+
+(Added in v1.6)
+
+The standard Arduino environment does not provide command line arguments, since
+a microcontroller does not normally provide a command line environment. However,
+if the AUnit test program is compiled under EpoxyDuino, the standard Unix
+command line parameters (`argc` and `argv`)  become available through the
+`extern int epoxy_argc` and `extern const char* const* argv` global variables.
+These allow the `TestRunner` class to provide command line flags and arguments
+as follows:
+
+```bash
+$ ./test.out --help
+Usage: ./test.out [--help] [--include pattern,...] [--exclude pattern,...]
+   [--includesub substring,...] [--excludesub substring,...]
+   [--] [substring ...]
+```
+
+Example, the following runs all tests with substring "net" or "led" in its
+name, and skips all others:
+
+```bash
+$ ./test.out net led
+```
+
+Flags:
+
+* `--include pattern,...`
+    * Comma-separated list of patterns to pass to the
+      `TestRunner::include(pattern)` method
+* `--exclude pattern,...`
+    * Comma-separated list of patterns to pass to the
+      `TestRunner::exclude(pattern)` method
+* `--includesub substring,...`
+    * Comma-separated list of substrings to pass to the
+      `TestRunner::includesub(substring)` method
+* `--excludesub substring,...`
+    * Comma-separated list of substrings to pass to the
+      `TestRunner::excludesub(substring)` method
+
+Arguments:
+
+* Any **Space**-separated list of words after the optional flags are passed to
+  the `TestRunner::includesub(substring)` method.
+
+The command line flags and arguments are processed *after* any hardcoded calls
+to `TestRunner::include()` and `TestRunner::exclude()` methods in the global
+`setup()` method.
+
+The flags and command line arguments are processed *in order* of appearance
+on the command line.
+
+Similar to the hardcoded calls to `TestRunner::include()` and
+`TestRunner::exclude()`, if the first command line flag is an `--include` or
+`--includesub`, then all tests are *excluded* by default initially. Otherwise,
+the first include flag would have no effect.
 
 <a name="ContinuousIntegration"></a>
 ## Continuous Integration
