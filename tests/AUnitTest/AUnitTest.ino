@@ -136,146 +136,9 @@ test(type_mismatch) {
   assertEqual(5UL, ulongValue);
 }
 
-#if USE_AUNIT == 1
-
-// We use if-statements instead of assertXxx() because compareXxx() is a
-// lower-level function that the assertXxx() methods depend on.
-test(compareString) {
-  if (!(compareString(a, a) == 0)) { failTestNow(); }
-  if (!(compareString(a, f) == 0)) { failTestNow(); }
-  if (!(compareString(a, s) == 0)) { failTestNow(); }
-
-  if (!(compareString(f, a) == 0)) { failTestNow(); }
-  if (!(compareString(f, f) == 0)) { failTestNow(); }
-  if (!(compareString(f, s) == 0)) { failTestNow(); }
-
-  if (!(compareString(s, a) == 0)) { failTestNow(); }
-  if (!(compareString(s, f) == 0)) { failTestNow(); }
-  if (!(compareString(s, s) == 0)) { failTestNow(); }
-
-  if (!(compareString(a, b) < 0)) { failTestNow(); }
-  if (!(compareString(a, g) < 0)) { failTestNow(); }
-  if (!(compareString(a, t) < 0)) { failTestNow(); }
-
-  if (!(compareString(f, b) < 0)) { failTestNow(); }
-  if (!(compareString(f, g) < 0)) { failTestNow(); }
-  if (!(compareString(f, t) < 0)) { failTestNow(); }
-
-  if (!(compareString(s, b) < 0)) { failTestNow(); }
-  if (!(compareString(s, g) < 0)) { failTestNow(); }
-  if (!(compareString(s, t) < 0)) { failTestNow(); }
-}
-
-test(compareString_WithNulls) {
-  const char* const NULL_CSTRING = (const char*) nullptr;
-  const __FlashStringHelper* const NULL_FSTRING =
-      (const __FlashStringHelper*) nullptr;
-
-  if (!(compareString(NULL_CSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
-  if (!(compareString(a, NULL_CSTRING) > 0)) { failTestNow(); }
-  if (!(compareString(NULL_CSTRING, a) < 0)) { failTestNow(); }
-
-  if (!(compareString(NULL_FSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
-  if (!(compareString(f, NULL_FSTRING) > 0)) { failTestNow(); }
-  if (!(compareString(NULL_FSTRING, f) < 0)) { failTestNow(); }
-
-  if (!(compareString(NULL_FSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
-  if (!(compareString(s, NULL_FSTRING) > 0)) { failTestNow(); }
-  if (!(compareString(NULL_FSTRING, s) < 0)) { failTestNow(); }
-
-  if (!(compareString(NULL_CSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
-  if (!(compareString(NULL_FSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
-}
-
-// Same as test(compareString) but case-insensitive.
-test(compareStringCase) {
-  if (!(compareStringCase(a, A) == 0)) { failTestNow(); }
-  if (!(compareStringCase(A, f) == 0)) { failTestNow(); }
-  if (!(compareStringCase(a, S) == 0)) { failTestNow(); }
-
-  if (!(compareStringCase(f, A) == 0)) { failTestNow(); }
-  if (!(compareStringCase(F, f) == 0)) { failTestNow(); }
-  if (!(compareStringCase(f, S) == 0)) { failTestNow(); }
-
-  if (!(compareStringCase(s, A) == 0)) { failTestNow(); }
-  if (!(compareStringCase(S, f) == 0)) { failTestNow(); }
-  if (!(compareStringCase(s, S) == 0)) { failTestNow(); }
-
-  if (!(compareStringCase(a, B) < 0)) { failTestNow(); }
-  if (!(compareStringCase(A, g) < 0)) { failTestNow(); }
-  if (!(compareStringCase(a, T) < 0)) { failTestNow(); }
-
-  if (!(compareStringCase(f, B) < 0)) { failTestNow(); }
-  if (!(compareStringCase(F, g) < 0)) { failTestNow(); }
-  if (!(compareStringCase(f, T) < 0)) { failTestNow(); }
-
-  if (!(compareStringCase(s, B) < 0)) { failTestNow(); }
-  if (!(compareStringCase(S, g) < 0)) { failTestNow(); }
-  if (!(compareStringCase(s, T) < 0)) { failTestNow(); }
-}
-
-test(compareStringCase_WithNulls) {
-  const char* const NULL_CSTRING = (const char*) nullptr;
-  const __FlashStringHelper* const NULL_FSTRING =
-      (const __FlashStringHelper*) nullptr;
-
-  if (!(compareStringCase(NULL_CSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
-  if (!(compareStringCase(a, NULL_CSTRING) > 0)) { failTestNow(); }
-  if (!(compareStringCase(NULL_CSTRING, a) < 0)) { failTestNow(); }
-
-  if (!(compareStringCase(NULL_FSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
-  if (!(compareStringCase(f, NULL_FSTRING) > 0)) { failTestNow(); }
-  if (!(compareStringCase(NULL_FSTRING, f) < 0)) { failTestNow(); }
-
-  if (!(compareStringCase(NULL_FSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
-  if (!(compareStringCase(s, NULL_FSTRING) > 0)) { failTestNow(); }
-  if (!(compareStringCase(NULL_FSTRING, s) < 0)) { failTestNow(); }
-
-  if (!(compareStringCase(NULL_CSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
-  if (!(compareStringCase(NULL_FSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
-}
-
-// We use if-statements instead of assertXxx() because compareXxx() is used by
-// the assertXxx() methods. Strictly speaking, it's not necessary because one
-// is a string compare and the other is an integer compare, but this feels
-// conceptually cleaner.
-test(compareStringN) {
-  if (!(compareStringN(ff, "abcde", 5) == 0)) { failTestNow(); }
-  if (!(compareStringN("abcde", ff, 5) == 0)) { failTestNow(); }
-
-  if (!(compareStringN(ff, "abcd", 5) > 0)) { failTestNow(); }
-  if (!(compareStringN("abcd", ff, 5) < 0)) { failTestNow(); }
-
-  if (!(compareStringN(ff, "abcd", 4) == 0)) { failTestNow(); }
-  if (!(compareStringN("abcd", ff, 4) == 0)) { failTestNow(); }
-
-  if (!(compareStringN(ff, "", 1) > 0)) { failTestNow(); }
-  if (!(compareStringN("", ff, 1) < 0)) { failTestNow(); }
-
-  if (!(compareStringN(ff, "", 0) == 0)) { failTestNow(); }
-  if (!(compareStringN("", ff, 0) == 0)) { failTestNow(); }
-
-  if (!(compareStringN(gg, ff, 5) == 0)) { failTestNow(); }
-
-  if (!(compareStringN(gg, ff, 6) > 0)) { failTestNow(); }
-}
-
-test(compareStringN_WithNulls) {
-  const char* const NULL_CSTRING = (const char*) nullptr;
-  const __FlashStringHelper* const NULL_FSTRING =
-      (const __FlashStringHelper*) nullptr;
-
-  if (!(compareStringN(NULL_CSTRING, NULL_CSTRING, 4) == 0)) { failTestNow(); }
-  if (!(compareStringN(a, NULL_CSTRING, 4) > 0)) { failTestNow(); }
-  if (!(compareStringN(NULL_CSTRING, a, 4) < 0)) { failTestNow(); }
-
-  if (!(compareStringN(NULL_FSTRING, NULL_FSTRING, 4) == 0)) { failTestNow(); }
-  if (!(compareStringN(f, NULL_FSTRING, 4) > 0)) { failTestNow(); }
-  if (!(compareStringN(NULL_FSTRING, f, 4) < 0)) { failTestNow(); }
-
-  if (!(compareString(NULL_CSTRING, NULL_FSTRING) == 0)) { failTestNow(); }
-  if (!(compareString(NULL_FSTRING, NULL_CSTRING) == 0)) { failTestNow(); }
-}
+// ------------------------------------------------------
+// Test FCString
+// ------------------------------------------------------
 
 test(FCStringTest, compareTo) {
   FCString n;
@@ -310,6 +173,14 @@ test(FCStringTest, compareToN) {
   assertLess(fa.compareToN("aa", 2), 0);
   assertEqual(fa.compareToN(F("aa"), 1), 0);
   assertLess(fa.compareToN(F("aa"), 2), 0);
+}
+
+test(FCStringTest, hasSubstring) {
+  FCString f("abc");
+
+  assertTrue(f.hasSubstring(""));
+  assertTrue(f.hasSubstring("bc"));
+  assertFalse(f.hasSubstring("dc"));
 }
 
 // ------------------------------------------------------
@@ -563,8 +434,6 @@ test(nullPointer) {
   // assertNotEqual(cc, nullptr); // ambiguous
   assertEqual(dd, nullptr);
 }
-
-#endif
 
 // -------------------------------------------------------------------------
 // Test the string_join() method.

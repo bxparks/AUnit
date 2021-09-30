@@ -84,5 +84,13 @@ int FCString::compareToN(const __FlashStringHelper* that, size_t n) const {
   }
 }
 
+bool FCString::hasSubstring(const char* substring) const {
+  if (getType() == FCString::kCStringType) {
+    return compareSubstring(getCString(), substring);
+  } else {
+    return compareSubstring(getFString(), substring);
+  }
+}
+
 }
 }

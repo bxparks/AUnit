@@ -78,7 +78,9 @@ class __FlashStringHelper;
 namespace aunit {
 namespace internal {
 
+//---------------------------------------------------------------------------
 // compareString()
+//---------------------------------------------------------------------------
 
 int compareString(const char* a, const char* b);
 
@@ -98,7 +100,9 @@ int compareString(const __FlashStringHelper* a, const __FlashStringHelper* b);
 
 int compareString(const __FlashStringHelper* a, const String& b);
 
+//---------------------------------------------------------------------------
 // compareStringCase() - case insensitive versions of compareString()
+//---------------------------------------------------------------------------
 
 int compareStringCase(const char* a, const char* b);
 
@@ -119,10 +123,12 @@ int compareStringCase(const __FlashStringHelper* a,
 
 int compareStringCase(const __FlashStringHelper* a, const String& b);
 
+//---------------------------------------------------------------------------
 // compareStringN()
 //
 // These functions are used to implement the TestRunner::exclude() and
 // TestRunner::include() features.
+//---------------------------------------------------------------------------
 
 /** Compare only the first n characters of 'a' or 'b'. */
 int compareStringN(const char* a, const char* b, size_t n);
@@ -137,7 +143,50 @@ int compareStringN(const __FlashStringHelper* a, const char* b, size_t n);
 int compareStringN(const __FlashStringHelper* a, const __FlashStringHelper* b,
     size_t n);
 
+//---------------------------------------------------------------------------
+// compareSubstring(haystack, needle)
+//---------------------------------------------------------------------------
+
+bool compareSubstring(const char* haystack, const char* needle);
+
+bool compareSubstring(const char* haystack, const String& needle);
+
+bool compareSubstring(const char* haystack, const __FlashStringHelper* needle);
+
+bool compareSubstring(const String& haystack, const char* needle);
+
+bool compareSubstring(const String& haystack, const String& needle);
+
+bool compareSubstring(
+    const String& haystack, const __FlashStringHelper* needle);
+
+/**
+ * An inefficient O(M*N) implementation of strstr() for PROGMEM strings.
+ * The KMP algorithm
+ * https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
+ * is faster, but this brute force implementation is probably good enough.
+ */
+bool compareSubstring(
+    const __FlashStringHelper* haystack,
+    const char* needle);
+
+bool compareSubstring(
+    const __FlashStringHelper* haystack,
+    const String& needle);
+
+/**
+ * An inefficient O(M*N) implementation of strstr() for PROGMEM strings.
+ * The KMP algorithm
+ * https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
+ * is faster, but this brute force implementation is probably good enough.
+ */
+bool compareSubstring(
+    const __FlashStringHelper* haystack,
+    const __FlashStringHelper* needle);
+
+//---------------------------------------------------------------------------
 // compareEqual()
+//---------------------------------------------------------------------------
 
 bool compareEqual(bool a, bool b);
 
@@ -177,7 +226,9 @@ bool compareEqual(const String& a, const String& b);
 
 bool compareEqual(const String& a, const __FlashStringHelper* b);
 
+//---------------------------------------------------------------------------
 // compareLess()
+//---------------------------------------------------------------------------
 
 bool compareLess(bool a, bool b);
 
@@ -215,7 +266,9 @@ bool compareLess(const String& a, const String& b);
 
 bool compareLess(const String& a, const __FlashStringHelper* b);
 
+//---------------------------------------------------------------------------
 // compareMore()
+//---------------------------------------------------------------------------
 
 bool compareMore(bool a, bool b);
 
@@ -253,7 +306,9 @@ bool compareMore(const String& a, const String& b);
 
 bool compareMore(const String& a, const __FlashStringHelper* b);
 
+//---------------------------------------------------------------------------
 // compareLessOrEqual
+//---------------------------------------------------------------------------
 
 bool compareLessOrEqual(bool a, bool b);
 
@@ -292,7 +347,9 @@ bool compareLessOrEqual(const String& a, const String& b);
 
 bool compareLessOrEqual(const String& a, const __FlashStringHelper* b);
 
+//---------------------------------------------------------------------------
 // compareMoreOrEqual
+//---------------------------------------------------------------------------
 
 bool compareMoreOrEqual(bool a, bool b);
 
@@ -331,7 +388,9 @@ bool compareMoreOrEqual(const String& a, const String& b);
 
 bool compareMoreOrEqual(const String& a, const __FlashStringHelper* b);
 
+//---------------------------------------------------------------------------
 // compareNotEqual
+//---------------------------------------------------------------------------
 
 bool compareNotEqual(bool a, bool b);
 
@@ -372,7 +431,9 @@ bool compareNotEqual(const String& a, const String& b);
 
 bool compareNotEqual(const String& a, const __FlashStringHelper* b);
 
+//---------------------------------------------------------------------------
 // compareStringCaseEqual
+//---------------------------------------------------------------------------
 
 bool compareStringCaseEqual(const char* a, const char* b);
 
@@ -393,7 +454,9 @@ bool compareStringCaseEqual(const String& a, const String& b);
 
 bool compareStringCaseEqual(const String& a, const __FlashStringHelper* b);
 
+//---------------------------------------------------------------------------
 // compareStringCaseNotEqual
+//---------------------------------------------------------------------------
 
 bool compareStringCaseNotEqual(const char* a, const char* b);
 
@@ -414,7 +477,9 @@ bool compareStringCaseNotEqual(const String& a, const String& b);
 
 bool compareStringCaseNotEqual(const String& a, const __FlashStringHelper* b);
 
+//---------------------------------------------------------------------------
 // compareNear
+//---------------------------------------------------------------------------
 
 bool compareNear(int a, int b, int error);
 
@@ -426,7 +491,9 @@ bool compareNear(unsigned long a, unsigned long b, unsigned long error);
 
 bool compareNear(double a, double b, double error);
 
+//---------------------------------------------------------------------------
 // compareNotNear
+//---------------------------------------------------------------------------
 
 bool compareNotNear(int a, int b, int error);
 

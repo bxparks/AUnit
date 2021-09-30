@@ -102,6 +102,18 @@ class TestRunner {
           Test::kLifeCycleNew);
     }
 
+    /** Exclude the tests which match the substring. */
+    static void excludesub(const char* substring) {
+      getRunner()->setLifeCycleMatchingSubstring(
+          substring, Test::kLifeCycleExcluded);
+    }
+
+    /** Include the tests which match the substring. */
+    static void includesub(const char* substring) {
+      getRunner()->setLifeCycleMatchingSubstring(
+          substring, Test::kLifeCycleNew);
+    }
+
     /** Set the verbosity flag. */
     static void setVerbosity(uint8_t verbosity) {
       getRunner()->setVerbosityFlag(verbosity);
@@ -351,6 +363,9 @@ class TestRunner {
         Printer::setPrinter(&SERIAL_PORT_MONITOR);
       }
 
+    #if EPOXY_DUINO
+      processCommandLine();
+    #endif
       mIsSetup = true;
       mCount = countTests();
       mCurrent = Test::getRoot();
@@ -375,8 +390,36 @@ class TestRunner {
     void setLifeCycleMatchingPattern(const char* testClass, const char* pattern,
         uint8_t lifeCycle);
 
+    /** Set the status of the tests which match the substring. */
+    void setLifeCycleMatchingSubstring(
+        const char* substring, uint8_t lifeCycle);
+
+    /** Forcibly exclude all tests. */
+    void excludeAll();
+
     /** Set the test runner timeout. */
     void setRunnerTimeout(TimeoutType seconds);
+
+  #if EPOXY_DUINO
+    enum class FilterType : uint8_t {
+      kInclude,
+      kExclude,
+      kIncludeSub,
+      kExcludeSub
+    };
+
+    /** Process command line arguments on EpoxyDuino. */
+    void processCommandLine();
+
+    /** Parse the command line flags. */
+    int parseFlags(int argc, const char* const* argv);
+
+    /**
+     * Process the comma-separated list of words for --include, --exclude,
+     * --includesub and --excludesub flags.
+     */
+    void processCommaList(const char* commaList, FilterType filterType);
+  #endif
 
   private:
     // The current test case is represented by a pointer to a pointer. This
@@ -388,6 +431,8 @@ class TestRunner {
     bool mIsSetup = false;
     bool mIsRunning = false;
     uint8_t mVerbosity = Verbosity::kDefault;
+    // True if any include(), exclude(), includesub(), excludesub() was invoked.
+    bool hasBeenFiltered = false;
     uint16_t mCount = 0;
     uint16_t mPassedCount = 0;
     uint16_t mFailedCount = 0;

@@ -11,7 +11,7 @@ natively on Linux or MacOS using the
 [EpoxyDuino](https://github.com/bxparks/EpoxyDuino) companion project.
 
 AUnit is almost a drop-in replacement of ArduinoUnit with some advantages. AUnit
-supports timeouts and test fixtures. It somtimes consumes 50% less flash memory
+supports timeouts and test fixtures. It sometimes consumes 50% less flash memory
 on the AVR platform, and it has been tested to work on the AVR, SAMD21, STM32,
 ESP8266, ESP32 and Teensy platforms. Another companion project
 [AUniter](https://github.com/bxparks/AUniter) project provides command line
@@ -52,7 +52,7 @@ or with [GitHub Actions](https://github.com/features/actions).
     * [Unconditional Termination](#UnconditionalTermination)
     * [Overridable Methods](#OverridableMethods)
     * [Running the Tests](#RunningTests)
-    * [Filering Test Cases](#FilteringTestCases)
+    * [Filtering Test Cases](#FilteringTestCases)
     * [Output Printer](#OutputPrinter)
     * [Controlling Verbosity](#ControllingVerbosity)
     * [Line Number Mismatch](#LineNumberMismatch)
@@ -66,11 +66,12 @@ or with [GitHub Actions](https://github.com/features/actions).
 * [Command Line Tools](#CommandLineTools)
     * [AUniter](#AUniter)
     * [EpoxyDuino](#EpoxyDuino)
+    * [Command Line Flags and Arguments](#CommandLineFlagsAndArguments)
 * [Continuous Integration](#ContinuousIntegration)
     * [Arduino IDE/CLI + Cloud](#IdePlusCloud)
     * [Arduino IDE/CLI + Jenkins](#IdePlusJenkins)
     * [EpoxyDuino + Jenkins](#EpoxyDuinoPlusJenkins)
-    * [EpoxyDuino + Cloud (Recommmended)](#EpoxyDuinoPlusCloud)
+    * [EpoxyDuino + Cloud (Recommended)](#EpoxyDuinoPlusCloud)
 * [Tips](#Tips)
     * [Debugging Assertions in Fixtures](#DebuggingFixtures)
     * [Class Hierarchy](#ClassHierarchy)
@@ -647,7 +648,7 @@ test(nullPointer) {
 }
 ```
 
-prints the following:
+This will print the following:
 
 ```
 Assertion failed: (aa=0x3FFFFF58) == (nullptr=0x0), file AUnitTest.ino, line 348.
@@ -705,7 +706,7 @@ errors. Google Test provides
   `a` and `b` is within the given `error`
 
 Since floating point operations are relatively rare in Arduino programming,
-AUnit offers only the equilvalent of `ASSERT_NEAR()` function:
+AUnit offers only the equivalent of `ASSERT_NEAR()` function:
 
 * `assertNear(a, b, error)`
 * `assertNotNear(a, b, error)`
@@ -756,7 +757,7 @@ The following boolean asserts are also available:
 
 When the unit tests become more complex, using test fixtures will allow you to
 place common data objects and methods into a class that can be shared among
-multiple test cases. This concept matches very closely to the the test fixtures
+multiple test cases. This concept matches very closely to the test fixtures
 in
 [Google Test](https://github.com/google/googletest/blob/master/googletest/docs/Primer.md).
 
@@ -1051,31 +1052,44 @@ only a single test case, then returns._
 <a name="FilteringTestCases"></a>
 ### Filtering Test Cases
 
-We can `exclude()` or `include()` test cases using a pattern match:
+Six filtering methods are available on the `TestRunner` class:
+* `TestRunner::include(pattern)` - prefix match
+* `TestRunner::include(testClass, pattern)` - prefix match
+* `TestRunner::exclude(pattern)` - prefix match
+* `TestRunner::exclude(testClass, pattern)` - prefix match
+* `TestRunner::includesub(substring)` - substring match (v1.6)
+* `TestRunner::excludesub(substring)` - substring match (v1.6)
 
-* `TestRunner::exclude(pattern)`
-* `TestRunner::exclude(testClass, pattern)`
-* `TestRunner::include(pattern)`
-* `TestRunner::include(testClass, pattern)`
-
-These methods are called from the global `setup()` method:
+These methods are called from the global `setup()` method, for example:
 
 ```C++
 void setup() {
-  TestRunner::exclude("*");
   TestRunner::include("looping*");
   TestRunner::exclude("CustomTestAgain", "*");
   TestRunner::include("CustomTestAgain", "test*");
+  TestRunner::include("CustomTestAgain", "test*");
+  TestRunner::includesub("net");
+  TestRunner::excludesub("net");
   ...
 }
 ```
 
-Excluded tests bypass their `setup()` and `teardown()` methods and terminate
-immidiately. For the purposes of reporting, however, excluded tests are
-counted as "skipped".
+Excluded tests bypass their `Test::setup()` and `Test::teardown()` methods and
+terminate immediately. For the purposes of reporting, excluded tests are counted
+as "skipped".
 
 The 2-argument versions of `include()` and `exclude()` correspond to the
 2 arguments of `testF()` and `testingF()`.
+
+The filtering methods are also available as command line flags and arguments
+(`--include`, `--exclude`, `--includesub` `--excludesub`) if the test
+program is compiled using EpoxyDuino under a Unix-like environment. See
+the [EpoxyDuino](#EpoxyDuino) section below.
+
+**Implicit Exclude All**: If the *first* filtering request is an "include" (i.e.
+`include(pattern)`, `include(testClass, pattern)`, `includesub(substring)`),
+all tests are excluded by default initially, instead of being included by
+default. Otherwise, the first "include" statement would have no effect.
 
 ***ArduinoUnit Compatibility***:
 _The equivalent versions in ArduinoUnit are `Test::exclude()` and
@@ -1393,7 +1407,7 @@ or
 ## Command Line Tools
 
 Each unit test is an independent `*.ino` program. You can run it using your
-Ardunio IDE. But there are 2 command line tools that can be used to run them.
+Arduino IDE. But there are 2 command line tools that can be used to run them.
 
 <a name="AUniter"></a>
 ### AUniter
@@ -1485,6 +1499,65 @@ EpoxyDuino, the test program will terminate at the end through the
 will call `exit(0)`. If there are any failing tests (i.e. failed or timed out),
 it will call `exit(1)`.
 
+<a name="CommandLineFlagsAndArguments"></a>
+### Command Line Flags and Arguments
+
+(Added in v1.6)
+
+The standard Arduino environment does not provide command line arguments, since
+a microcontroller does not normally provide a command line environment. However,
+if the AUnit test program is compiled under EpoxyDuino, the standard Unix
+command line parameters (`argc` and `argv`)  become available through the
+`extern int epoxy_argc` and `extern const char* const* argv` global variables.
+These allow the `TestRunner` class to provide command line flags and arguments
+as follows:
+
+```bash
+$ ./test.out --help
+Usage: ./test.out [--help] [--include pattern,...] [--exclude pattern,...]
+   [--includesub substring,...] [--excludesub substring,...]
+   [--] [substring ...]
+```
+
+Example, the following runs all tests with substring "net" or "led" in its
+name, and skips all others:
+
+```bash
+$ ./test.out net led
+```
+
+Flags:
+
+* `--include pattern,...`
+    * Comma-separated list of patterns to pass to the
+      `TestRunner::include(pattern)` method
+* `--exclude pattern,...`
+    * Comma-separated list of patterns to pass to the
+      `TestRunner::exclude(pattern)` method
+* `--includesub substring,...`
+    * Comma-separated list of substrings to pass to the
+      `TestRunner::includesub(substring)` method
+* `--excludesub substring,...`
+    * Comma-separated list of substrings to pass to the
+      `TestRunner::excludesub(substring)` method
+
+Arguments:
+
+* Any **Space**-separated list of words after the optional flags are passed to
+  the `TestRunner::includesub(substring)` method.
+
+The command line flags and arguments are processed *after* any hardcoded calls
+to `TestRunner::include()` and `TestRunner::exclude()` methods in the global
+`setup()` method.
+
+The flags and command line arguments are processed *in order* of appearance
+on the command line.
+
+Similar to the hardcoded calls to `TestRunner::include()` and
+`TestRunner::exclude()`, if the first command line flag is an `--include` or
+`--includesub`, then all tests are *excluded* by default initially. Otherwise,
+the first include flag would have no effect.
+
 <a name="ContinuousIntegration"></a>
 ## Continuous Integration
 
@@ -1537,7 +1610,7 @@ Although I think it's theoretically possible, I have never actually verified
 that this can be done.
 
 <a name="IdePlusJenkins"></a>
-### Arduion IDE/CLI + Jenkins
+### Arduino IDE/CLI + Jenkins
 
 This setup is described in [Continuous Integration with
 Jenkins](https://github.com/bxparks/AUniter/tree/develop/jenkins), and it worked
@@ -1830,15 +1903,15 @@ I will occasionally test on the following hardware as a sanity check:
 
 The following boards are **not** supported:
 
-* megaAVR (e.g. Nano Every) using ArduinoCore-megaavr
-  (https://github.com/arduino/ArduinoCore-megaavr/)
-* SAMD21 boards (e.g. MKRZero) using ArduinoCore-samd
-  (https://github.com/arduino/ArduinoCore-samd) starting with
-  `arduino:samd` version >= 1.8.10
-* Raspberry Pi Pico (RP2040) using Arduino-Pico
-  (https://github.com/earlephilhower/arduino-pico)
-* Any other platform using the ArduinoCore-API
-  (https://github.com/arduino/ArduinoCore-api)
+* Any platform using the ArduinoCore-API
+  (https://github.com/arduino/ArduinoCore-api), such as:
+    * megaAVR (e.g. Nano Every) using ArduinoCore-megaavr
+      (https://github.com/arduino/ArduinoCore-megaavr/)
+    * SAMD21 boards (e.g. MKRZero) using ArduinoCore-samd
+      (https://github.com/arduino/ArduinoCore-samd) starting with
+      `arduino:samd` version >= 1.8.10
+    * Raspberry Pi Pico (RP2040) using Arduino-Pico
+      (https://github.com/earlephilhower/arduino-pico)
 
 <a name="ToolChain"></a>
 ### Tool Chain
@@ -1850,15 +1923,18 @@ This library was validated using:
 * [Arduino SAMD Boards 1.8.9](https://github.com/arduino/ArduinoCore-samd)
 * [SparkFun AVR Boards 1.1.13](https://github.com/sparkfun/Arduino_Boards)
 * [SparkFun SAMD Boards 1.8.1](https://github.com/sparkfun/Arduino_Boards)
-* [STM32duino 1.9.0](https://github.com/stm32duino/Arduino_Core_STM32)
+* [STM32duino 2.0.0](https://github.com/stm32duino/Arduino_Core_STM32)
 * [ESP8266 Arduino 2.7.4](https://github.com/esp8266/Arduino)
 * [ESP32 Arduino 1.0.6](https://github.com/espressif/arduino-esp32)
-* [Teensyduino 1.53](https://www.pjrc.com/teensy/td_download.html)
+* [Teensyduino 1.54](https://www.pjrc.com/teensy/td_download.html)
 
 This library is *not* compatible with:
-* [Arduino SAMD Boards >=1.8.10](https://github.com/arduino/ArduinoCore-samd)
-* [Arduino megaAVR](https://github.com/arduino/ArduinoCore-megaavr/)
-* [MegaCoreX](https://github.com/MCUdude/MegaCoreX)
+
+* Any platform using the
+  [ArduinoCore-API](https://github.com/arduino/ArduinoCore-api), for example:
+    * [Arduino SAMD Boards >=1.8.10](https://github.com/arduino/ArduinoCore-samd)
+    * [Arduino megaAVR](https://github.com/arduino/ArduinoCore-megaavr/)
+    * [MegaCoreX](https://github.com/MCUdude/MegaCoreX)
 
 (See [Issue #56](https://github.com/bxparks/AUnit/issues/56)
 and [Issue #66](https://github.com/bxparks/AUnit/issues/66)).
@@ -1869,7 +1945,8 @@ not tested it extensively.
 <a name="OperatingSystem"></a>
 ### Operating System
 
-I used MacOS 10.13.3, Ubuntu 18.04, and Ubuntu 20.04 for most of my development.
+I use Ubuntu 20.04 for the vast majority of my development. I expect that the
+library will work fine under MacOS and Windows, but I have not tested them.
 
 <a name="License"></a>
 ## License
@@ -1878,10 +1955,6 @@ I used MacOS 10.13.3, Ubuntu 18.04, and Ubuntu 20.04 for most of my development.
 
 <a name="FeedbackAndSupport"></a>
 ## Feedback and Support
-
-If you find this library useful, consider starring this project on GitHub. The
-stars will let me prioritize the more popular libraries over the less popular
-ones.
 
 If you have any questions, comments and other support questions about how to
 use this library, please use the
