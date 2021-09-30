@@ -193,14 +193,14 @@ static void shift(int& argc, const char* const*& argv) {
   argv++;
 }
 
-static bool arg_equals(const char* s, const char* t) {
+static bool argEquals(const char* s, const char* t) {
   return strcmp(s, t) == 0;
 }
 
-static void usage_and_exit(int status) {
+static void usageAndExit(int status) {
   fprintf(
     stderr,
-    "Usage: %s [--help]\n"
+    "Usage: %s [--help|-h]\n"
       "   [--include pattern,...] [--exclude pattern,...]\n"
       "   [--includesub substring,...] [--excludesub substring,...]\n"
       "   [--] [substring ...]\n",
@@ -256,31 +256,31 @@ int TestRunner::parseFlags(int argc, const char* const* argv) {
   int argc_original = argc;
   shift(argc, argv);
   while (argc > 0) {
-    if (arg_equals(argv[0], "--include")) {
+    if (argEquals(argv[0], "--include")) {
       shift(argc, argv);
-      if (argc == 0) usage_and_exit(1);
+      if (argc == 0) usageAndExit(1);
       processCommaList(argv[0], FilterType::kInclude);
-    } else if (arg_equals(argv[0], "--exclude")) {
+    } else if (argEquals(argv[0], "--exclude")) {
       shift(argc, argv);
-      if (argc == 0) usage_and_exit(1);
+      if (argc == 0) usageAndExit(1);
       processCommaList(argv[0], FilterType::kExclude);
-    } else if (arg_equals(argv[0], "--includesub")) {
+    } else if (argEquals(argv[0], "--includesub")) {
       shift(argc, argv);
-      if (argc == 0) usage_and_exit(1);
+      if (argc == 0) usageAndExit(1);
       processCommaList(argv[0], FilterType::kIncludeSub);
-    } else if (arg_equals(argv[0], "--excludesub")) {
+    } else if (argEquals(argv[0], "--excludesub")) {
       shift(argc, argv);
-      if (argc == 0) usage_and_exit(1);
+      if (argc == 0) usageAndExit(1);
       processCommaList(argv[0], FilterType::kExcludeSub);
-    } else if (arg_equals(argv[0], "--")) {
+    } else if (argEquals(argv[0], "--")) {
       shift(argc, argv);
       break;
-    } else if (arg_equals(argv[0], "--help")) {
-      usage_and_exit(0);
+    } else if (argEquals(argv[0], "--help") || argEquals(argv[0], "-h")) {
+      usageAndExit(0);
       break;
-    } else if (strncmp(argv[0], "-", 1) == 0) {
+    } else if (argv[0][0] == '-') {
       fprintf(stderr, "Unknonwn flag '%s'\n", argv[0]);
-      usage_and_exit(1);
+      usageAndExit(1);
     } else {
       break;
     }
