@@ -1508,9 +1508,9 @@ The standard Arduino environment does not provide command line arguments, since
 a microcontroller does not normally provide a command line environment. However,
 if the AUnit test program is compiled under EpoxyDuino, the standard Unix
 command line parameters (`argc` and `argv`)  become available through the
-`extern int epoxy_argc` and `extern const char* const* argv` global variables.
-These allow the `TestRunner` class to provide command line flags and arguments
-as follows:
+`extern int epoxy_argc` and `extern const char* const* epoxy_argv` global
+variables. These allow the `TestRunner` class to provide command line flags and
+arguments as follows:
 
 ```bash
 $ ./test.out --help
