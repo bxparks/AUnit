@@ -363,6 +363,9 @@ class TestRunner {
         Printer::setPrinter(&SERIAL_PORT_MONITOR);
       }
 
+    #if EPOXY_DUINO
+      processCommandLine();
+    #endif
       mIsSetup = true;
       mCount = countTests();
       mCurrent = Test::getRoot();
@@ -396,6 +399,27 @@ class TestRunner {
 
     /** Set the test runner timeout. */
     void setRunnerTimeout(TimeoutType seconds);
+
+  #if EPOXY_DUINO
+    enum class FilterType : uint8_t {
+      kInclude,
+      kExclude,
+      kIncludeSub,
+      kExcludeSub
+    };
+
+    /** Process command line arguments on EpoxyDuino. */
+    void processCommandLine();
+
+    /** Parse the command line flags. */
+    int parseFlags(int argc, const char* const* argv);
+
+    /**
+     * Process the comma-separated list of words for --include, --exclude,
+     * --includesub and --excludesub flags.
+     */
+    void processCommaList(const char* commaList, FilterType filterType);
+  #endif
 
   private:
     // The current test case is represented by a pointer to a pointer. This
