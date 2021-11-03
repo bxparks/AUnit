@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.5.5</span>
+   &#160;<span id="projectnumber">1.6.0</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -139,20 +139,22 @@ $(function() {
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classaunit_1_1internal_1_1FCString.html#a7c99cb7f0ffc35e40f3b53c711a44a08">compareToN</a>(<span class="keyword">const</span> __FlashStringHelper* that, <span class="keywordtype">size_t</span> n) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">// NOTE: It might be possible just use a (void *) instead of a union.</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* cstring;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      <span class="keyword">const</span> __FlashStringHelper* fstring;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    } mString = { <span class="keyword">nullptr</span> };</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    uint8_t mStringType = kCStringType;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;};</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classaunit_1_1internal_1_1FCString.html#a1edb001f5735b990779dbac22a2e4d52">hasSubstring</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* substring) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="comment">// NOTE: It might be possible just use a (void *) instead of a union.</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keyword">union </span>{</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* cstring;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      <span class="keyword">const</span> __FlashStringHelper* fstring;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    } mString = { <span class="keyword">nullptr</span> };</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    uint8_t mStringType = kCStringType;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;};</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassaunit_1_1internal_1_1FCString_html_ae2e214a9db25ed35ae6f448cf133ed1e"><div class="ttname"><a href="classaunit_1_1internal_1_1FCString.html#ae2e214a9db25ed35ae6f448cf133ed1e">aunit::internal::FCString::println</a></div><div class="ttdeci">void println(Print *printer) const</div><div class="ttdoc">Convenience method for printing an FCString.</div><div class="ttdef"><b>Definition:</b> <a href="FCString_8cpp_source.html#l00042">FCString.cpp:42</a></div></div>
 <div class="ttc" id="aclassaunit_1_1internal_1_1FCString_html_ad8f72e4b0a05e4d8d02dc4ed01ec52be"><div class="ttname"><a href="classaunit_1_1internal_1_1FCString.html#ad8f72e4b0a05e4d8d02dc4ed01ec52be">aunit::internal::FCString::FCString</a></div><div class="ttdeci">FCString(const char *s)</div><div class="ttdoc">Construct with a c-string.</div><div class="ttdef"><b>Definition:</b> <a href="FCString_8h_source.html#l00067">FCString.h:67</a></div></div>
@@ -164,6 +166,7 @@ $(function() {
 <div class="ttc" id="aclassaunit_1_1internal_1_1FCString_html_a132e8e97f81750c71faee4e49866e269"><div class="ttname"><a href="classaunit_1_1internal_1_1FCString.html#a132e8e97f81750c71faee4e49866e269">aunit::internal::FCString::FCString</a></div><div class="ttdeci">FCString(const __FlashStringHelper *s)</div><div class="ttdoc">Construct with a flash string.</div><div class="ttdef"><b>Definition:</b> <a href="FCString_8h_source.html#l00073">FCString.h:73</a></div></div>
 <div class="ttc" id="aclassaunit_1_1internal_1_1FCString_html_a0457d023c5ff82acac292bd3962189d2"><div class="ttname"><a href="classaunit_1_1internal_1_1FCString.html#a0457d023c5ff82acac292bd3962189d2">aunit::internal::FCString::FCString</a></div><div class="ttdeci">FCString()</div><div class="ttdoc">Default constructor initializes to a nullptr of kCStringType.</div><div class="ttdef"><b>Definition:</b> <a href="FCString_8h_source.html#l00064">FCString.h:64</a></div></div>
 <div class="ttc" id="aclassaunit_1_1internal_1_1FCString_html_a18d41c990f2843ac1f922d4ca5c65399"><div class="ttname"><a href="classaunit_1_1internal_1_1FCString.html#a18d41c990f2843ac1f922d4ca5c65399">aunit::internal::FCString::getType</a></div><div class="ttdeci">uint8_t getType() const</div><div class="ttdoc">Get the internal type of string.</div><div class="ttdef"><b>Definition:</b> <a href="FCString_8h_source.html#l00079">FCString.h:79</a></div></div>
+<div class="ttc" id="aclassaunit_1_1internal_1_1FCString_html_a1edb001f5735b990779dbac22a2e4d52"><div class="ttname"><a href="classaunit_1_1internal_1_1FCString.html#a1edb001f5735b990779dbac22a2e4d52">aunit::internal::FCString::hasSubstring</a></div><div class="ttdeci">bool hasSubstring(const char *substring) const</div><div class="ttdoc">Determine if given substring exists.</div><div class="ttdef"><b>Definition:</b> <a href="FCString_8cpp_source.html#l00087">FCString.cpp:87</a></div></div>
 <div class="ttc" id="aclassaunit_1_1internal_1_1FCString_html_ac4a029df196558927f210314c2e28944"><div class="ttname"><a href="classaunit_1_1internal_1_1FCString.html#ac4a029df196558927f210314c2e28944">aunit::internal::FCString::print</a></div><div class="ttdeci">void print(Print *printer) const</div><div class="ttdoc">Convenience method for printing an FCString.</div><div class="ttdef"><b>Definition:</b> <a href="FCString_8cpp_source.html#l00032">FCString.cpp:32</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

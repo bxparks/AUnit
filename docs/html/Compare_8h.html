@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.5.5</span>
+   &#160;<span id="projectnumber">1.6.0</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -173,6 +173,33 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::compa
 int&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::compareStringN</b> (const __FlashStringHelper *a, const __FlashStringHelper *b, size_t n)</td></tr>
 <tr class="memdesc:a599b93f41247328a86ac8b4a1db7d2a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare only the first n characters of 'a' or 'b'. <br /></td></tr>
 <tr class="separator:a599b93f41247328a86ac8b4a1db7d2a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac909c6e554324309a4bb8f91b2f3a0ea"><td class="memItemLeft" align="right" valign="top"><a id="ac909c6e554324309a4bb8f91b2f3a0ea"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::compareSubstring</b> (const char *haystack, const char *needle)</td></tr>
+<tr class="separator:ac909c6e554324309a4bb8f91b2f3a0ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4c6be0c7d355316761129750ccaaa09"><td class="memItemLeft" align="right" valign="top"><a id="af4c6be0c7d355316761129750ccaaa09"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::compareSubstring</b> (const char *haystack, const String &amp;needle)</td></tr>
+<tr class="separator:af4c6be0c7d355316761129750ccaaa09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af85237f7fe6f8228be46d646ab127a51"><td class="memItemLeft" align="right" valign="top"><a id="af85237f7fe6f8228be46d646ab127a51"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::compareSubstring</b> (const char *haystack, const __FlashStringHelper *needle)</td></tr>
+<tr class="separator:af85237f7fe6f8228be46d646ab127a51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e2ba20a0ae8e4bf87ab56c99d1504b4"><td class="memItemLeft" align="right" valign="top"><a id="a5e2ba20a0ae8e4bf87ab56c99d1504b4"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::compareSubstring</b> (const String &amp;haystack, const char *needle)</td></tr>
+<tr class="separator:a5e2ba20a0ae8e4bf87ab56c99d1504b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5854b0b7288de981cf7b5e29f4612bf"><td class="memItemLeft" align="right" valign="top"><a id="af5854b0b7288de981cf7b5e29f4612bf"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::compareSubstring</b> (const String &amp;haystack, const String &amp;needle)</td></tr>
+<tr class="separator:af5854b0b7288de981cf7b5e29f4612bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01abb2c9f306423a30f0db200fc59a36"><td class="memItemLeft" align="right" valign="top"><a id="a01abb2c9f306423a30f0db200fc59a36"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::compareSubstring</b> (const String &amp;haystack, const __FlashStringHelper *needle)</td></tr>
+<tr class="separator:a01abb2c9f306423a30f0db200fc59a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c9b2d0b34ff4bb96c38f36e2726bdbe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::compareSubstring</b> (const __FlashStringHelper *haystack, const char *needle)</td></tr>
+<tr class="memdesc:a1c9b2d0b34ff4bb96c38f36e2726bdbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">An inefficient O(M*N) implementation of strstr() for PROGMEM strings.  <a href="Compare_8cpp.html#a1c9b2d0b34ff4bb96c38f36e2726bdbe">More...</a><br /></td></tr>
+<tr class="separator:a1c9b2d0b34ff4bb96c38f36e2726bdbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19e43096e07b0700df20076656d95232"><td class="memItemLeft" align="right" valign="top"><a id="a19e43096e07b0700df20076656d95232"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::compareSubstring</b> (const __FlashStringHelper *haystack, const String &amp;needle)</td></tr>
+<tr class="separator:a19e43096e07b0700df20076656d95232"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e4d60a234720f71c96b3bc904cf25ff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::compareSubstring</b> (const __FlashStringHelper *haystack, const __FlashStringHelper *needle)</td></tr>
+<tr class="memdesc:a1e4d60a234720f71c96b3bc904cf25ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">An inefficient O(M*N) implementation of strstr() for PROGMEM strings.  <a href="Compare_8cpp.html#a1e4d60a234720f71c96b3bc904cf25ff">More...</a><br /></td></tr>
+<tr class="separator:a1e4d60a234720f71c96b3bc904cf25ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab625beabd33189b4b0cdc6e079d06040"><td class="memItemLeft" align="right" valign="top"><a id="ab625beabd33189b4b0cdc6e079d06040"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::compareEqual</b> (bool a, bool b)</td></tr>
 <tr class="separator:ab625beabd33189b4b0cdc6e079d06040"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -611,7 +638,74 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>aunit::internal::comp
 <p>All versions of compareString() and compareStringN() accept nullptr arguments (in constrast to strcmp() and strncmp() where their behavior for nullptr are undefined by the C standard.) If both arguments are nullptr, then the strings are considered equal (returns 0). Otherwise, the nullptr is arbitrarily defined to be less than all non-null strings, including the empty string. </p>
 
 <p class="definition">Definition in file <a class="el" href="Compare_8h_source.html">Compare.h</a>.</p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a1e4d60a234720f71c96b3bc904cf25ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e4d60a234720f71c96b3bc904cf25ff">&#9670;&nbsp;</a></span>compareSubstring() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool aunit::internal::compareSubstring </td>
+          <td>(</td>
+          <td class="paramtype">const __FlashStringHelper *&#160;</td>
+          <td class="paramname"><em>haystack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const __FlashStringHelper *&#160;</td>
+          <td class="paramname"><em>needle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>An inefficient O(M*N) implementation of strstr() for PROGMEM strings. </p>
+<p>The KMP algorithm <a href="https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm">https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm</a> is faster, but this brute force implementation is probably good enough. </p>
+
+<p class="definition">Definition at line <a class="el" href="Compare_8cpp_source.html#l00374">374</a> of file <a class="el" href="Compare_8cpp_source.html">Compare.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1c9b2d0b34ff4bb96c38f36e2726bdbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c9b2d0b34ff4bb96c38f36e2726bdbe">&#9670;&nbsp;</a></span>compareSubstring() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool aunit::internal::compareSubstring </td>
+          <td>(</td>
+          <td class="paramtype">const __FlashStringHelper *&#160;</td>
+          <td class="paramname"><em>haystack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>needle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>An inefficient O(M*N) implementation of strstr() for PROGMEM strings. </p>
+<p>The KMP algorithm <a href="https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm">https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm</a> is faster, but this brute force implementation is probably good enough. </p>
+
+<p class="definition">Definition at line <a class="el" href="Compare_8cpp_source.html#l00342">342</a> of file <a class="el" href="Compare_8cpp_source.html">Compare.cpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
