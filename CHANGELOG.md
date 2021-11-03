@@ -1,6 +1,7 @@
 # Changelog
 
 * Unreleased
+* 1.6.0 (2021-11-02)
     * Add `TestRunner::includesub(word)` and `TestRunner::excludesub(word)`
       which includes or excludes tests based on the substring match on the
       `word`.
@@ -8,6 +9,10 @@
       `includesub()`.
         * Otherwise, the first include request does not do anything.
     * Add command line flags and arguments when compiled under EpoxyDuino.
+      See [Command Line Flags and
+      Arguments](README.md#CommandLineFlagsAndArguments) in the README.md for
+      full details. Fixes
+      [Issue#76](https://github.com/bxparks/AUnit/issues/76).
         * `--include pattern,...`
             * Calls `TestRunner::include(pattern)` on each `pattern` in the
               comma-separated list.
