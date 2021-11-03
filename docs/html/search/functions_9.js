@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['once_237',['once',['../classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1',1,'aunit::TestOnce']]]
+  ['metaassertion_242',['MetaAssertion',['../classaunit_1_1MetaAssertion.html#aee97b094c31c0a3ce9b07481f8a2d712',1,'aunit::MetaAssertion']]]
 ];

@@ -22,6 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#if EPOXY_DUINO
+#include <stdio.h>
+#endif
 #include <Arduino.h>  // 'Serial' or SERIAL_PORT_MONITOR
 #include <string.h>
 #include <stdint.h>
@@ -50,6 +53,12 @@ void TestRunner::setPrinter(Print* printer) {
 
 void TestRunner::setLifeCycleMatchingPattern(const char* pattern,
     uint8_t lifeCycle) {
+  // Do an implicit excludeAll() if the first filter is an include().
+  if (!hasBeenFiltered && lifeCycle == Test::kLifeCycleNew) {
+    excludeAll();
+  }
+  hasBeenFiltered = true;
+
   size_t length = strlen(pattern);
   if (length > 0 && pattern[length - 1] == '*') {
     // prefix match
@@ -68,6 +77,13 @@ void TestRunner::setLifeCycleMatchingPattern(const char* pattern,
 
 void TestRunner::setLifeCycleMatchingPattern(const char* testClass,
     const char* pattern, uint8_t lifeCycle) {
+
+  // Do an implicit excludeAll() if the first filter is an include().
+  if (!hasBeenFiltered && lifeCycle == Test::kLifeCycleNew) {
+    excludeAll();
+  }
+  hasBeenFiltered = true;
+
   // The effective pattern is the join of testClass and pattern with a '_'
   // delimiter. This must match the algorithm used by testF() and testingF().
   // We use string_join() instead of String so that AUnit can avoid a direct
@@ -79,6 +95,28 @@ void TestRunner::setLifeCycleMatchingPattern(const char* testClass,
   if (!status) return;
 
   setLifeCycleMatchingPattern(fullPattern, lifeCycle);
+}
+
+void TestRunner::setLifeCycleMatchingSubstring(
+    const char* substring, uint8_t lifeCycle) {
+
+  // Do an implicit excludeAll() if the first filter is an include().
+  if (!hasBeenFiltered && lifeCycle == Test::kLifeCycleNew) {
+    excludeAll();
+  }
+  hasBeenFiltered = true;
+
+  for (Test** p = Test::getRoot(); *p != nullptr; p = (*p)->getNext()) {
+    if ((*p)->getName().hasSubstring(substring)) {
+      (*p)->setLifeCycle(lifeCycle);
+    }
+  }
+}
+
+void TestRunner::excludeAll() {
+  for (Test** p = Test::getRoot(); *p != nullptr; p = (*p)->getNext()) {
+    (*p)->setLifeCycle(Test::kLifeCycleExcluded);
+  }
 }
 
 // Count the number of tests in TestRunner instead of Test::insert() to avoid
@@ -144,5 +182,123 @@ void TestRunner::resolveRun() const {
 void TestRunner::setRunnerTimeout(TimeoutType timeout) {
   mTimeout = timeout;
 }
+
+//----------------------------------------------------------------------------
+// Command line argument processing on EpoxyDuino
+//----------------------------------------------------------------------------
+
+#if EPOXY_DUINO
+static void shift(int& argc, const char* const*& argv) {
+  argc--;
+  argv++;
+}
+
+static bool argEquals(const char* s, const char* t) {
+  return strcmp(s, t) == 0;
+}
+
+static void usageAndExit(int status) {
+  fprintf(
+    stderr,
+    "Usage: %s [--help|-h]\n"
+      "   [--include pattern,...] [--exclude pattern,...]\n"
+      "   [--includesub substring,...] [--excludesub substring,...]\n"
+      "   [--] [substring ...]\n",
+    epoxy_argv[0]
+  );
+  exit(status);
+}
+
+void TestRunner::processCommaList(
+    const char* const commaList, FilterType filterType) {
+
+  const int kArgumentSize = 64;
+  const char* list = commaList;
+
+  // Loop for each comma-separate list of words. Call the filtering command
+  // defined by the filterType.
+  char argument[kArgumentSize];
+  while (*list != '\0') {
+    const char* comma = strchr(list, ',');
+    int length = (comma) ? (comma - list) : strlen(list);
+
+    // Copy each word of the comma-separated list.
+    if (length >= kArgumentSize - 1) {
+      length = kArgumentSize - 1;
+    }
+    memcpy(argument, list, length);
+    argument[length] = '\0';
+
+    switch (filterType) {
+      case FilterType::kInclude:
+        include(argument);
+        break;
+      case FilterType::kExclude:
+        exclude(argument);
+        break;
+      case FilterType::kIncludeSub:
+        includesub(argument);
+        break;
+      case FilterType::kExcludeSub:
+        excludesub(argument);
+        break;
+    }
+
+    list += (comma) ? length + 1 : length;
+  }
+}
+
+/**
+ * Parse command line flags.
+ * Returns the index of the first argument after the flags.
+ */
+int TestRunner::parseFlags(int argc, const char* const* argv) {
+  int argc_original = argc;
+  shift(argc, argv);
+  while (argc > 0) {
+    if (argEquals(argv[0], "--include")) {
+      shift(argc, argv);
+      if (argc == 0) usageAndExit(1);
+      processCommaList(argv[0], FilterType::kInclude);
+    } else if (argEquals(argv[0], "--exclude")) {
+      shift(argc, argv);
+      if (argc == 0) usageAndExit(1);
+      processCommaList(argv[0], FilterType::kExclude);
+    } else if (argEquals(argv[0], "--includesub")) {
+      shift(argc, argv);
+      if (argc == 0) usageAndExit(1);
+      processCommaList(argv[0], FilterType::kIncludeSub);
+    } else if (argEquals(argv[0], "--excludesub")) {
+      shift(argc, argv);
+      if (argc == 0) usageAndExit(1);
+      processCommaList(argv[0], FilterType::kExcludeSub);
+    } else if (argEquals(argv[0], "--")) {
+      shift(argc, argv);
+      break;
+    } else if (argEquals(argv[0], "--help") || argEquals(argv[0], "-h")) {
+      usageAndExit(0);
+      break;
+    } else if (argv[0][0] == '-') {
+      fprintf(stderr, "Unknonwn flag '%s'\n", argv[0]);
+      usageAndExit(1);
+    } else {
+      break;
+    }
+    shift(argc, argv);
+  }
+
+  return argc_original - argc;
+}
+
+void TestRunner::processCommandLine() {
+  int args = parseFlags(epoxy_argc, epoxy_argv);
+
+  // Process any remaining *space*-separated arguments using includesub().
+  for (int i = args; i < epoxy_argc; i++) {
+    includesub(epoxy_argv[i]);
+  }
+}
+
+#endif
 
 }

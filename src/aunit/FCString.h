@@ -107,6 +107,9 @@ class FCString {
      */
     int compareToN(const __FlashStringHelper* that, size_t n) const;
 
+    /** Determine if given substring exists. */
+    bool hasSubstring(const char* substring) const;
+
   private:
     // NOTE: It might be possible just use a (void *) instead of a union.
     union {

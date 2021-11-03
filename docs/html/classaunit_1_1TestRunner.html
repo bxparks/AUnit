@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.5.5</span>
+   &#160;<span id="projectnumber">1.6.0</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -108,6 +108,14 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:a8aca88d9605b34e07cca54c6ab99d6b1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#a8aca88d9605b34e07cca54c6ab99d6b1">include</a> (const char *testClass, const char *pattern)</td></tr>
 <tr class="memdesc:a8aca88d9605b34e07cca54c6ab99d6b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include the tests which match the pattern given by (testClass + "_" + pattern), the same concatenation rule used by the <a class="el" href="TestMacros_8h.html#a4f2798c22904efe9442ce65eb6932a9c" title="Create a test that is derived from a custom TestOnce class.">testF()</a> macro.  <a href="classaunit_1_1TestRunner.html#a8aca88d9605b34e07cca54c6ab99d6b1">More...</a><br /></td></tr>
 <tr class="separator:a8aca88d9605b34e07cca54c6ab99d6b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad523d1f3b0adc305b0646ca60e8e00d7"><td class="memItemLeft" align="right" valign="top"><a id="ad523d1f3b0adc305b0646ca60e8e00d7"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#ad523d1f3b0adc305b0646ca60e8e00d7">excludesub</a> (const char *substring)</td></tr>
+<tr class="memdesc:ad523d1f3b0adc305b0646ca60e8e00d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exclude the tests which match the substring. <br /></td></tr>
+<tr class="separator:ad523d1f3b0adc305b0646ca60e8e00d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cdd5a9cbca8da3b42d239c6264571d9"><td class="memItemLeft" align="right" valign="top"><a id="a8cdd5a9cbca8da3b42d239c6264571d9"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#a8cdd5a9cbca8da3b42d239c6264571d9">includesub</a> (const char *substring)</td></tr>
+<tr class="memdesc:a8cdd5a9cbca8da3b42d239c6264571d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include the tests which match the substring. <br /></td></tr>
+<tr class="separator:a8cdd5a9cbca8da3b42d239c6264571d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70bcaa3a7c0c2a11266ba2c758f4cfc3"><td class="memItemLeft" align="right" valign="top"><a id="a70bcaa3a7c0c2a11266ba2c758f4cfc3"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaunit_1_1TestRunner.html#a70bcaa3a7c0c2a11266ba2c758f4cfc3">setVerbosity</a> (uint8_t verbosity)</td></tr>
 <tr class="memdesc:a70bcaa3a7c0c2a11266ba2c758f4cfc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the verbosity flag. <br /></td></tr>
@@ -351,7 +359,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <p>Set test runner timeout across all tests, in seconds. </p>
 <p>Set to 0 for infinite timeout. Useful for preventing <a class="el" href="TestMacros_8h.html#a1f7b0603fa6951be1f019586eafc6e6b" title="Macro to define a test that will run repeatly upon each iteration of the global loop() method,...">testing()</a> test cases that never end. This is a timeout for the <a class="el" href="classaunit_1_1TestRunner.html" title="The class that runs the various test cases defined by the test() and testing() macros.">TestRunner</a> itself, not for individual tests. Upper limit is 65535 seconds (just over 18 hours). </p>
 
-<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00124">124</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestRunner_8h_source.html#l00136">136</a> of file <a class="el" href="TestRunner_8h_source.html">TestRunner.h</a>.</p>
 
 </div>
 </div>

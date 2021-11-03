@@ -1,6 +1,33 @@
 # Changelog
 
 * Unreleased
+* 1.6.0 (2021-11-02)
+    * Add `TestRunner::includesub(word)` and `TestRunner::excludesub(word)`
+      which includes or excludes tests based on the substring match on the
+      `word`.
+    * Call `excludeAll()` if the first filtering request is an `include()` or
+      `includesub()`.
+        * Otherwise, the first include request does not do anything.
+    * Add command line flags and arguments when compiled under EpoxyDuino.
+      See [Command Line Flags and
+      Arguments](README.md#CommandLineFlagsAndArguments) in the README.md for
+      full details. Fixes
+      [Issue#76](https://github.com/bxparks/AUnit/issues/76).
+        * `--include pattern,...`
+            * Calls `TestRunner::include(pattern)` on each `pattern` in the
+              comma-separated list.
+        * `--exclude pattern,...`
+            * Calls `TestRunner::exclude(pattern)` on each `pattern` in the
+              comma-separated list.
+        * `--includesub substring,...`
+            * Calls `TestRunner::includesub(substring)` on each `substring` in
+              the comma-separated list.
+        * `--excludesub substring,...`
+            * Calls `TestRunner::excludesub(substring)` on each `substring` in
+              the comma-separated list.
+        * `substring ...`
+            * Any remaining **space**-separated list of words are processed
+              using `TestRunner::includesub(substring)`.
 * 1.5.5 (2021-05-03)
     * Prevent accidental inclusion of `HardwareSerial` class (via the `Serial`
       global variable). Remove reference to `SERIAL_PORT_MONITOR` from
