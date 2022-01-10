@@ -422,6 +422,7 @@ test(voidPointer) {
 test(nullPointer) {
   const int aa[] = {1, 2};
   const long bb[] = {1, 2};
+  // const char cc[] = "ab";
   const int* dd = nullptr;
 
   assertFalse(compareEqual(aa, nullptr));
