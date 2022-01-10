@@ -140,6 +140,10 @@ AUnit also supports exclude and include filters:
 * `TestRunner::exclude()`
 * `TestRunner::include()`
 
+Filters can be accessed through
+[Command Line Flags](##CommandLineFlagsAndArguments) on desktop machines using
+EpoxyDuino
+
 The various assertion and test status messages can be enabled or disabled using
 the `Verbosity` flags on per test basis:
 * `enableVerbosity()`
@@ -259,17 +263,21 @@ In the `tests/` directory:
 * `SetupAndTeardownTest` - tests to verify that `setup()` and `teardown()` are
   called properly by the finite state machine
 
-Perhaps the best way to see AUnit in action through real life examples. I
-currently have 3 Arduino project using AUnit extensively
-(look under the `tests/` directory in each project).
+Perhaps the best way to see AUnit in action through real life examples. All my
+libraries use AUnit for testing and for continuous integration through
+EpoxyDuino. Here are some examples:
 
 * [AceButton](https://github.com/bxparks/AceButton)
-    * Originally created using ArduinoUnit 2.2, and I have kept those tests
-      backwards compatible. They do not use the new features of AUnit.
+    * My first Arduino library, which originally used ArduinoUnit 2.2.
+    * I kept many of the original ArduinoUnit tests for backwards compatibility
+      testing. But over time, I started to use nore AUnit features.
+* [AceCRC](https://github.com/bxparks/AceCRC)
+* [AceCommon](https://github.com/bxparks/AceCommon)
 * [AceRoutine](https://github.com/bxparks/AceRoutine)
-    * Demonstrates the full power of AUnit better.
+* [AceSegment](https://github.com/bxparks/AceSegment)
+* [AceSorting](https://github.com/bxparks/AceSorting)
+* [AceTimeClock](https://github.com/bxparks/AceTimeClock)
 * [AceTime](https://github.com/bxparks/AceTime)
-    * Demonstrates the full power of AUnit better.
 
 <a name="Usage"></a>
 ## Usage
