@@ -53,23 +53,21 @@ SOFTWARE.
 
 #define TEST(category, name) test(category##_##name)
 
-#define ASSERT_EQ(e, a) assertEqual(static_cast<decltype(a)>(e), a)
-#define ASSERT_NE(e, a) assertNotEqual(static_cast<decltype(a)>(e), a)
-#define ASSERT_LT(e, a) assertLess(static_cast<decltype(a)>(e), a)
-#define ASSERT_GT(e, a) assertMore(static_cast<decltype(a)>(e), a)
-#define ASSERT_LE(e, a) assertLessOrEqual(static_cast<decltype(a)>(e), a)
-#define ASSERT_GE(e, a) assertMoreOrEqual(static_cast<decltype(a)>(e), a)
+#define ASSERT_EQ(e, a) assertEqual(e, a)
+#define ASSERT_NE(e, a) assertNotEqual(e, a)
+#define ASSERT_LT(e, a) assertLess(e, a)
+#define ASSERT_GT(e, a) assertMore(e, a)
+#define ASSERT_LE(e, a) assertLessOrEqual(e, a)
+#define ASSERT_GE(e, a) assertMoreOrEqual(e, a)
 
-#define ASSERT_STREQ(e, a) assertEqual(static_cast<decltype(a)>(e), a)
-#define ASSERT_STRNE(e, a) assertNotEqual(static_cast<decltype(a)>(e), a)
-#define ASSERT_STRCASEEQ(e, a) \
-    assertStringCaseEqual(static_cast<decltype(a)>(e), a)
-#define ASSERT_STRCASENE(e, a) \
-    assertStringCaseNotEqual(static_cast<decltype(a)>(e), a)
+#define ASSERT_STREQ(e, a) assertEqual(e, a)
+#define ASSERT_STRNE(e, a) assertNotEqual(e, a)
+#define ASSERT_STRCASEEQ(e, a) assertStringCaseEqual(e, a)
+#define ASSERT_STRCASENE(e, a) assertStringCaseNotEqual(e, a)
 
 #define ASSERT_TRUE(x) assertTrue(x)
 #define ASSERT_FALSE(x) assertFalse(x)
 
-#define ASSERT_NEAR(e, a, error) assertNear(static_cast<decltype(a)>(e), a, static_cast<decltype(a)>(error))
+#define ASSERT_NEAR(e, a, error) assertNear(e, a, error)
 
 #endif
