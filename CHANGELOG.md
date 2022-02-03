@@ -1,6 +1,18 @@
 # Changelog
 
 * Unreleased
+* 1.6.1 (2022-02-02)
+    * Upgrade tool chain and regenerate `MemoryBenchmark` and `AutoBenchmark`.
+        * Arduino IDE from 1.8.13 to 1.8.19
+        * Arduino CLI from 0.14.0 to 0.19.2
+        * Arduino AVR Core from 1.8.3 to 1.8.4
+        * STM32duino from 2.0.0 to 2.2.0
+        * ESP8266 Core from 2.7.4 to 3.0.2
+        * ESP32 Core from 1.0.6 to 2.0.2
+        * Teensyduino from 1.54 to 1.56
+    * Downgrade SAMD21 boards into new "Tier 3: May work but unsupported"
+      category.
+    * This is a maintenance release. No functional change.
 * 1.6.0 (2021-11-02)
     * Add `TestRunner::includesub(word)` and `TestRunner::excludesub(word)`
       which includes or excludes tests based on the substring match on the

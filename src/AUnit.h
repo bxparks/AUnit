@@ -45,14 +45,8 @@ SOFTWARE.
 #ifndef AUNIT_AUNIT_H
 #define AUNIT_AUNIT_H
 
-// Blacklist boards using new Arduino API due to incompatibilities. This
-// currently includes all megaAVR boards and SAMD21 boards using arduino::samd
-// >= 1.8.10. Boards using arduino:samd <= 1.8.9 or SparkFun:samd are fine.
-#if defined(ARDUINO_ARCH_MEGAAVR)
-#error MegaAVR not supported, https://github.com/bxparks/AUnit/issues/56
-#elif defined(ARDUINO_ARCH_SAMD) && defined(ARDUINO_API_VERSION)
-#error SAMD21 with arduino:samd >= 1.8.10 not supported, https://github.com/bxparks/AUnit/issues/66
-#elif defined(ARDUINO_API_VERSION)
+// Blacklist boards using new Arduino API due to incompatibilities.
+#if defined(ARDUINO_API_VERSION)
 #error Platforms using ArduinoCore-API not supported
 #endif
 
@@ -71,7 +65,7 @@ SOFTWARE.
 #include "aunit/TestMacros.h"
 
 // Version format: xxyyzz == "xx.yy.zz"
-#define AUNIT_VERSION 10600
-#define AUNIT_VERSION_STRING "1.6.0"
+#define AUNIT_VERSION 10601
+#define AUNIT_VERSION_STRING "1.6.1"
 
 #endif
