@@ -2,7 +2,7 @@
 
 * Unreleased
 * 1.6.1 (2022-02-02)
-    * Upgrade tool chain and regenerate `MemoryBenchmark` and `AutoBenchmark`.
+    * Upgrade tool chain.
         * Arduino IDE from 1.8.13 to 1.8.19
         * Arduino CLI from 0.14.0 to 0.19.2
         * Arduino AVR Core from 1.8.3 to 1.8.4
