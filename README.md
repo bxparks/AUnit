@@ -20,7 +20,7 @@ instead of having to go through the Arduino IDE. Both the AUniter and
 EpoxyDuino tools can be used in a continuous integration system like Jenkins,
 or with [GitHub Actions](https://github.com/features/actions).
 
-**Version**: 1.6 (2021-11-02)
+**Version**: 1.6.1 (2022-02-02)
 
 **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
@@ -139,6 +139,10 @@ Most of the core macros are compatible between ArduinoUnit and AUnit:
 AUnit also supports exclude and include filters:
 * `TestRunner::exclude()`
 * `TestRunner::include()`
+
+Filters can be accessed through
+[Command Line Flags](##CommandLineFlagsAndArguments) on desktop machines using
+EpoxyDuino
 
 The various assertion and test status messages can be enabled or disabled using
 the `Verbosity` flags on per test basis:
@@ -259,17 +263,21 @@ In the `tests/` directory:
 * `SetupAndTeardownTest` - tests to verify that `setup()` and `teardown()` are
   called properly by the finite state machine
 
-Perhaps the best way to see AUnit in action through real life examples. I
-currently have 3 Arduino project using AUnit extensively
-(look under the `tests/` directory in each project).
+Perhaps the best way to see AUnit in action through real life examples. All my
+libraries use AUnit for testing and for continuous integration through
+EpoxyDuino. Here are some examples:
 
 * [AceButton](https://github.com/bxparks/AceButton)
-    * Originally created using ArduinoUnit 2.2, and I have kept those tests
-      backwards compatible. They do not use the new features of AUnit.
+    * My first Arduino library, which originally used ArduinoUnit 2.2.
+    * I kept many of the original ArduinoUnit tests for backwards compatibility
+      testing. But over time, I started to use nore AUnit features.
+* [AceCRC](https://github.com/bxparks/AceCRC)
+* [AceCommon](https://github.com/bxparks/AceCommon)
 * [AceRoutine](https://github.com/bxparks/AceRoutine)
-    * Demonstrates the full power of AUnit better.
+* [AceSegment](https://github.com/bxparks/AceSegment)
+* [AceSorting](https://github.com/bxparks/AceSorting)
+* [AceTimeClock](https://github.com/bxparks/AceTimeClock)
 * [AceTime](https://github.com/bxparks/AceTime)
-    * Demonstrates the full power of AUnit better.
 
 <a name="Usage"></a>
 ## Usage
@@ -1898,6 +1906,7 @@ The library is tested on the following boards:
 
 I will occasionally test on the following hardware as a sanity check:
 
+* Arduino Pro Mini (16 MHz ATmega328P)
 * Mini Mega 2560 (Arduino Mega 2560 compatible, 16 MHz ATmega2560)
 * Teensy LC (48 MHz ARM Cortex-M0+)
 
@@ -1917,16 +1926,17 @@ The following boards are **not** supported:
 ### Tool Chain
 
 This library was validated using:
-* [Arduino IDE 1.8.13](https://www.arduino.cc/en/Main/Software)
-* [Arduino CLI 0.14.0](https://arduino.github.io/arduino-cli)
-* [Arduino AVR Boards 1.8.3](https://github.com/arduino/ArduinoCore-avr)
+
+* [Arduino IDE 1.8.19](https://www.arduino.cc/en/Main/Software)
+* [Arduino CLI 0.19.2](https://arduino.github.io/arduino-cli)
+* [Arduino AVR Boards 1.8.4](https://github.com/arduino/ArduinoCore-avr)
 * [Arduino SAMD Boards 1.8.9](https://github.com/arduino/ArduinoCore-samd)
 * [SparkFun AVR Boards 1.1.13](https://github.com/sparkfun/Arduino_Boards)
-* [SparkFun SAMD Boards 1.8.1](https://github.com/sparkfun/Arduino_Boards)
-* [STM32duino 2.0.0](https://github.com/stm32duino/Arduino_Core_STM32)
-* [ESP8266 Arduino 2.7.4](https://github.com/esp8266/Arduino)
-* [ESP32 Arduino 1.0.6](https://github.com/espressif/arduino-esp32)
-* [Teensyduino 1.54](https://www.pjrc.com/teensy/td_download.html)
+* [SparkFun SAMD Boards 1.8.6](https://github.com/sparkfun/Arduino_Boards)
+* [STM32duino 2.2.0](https://github.com/stm32duino/Arduino_Core_STM32)
+* [ESP8266 Arduino 3.0.2](https://github.com/esp8266/Arduino)
+* [ESP32 Arduino 2.0.2](https://github.com/espressif/arduino-esp32)
+* [Teensyduino 1.56](https://www.pjrc.com/teensy/td_download.html)
 
 This library is *not* compatible with:
 
@@ -1941,6 +1951,9 @@ and [Issue #66](https://github.com/bxparks/AUnit/issues/66)).
 
 It should work with [PlatformIO](https://platformio.org/) but I have
 not tested it extensively.
+
+The library works under Linux or MacOS (using both g++ and clang++ compilers)
+using the EpoxyDuino (https://github.com/bxparks/EpoxyDuino) emulation layer.
 
 <a name="OperatingSystem"></a>
 ### Operating System
