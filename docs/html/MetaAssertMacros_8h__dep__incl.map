@@ -1,5 +1,5 @@
 <map id="/home/brian/src/AUnit/src/aunit/MetaAssertMacros.h" name="/home/brian/src/AUnit/src/aunit/MetaAssertMacros.h">
-<area shape="rect" id="node1" title=" " alt="" coords="71,5,289,47"/>
-<area shape="rect" id="node2" href="$AUnit_8h.html" title=" " alt="" coords="5,95,168,136"/>
-<area shape="rect" id="node3" href="$AUnitVerbose_8h.html" title=" " alt="" coords="192,95,355,136"/>
+<area shape="rect" id="node1" title="Various assertTestXxx(), checkTestXxx(), assertTestXxxF() and checkTestXxxF() macros are defined in t..." alt="" coords="71,5,289,47"/>
+<area shape="rect" id="node2" href="$AUnit_8h.html" title="Same as AUnitVerbose.h except that the terse versions of the various assertXxx() macros are provided." alt="" coords="5,95,168,136"/>
+<area shape="rect" id="node3" href="$AUnitVerbose_8h.html" title="Same as AUnit.h except that the verbose versions of the various assertXxx() macros are provided." alt="" coords="192,95,355,136"/>
 </map>

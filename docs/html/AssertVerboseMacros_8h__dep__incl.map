@@ -1,4 +1,4 @@
 <map id="/home/brian/src/AUnit/src/aunit/AssertVerboseMacros.h" name="/home/brian/src/AUnit/src/aunit/AssertVerboseMacros.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,244,47"/>
-<area shape="rect" id="node2" href="$AUnitVerbose_8h.html" title=" " alt="" coords="43,95,206,136"/>
+<area shape="rect" id="node1" title="Verbose versions of the macros in AssertMacros.h." alt="" coords="5,5,244,47"/>
+<area shape="rect" id="node2" href="$AUnitVerbose_8h.html" title="Same as AUnit.h except that the verbose versions of the various assertXxx() macros are provided." alt="" coords="43,95,206,136"/>
 </map>

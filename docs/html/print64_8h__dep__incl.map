@@ -1,7 +1,7 @@
 <map id="/home/brian/src/AUnit/src/aunit/print64.h" name="/home/brian/src/AUnit/src/aunit/print64.h">
-<area shape="rect" id="node1" title=" " alt="" coords="298,5,461,47"/>
+<area shape="rect" id="node1" title="Helper routines to print &#39;long long&#39; and &#39;unsigned long long&#39; because the Print::print() methods in P..." alt="" coords="298,5,461,47"/>
 <area shape="rect" id="node2" href="$Assertion_8cpp_source.html" title=" " alt="" coords="5,95,180,136"/>
 <area shape="rect" id="node3" href="$print64_8cpp_source.html" title=" " alt="" coords="205,95,367,136"/>
-<area shape="rect" id="node4" href="$AUnit_8h.html" title=" " alt="" coords="391,95,554,136"/>
-<area shape="rect" id="node5" href="$AUnitVerbose_8h.html" title=" " alt="" coords="578,95,741,136"/>
+<area shape="rect" id="node4" href="$AUnit_8h.html" title="Same as AUnitVerbose.h except that the terse versions of the various assertXxx() macros are provided." alt="" coords="391,95,554,136"/>
+<area shape="rect" id="node5" href="$AUnitVerbose_8h.html" title="Same as AUnit.h except that the verbose versions of the various assertXxx() macros are provided." alt="" coords="578,95,741,136"/>
 </map>
