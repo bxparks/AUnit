@@ -55,16 +55,15 @@ void printAssertionTestStatusMessage(
   // Many of the following strings are duplicated in Assertion.cpp and
   // the compiler/linker will dedupe them.
   Print* printer = Printer::getPrinter();
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(F(": Test "));
   printer->print(testName);
   printer->print(" is ");
   printer->print(statusMessage);
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
@@ -83,18 +82,17 @@ bool MetaAssertion::assertionTestStatus(const char* file, uint16_t line,
 namespace {
 
 // Print message for failNow() macro.
-// "Status failed, file xxx, line yyy."
+// "{file}:{line}: Status failed."
 void printStatusNowMessage(const char* file, uint16_t line,
     const __FlashStringHelper* statusString) {
   // Many of these strings are duplicated in Assertion.cpp and will be deduped
   // by the compiler/linker.
   Print* printer = Printer::getPrinter();
-  printer->print(F("Status "));
-  printer->print(statusString);
-  printer->print(", file ");
   printer->print(file);
-  printer->print(", line ");
+  printer->print(':');
   printer->print(line);
+  printer->print(F(": Status "));
+  printer->print(statusString);
   printer->println('.');
 }
 

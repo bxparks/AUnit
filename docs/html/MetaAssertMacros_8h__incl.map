@@ -1,5 +1,5 @@
 <map id="/home/brian/src/AUnit/src/aunit/MetaAssertMacros.h" name="/home/brian/src/AUnit/src/aunit/MetaAssertMacros.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,224,47"/>
-<area shape="rect" id="node2" href="$Flash_8h.html" title=" " alt="" coords="80,95,149,121"/>
+<area shape="rect" id="node1" title="Various assertTestXxx(), checkTestXxx(), assertTestXxxF() and checkTestXxxF() macros are defined in t..." alt="" coords="5,5,224,47"/>
+<area shape="rect" id="node2" href="$Flash_8h.html" title="Various macros to smooth over the differences among the various platforms with regards to their suppo..." alt="" coords="80,95,149,121"/>
 <area shape="rect" id="node3" title=" " alt="" coords="51,169,178,196"/>
 </map>

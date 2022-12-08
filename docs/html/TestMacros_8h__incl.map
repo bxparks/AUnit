@@ -1,8 +1,8 @@
 <map id="/home/brian/src/AUnit/src/aunit/TestMacros.h" name="/home/brian/src/AUnit/src/aunit/TestMacros.h">
-<area shape="rect" id="node1" title=" " alt="" coords="339,5,509,47"/>
+<area shape="rect" id="node1" title="Various macros (test(), testF(), testing(), testingF(), externTest(), externTestF(),..." alt="" coords="339,5,509,47"/>
 <area shape="rect" id="node2" title=" " alt="" coords="71,468,142,495"/>
 <area shape="rect" id="node3" title=" " alt="" coords="567,95,651,121"/>
-<area shape="rect" id="node4" href="$Flash_8h.html" title=" " alt="" coords="516,319,585,345"/>
+<area shape="rect" id="node4" href="$Flash_8h.html" title="Various macros to smooth over the differences among the various platforms with regards to their suppo..." alt="" coords="516,319,585,345"/>
 <area shape="rect" id="node6" href="$FCString_8h_source.html" title=" " alt="" coords="343,393,433,420"/>
 <area shape="rect" id="node8" href="$TestOnce_8h_source.html" title=" " alt="" coords="301,95,395,121"/>
 <area shape="rect" id="node14" href="$TestAgain_8h_source.html" title=" " alt="" coords="143,95,241,121"/>

@@ -1,16 +1,16 @@
 <map id="/home/brian/src/AUnit/src/aunit/Flash.h" name="/home/brian/src/AUnit/src/aunit/Flash.h">
-<area shape="rect" id="node1" title=" " alt="" coords="667,5,830,47"/>
+<area shape="rect" id="node1" title="Various macros to smooth over the differences among the various platforms with regards to their suppo..." alt="" coords="667,5,830,47"/>
 <area shape="rect" id="node2" href="$Assertion_8cpp_source.html" title=" " alt="" coords="147,184,321,225"/>
 <area shape="rect" id="node3" href="$Assertion_8h_source.html" title=" " alt="" coords="461,95,623,136"/>
 <area shape="rect" id="node5" href="$MetaAssertion_8cpp_source.html" title=" " alt="" coords="5,273,212,315"/>
-<area shape="rect" id="node8" href="$TestMacros_8h.html" title=" " alt="" coords="637,363,807,404"/>
+<area shape="rect" id="node8" href="$TestMacros_8h.html" title="Various macros (test(), testF(), testing(), testingF(), externTest(), externTestF(),..." alt="" coords="637,363,807,404"/>
 <area shape="rect" id="node13" href="$Compare_8cpp_source.html" title=" " alt="" coords="1024,95,1196,136"/>
-<area shape="rect" id="node14" href="$MetaAssertMacros_8h.html" title=" " alt="" coords="1183,363,1402,404"/>
+<area shape="rect" id="node14" href="$MetaAssertMacros_8h.html" title="Various assertTestXxx(), checkTestXxx(), assertTestXxxF() and checkTestXxxF() macros are defined in t..." alt="" coords="1183,363,1402,404"/>
 <area shape="rect" id="node15" href="$Printer_8cpp_source.html" title=" " alt="" coords="1221,95,1383,136"/>
 <area shape="rect" id="node16" href="$Test_8cpp_source.html" title=" " alt="" coords="1407,95,1570,136"/>
 <area shape="rect" id="node4" href="$MetaAssertion_8h_source.html" title=" " alt="" coords="446,184,638,225"/>
-<area shape="rect" id="node9" href="$AUnit_8h.html" title=" " alt="" coords="1039,452,1202,493"/>
-<area shape="rect" id="node10" href="$AUnitVerbose_8h.html" title=" " alt="" coords="455,452,618,493"/>
+<area shape="rect" id="node9" href="$AUnit_8h.html" title="Same as AUnitVerbose.h except that the terse versions of the various assertXxx() macros are provided." alt="" coords="1039,452,1202,493"/>
+<area shape="rect" id="node10" href="$AUnitVerbose_8h.html" title="Same as AUnit.h except that the verbose versions of the various assertXxx() macros are provided." alt="" coords="455,452,618,493"/>
 <area shape="rect" id="node6" href="$TestAgain_8h_source.html" title=" " alt="" coords="763,273,926,315"/>
 <area shape="rect" id="node11" href="$TestOnce_8h_source.html" title=" " alt="" coords="461,273,623,315"/>
 <area shape="rect" id="node7" href="$TestAgain_8cpp_source.html" title=" " alt="" coords="882,363,1058,404"/>

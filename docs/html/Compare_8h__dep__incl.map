@@ -1,10 +1,10 @@
 <map id="/home/brian/src/AUnit/src/aunit/Compare.h" name="/home/brian/src/AUnit/src/aunit/Compare.h">
-<area shape="rect" id="node1" title=" " alt="" coords="626,5,789,47"/>
+<area shape="rect" id="node1" title="This file provides overloaded compareXxx(a, b) functions which are used by the various assertXxx(a,..." alt="" coords="626,5,789,47"/>
 <area shape="rect" id="node2" href="$Compare_8cpp_source.html" title=" " alt="" coords="5,95,177,136"/>
 <area shape="rect" id="node3" href="$FCString_8cpp_source.html" title=" " alt="" coords="202,95,370,136"/>
 <area shape="rect" id="node4" href="$MetaAssertion_8cpp_source.html" title=" " alt="" coords="395,95,601,136"/>
 <area shape="rect" id="node5" href="$Test_8cpp_source.html" title=" " alt="" coords="626,95,789,136"/>
 <area shape="rect" id="node6" href="$TestRunner_8cpp_source.html" title=" " alt="" coords="813,95,997,136"/>
-<area shape="rect" id="node7" href="$AUnit_8h.html" title=" " alt="" coords="1021,95,1183,136"/>
-<area shape="rect" id="node8" href="$AUnitVerbose_8h.html" title=" " alt="" coords="1207,95,1370,136"/>
+<area shape="rect" id="node7" href="$AUnit_8h.html" title="Same as AUnitVerbose.h except that the terse versions of the various assertXxx() macros are provided." alt="" coords="1021,95,1183,136"/>
+<area shape="rect" id="node8" href="$AUnitVerbose_8h.html" title="Same as AUnit.h except that the verbose versions of the various assertXxx() macros are provided." alt="" coords="1207,95,1370,136"/>
 </map>
