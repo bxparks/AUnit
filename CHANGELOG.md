@@ -1,6 +1,15 @@
 # Changelog
 
 * Unreleased
+    * **Potentially Breaking** Change format of assertion failure message from:
+        * "Assertion failed: (expected=3) == (counter=4), file AUnitTest.ino,
+          line 134.", to
+        * "AUnitTest.ino:134: Assertion failed: (expected=3) == (counter=4)."
+        * This format is compatible with various Linux/MacOS/Unix command line
+          tools, in particular, the `vim` editor.
+        * When used with EpoxyDuino, this message format allows the `vim` editor
+          to jump directly to the file and line where the assertion failure
+          occurred.
 * 1.6.1 (2022-02-02)
     * Upgrade tool chain.
         * Arduino IDE from 1.8.13 to 1.8.19

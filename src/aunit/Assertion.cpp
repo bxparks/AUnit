@@ -43,8 +43,8 @@ namespace internal {
 // overloaded for the various types that we want to support.
 //
 // Prints something like the following:
-// Assertion failed: (5) == (6), file Test.ino, line 820.
-// Assertion passed: (6) == (6), file Test.ino, line 820.
+// Test.ino:820: Assertion failed: (5) == (6).
+// Test.ino:820: Assertion passed: (6) == (6).
 template <typename A, typename B>
 void printAssertionMessage(
     Print* printer,
@@ -62,7 +62,10 @@ void printAssertionMessage(
   // https://github.com/mmurdoch/arduinounit/issues/70
   // for more info. Normal (const char*) strings will be deduped by the
   // compiler/linker.
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
   printer->print(lhs);
@@ -71,11 +74,6 @@ void printAssertionMessage(
   printer->print(" (");
   printer->print(rhs);
   printer->print(')');
-  // reuse string in MataAssertion::printAssertionTestStatusMessage()
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
@@ -93,7 +91,10 @@ void printAssertionMessage(
 ) {
 
   // Don't use F() strings here. Same reason as above.
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
   printer->print(lhs ? "true" : "false");
@@ -102,10 +103,6 @@ void printAssertionMessage(
   printer->print(" (");
   printer->print(rhs ? "true" : "false");
   printer->print(')');
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
@@ -123,7 +120,10 @@ void printAssertionMessage(
 ) {
 
   // Don't use F() strings here. Same reason as above.
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
   print64(*printer, lhs);
@@ -132,10 +132,6 @@ void printAssertionMessage(
   printer->print(" (");
   print64(*printer, rhs);
   printer->print(')');
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
@@ -152,7 +148,10 @@ void printAssertionMessage(
 ) {
 
   // Don't use F() strings here. Same reason as above.
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
   print64(*printer, lhs);
@@ -161,10 +160,6 @@ void printAssertionMessage(
   printer->print(" (");
   print64(*printer, rhs);
   printer->print(')');
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
@@ -185,7 +180,10 @@ void printAssertionMessage(
   // Technically, we should cast to (uintptr_t). But all Arduino
   // microcontrollers are 32-bit, so we can cast to (unsigned long) to avoid
   // calling print64().
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (0x");
   printer->print((unsigned long) lhs, HEX);
@@ -194,17 +192,13 @@ void printAssertionMessage(
   printer->print(" (0x");
   printer->print((unsigned long) rhs, HEX);
   printer->print(')');
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
 // Special version for assertTrue(arg) and assertFalse(arg).
 // Prints:
-//    "Assertion passed/failed: (arg) is true"
-//    "Assertion passed/failed: (arg) is false"
+//    "Test.ino:24: Assertion passed/failed: (arg) is true."
+//    "Test.ino:24: Assertion passed/failed: (arg) is false."
 void printAssertionBoolMessage(
     Print* printer,
     bool ok,
@@ -215,16 +209,15 @@ void printAssertionBoolMessage(
 ) {
 
   // Don't use F() strings here. Same reason as above.
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
   printer->print(arg ? "true" : "false");
   printer->print(") is ");
   printer->print(value ? "true" : "false");
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
@@ -239,7 +232,10 @@ void printAssertionNearMessage(
     const char* opName,
     const A& error
 ) {
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": |(");
   printer->print(lhs);
@@ -250,10 +246,6 @@ void printAssertionNearMessage(
   printer->print(" (");
   printer->print(error);
   printer->print(')');
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
@@ -725,8 +717,8 @@ namespace internal {
 // assertXxx() macros, so that the error messages are more verbose.
 //
 // Prints something like the following:
-// Assertion failed: (x=5) == (y=6), file Test.ino, line 820.
-// Assertion passed: (x=6) == (y=6), file Test.ino, line 820.
+// Test.ino:820: Assertion failed: (x=5) == (y=6).
+// Test.ino:820: Assertion passed: (x=6) == (y=6).
 template <typename A, typename B>
 void printAssertionMessageVerbose(
     Print* printer,
@@ -745,7 +737,10 @@ void printAssertionMessageVerbose(
   // duplication of all the strings below. See
   // https://github.com/mmurdoch/arduinounit/issues/70
   // for more info.
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
   printer->print(lhsString);
@@ -758,11 +753,6 @@ void printAssertionMessageVerbose(
   printer->print('=');
   printer->print(rhs);
   printer->print(')');
-  // reuse string in MataAssertion::printAssertionTestStatusMessage()
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
@@ -782,7 +772,10 @@ void printAssertionMessageVerbose(
 ) {
 
   // Don't use F() strings here. Same reason as above.
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
   printer->print(lhsString);
@@ -795,10 +788,6 @@ void printAssertionMessageVerbose(
   printer->print('=');
   printer->print(rhs ? "true" : "false");
   printer->print(')');
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
@@ -818,7 +807,10 @@ void printAssertionMessageVerbose(
 ) {
 
   // Don't use F() strings here. Same reason as above.
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
   printer->print(lhsString);
@@ -831,10 +823,6 @@ void printAssertionMessageVerbose(
   printer->print('=');
   print64(*printer, rhs);
   printer->print(')');
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
@@ -853,7 +841,10 @@ void printAssertionMessageVerbose(
 ) {
 
   // Don't use F() strings here. Same reason as above.
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
   printer->print(lhsString);
@@ -866,10 +857,6 @@ void printAssertionMessageVerbose(
   printer->print('=');
   print64(*printer, rhs);
   printer->print(')');
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
@@ -892,7 +879,10 @@ void printAssertionMessageVerbose(
   // Technically, we should cast to (uintptr_t). But all Arduino
   // microcontrollers are 32-bit, so we can cast to (unsigned long) to avoid
   // calling print64().
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
   printer->print(lhsString);
@@ -905,17 +895,13 @@ void printAssertionMessageVerbose(
   printer->print("=0x");
   printer->print((unsigned long) rhs, HEX);
   printer->print(')');
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
 // Special version for assertTrue(arg) and assertFalse(arg).
 // Prints:
-//    "Assertion passed/failed: (x=arg) is true"
-//    "Assertion passed/failed: (x=arg) is false"
+//    "Test.ino:123: Assertion passed/failed: (x=arg) is true"
+//    "Test.ino:123: Assertion passed/failed: (x=arg) is false"
 void printAssertionBoolMessageVerbose(
     Print* printer,
     bool ok,
@@ -927,7 +913,10 @@ void printAssertionBoolMessageVerbose(
 ) {
 
   // Don't use F() strings here. Same reason as above.
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": (");
   printer->print(argString);
@@ -935,10 +924,6 @@ void printAssertionBoolMessageVerbose(
   printer->print(arg ? "true" : "false");
   printer->print(") is ");
   printer->print(value ? "true" : "false");
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 
@@ -956,7 +941,10 @@ void printAssertionNearMessageVerbose(
     const A& error,
     const __FlashStringHelper* errorString
 ) {
-  printer->print("Assertion ");
+  printer->print(file);
+  printer->print(':');
+  printer->print(line);
+  printer->print(": Assertion ");
   printer->print(ok ? "passed" : "failed");
   printer->print(": |(");
   printer->print(lhsString);
@@ -973,10 +961,6 @@ void printAssertionNearMessageVerbose(
   printer->print('=');
   printer->print(error);
   printer->print(')');
-  printer->print(", file ");
-  printer->print(file);
-  printer->print(", line ");
-  printer->print(line);
   printer->println('.');
 }
 

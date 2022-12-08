@@ -40,6 +40,7 @@ or with [GitHub Actions](https://github.com/features/actions).
     * [Defining the Tests](#DefiningTests)
     * [Generated Class and Instance Names](#GeneratedClass)
     * [Binary Assertions](#BinaryAssertions)
+        * [Assertion Message Format](#AssertionMessageFormat)
         * [Supported Parameter Types](#SupportedParameterTypes)
         * [Parameter Types Must Match](#ParameterTypesMustMatch)
         * [Pointer Comparisons](#PointerComparisons)
@@ -501,6 +502,35 @@ are available. These are essentially identical to ArduinoUnit:
 * `assertLessOrEqual(a, b)`
 * `assertMoreOrEqual(a, b)`
 
+<a name="AssertionMessageFormat"></a>
+#### Assertion Message Format
+
+When the assertion passes, nothing is printed by default. This can be controlled
+by the `TestRunner::setVerbosity()` method. See [Controlling
+Verbosity](#ControllingVerbosity).
+
+When the assertion fails, an error message of the following format is printed:
+
+```
+SampleTest.ino:10: Assertion failed: (2) == (1)
+```
+
+The format of the assertion failure messages was changed in v1.7 to the
+following:
+```
+{filName}:{lineNumber}: Assertion failed: {expression}
+```
+
+This format is a widely used in many other programs, for example, the C compiler
+`gcc`, the C++ compiler `g++`, the Python 3 interpreter `python3`, `grep`, and
+the GNU Make program `make`. In particular, the
+[quickfix](https://vimhelp.org/quickfix.txt.html) feature in the `vim` text
+editor can parse this error format and jump directly to the `fileName` and
+`lineNumber` indicated by the error message. See the instructions in
+[EpoxyDuino](https://github.com/bxparks/EpoxyDuino) to see how to run unit tests
+on a Linux or MacOS machine inside the `vim` editor so that the editor jumps
+directly to the files and line numbers where the assertion failure occurred.
+
 <a name="SupportedParameterTypes"></a>
 #### Supported Parameter Types
 
@@ -527,7 +557,7 @@ following 18 combinations for their parameter types:
 * `(const __FlashStringHelper*, const String&)`
 * `(const __FlashStringHelper*, const __FlashStringHelper*)`
 
-The `assertEqual()` and `assertNotEqual()` support arbitary pointer types
+The `assertEqual()` and `assertNotEqual()` support arbitrary pointer types
 through implicit casts to `const void*`:
 
 * `(const void*, const void*)` (since v1.4)
@@ -643,7 +673,7 @@ test(voidPointer) {
 
 This test will fail with the following error message:
 ```
-Assertion failed: (aa=0x3FFFFF38) == (bb=0x3FFFFF30), file AUnitTest.ino, line 338.
+AUnitTest.ino:338: Assertion failed: (aa=0x3FFFFF38) == (bb=0x3FFFFF30).
 Test voidPointer failed.
 ```
 
@@ -659,7 +689,7 @@ test(nullPointer) {
 This will print the following:
 
 ```
-Assertion failed: (aa=0x3FFFFF58) == (nullptr=0x0), file AUnitTest.ino, line 348.
+AUnitTest.ino:348: Assertion failed: (aa=0x3FFFFF58) == (nullptr=0x0).
 Test nullPointer failed.
 ```
 
@@ -721,8 +751,8 @@ AUnit offers only the equivalent of `ASSERT_NEAR()` function:
 
 Upon failure, the error messages will look something like:
 ```
-Assertion failed: |(1.00) - (1.10)| > (0.20), file AUnitTest.ino, line 517.
-Assertion failed: |(4.00) - (1.10)| <= (0.20), file AUnitTest.ino, line 527.
+AUnitTest.ino:517: Assertion failed: |(1.00) - (1.10)| > (0.20).
+AUnitTest.ino:527: Assertion failed: |(4.00) - (1.10)| <= (0.20).
 ```
 
 Unlike Google Test where `ASSERT_NEAR()` supports only the `double` type, both
@@ -944,10 +974,10 @@ and returns a `bool`. The execution continues even if `false`.
 The `assertTestXxx()` methods stops the unit test if the status check
 returns `false`, and prints assertion messages that look like this:
 ```
-Assertion passed: Test slow_pass is done, file AUnitTest.ino, line 366.
-Assertion passed: Test slow_pass is not failed, file AUnitTest.ino, line 372.
-Assertion passed: Test slow_skip is skipped, file AUnitTest.ino, line 448.
-Assertion passed: Test slow_skip is not timed out, file AUnitTest.ino, line 451.
+AUnitTest.ino:366: Assertion passed: Test slow_pass is done.
+AUnitTest.ino:372: Assertion passed: Test slow_pass is not failed.
+AUnitTest.ino:448: Assertion passed: Test slow_skip is skipped.
+AUnitTest.ino:451: Assertion passed: Test slow_skip is not timed out.
 ```
 (The human readable version of being `expired` will always be `timed out` or
 `not timed out` on the `Serial` output.)
@@ -966,8 +996,7 @@ available in AUnit. Also, the assertion messages are different. ArduinoUnit
 reuses the format used by the `assertXxx()` macros, so prints something like
 the following:_
 ```
-Assertion passed: (test_slow_skip_instance.state=2) >= (Test::DONE_SKIP=2), file
-AUnitTest.ino, line 439.
+AUnitTest.ino:439: Assertion passed: (test_slow_skip_instance.state=2) >= (Test::DONE_SKIP=2).
 ```
 
 _AUnit has a separate message handler to print a customized message for the
@@ -988,10 +1017,10 @@ fails.
 
 The messages look like:
 ```
-Status passed, file AUnitTest.ino, line 360.
-Status failed, file AUnitTest.ino, line 378.
-Status skipped, file AUnitTest.ino, line 380.
-Status timed out, file AUnitTest.ino, line 391.
+AUnitTest.ino:360: Status passed.
+AUnitTest.ino:378: Status failed.
+AUnitTest.ino:380: Status skipped.
+AUnitTest.ino:391: Status timed out.
 ```
 
 The following methods on the `Test` class also set the `status` of the test, but
@@ -1242,7 +1271,7 @@ assertEquals(expected, counter);
 
 The error message (if enabled, which is the default) is:
 ```
-Assertion failed: (3) == (4), file AUnitTest.ino, line 134.
+AUnitTest.ino:134: Assertion failed: (3) == (4).
 ```
 
 Asserts with `bool` values produce customized messages, printing "true" or
@@ -1250,7 +1279,7 @@ Asserts with `bool` values produce customized messages, printing "true" or
 ```C++
 assertEquals(true, false);
 
-Assertion failed: (true) == (false), file AUnitTest.ino, line 134.
+AUnitTest.ino:134: Assertion failed: (true) == (false).
 ```
 
 Similarly, the `assertTrue()` and `assertFalse()` macros provide more customized
@@ -1259,7 +1288,7 @@ messages:
 bool ok = false;
 assertTrue(ok);
 
-Assertion failed: (false) is true, file AUnitTest.ino, line 134.
+AUnitTest.ino:134: Assertion failed: (false) is true.
 ```
 
 and
@@ -1267,7 +1296,7 @@ and
 bool ok = true;
 assertFalse(ok);
 
-Assertion failed: (true) is false, file AUnitTest.ino, line 134.
+AUnitTest.ino:134: Assertion failed: (true) is false.
 ```
 
 ***ArduinoUnit Compatibility***:
@@ -1275,7 +1304,7 @@ _ArduinoUnit captures the arguments of the `assertEqual()` macro
 and prints:_
 
 ```
-Assertion failed: (expected=3) == (counter=4), file AUnitTest.ino, line 134.
+AUnitTest.ino:134: Assertion failed: (expected=3) == (counter=4).
 ```
 
 _Each capture of the parameter string consumes flash memory space. If the unit
@@ -1297,13 +1326,20 @@ the assertion message will contain the string fragments of the arguments
 passed into the `assertXxx()` macros, like this:
 
 ```
-Assertion failed: (expected=3) == (counter=4), file AUnitTest.ino, line 134.
-Assertion failed: (ok=false) is true, file AUnitTest.ino, line 134.
+AUnitTest.ino:134: Assertion failed: (expected=3) == (counter=4).
+AUnitTest.ino:134: Assertion failed: (ok=false) is true.
+```
+
+instead of:
+
+```
+AUnitTest.ino:134: Assertion failed: (3) == (4).
+AUnitTest.ino:134: Assertion failed: (false) is true.
 ```
 
 ***ArduinoUnit Compatibility***:
-_The verbose mode produces the same messages as ArduinoUnit, at the cost of
-increased flash memory usage._
+_As of v1.7, the assertion message format is compatible with the vim editor
+and other Linux/MacOS/Unix tools, and no longer compatible with ArduinoUnit
 
 <a name="TestCaseSummary"></a>
 #### Test Case Summary
