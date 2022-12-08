@@ -10,7 +10,7 @@ SetupAndTeardownTest
 tests:
 	set -e; \
 	for dir in $(PASSING_TESTS) $(FAILING_TESTS); do \
-		$(MAKE) -C $$dir -j; \
+		$(MAKE) -C $$dir; \
 	done
 
 # $ make runtests | grep failed
@@ -18,7 +18,7 @@ runtests:
 	set -e; \
 	for dir in $(PASSING_TESTS); do \
 		echo '==== Running:' $$dir; \
-		$$dir/$$dir.out; \
+		$(MAKE) -C $$dir run; \
 	done
 
 # These contain purposefully failing tests, so must be manually verified to run
@@ -27,7 +27,7 @@ runtests:
 runfailingtests:
 	for dir in $(FAILING_TESTS); do \
 		echo '==== Running:' $$dir; \
-		$$dir/$$dir.out; \
+		$(MAKE) -C $$dir run; \
 	done
 
 clean:

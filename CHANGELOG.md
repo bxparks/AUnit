@@ -1,6 +1,7 @@
 # Changelog
 
 * Unreleased
+* 1.7.0 (2022-12-08)
     * **Potentially Breaking** Change format of assertion failure message from:
         * "Assertion failed: (expected=3) == (counter=4), file AUnitTest.ino,
           line 134.", to
