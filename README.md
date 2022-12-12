@@ -4,21 +4,23 @@
 
 A unit testing framework for Arduino platforms inspired by by
 [ArduinoUnit](https://github.com/mmurdoch/arduinounit) and [Google
-Test](https://github.com/google/googletest/). The unit tests usually run on the
-embedded controller which allows detection of architecture-specific problems.
-But for faster development, many unit tests can be compiled and executed
-natively on Linux or MacOS using the
-[EpoxyDuino](https://github.com/bxparks/EpoxyDuino) companion project.
+Test](https://github.com/google/googletest/). AUnit is almost a drop-in
+replacement of ArduinoUnit (v2.2) with some advantages. AUnit supports timeouts
+and test fixtures. It sometimes consumes 50% less flash memory on the AVR
+platform, and it has been tested to work on the AVR, SAMD21, STM32, ESP8266,
+ESP32 and Teensy platforms. The assertion error messages were updated in v1.7 to
+provide seamless integration with Unix tools like `vim`.
 
-AUnit is almost a drop-in replacement of ArduinoUnit with some advantages. AUnit
-supports timeouts and test fixtures. It sometimes consumes 50% less flash memory
-on the AVR platform, and it has been tested to work on the AVR, SAMD21, STM32,
-ESP8266, ESP32 and Teensy platforms. Another companion project
-[AUniter](https://github.com/bxparks/AUniter) project provides command line
-tools to verify, upload and validate the unit tests to the microcontroller,
-instead of having to go through the Arduino IDE. Both the AUniter and
-EpoxyDuino tools can be used in a continuous integration system like Jenkins,
-or with [GitHub Actions](https://github.com/features/actions).
+Originally, the AUnit tests were designed to run on the embedded controller
+itself which allows detection of architecture-specific problems. But the
+uploading, flashing, and execution process is often slow and flaky, causing the
+iteration cycle to take too much time. It is often more effective to execute the
+AUnit tests natively on a host machine (running Linux, MacOS, or FreeBSD) using
+the [EpoxyDuino](https://github.com/bxparks/EpoxyDuino) companion project. Once
+the unit tests are running on the Linux or MacOS host machine, they can be
+incorporated into a continuous integration system like
+[Jenkins](https://www.jenkins.io/) system or a cloud-based system like [GitHub
+Actions](https://github.com/features/actions).
 
 **Version**: 1.7.0 (2022-12-08)
 
@@ -518,7 +520,7 @@ SampleTest.ino:10: Assertion failed: (2) == (1)
 The format of the assertion failure messages was changed in v1.7 to the
 following:
 ```
-{filName}:{lineNumber}: Assertion failed: {expression}
+{fileName}:{lineNumber}: Assertion failed: {expression}
 ```
 
 This format is a widely used in many other programs, for example, the C compiler
