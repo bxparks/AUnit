@@ -161,9 +161,8 @@ void TestRunner::resolveRun() const {
   if (!isVerbosity(Verbosity::kTestRunSummary)) return;
   Print* printer = Printer::getPrinter();
 
-  unsigned long elapsedTime = mEndTime - mStartTime;
   printer->print(F("TestRunner duration: "));
-  printSeconds(printer, elapsedTime);
+  printSeconds(printer, ellapsedMs());
   printer->println(" seconds.");
 
   printer->print(F("TestRunner summary: "));
