@@ -38,35 +38,35 @@ SOFTWARE.
 
 /** Assert that arg1 is equal to arg2. */
 #define assertEqual(arg1,arg2) \
-    assertOpInternal(arg1,aunit::internal::compareEqual,"==",arg2)
+    assertOpInternal((arg1),aunit::internal::compareEqual,"==",(arg2))
 
 /** Assert that arg1 is not equal to arg2. */
 #define assertNotEqual(arg1,arg2) \
-    assertOpInternal(arg1,aunit::internal::compareNotEqual,"!=",arg2)
+    assertOpInternal((arg1),aunit::internal::compareNotEqual,"!=",(arg2))
 
 /** Assert that arg1 is less than arg2. */
 #define assertLess(arg1,arg2) \
-    assertOpInternal(arg1,aunit::internal::compareLess,"<",arg2)
+    assertOpInternal((arg1),aunit::internal::compareLess,"<",(arg2))
 
 /** Assert that arg1 is more than arg2. */
 #define assertMore(arg1,arg2) \
-    assertOpInternal(arg1,aunit::internal::compareMore,">",arg2)
+    assertOpInternal((arg1),aunit::internal::compareMore,">",(arg2))
 
 /** Assert that arg1 is less than or equal to arg2. */
 #define assertLessOrEqual(arg1,arg2) \
-    assertOpInternal(arg1,aunit::internal::compareLessOrEqual,"<=",arg2)
+    assertOpInternal((arg1),aunit::internal::compareLessOrEqual,"<=",(arg2))
 
 /** Assert that arg1 is more than or equal to arg2. */
 #define assertMoreOrEqual(arg1,arg2) \
-    assertOpInternal(arg1,aunit::internal::compareMoreOrEqual,">=",arg2)
+    assertOpInternal((arg1),aunit::internal::compareMoreOrEqual,">=",(arg2))
 
 /** Assert that string arg1 is equal to string arg2, case-insensitive. */
 #define assertStringCaseEqual(arg1,arg2) \
-    assertOpInternal(arg1,aunit::internal::compareStringCaseEqual,"==",arg2)
+    assertOpInternal((arg1),aunit::internal::compareStringCaseEqual,"==",(arg2))
 
 /** Assert that string arg1 is not equal to string arg2, case-insensitive. */
 #define assertStringCaseNotEqual(arg1,arg2) \
-    assertOpInternal(arg1,aunit::internal::compareStringCaseNotEqual,"!=",arg2)
+    assertOpInternal((arg1),aunit::internal::compareStringCaseNotEqual,"!=",(arg2))
 
 /** Assert that arg is true. */
 #define assertTrue(arg) assertBoolInternal(arg,true)
