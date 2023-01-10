@@ -31,6 +31,7 @@ SOFTWARE.
 #include <stdint.h>
 #include <Arduino.h> // SERIAL_PORT_MONITOR, F(), Print
 #include "Test.h"
+#include <chrono>
 
 // ESP32 does not defined SERIAL_PORT_MONITOR
 #ifndef SERIAL_PORT_MONITOR
@@ -157,6 +158,18 @@ class TestRunner {
     /** Constructor. */
     TestRunner() {}
 
+    int ellapsedSeconds() const
+    {
+      auto now = std::chrono::high_resolution_clock::now();
+      return std::chrono::duration_cast<std::chrono::seconds>(now - mStartTime).count();
+    }
+
+    int ellapsedMs() const
+    {
+      auto now = std::chrono::high_resolution_clock::now();
+      return std::chrono::duration_cast<std::chrono::milliseconds>(now - mStartTime).count();
+    }
+
     /**
      * Run the current test case and print out the result.
      *
@@ -177,7 +190,7 @@ class TestRunner {
       // If no more test cases, then print out summary of run.
       if (*Test::getRoot() == nullptr) {
         if (!mIsResolved) {
-          mEndTime = millis();
+          mEndTime = std::chrono::high_resolution_clock::now();
           resolveRun();
           mIsResolved = true;
         #if EPOXY_DUINO
@@ -225,8 +238,7 @@ class TestRunner {
             // basis. This would cause the testing() code to move down into a
             // new again() virtual method dispatched from Test::loop(),
             // analogous to once(). But let's keep the code here for now.
-            unsigned long now = millis();
-            if (mTimeout > 0 && now >= mStartTime + 1000L * mTimeout) {
+            if (mTimeout > 0 && ellapsedSeconds() >= mTimeout) {
               (*mCurrent)->expire();
             } else {
               (*mCurrent)->loop();
@@ -369,7 +381,7 @@ class TestRunner {
       mIsSetup = true;
       mCount = countTests();
       mCurrent = Test::getRoot();
-      mStartTime = millis();
+      mStartTime = std::chrono::high_resolution_clock::now();
     }
 
     /** Enables the given verbosity. */
@@ -440,8 +452,8 @@ class TestRunner {
     uint16_t mExpiredCount = 0;
     uint16_t mStatusErrorCount = 0;
     TimeoutType mTimeout = kTimeoutDefault;
-    unsigned long mStartTime;
-    unsigned long mEndTime;
+    std::chrono::time_point<std::chrono::system_clock> mStartTime;
+    std::chrono::time_point<std::chrono::system_clock> mEndTime;
 };
 
 }
