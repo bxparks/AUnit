@@ -255,21 +255,7 @@ class Test {
      */
     void pass() { setStatus(kStatusPassed); }
 
-    void init(const char* name) {
-      mName = internal::FCString(name);
-      mLifeCycle = kLifeCycleNew;
-      mStatus = kStatusUnknown;
-      mVerbosity = 0;
-      insert();
-    }
-
-    void init(const __FlashStringHelper* name) {
-      mName = internal::FCString(name);
-      mLifeCycle = kLifeCycleNew;
-      mStatus = kStatusUnknown;
-      mVerbosity = 0;
-      insert();
-    }
+    void init(const char* name);
 
     /** Determine if any of the given verbosity is enabled. */
     bool isVerbosity(uint8_t verbosity) const { return mVerbosity & verbosity; }
@@ -290,6 +276,7 @@ class Test {
     uint8_t mStatus;
     uint8_t mVerbosity;
     Test* mNext;
+    static size_t maxLength;
 };
 
 }

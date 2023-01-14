@@ -31,6 +31,8 @@ SOFTWARE.
 
 namespace aunit {
 
+size_t Test::maxLength = 0;
+
 // Use a static variable inside a function to solve the static initialization
 // ordering problem.
 Test** Test::getRoot() {
@@ -53,6 +55,16 @@ void Test::setPassOrFail(bool ok) {
   }
 }
 
+void Test::init(const char* name)
+{
+  maxLength = std::max(maxLength, strlen(name));
+  mName = internal::FCString(name);
+  mLifeCycle = kLifeCycleNew;
+  mStatus = kStatusUnknown;
+  mVerbosity = 0;
+  insert();
+}
+
 // Insert the current test case into the singly linked list, sorted by
 // getName(). This is an O(N^2) algorithm, but should be good enough for
 // small N ~= 100. If N becomes bigger than that, it's probably better to insert
@@ -71,26 +83,33 @@ void Test::insert() {
 }
 
 void Test::resolve() {
-  const __FlashStringHelper* const TEST_STRING = F("Test ");
+  const char* TEST_STRING = "Test ";
 
   if (!isVerbosity(Verbosity::kTestAll)) return;
 
   Print* printer = Printer::getPrinter();
   printer->print(TEST_STRING);
   mName.print(printer);
+  int spc = maxLength - mName.length() + 1;
+
+  while(spc > 0)
+  {
+    printer->print(' ');
+    spc--;
+  }
 
   if (mStatus == Test::kStatusPassed
       && isVerbosity(Verbosity::kTestPassed)) {
-    printer->println(F(" passed."));
+    printer->println("\033[32m passed\033[37m.");
   } else if (mStatus == Test::kStatusFailed
       && isVerbosity(Verbosity::kTestFailed)) {
-    printer->println(F(" failed."));
+    printer->println("\033[31m failed\033[37m.");
   } else if (mStatus == Test::kStatusSkipped
       && isVerbosity(Verbosity::kTestSkipped)) {
-    printer->println(F(" skipped."));
+    printer->println(" skipped.");
   } else if (mStatus == Test::kStatusExpired
       && isVerbosity(Verbosity::kTestExpired)) {
-    printer->println(F(" timed out."));
+    printer->println("\033[33m failed\033[37m.");
   }
 }
 

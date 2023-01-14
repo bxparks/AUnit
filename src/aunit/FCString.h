@@ -26,6 +26,7 @@ SOFTWARE.
 #define AUNIT_FSTRING_H
 
 #include <stddef.h> // size_t
+#include <cstring>
 
 class Print;
 class __FlashStringHelper;
@@ -109,6 +110,8 @@ class FCString {
 
     /** Determine if given substring exists. */
     bool hasSubstring(const char* substring) const;
+
+    size_t length() const { return strlen(mString.cstring); }
 
   private:
     // NOTE: It might be possible just use a (void *) instead of a union.
