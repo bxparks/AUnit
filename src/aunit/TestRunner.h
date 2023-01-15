@@ -70,7 +70,7 @@ class TestRunner {
      */
     static void exclude(const char* pattern) {
       getRunner()->setLifeCycleMatchingPattern(
-          pattern, Test::kLifeCycleExcluded);
+          pattern, Test::LifeCycle::Excluded);
     }
 
     /**
@@ -81,7 +81,7 @@ class TestRunner {
      */
     static void exclude(const char* testClass, const char* pattern) {
       getRunner()->setLifeCycleMatchingPattern(testClass, pattern,
-          Test::kLifeCycleExcluded);
+          Test::LifeCycle::Excluded);
     }
 
     /**
@@ -89,7 +89,7 @@ class TestRunner {
      * Currently supports only a trailing '*'. For example, include("flash*").
      */
     static void include(const char* pattern) {
-      getRunner()->setLifeCycleMatchingPattern(pattern, Test::kLifeCycleNew);
+      getRunner()->setLifeCycleMatchingPattern(pattern, Test::LifeCycle::New);
     }
 
     /**
@@ -100,19 +100,19 @@ class TestRunner {
      */
     static void include(const char* testClass, const char* pattern) {
       getRunner()->setLifeCycleMatchingPattern(testClass, pattern,
-          Test::kLifeCycleNew);
+          Test::LifeCycle::New);
     }
 
     /** Exclude the tests which match the substring. */
     static void excludesub(const char* substring) {
       getRunner()->setLifeCycleMatchingSubstring(
-          substring, Test::kLifeCycleExcluded);
+          substring, Test::LifeCycle::Excluded);
     }
 
     /** Include the tests which match the substring. */
     static void includesub(const char* substring) {
       getRunner()->setLifeCycleMatchingSubstring(
-          substring, Test::kLifeCycleNew);
+          substring, Test::LifeCycle::New);
     }
 
     /** Set the verbosity flag. */
@@ -209,7 +209,7 @@ class TestRunner {
       // Implement a finite state machine that calls the (*mCurrent)->setup() or
       // (*mCurrent)->loop(), then changes the test case's mStatus.
       switch ((*mCurrent)->getLifeCycle()) {
-        case Test::kLifeCycleNew:
+        case Test::LifeCycle::New:
           // Transfer the verbosity of the TestRunner to the Test.
           (*mCurrent)->enableVerbosity(mVerbosity);
           (*mCurrent)->setup();
@@ -217,19 +217,19 @@ class TestRunner {
           // Support assertXxx() statements inside the setup() method by
           // moving to the next lifeCycle state if an assertXxx() did not fail
           // inside the setup().
-          if ((*mCurrent)->getLifeCycle() == Test::kLifeCycleNew) {
-            (*mCurrent)->setLifeCycle(Test::kLifeCycleSetup);
+          if ((*mCurrent)->getLifeCycle() == Test::LifeCycle::New) {
+            (*mCurrent)->setLifeCycle(Test::LifeCycle::Setup);
           }
           break;
-        case Test::kLifeCycleExcluded:
+        case Test::LifeCycle::Excluded:
           // If a test is excluded, go directly to LifeCycleFinished, without
           // calling setup() or teardown().
           (*mCurrent)->enableVerbosity(mVerbosity);
           (*mCurrent)->setStatus(Test::Status::Skipped);
           mSkippedCount++;
-          (*mCurrent)->setLifeCycle(Test::kLifeCycleFinished);
+          (*mCurrent)->setLifeCycle(Test::LifeCycle::Finished);
           break;
-        case Test::kLifeCycleSetup:
+        case Test::LifeCycle::Setup:
           {
             // Check for timeout. mTimeout == 0 means infinite timeout. NOTE: It
             // feels like this code should go into the Test::loop() method (like
@@ -243,19 +243,19 @@ class TestRunner {
             } else {
               (*mCurrent)->loop();
 
-              // If test status is unresolved (i.e. still in kLifeCycleNew
+              // If test status is unresolved (i.e. still in LifeCycle::New
               // state) after loop(), then this is a continuous testing() test
               // case, so skip to the next test. Otherwise, stay on the current
               // test so that the next iteration of runTest() can resolve the
               // current test.
-              if ((*mCurrent)->getLifeCycle() == Test::kLifeCycleSetup) {
+              if ((*mCurrent)->getLifeCycle() == Test::LifeCycle::Setup) {
                 // skip to the next one, but keep current test in the list
                 mCurrent = (*mCurrent)->getNext();
               }
             }
           }
           break;
-        case Test::kLifeCycleAsserted:
+        case Test::LifeCycle::Asserted:
           switch ((*mCurrent)->getStatus()) {
             case Test::Status::Skipped:
               mSkippedCount++;
@@ -275,9 +275,9 @@ class TestRunner {
               break;
           }
           (*mCurrent)->teardown();
-          (*mCurrent)->setLifeCycle(Test::kLifeCycleFinished);
+          (*mCurrent)->setLifeCycle(Test::LifeCycle::Finished);
           break;
-        case Test::kLifeCycleFinished:
+        case Test::LifeCycle::Finished:
           (*mCurrent)->resolve();
           // skip to the next one by taking current test out of the list
           *mCurrent = *(*mCurrent)->getNext();
@@ -303,7 +303,7 @@ class TestRunner {
         printer->print(F("Test "));
         (*p)->getName().print(printer);
         printer->print(F("; lifeCycle: "));
-        printer->println((*p)->getLifeCycle());
+        printer->println(static_cast<uint8_t>((*p)->getLifeCycle()));
       }
     }
 
@@ -393,18 +393,18 @@ class TestRunner {
     }
 
     /** Set the status of the tests which match the pattern. */
-    void setLifeCycleMatchingPattern(const char* pattern, uint8_t lifeCycle);
+    void setLifeCycleMatchingPattern(const char* pattern, Test::LifeCycle lifeCycle);
 
     /**
      * Set the status of the tests which match the pattern formed by (testClass
      * + "_" + pattern), the same rule used by testF() and testingF()
      */
     void setLifeCycleMatchingPattern(const char* testClass, const char* pattern,
-        uint8_t lifeCycle);
+        Test::LifeCycle lifeCycle);
 
     /** Set the status of the tests which match the substring. */
     void setLifeCycleMatchingSubstring(
-        const char* substring, uint8_t lifeCycle);
+        const char* substring, Test::LifeCycle lifeCycle);
 
     /** Forcibly exclude all tests. */
     void excludeAll();

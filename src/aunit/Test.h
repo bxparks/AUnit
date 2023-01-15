@@ -54,44 +54,47 @@ class Test {
     //      \ setup()      assertion()       teardown() ^
     //       -------> Setup -------> Asserted ----------'
 
-    /** Test is new, needs to be setup. */
-    static const uint8_t kLifeCycleNew = 0;
+    enum class LifeCycle : uint8_t
+    {
+      /** Test is new, needs to be setup. */
+      New = 0,
 
-    /**
-     * Test is Excluded by an exclude() method. The setup() and teardown()
-     * methods are bypassed and the test goes directly to kLifeCycleFinished.
-     * For reporting purposes, an excluded test is counted as a "skipped" test.
-     * The include() method puts the test back into the kLifeCycleNew state.
-     */
-    static const uint8_t kLifeCycleExcluded = 1;
+      /**
+       * Test is Excluded by an exclude() method. The setup() and teardown()
+       * methods are bypassed and the test goes directly to Finished.
+       * For reporting purposes, an excluded test is counted as a "skipped" test.
+       * The include() method puts the test back into the New state.
+       */
+      Excluded = 1,
 
-    /**
-     * Test has been set up by calling setup() and ready to execute the test
-     * code. TestOnce tests (i.e. test() or testF()) should be in Setup state
-     * only for a single iteration. TestAgain tests (i.e. testing() or
-     * testingF()) will stay in Setup state until explicitly moved to a
-     * different state by the testing code (or the test times out).
-     */
-    static const uint8_t kLifeCycleSetup = 2;
+      /**
+       * Test has been set up by calling setup() and ready to execute the test
+       * code. TestOnce tests (i.e. test() or testF()) should be in Setup state
+       * only for a single iteration. TestAgain tests (i.e. testing() or
+       * testingF()) will stay in Setup state until explicitly moved to a
+       * different state by the testing code (or the test times out).
+       */
+      Setup = 2,
 
-    /**
-     * Test is asserted (using pass(), fail(), expired() or skipped()) and the
-     * getStatus() has been determined. The teardown() method should be called.
-     */
-    static const uint8_t kLifeCycleAsserted = 3;
+      /**
+       * Test is asserted (using pass(), fail(), expired() or skipped()) and the
+       * getStatus() has been determined. The teardown() method should be called.
+       */
+      Asserted = 3,
 
-    /**
-     * The test has completed its life cycle. It should be resolved using
-     * resolve() and removed from the linked list. Note that this is different
-     * than isDone() (i.e. kStatusDone) which indicates that an assertion about
-     * the test has been made.
-     */
-    static const uint8_t kLifeCycleFinished = 4;
+      /**
+       * The test has completed its life cycle. It should be resolved using
+       * resolve() and removed from the linked list. Note that this is different
+       * than isDone() (i.e. kStatusDone) which indicates that an assertion about
+       * the test has been made.
+       */
+      Finished = 4,
+    };
 
     // The assertion Status is the result of an "assertion()". In addition to
     // the usual pass() and fail(), there are meta-assertions such as skip()
     // and expire(). When the Status is changed from Unknown, the
-    // lifeCycle state changes to kLifeCycleAsserted.
+    // lifeCycle state changes to Asserted.
 
     enum class Status : uint8_t
     {
@@ -162,9 +165,9 @@ class Test {
     const internal::FCString& getName() const { return mName; }
 
     /** Get the life cycle state of the test. */
-    uint8_t getLifeCycle() const { return mLifeCycle; }
+    LifeCycle getLifeCycle() const { return mLifeCycle; }
 
-    void setLifeCycle(uint8_t state) { mLifeCycle = state; }
+    void setLifeCycle(LifeCycle state) { mLifeCycle = state; }
 
     /** Get the status of the test. */
     Status getStatus() const { return mStatus; }
@@ -175,8 +178,8 @@ class Test {
      * test.
      */
     void setStatus(Status status) {
-        setLifeCycle(kLifeCycleAsserted);
       if (status != Status::Unknown) {
+        setLifeCycle(LifeCycle::Asserted);
       }
       mStatus = status;
     }
@@ -262,7 +265,7 @@ class Test {
     void init(const char* name) {
       maxLength = std::max(maxLength, strlen(name));
       mName = internal::FCString(name);
-      mLifeCycle = kLifeCycleNew;
+      mLifeCycle = LifeCycle::New;
       mStatus = Status::Unknown;
       mVerbosity = Verbosity::kNone;
       insert();
@@ -288,7 +291,7 @@ class Test {
     void insert();
 
     internal::FCString mName;
-    uint8_t mLifeCycle;
+    LifeCycle mLifeCycle;
     Status mStatus;
     Verbosity mVerbosity;
     Test* mNext;

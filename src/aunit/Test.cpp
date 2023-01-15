@@ -41,7 +41,7 @@ Test** Test::getRoot() {
 }
 
 Test::Test():
-  mLifeCycle(kLifeCycleNew),
+  mLifeCycle(LifeCycle::New),
   mStatus(Status::Unknown),
   mVerbosity(Verbosity::kNone),
   mNext(nullptr) {

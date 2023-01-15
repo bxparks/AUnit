@@ -52,9 +52,9 @@ void TestRunner::setPrinter(Print* printer) {
 }
 
 void TestRunner::setLifeCycleMatchingPattern(const char* pattern,
-    uint8_t lifeCycle) {
+    Test::LifeCycle lifeCycle) {
   // Do an implicit excludeAll() if the first filter is an include().
-  if (!hasBeenFiltered && lifeCycle == Test::kLifeCycleNew) {
+  if (!hasBeenFiltered && lifeCycle == Test::LifeCycle::New) {
     excludeAll();
   }
   hasBeenFiltered = true;
@@ -76,10 +76,10 @@ void TestRunner::setLifeCycleMatchingPattern(const char* pattern,
 }
 
 void TestRunner::setLifeCycleMatchingPattern(const char* testClass,
-    const char* pattern, uint8_t lifeCycle) {
+    const char* pattern, Test::LifeCycle lifeCycle) {
 
   // Do an implicit excludeAll() if the first filter is an include().
-  if (!hasBeenFiltered && lifeCycle == Test::kLifeCycleNew) {
+  if (!hasBeenFiltered && lifeCycle == Test::LifeCycle::New) {
     excludeAll();
   }
   hasBeenFiltered = true;
@@ -98,10 +98,10 @@ void TestRunner::setLifeCycleMatchingPattern(const char* testClass,
 }
 
 void TestRunner::setLifeCycleMatchingSubstring(
-    const char* substring, uint8_t lifeCycle) {
+    const char* substring, Test::LifeCycle lifeCycle) {
 
   // Do an implicit excludeAll() if the first filter is an include().
-  if (!hasBeenFiltered && lifeCycle == Test::kLifeCycleNew) {
+  if (!hasBeenFiltered && lifeCycle == Test::LifeCycle::New) {
     excludeAll();
   }
   hasBeenFiltered = true;
@@ -115,7 +115,7 @@ void TestRunner::setLifeCycleMatchingSubstring(
 
 void TestRunner::excludeAll() {
   for (Test** p = Test::getRoot(); *p != nullptr; p = (*p)->getNext()) {
-    (*p)->setLifeCycle(Test::kLifeCycleExcluded);
+    (*p)->setLifeCycle(Test::LifeCycle::Excluded);
   }
 }
 
