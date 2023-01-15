@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['once_148',['once',['../classaunit_1_1TestOnce.html#a064675c6adcce5ddb8562628e573ccc1',1,'aunit::TestOnce']]]
+  ['new_132',['New',['../classaunit_1_1Test.html#af2ad5a29ef88b619265d81ea28a28a94a03c2e7e41ffc181a4e84080b4710e81e',1,'aunit::Test']]]
 ];

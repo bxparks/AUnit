@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>AUnit: /home/brian/src/AUnit/src/aunit/Assertion.cpp Source File</title>
+<title>AUnit: /home/hsaturn/git/AUnit.fbi/src/aunit/Assertion.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -325,8 +325,8 @@ $(function() {
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;} <span class="comment">// namespace</span></div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
 <div class="line"><a name="l00254"></a><span class="lineno"><a class="line" href="classaunit_1_1Assertion.html#ab8f2303b22e6f1380575c48809052e77">  254</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classaunit_1_1Assertion.html#ab8f2303b22e6f1380575c48809052e77">Assertion::isOutputEnabled</a>(<span class="keywordtype">bool</span> ok)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  <span class="keywordflow">return</span> (ok &amp;&amp; isVerbosity(<a class="code" href="classaunit_1_1Verbosity.html#addbf202990aff674bd58626ae6f192d5">Verbosity::kAssertionPassed</a>)) ||</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;      (!ok &amp;&amp; isVerbosity(<a class="code" href="classaunit_1_1Verbosity.html#a97218568d7a5cc9056fb5c79f405ac4c">Verbosity::kAssertionFailed</a>));</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  <span class="keywordflow">return</span> (ok &amp;&amp; isVerbosity(Verbosity::kAssertionPassed)) ||</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;      (!ok &amp;&amp; isVerbosity(Verbosity::kAssertionFailed));</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;}</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
 <div class="line"><a name="l00259"></a><span class="lineno"><a class="line" href="classaunit_1_1Assertion.html#a14f87eaf9d43b22238716dfab91a43ce">  259</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classaunit_1_1Assertion.html#a14f87eaf9d43b22238716dfab91a43ce">Assertion::assertionBool</a>(</div>
@@ -1557,8 +1557,6 @@ $(function() {
 <div class="ttc" id="aclassaunit_1_1Assertion_html_abbc95244bc739f71413ddf26d5e93b57"><div class="ttname"><a href="classaunit_1_1Assertion.html#abbc95244bc739f71413ddf26d5e93b57">aunit::Assertion::assertionVerbose</a></div><div class="ttdeci">bool assertionVerbose(const char *file, uint16_t line, bool lhs, const __FlashStringHelper *lhsString, const char *opName, bool(*op)(bool lhs, bool rhs), bool rhs, const __FlashStringHelper *rhsString)</div><div class="ttdoc">Used by assertEqual(bool, bool).</div><div class="ttdef"><b>Definition:</b> <a href="Assertion_8cpp_source.html#l00986">Assertion.cpp:986</a></div></div>
 <div class="ttc" id="aclassaunit_1_1Assertion_html_ad7a22012982c27641698771dd5634c48"><div class="ttname"><a href="classaunit_1_1Assertion.html#ad7a22012982c27641698771dd5634c48">aunit::Assertion::assertionNear</a></div><div class="ttdeci">bool assertionNear(const char *file, uint16_t line, int lhs, int rhs, int error, const char *opName, bool(*compareNear)(int lhs, int rhs, int error))</div><div class="ttdoc">Used by assertNear(int, int).</div><div class="ttdef"><b>Definition:</b> <a href="Assertion_8cpp_source.html#l00617">Assertion.cpp:617</a></div></div>
 <div class="ttc" id="aclassaunit_1_1Printer_html_ae3783da78df10b7abff74826904ce5c4"><div class="ttname"><a href="classaunit_1_1Printer.html#ae3783da78df10b7abff74826904ce5c4">aunit::Printer::getPrinter</a></div><div class="ttdeci">static Print * getPrinter()</div><div class="ttdoc">Get the output printer used by the various assertion() methods and the TestRunner.</div><div class="ttdef"><b>Definition:</b> <a href="Printer_8h_source.html#l00048">Printer.h:48</a></div></div>
-<div class="ttc" id="aclassaunit_1_1Verbosity_html_a97218568d7a5cc9056fb5c79f405ac4c"><div class="ttname"><a href="classaunit_1_1Verbosity.html#a97218568d7a5cc9056fb5c79f405ac4c">aunit::Verbosity::kAssertionFailed</a></div><div class="ttdeci">static const uint8_t kAssertionFailed</div><div class="ttdoc">Print assertXxx() failed message.</div><div class="ttdef"><b>Definition:</b> <a href="Verbosity_8h_source.html#l00043">Verbosity.h:43</a></div></div>
-<div class="ttc" id="aclassaunit_1_1Verbosity_html_addbf202990aff674bd58626ae6f192d5"><div class="ttname"><a href="classaunit_1_1Verbosity.html#addbf202990aff674bd58626ae6f192d5">aunit::Verbosity::kAssertionPassed</a></div><div class="ttdeci">static const uint8_t kAssertionPassed</div><div class="ttdoc">Print assertXxx() passed message.</div><div class="ttdef"><b>Definition:</b> <a href="Verbosity_8h_source.html#l00040">Verbosity.h:40</a></div></div>
 <div class="ttc" id="aprint64_8h_html"><div class="ttname"><a href="print64_8h.html">print64.h</a></div><div class="ttdoc">Helper routines to print 'long long' and 'unsigned long long' because the Print::print() methods in P...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
