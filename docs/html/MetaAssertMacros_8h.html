@@ -1152,7 +1152,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">do</span> {\</div>
-<div class="line">  setStatusNow(__FILE__, __LINE__, kStatusExpired,\</div>
+<div class="line">  setStatusNow(__FILE__, __LINE__, Status::Expired,\</div>
 <div class="line">      <a class="code" href="Flash_8h.html#a29588725953276554c1abde9d718ef7f">AUNIT_FPSTR</a>(kMessageExpired));\</div>
 <div class="line">  return;\</div>
 <div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
@@ -1179,7 +1179,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">do</span> {\</div>
-<div class="line">  setStatusNow(__FILE__, __LINE__, kStatusFailed, <a class="code" href="Flash_8h.html#a29588725953276554c1abde9d718ef7f">AUNIT_FPSTR</a>(kMessageFailed));\</div>
+<div class="line">  setStatusNow(__FILE__, __LINE__, Status::Failed, <a class="code" href="Flash_8h.html#a29588725953276554c1abde9d718ef7f">AUNIT_FPSTR</a>(kMessageFailed));\</div>
 <div class="line">  return;\</div>
 <div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
 </div><!-- fragment -->
@@ -1205,7 +1205,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">do</span> {\</div>
-<div class="line">  setStatusNow(__FILE__, __LINE__, kStatusPassed, <a class="code" href="Flash_8h.html#a29588725953276554c1abde9d718ef7f">AUNIT_FPSTR</a>(kMessagePassed));\</div>
+<div class="line">  setStatusNow(__FILE__, __LINE__, Status::Passed, <a class="code" href="Flash_8h.html#a29588725953276554c1abde9d718ef7f">AUNIT_FPSTR</a>(kMessagePassed));\</div>
 <div class="line">  return;\</div>
 <div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
 </div><!-- fragment -->
@@ -1231,7 +1231,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">do</span> {\</div>
-<div class="line">  setStatusNow(__FILE__, __LINE__, kStatusSkipped,\</div>
+<div class="line">  setStatusNow(__FILE__, __LINE__, Status::Skipped,\</div>
 <div class="line">      <a class="code" href="Flash_8h.html#a29588725953276554c1abde9d718ef7f">AUNIT_FPSTR</a>(kMessageSkipped));\</div>
 <div class="line">  return;\</div>
 <div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>

@@ -90,23 +90,26 @@ class Test {
 
     // The assertion Status is the result of an "assertion()". In addition to
     // the usual pass() and fail(), there are meta-assertions such as skip()
-    // and expire(). When the Status is changed from kStatusUnknown, the
+    // and expire(). When the Status is changed from Unknown, the
     // lifeCycle state changes to kLifeCycleAsserted.
 
-    /** Test status is unknown. */
-    static const uint8_t kStatusUnknown = 0;
+    enum class Status : uint8_t
+    {
+      /** Test status is unknown. */
+      Unknown = 0,
 
-    /** Test has passed, or pass() was called. */
-    static const uint8_t kStatusPassed = 1;
+      /** Test has passed, or pass() was called. */
+      Passed = 1,
 
-    /** Test has failed, or fail() was called. */
-    static const uint8_t kStatusFailed = 2;
+      /** Test has failed, or fail() was called. */
+      Failed = 2,
 
-    /** Test is skipped through the exclude() method or skip() was called. */
-    static const uint8_t kStatusSkipped = 3;
+      /** Test is skipped through the exclude() method or skip() was called. */
+      Skipped = 3,
 
-    /** Test has timed out, or expire() called. */
-    static const uint8_t kStatusExpired = 4;
+      /** Test has timed out, or expire() called. */
+      Expired = 4,
+    };
 
     /**
      * Get the pointer to the root pointer. Implemented as a function static so
@@ -164,16 +167,16 @@ class Test {
     void setLifeCycle(uint8_t state) { mLifeCycle = state; }
 
     /** Get the status of the test. */
-    uint8_t getStatus() const { return mStatus; }
+    Status getStatus() const { return mStatus; }
 
     /**
      * Set the status of the test. All changes to getStatus() should happen
      * through this method because it also changes the getLifeCycle() of the
      * test.
      */
-    void setStatus(uint8_t status) {
-      if (status != kStatusUnknown) {
+    void setStatus(Status status) {
         setLifeCycle(kLifeCycleAsserted);
+      if (status != Status::Unknown) {
       }
       mStatus = status;
     }
@@ -194,31 +197,31 @@ class Test {
      * from ArduinoUnit and might have been named isAsserted() if this library
      * had been built from scratch.
      */
-    bool isDone() const { return mStatus != kStatusUnknown; }
+    bool isDone() const { return mStatus != Status::Unknown; }
 
     /** Return true if test is not has been asserted. */
     bool isNotDone() const { return !isDone(); }
 
     /** Return true if test is passed. */
-    bool isPassed() const { return mStatus == kStatusPassed; }
+    bool isPassed() const { return mStatus == Status::Passed; }
 
     /** Return true if test is not passed. */
     bool isNotPassed() const { return !isPassed(); }
 
     /** Return true if test is failed. */
-    bool isFailed() const { return mStatus == kStatusFailed; }
+    bool isFailed() const { return mStatus == Status::Failed; }
 
     /** Return true if test is not failed. */
     bool isNotFailed() const { return !isFailed(); }
 
     /** Return true if test is skipped. */
-    bool isSkipped() const { return mStatus == kStatusSkipped; }
+    bool isSkipped() const { return mStatus == Status::Skipped; }
 
     /** Return true if test is not skipped. */
     bool isNotSkipped() const { return !isSkipped(); }
 
     /** Return true if test is expired. */
-    bool isExpired() const { return mStatus == kStatusExpired; }
+    bool isExpired() const { return mStatus == Status::Expired; }
 
     /** Return true if test is not expired. */
     bool isNotExpired() const { return !isExpired(); }
@@ -227,13 +230,13 @@ class Test {
      * Mark the test as skipped. Use the skipTestNow() macro in a unit test to
      * print a diagnostic message and exit immediately.
      */
-    void skip() { setStatus(kStatusSkipped); }
+    void skip() { setStatus(Status::Skipped); }
 
     /**
      * Mark the test as expired (i.e. timed out). Use the expireTestNow() macro
      * in a unit test to print a diagnostic message and exit immediately.
      */
-    void expire() { setStatus(kStatusExpired); }
+    void expire() { setStatus(Status::Expired); }
 
     /** Enable the given verbosity of the current test. */
     void enableVerbosity(uint8_t verbosity) { mVerbosity |= verbosity; }
@@ -246,7 +249,7 @@ class Test {
      * Mark the test as failed. Use the failTestNow() macro in a unit test to
      * print a diagnostic message and exit immediately.
      */
-    void fail() { setStatus(kStatusFailed); }
+    void fail() { setStatus(Status::Failed); }
 
     /**
      * Mark the test as passed. Often used to terminate a testing() looping
@@ -254,13 +257,13 @@ class Test {
      * diagnostic message and exit immediately. It is expected that pass() will
      * be used more often.
      */
-    void pass() { setStatus(kStatusPassed); }
+    void pass() { setStatus(Status::Passed); }
 
     void init(const char* name) {
       maxLength = std::max(maxLength, strlen(name));
       mName = internal::FCString(name);
       mLifeCycle = kLifeCycleNew;
-      mStatus = kStatusUnknown;
+      mStatus = Status::Unknown;
       mVerbosity = 0;
       insert();
     }
@@ -286,7 +289,7 @@ class Test {
 
     internal::FCString mName;
     uint8_t mLifeCycle;
-    uint8_t mStatus;
+    Status mStatus;
     uint8_t mVerbosity;
     Test* mNext;
     static size_t maxLength;

@@ -98,15 +98,15 @@ void printStatusNowMessage(const char* file, uint16_t line,
 
 }
 
-bool MetaAssertion::isOutputEnabledForStatus(uint8_t status) const {
-  return (status == kStatusFailed && isVerbosity(Verbosity::kTestFailed))
-      || (status == kStatusPassed && isVerbosity(Verbosity::kTestPassed))
-      || (status == kStatusSkipped && isVerbosity(Verbosity::kTestSkipped))
-      || (status == kStatusExpired && isVerbosity(Verbosity::kTestExpired));
+bool MetaAssertion::isOutputEnabledForStatus(Status status) const {
+  return (status == Status::Failed && isVerbosity(Verbosity::kTestFailed))
+      || (status == Status::Passed && isVerbosity(Verbosity::kTestPassed))
+      || (status == Status::Skipped && isVerbosity(Verbosity::kTestSkipped))
+      || (status == Status::Expired && isVerbosity(Verbosity::kTestExpired));
 }
 
 void MetaAssertion::setStatusNow(const char* file, uint16_t line,
-    uint8_t status, const __FlashStringHelper* statusString) {
+    Status status, const __FlashStringHelper* statusString) {
   if (isDone()) return;
   if (isOutputEnabledForStatus(status)) {
     printStatusNowMessage(file, line, statusString);

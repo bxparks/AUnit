@@ -42,16 +42,16 @@ Test** Test::getRoot() {
 
 Test::Test():
   mLifeCycle(kLifeCycleNew),
-  mStatus(kStatusUnknown),
+  mStatus(Status::Unknown),
   mVerbosity(Verbosity::kNone),
   mNext(nullptr) {
 }
 
-// Resolve the status as kStatusFailed only if ok == false. Otherwise, keep the
+// Resolve the status as Failed only if ok == false. Otherwise, keep the
 // status as kStatusSetup to allow testing() test cases to continue.
 void Test::setPassOrFail(bool ok) {
   if (!ok) {
-    setStatus(kStatusFailed);
+    setStatus(Status::Failed);
   }
 }
 
@@ -73,33 +73,42 @@ void Test::insert() {
 }
 
 void Test::resolve() {
-  const __FlashStringHelper* const TEST_STRING = F("Test ");
+  std::string result;
 
   if (!isVerbosity(Verbosity::kTestAll)) return;
 
   Print* printer = Printer::getPrinter();
-  printer->print(TEST_STRING);
-  mName.print(printer);
-  int spc = maxLength - mName.length() + 1;
-
-  while(spc > 0)
+  switch (mStatus)
   {
-    printer->print(' ');
-    spc--;
+    case Test::Status::Passed:
+      if (isVerbosity(Verbosity::kTestPassed)) result = "\033[32m passed\033[37m.";
+      break;
+    case Test::Status::Failed:
+      if (isVerbosity(Verbosity::kTestFailed)) result = "\033[31m failed\033[37m.";
+      break;
+    case Test::Status::Skipped:
+      if (isVerbosity(Verbosity::kTestSkipped)) result = " skipped.";
+      break;
+    case Test::Status::Expired:
+       if (isVerbosity(Verbosity::kTestExpired)) result = "\033[33m failed\033[37m.";
+       break;
+    case Test::Status::Unknown:
+       break;
   }
 
-  if (mStatus == Test::kStatusPassed
-      && isVerbosity(Verbosity::kTestPassed)) {
-    printer->println("\033[32m passed\033[37m.");
-  } else if (mStatus == Test::kStatusFailed
-      && isVerbosity(Verbosity::kTestFailed)) {
-    printer->println("\033[31m failed\033[37m.");
-  } else if (mStatus == Test::kStatusSkipped
-      && isVerbosity(Verbosity::kTestSkipped)) {
-    printer->println(" skipped.");
-  } else if (mStatus == Test::kStatusExpired
-      && isVerbosity(Verbosity::kTestExpired)) {
-    printer->println("\033[33m failed\033[37m.");
+  if (result.length())
+  {
+    printer->print(F("Test"));
+    int spc = maxLength - mName.length() + 1;
+
+    while(spc > 0)
+    {
+      printer->print(' ');
+      spc--;
+    }
+
+    mName.print(printer);
+    printer->println(result.c_str());
   }
 }
 

@@ -175,9 +175,9 @@ kAll	LITERAL1
 kNone	LITERAL1
 
 # public constants from Test.h
-kStatusUnknown	LITERAL1
-kStatusSetup	LITERAL1
-kStatusPassed	LITERAL1
-kStatusFailed	LITERAL1
-kStatusSkipped	LITERAL1
-kStatusExpired	LITERAL1
+Status  LITERAL1
+Unknown	LITERAL1
+Passed	LITERAL1
+Failed	LITERAL1
+Skipped	LITERAL1
+Expired	LITERAL1

@@ -341,7 +341,7 @@ SOFTWARE.
  * Similar to Test::fail() except that this prints a status message.
  */
 #define failTestNow() do {\
-  setStatusNow(__FILE__, __LINE__, kStatusFailed, AUNIT_FPSTR(kMessageFailed));\
+  setStatusNow(__FILE__, __LINE__, Failed, AUNIT_FPSTR(kMessageFailed));\
   return;\
 } while (false)
 
@@ -350,7 +350,7 @@ SOFTWARE.
  * Similar to Test::pass() except that this prints a status message.
  */
 #define passTestNow() do {\
-  setStatusNow(__FILE__, __LINE__, kStatusPassed, AUNIT_FPSTR(kMessagePassed));\
+  setStatusNow(__FILE__, __LINE__, Passed, AUNIT_FPSTR(kMessagePassed));\
   return;\
 } while (false)
 
@@ -359,7 +359,7 @@ SOFTWARE.
  * Similar to Test::skip() except that this prints a status message.
  */
 #define skipTestNow() do {\
-  setStatusNow(__FILE__, __LINE__, kStatusSkipped,\
+  setStatusNow(__FILE__, __LINE__, Skipped,\
       AUNIT_FPSTR(kMessageSkipped));\
   return;\
 } while (false)
@@ -369,7 +369,7 @@ SOFTWARE.
  * Similar to Test::expire() except that this prints a status message.
  */
 #define expireTestNow() do {\
-  setStatusNow(__FILE__, __LINE__, kStatusExpired,\
+  setStatusNow(__FILE__, __LINE__, Expired,\
       AUNIT_FPSTR(kMessageExpired));\
   return;\
 } while (false)

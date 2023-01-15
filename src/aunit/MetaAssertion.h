@@ -67,10 +67,10 @@ class MetaAssertion: public Assertion {
         bool ok);
 
     /** Return true if setting of status should print a message. */
-    bool isOutputEnabledForStatus(uint8_t status) const;
+    bool isOutputEnabledForStatus(Status status) const;
 
     /** Set the status of the current test to 'status' and print a message. */
-    void setStatusNow(const char* file, uint16_t line, uint8_t status,
+    void setStatusNow(const char* file, uint16_t line, Status status,
         const __FlashStringHelper* statusString);
 
   private:

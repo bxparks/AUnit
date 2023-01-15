@@ -225,7 +225,7 @@ class TestRunner {
           // If a test is excluded, go directly to LifeCycleFinished, without
           // calling setup() or teardown().
           (*mCurrent)->enableVerbosity(mVerbosity);
-          (*mCurrent)->setStatus(Test::kStatusSkipped);
+          (*mCurrent)->setStatus(Test::Status::Skipped);
           mSkippedCount++;
           (*mCurrent)->setLifeCycle(Test::kLifeCycleFinished);
           break;
@@ -257,16 +257,16 @@ class TestRunner {
           break;
         case Test::kLifeCycleAsserted:
           switch ((*mCurrent)->getStatus()) {
-            case Test::kStatusSkipped:
+            case Test::Status::Skipped:
               mSkippedCount++;
               break;
-            case Test::kStatusPassed:
+            case Test::Status::Passed:
               mPassedCount++;
               break;
-            case Test::kStatusFailed:
+            case Test::Status::Failed:
               mFailedCount++;
               break;
-            case Test::kStatusExpired:
+            case Test::Status::Expired:
               mExpiredCount++;
               break;
             default:
