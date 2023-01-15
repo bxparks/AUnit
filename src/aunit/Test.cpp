@@ -55,16 +55,6 @@ void Test::setPassOrFail(bool ok) {
   }
 }
 
-void Test::init(const char* name)
-{
-  maxLength = std::max(maxLength, strlen(name));
-  mName = internal::FCString(name);
-  mLifeCycle = kLifeCycleNew;
-  mStatus = kStatusUnknown;
-  mVerbosity = 0;
-  insert();
-}
-
 // Insert the current test case into the singly linked list, sorted by
 // getName(). This is an O(N^2) algorithm, but should be good enough for
 // small N ~= 100. If N becomes bigger than that, it's probably better to insert
@@ -83,7 +73,7 @@ void Test::insert() {
 }
 
 void Test::resolve() {
-  const char* TEST_STRING = "Test ";
+  const __FlashStringHelper* const TEST_STRING = F("Test ");
 
   if (!isVerbosity(Verbosity::kTestAll)) return;
 

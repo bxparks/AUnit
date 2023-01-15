@@ -28,6 +28,7 @@ SOFTWARE.
 #ifndef AUNIT_TEST_H
 #define AUNIT_TEST_H
 
+#include <algorithm>
 #include <stdint.h>
 #include "FCString.h"
 #include "Verbosity.h"
@@ -255,7 +256,19 @@ class Test {
      */
     void pass() { setStatus(kStatusPassed); }
 
-    void init(const char* name);
+    void init(const char* name) {
+      maxLength = std::max(maxLength, strlen(name));
+      mName = internal::FCString(name);
+      mLifeCycle = kLifeCycleNew;
+      mStatus = kStatusUnknown;
+      mVerbosity = 0;
+      insert();
+    }
+
+    void init(const __FlashStringHelper* name) {
+      mName = internal::FCString(name);
+      init(mName.getCString());
+    }
 
     /** Determine if any of the given verbosity is enabled. */
     bool isVerbosity(uint8_t verbosity) const { return mVerbosity & verbosity; }
