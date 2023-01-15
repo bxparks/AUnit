@@ -43,9 +43,11 @@ namespace aunit {
  */
 class Test {
   public:
-    // The LifeCycle states are used by TestRunner to determine what a Test
-    // should do. Unlike the assertion Status, the LfeCycle is mostly hidden
-    // from client code. The state transition diagram looks like this:
+    /** The LifeCycle states are used by TestRunner to determine what a Test
+    * should do. Unlike the assertion Status, the LifeCycle is mostly hidden
+    * from client code.
+    */
+    // The state transition diagram looks like this:
     //
     //        include()/exclude()
     //      .---------------------> Excluded -----------.
