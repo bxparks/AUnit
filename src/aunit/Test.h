@@ -239,10 +239,10 @@ class Test {
     void expire() { setStatus(Status::Expired); }
 
     /** Enable the given verbosity of the current test. */
-    void enableVerbosity(uint8_t verbosity) { mVerbosity |= verbosity; }
+    void enableVerbosity(Verbosity verbosity) { mVerbosity |= verbosity; }
 
     /** Disable the given verbosity of the current test. */
-    void disableVerbosity(uint8_t verbosity) { mVerbosity &= ~verbosity; }
+    void disableVerbosity(Verbosity verbosity) { mVerbosity &= ~verbosity; }
 
   protected:
     /**
@@ -264,7 +264,7 @@ class Test {
       mName = internal::FCString(name);
       mLifeCycle = kLifeCycleNew;
       mStatus = Status::Unknown;
-      mVerbosity = 0;
+      mVerbosity = Verbosity::kNone;
       insert();
     }
 
@@ -274,10 +274,10 @@ class Test {
     }
 
     /** Determine if any of the given verbosity is enabled. */
-    bool isVerbosity(uint8_t verbosity) const { return mVerbosity & verbosity; }
+    bool isVerbosity(Verbosity verbosity) const { return (mVerbosity & verbosity) != Verbosity::kNone; }
 
     /** Get the verbosity. */
-    uint8_t getVerbosity() const { return mVerbosity; }
+    Verbosity  getVerbosity() const { return mVerbosity; }
 
   private:
     // Disable copy-constructor and assignment operator
@@ -290,7 +290,7 @@ class Test {
     internal::FCString mName;
     uint8_t mLifeCycle;
     Status mStatus;
-    uint8_t mVerbosity;
+    Verbosity mVerbosity;
     Test* mNext;
     static size_t maxLength;
 };

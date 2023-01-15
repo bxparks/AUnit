@@ -116,12 +116,12 @@ class TestRunner {
     }
 
     /** Set the verbosity flag. */
-    static void setVerbosity(uint8_t verbosity) {
+    static void setVerbosity(Verbosity verbosity) {
       getRunner()->setVerbosityFlag(verbosity);
     }
 
     /** Returns true if ANY of the bit flags of 'verbosity' is set. */
-    static bool isVerbosity(uint8_t verbosity) {
+    static bool isVerbosity(Verbosity verbosity) {
       return getRunner()->isVerbosityFlag(verbosity);
     }
 
@@ -385,11 +385,11 @@ class TestRunner {
     }
 
     /** Enables the given verbosity. */
-    void setVerbosityFlag(uint8_t verbosity) { mVerbosity = verbosity; }
+    void setVerbosityFlag(Verbosity verbosity) { mVerbosity = verbosity; }
 
     /** Determine the current verbosity. */
-    bool isVerbosityFlag(uint8_t verbosity) const {
-      return mVerbosity & verbosity;
+    bool isVerbosityFlag(Verbosity verbosity) const {
+      return (mVerbosity & verbosity) != Verbosity::kNone;
     }
 
     /** Set the status of the tests which match the pattern. */
@@ -442,7 +442,7 @@ class TestRunner {
     bool mIsResolved = false;
     bool mIsSetup = false;
     bool mIsRunning = false;
-    uint8_t mVerbosity = Verbosity::kDefault;
+    Verbosity mVerbosity = Verbosity::kDefault;
     // True if any include(), exclude(), includesub(), excludesub() was invoked.
     bool hasBeenFiltered = false;
     uint16_t mCount = 0;
