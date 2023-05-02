@@ -38,7 +38,7 @@ class Container {
 // Create an instance of the Container.
 Container container;
 
-class LogTest: public TestOnce {
+class LogTest: public aunit::TestOnce {
   protected:
     void setup() override {
       TestOnce::setup();
