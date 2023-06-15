@@ -339,11 +339,14 @@ testing(fixture_slow_skip_monitor) {
 // ------------------------------------------------------
 
 void setup() {
-#ifdef ARDUINO
+#if ! defined(EPOXY_DUINO)
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
 #endif
   SERIAL_PORT_MONITOR.begin(115200);
   while (! SERIAL_PORT_MONITOR); // Wait until Serial is ready - Leonardo/Micro
+#if defined(EPOXY_DUINO)
+  SERIAL_PORT_MONITOR.setLineModeUnix();
+#endif
 
 #if USE_AUNIT == 1
   // These are useful for debugging.

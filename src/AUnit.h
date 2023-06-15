@@ -65,7 +65,7 @@ SOFTWARE.
 #include "aunit/TestMacros.h"
 
 // Version format: xxyyzz == "xx.yy.zz"
-#define AUNIT_VERSION 10700
-#define AUNIT_VERSION_STRING "1.7.0"
+#define AUNIT_VERSION 10701
+#define AUNIT_VERSION_STRING "1.7.1"
 
 #endif
