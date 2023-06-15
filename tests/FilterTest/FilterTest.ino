@@ -100,11 +100,14 @@ test(lifeCycle) {
 // -----------------------------------------------------------------------
 
 void setup() {
-#ifdef ARDUINO
+#if ! defined(EPOXY_DUINO)
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
 #endif
   SERIAL_PORT_MONITOR.begin(115200);
   while (! SERIAL_PORT_MONITOR); // Wait until Serial is ready - Leonardo
+#if defined(EPOXY_DUINO)
+  SERIAL_PORT_MONITOR.setLineModeUnix();
+#endif
 
   // Verify that the include() and exclude() work as expected. The name of test
   // is either "test_{name}" (1-argument version of test()) or
