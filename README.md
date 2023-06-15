@@ -80,6 +80,8 @@ Actions](https://github.com/features/actions).
     * [Class Hierarchy](#ClassHierarchy)
     * [Testing Private Helper Methods](#PrivateHelperMethods)
 * [Benchmarks](#Benchmarks)
+    * [Memory Benchmark](#MemoryBenchmark)
+    * [Compared with ArduinoUnit](#CompareArduinoUnit)
 * [System Requirements](#SystemRequirements)
     * [Hardware](#Hardware)
     * [Tool Chain](#ToolChains)
@@ -250,36 +252,66 @@ The source files are organized as follows:
 
 The `examples/` directory has a number of examples:
 
-* `advanced` - how to subclass `Test` and `TestOnce` manually
-* `basic` - using the `test()` macro
-* `continuous` - using the `testing()` macro
-* `filter` - how to filter tests using `TestRunner::include()` and
-  `TestRunner::exclude()`
-* `fixture` - how to use the `testF()` macro with test fixtures
-* `meta_asserts` - how to use `assertTestXxx()` and `checkTestXxx()`
+* Basic
+    * [basic](examples/basic)
+        * using the `test()` macro
+    * [fixture](examples/fixture)
+        * how to use the `testF()` macro with test fixtures
+* Intermediate
+    * [filter](examples/filter)
+        * how to filter tests using `TestRunner::include()` and
+          `TestRunner::exclude()`
+    * [meta_asserts](examples/meta_asserts)
+        * how to use `assertTestXxx()` and `checkTestXxx()`
+* Advanced
+    * [advanced](examples/advanced/)
+        * how to subclass `Test` and `TestOnce` manually
+    * [continuous](examples/continuous)
+        * using the `testing()` macro
+* Benchmarks
+    * These are internal benchmark programs, not meant as examples (they are in
+      the `examples/` directory because of the Arduino IDE).
+    * [MemoryBenchmark](examples/MemoryBenchmark)
+        * Determines the flash and static memory consumption of AUnit for
+          various microcontroller
 
-In the `tests/` directory:
+In the `tests/` directory, there are unit tests to test the AUnit framework
+itself:
 
-* `AUnitTest` - the unit test for core `AUnit` functions,
-* `AUnitMetaTest` - the unit test for meta assertions and `extern*()` macros
-* `FilterTest` - manual tests for `include()` and `exclude()` filters
-* `SetupAndTeardownTest` - tests to verify that `setup()` and `teardown()` are
-  called properly by the finite state machine
+* [AUnitTest](tests/AUnitTest)
+    * the unit test for core `AUnit` functions
+* [AUnitMoreTest](tests/AUnitMoreTest)
+    * more tests
+* [AUnitMetaTest](tests/AUnitMetaTest)
+    * the unit test for meta assertions and `extern*()` macros
+* [CompareTest](tests/CompareTest)
+    * tests for the low-level compare functions
+* [FailingTest](tests/FailingTest)
+    * tests that are expected to fail
+* [FilterTest](tests/FilterTest)
+    * manual tests for `include()` and `exclude()` filters
+* [Print64Test](tests/Print64Test)
+    * manual tests for `include()` and `exclude()` filters
+* [SetupAndTeardownTest](tests/SetupAndTeardownTest)
+    * tests to verify that `setup()` and `teardown()` are called properly by the
+      finite state machine
+* [tests/Makefile](tests/Makefile)
+    * Runs the tests on a Linux or Mac machine using EpoxyDuino
 
-Perhaps the best way to see AUnit in action through real life examples. All my
-libraries use AUnit for testing and for continuous integration through
-EpoxyDuino. Here are some examples:
+Perhaps the best way to see AUnit in action is through real life examples. All
+my libraries use AUnit for testing and for continuous integration through
+EpoxyDuino. Here are some of my libraries:
 
 * [AceButton](https://github.com/bxparks/AceButton)
     * My first Arduino library, which originally used ArduinoUnit 2.2.
     * I kept many of the original ArduinoUnit tests for backwards compatibility
-      testing. But over time, I started to use nore AUnit features.
+      testing. But over time, I started to use more AUnit features so I'm not
+      sure if they work with ArduinoUnit anymore.
 * [AceCRC](https://github.com/bxparks/AceCRC)
 * [AceCommon](https://github.com/bxparks/AceCommon)
 * [AceRoutine](https://github.com/bxparks/AceRoutine)
 * [AceSegment](https://github.com/bxparks/AceSegment)
 * [AceSorting](https://github.com/bxparks/AceSorting)
-* [AceTimeClock](https://github.com/bxparks/AceTimeClock)
 * [AceTime](https://github.com/bxparks/AceTime)
 
 <a name="Usage"></a>
@@ -1478,9 +1510,6 @@ copied from the `AUniter/README.md` file:
     * list the available serial ports and devices
 * `$ auniter verify nano Blink.ino`
     * verify (compile) `Blink.ino` using the `env:nano` environment
-* `$ auniter verify nano,esp8266,esp32 Blink.ino`
-    * verify `Blink.ino` on 3 target environments (`env:nano`, `env:esp8266`,
-    `env:esp32`)
 * `$ auniter upload nano:/dev/ttyUSB0 Blink.ino`
     * upload `Blink.ino` to the `env:nano` target environment connected to
     `/dev/ttyUSB0`
@@ -1488,11 +1517,9 @@ copied from the `AUniter/README.md` file:
     * compile and upload `BlinkTest.ino` using the `env:nano` environment,
       upload it to the board at `/dev/ttyUSB0`, then validate the output of the
       [AUnit](https://github.com/bxparks/AUnit) unit test
-* `$ auniter test nano:USB0,esp8266:USB1,esp32:USB2 BlinkTest/ ClockTest/`
+* `$ auniter test nano:USB0 BlinkTest/ ClockTest/`
     * upload and verify the 2 unit tests (`BlinkTest/BlinkTest.ino`,
-      `ClockTest/ClockTest.ino`) on 3 target environments (`env:nano`,
-      `env:esp8266`, `env:esp32`) located at the 3 respective ports
-      (`/dev/ttyUSB0`, `/dev/ttyUSB1`, `/dev/ttyUSB2`)
+      `ClockTest/ClockTest.ino`) on the target environment (`env:nano`)
 * `$ auniter upmon nano:USB0 Blink.ino`
     * upload the `Blink.ino` sketch and monitor the serial port using a
       user-configurable terminal program (e.g. `picocom`) on `/dev/ttyUSB0`
@@ -1530,10 +1557,22 @@ For real Arduino boards, you get more reliable unit tests if you add a
 necessary, so I recommend calling this only on real Arduino boards, like this:
 ```C++
 void setup() {
-#ifdef ARDUINO
+#if ! defined(EPOXY_DUINO)
   delay(1000); // Wait for stability on some boards, otherwise garage on Serial
 #endif
+
+  Serial.begin(115200);
+  while (! Serial); // Wait until Serial is ready - Leonardo/Micro
+
+#if defined(EPOXY_DUINO)
+  Serial.setLineModeUnix(); // use Unix line terminator instead of DOS
+#endif
   ...
+}
+
+void loop() {
+  aunit::TestRunner::run();
+}
 ```
 
 **Exit() Status Code**
@@ -1883,12 +1922,49 @@ testF(TargetTest, helper) {
 ```
 
 The tricky part is that `Target.h` must have forward declarations of the various
-auto-generated AUnit test classes. And within the `Target` class itsef, the
+auto-generated AUnit test classes. And within the `Target` class itself, the
 `friend` declarations need to have a global scope `::` specifier before the name
 of the test class.
 
 <a name="Benchmarks"></a>
 ## Benchmarks
+
+<a name="MemoryBenchmark"></a>
+### MemoryBenchmark
+
+The [MemoryBenchmark](examples/MemoryBenchmark/) directory collects the flash
+and static RAM usage of the AUnit library on various microcontroller boards, and
+renders the results as tables embedded in the README.md file. Here are 2
+highlights:
+
+**Arduino Nano (8-bit)**
+
+```
++---------------------------------------------------------------------+
+| Functionality                          |  flash/  ram |       delta |
+|----------------------------------------+--------------+-------------|
+| Baseline                               |   1586/  185 |     0/    0 |
+|----------------------------------------+--------------+-------------|
+| AUnit Single Test                      |   4456/  366 |  2870/  181 |
+| AUnit Single Test Verbose              |   4500/  366 |  2914/  181 |
++---------------------------------------------------------------------+
+```
+
+**ESP8266 (32-bit)**
+
+```
++---------------------------------------------------------------------+
+| Functionality                          |  flash/  ram |       delta |
+|----------------------------------------+--------------+-------------|
+| Baseline                               | 264949/27984 |     0/    0 |
+|----------------------------------------+--------------+-------------|
+| AUnit Single Test                      | 268021/28148 |  3072/  164 |
+| AUnit Single Test Verbose              | 268081/28148 |  3132/  164 |
++---------------------------------------------------------------------+
+```
+
+<a name="CompareArduinoUnit"></a>
+### Compared to ArduinoUnit 2.2
 
 AUnit consumes as much as 65% less flash memory than ArduinoUnit 2.2 on an AVR
 platform (e.g. Arduino UNO, Nano), and 30% less flash on the Teensy-ARM platform
@@ -1931,34 +2007,52 @@ AUnit, but a savings of 30-50% seems to be common.
 <a name="Hardware"></a>
 ### Hardware
 
-The library is tested on the following boards:
+**Tier 1: Fully supported**
+
+These boards are tested on each release:
 
 * Arduino Nano clone (16 MHz ATmega328P)
 * SparkFun Pro Micro clone (16 MHz ATmega32U4)
-* SAMD21 M0 Mini board (Arduino Zero compatible, 48 MHz ARM Cortex-M0+)
+* Seeeduino XIAO M0 (SAMD21, 48 MHz ARM Cortex-M0+)
 * STM32 Blue Pill (STM32F103C8, 72 MHz ARM Cortex-M3)
+* Adafruit ItsyBitsy M4 (SAMD51, 120 MHz ARM Cortext-M4)
 * NodeMCU 1.0 (ESP-12E module, 80 MHz ESP8266)
 * WeMos D1 Mini (ESP-12E module, 80 MHz ESP8266)
 * ESP32 dev board (ESP-WROOM-32 module, 240 MHz dual core Tensilica LX6)
-* Teensy 3.2 (96 MHz ARM Cortex-M4)
 
-I will occasionally test on the following hardware as a sanity check:
+**Tier 2: Should work**
+
+These boards should work but I don't test them as often:
 
 * Arduino Pro Mini (16 MHz ATmega328P)
 * Mini Mega 2560 (Arduino Mega 2560 compatible, 16 MHz ATmega2560)
 * Teensy LC (48 MHz ARM Cortex-M0+)
+* Teensy 3.2 (96 MHz ARM Cortex-M4)
 
-The following boards are **not** supported:
+**Tier 3: May work, but not supported**
 
-* Any platform using the ArduinoCore-API
-  (https://github.com/arduino/ArduinoCore-api), such as:
-    * megaAVR (e.g. Nano Every) using ArduinoCore-megaavr
-      (https://github.com/arduino/ArduinoCore-megaavr/)
-    * SAMD21 boards (e.g. MKRZero) using ArduinoCore-samd
-      (https://github.com/arduino/ArduinoCore-samd) starting with
-      `arduino:samd` version >= 1.8.10
-    * Raspberry Pi Pico (RP2040) using Arduino-Pico
-      (https://github.com/earlephilhower/arduino-pico)
+* Other 3rd party SAMD21 and SAMD51 boards *may* work if their board software
+  uses the traditional Arduino API, instead of the
+  [ArduinoCore-API](https://github.com/arduino/ArduinoCore-api)
+
+**Tier Blacklisted**
+
+The following boards are *not* supported and are explicitly blacklisted to allow
+the compiler to print useful error messages instead of hundreds of lines of
+compiler errors:
+
+* Any platform using the
+    [ArduinoCore-API](https://github.com/arduino/ArduinoCore-api), such as:
+    * Arduino-branded megaAVR using
+      [ArduinoCore-megaavr](https://github.com/arduino/ArduinoCore-megaavr/)
+        * Nano Every
+    * Arduino-branded SAMD21 or SAMD51 boards using
+      [ArduinoCore-samd](https://github.com/arduino/ArduinoCore-samd) after
+      version >= 1.8.10
+        * MKRZero
+        * Nano 33 IoT
+    * Raspberry Pi Pico (RP2040) using
+      [Arduino-Pico](https://github.com/earlephilhower/arduino-pico)
 
 <a name="ToolChain"></a>
 ### Tool Chain
@@ -1966,15 +2060,16 @@ The following boards are **not** supported:
 This library was validated using:
 
 * [Arduino IDE 1.8.19](https://www.arduino.cc/en/Main/Software)
-* [Arduino CLI 0.19.2](https://arduino.github.io/arduino-cli)
-* [Arduino AVR Boards 1.8.4](https://github.com/arduino/ArduinoCore-avr)
+* [Arduino CLI 0.33.0](https://arduino.github.io/arduino-cli)
+* [Arduino AVR Boards 1.8.6](https://github.com/arduino/ArduinoCore-avr)
 * [Arduino SAMD Boards 1.8.9](https://github.com/arduino/ArduinoCore-samd)
+  (versions >= 1.8.10 not supported)
 * [SparkFun AVR Boards 1.1.13](https://github.com/sparkfun/Arduino_Boards)
 * [SparkFun SAMD Boards 1.8.6](https://github.com/sparkfun/Arduino_Boards)
-* [STM32duino 2.2.0](https://github.com/stm32duino/Arduino_Core_STM32)
+* [STM32duino 2.5.0](https://github.com/stm32duino/Arduino_Core_STM32)
 * [ESP8266 Arduino 3.0.2](https://github.com/esp8266/Arduino)
-* [ESP32 Arduino 2.0.2](https://github.com/espressif/arduino-esp32)
-* [Teensyduino 1.56](https://www.pjrc.com/teensy/td_download.html)
+* [ESP32 Arduino 2.0.9](https://github.com/espressif/arduino-esp32)
+* [Teensyduino 1.57](https://www.pjrc.com/teensy/td_download.html)
 
 This library is *not* compatible with:
 

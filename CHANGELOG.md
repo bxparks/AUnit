@@ -1,11 +1,50 @@
 # Changelog
 
 * Unreleased
+    * This is a maintenance release, to update the list of supported boards,
+      and update the documentation.
+        * No functional change.
+    * Add [MemoryBenchmark](examples/MemoryBenchmark) to collect flash and
+      static memory usage.
+        * For consistency with my other arduino libraries.
+        * Also enables an automated script to verify that AUnit compiles under
+          various microcontrollers.
+    * Update supported boards and tiers
+        * Update [Flash.h](src/aunit/Flash.h) to work better with Teensyduino,
+          Adafruit SAMD, and Seeeduino SAMD boards by hacking around their bugs
+          and inconsistent APIs
+        * Add SAMD21 and SAMD51 boards to Tier 1
+            * Add 2 SAMD boards from 2 different companies, to test their
+              Arduino Core software:
+                * Seeeduino XIAO M0 (SAMD21 48MHz ARM Cortex-M0+)
+                * Adafruit ItsyBitsy M4 (SAMD51 120MHz ARM Cortex-M4)
+            * SAMD21 and SAMD51 boards are back in Tier 1, as long as they use
+              the traditional Arduino API instead of the new
+              [ArduinoCore-API](https://github.com/arduino/ArduinoCore-api).
+            * Fortunately most third party SAMD21 and SAMD51 boards continue to
+              use the traditional Arduino API.
+        * Move Teensy 3.2 to Tier 2 ("Should work but not tested often")
+            * This board is entering end-of-life.
+            * As well, the Teensyduino environment integrates with the Arduino
+              IDE and CLI in a way that's different than all other third-party
+              Arduino boards. Some of my automation scripts do not work with
+              Teensyduino, so it becomes very time consuming to test the Teensy
+              boards.
+            * All Teensy boards are now in Tier 2.
+        * The various tiers are documented in the
+          [README.md](README.md#Hardware).
+    * Upgrade tool chain.
+        * Arduino CLI from 0.19.2 to 0.33.0
+        * Arduino AVR Core from 1.8.4 to 1.8.6
+        * STM32duino from 2.2.0 to 2.5.0
+        * ESP32 Core from 2.0.2 to 2.0.9
+        * Teensyduino from 1.56 to 1.57 (unable to install 1.58)
 * 1.7.0 (2022-12-08)
-    * **Potentially Breaking** Change format of assertion failure message from:
-        * "Assertion failed: (expected=3) == (counter=4), file AUnitTest.ino,
-          line 134.", to
-        * "AUnitTest.ino:134: Assertion failed: (expected=3) == (counter=4)."
+    * **Potentially Breaking** Change format of assertion failure message
+        * from: `Assertion failed: (expected=3) == (counter=4), file
+          AUnitTest.ino, line 134.`
+        * to: `AUnitTest.ino:134: Assertion failed: (expected=3) ==
+          (counter=4).`
         * This format is compatible with various Linux/MacOS/Unix command line
           tools, in particular, the `vim` editor.
         * When used with EpoxyDuino, this message format allows the `vim` editor
