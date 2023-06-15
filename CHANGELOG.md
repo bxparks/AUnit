@@ -1,6 +1,7 @@
 # Changelog
 
 * Unreleased
+* 1.7.1 (2023-06-15)
     * This is a maintenance release, to update the list of supported boards,
       and update the documentation.
         * No functional change.

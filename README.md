@@ -22,7 +22,7 @@ incorporated into a continuous integration system like
 [Jenkins](https://www.jenkins.io/) system or a cloud-based system like [GitHub
 Actions](https://github.com/features/actions).
 
-**Version**: 1.7.0 (2022-12-08)
+**Version**: 1.7.1 (2023-06-15)
 
 **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
