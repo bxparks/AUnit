@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">AUnit
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">1.7.1</span>
    </div>
    <div id="projectbrief">Unit testing framework for Arduino platforms inspired by ArduinoUnit and Google Test.</div>
   </td>
@@ -127,12 +127,14 @@ Macros</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Various macros to smooth over the differences among the various platforms with regards to their support for flash strings and the various macros used to create and access them. </p>
 <p>On AVR, flash strings are fully supported through the F() and PSTR() macros, and the (const __FlashStringHelper*) pointer. However, the useful FPSTR() macro is not defined.</p>
-<p>On Teensy-ARM, flash strings are <em>not</em> supported, but F(), PSTR() and (const __FlashStringHelper*) are defined. The useful FPSTR() macro is not defined.</p>
+<p>Seeeduino SAMD core has a broken implementation of FPSTR(). This file clobbers that implementation.</p>
+<p>Adafruit's SAMD core fixes the broken FPSTR(), so we don't have to do anything.</p>
+<p>Arduino's SAMD core breaks backwards compatibility after version &gt;= 1.8.10. AUnit does not support the ArduinoCore-API, so Arduino-branded SAMD boards are explicitly blacklisted.</p>
 <p>STM32duino seems to have forked from Teensyduino, so it too has F() and PSTR(), but no FPSTR() macro.</p>
-<p>On the ESP8266 platform, flash strings are implemented, and the F(), PSTR() and __FlashStringHelper are defined, but the implementation used to be brittle and fail with obscure errors messages. For a single compilation unit, a flash string could not be defined in both an inline and non-inline contexts (see <a href="https://github.com/esp8266/Arduino/issues/3369">https://github.com/esp8266/Arduino/issues/3369</a>). This bug was fixed in Dec 2018, so we can use normal F(), PSTR(), and FPSTR() macros on the ESP8266.</p>
-<p>On the ESP32, flash strings are not implemented, but the various F(), PSTR() and __FlashStringHelper symbols are defined for compatibility, similar to Teensy-ARM. Unfortunately, the implementation of FPSTR() was incorrectly defined (<a href="https://github.com/espressif/arduino-esp32/issues/1371">https://github.com/espressif/arduino-esp32/issues/1371</a>), but the bug was fixed in ESP32 Core 1.0.3 around Sept 2019. Therefore, ESP32 can now use normal F(), PSTR() and FPSTR() macros.</p>
-<p>On megaAVR, the F() does not return a (const __FlashStringHelper*), but returns a (const char*). Unfortunately, this breaks AUnit (<a href="https://github.com/bxparks/AUnit/issues/56">https://github.com/bxparks/AUnit/issues/56</a>) because a lot of code is generated through macros, which assume that the F() macro returns the correct type.</p>
-<p>Previously, AUnit used the F() only for the AVR platforms. But with the various fixes, I think it can be activated for ESP8266 and other platforms. Except for megaAVR whose F() returns the wrong type. </p>
+<p>The ESP8266 platform used to have flash strings which were buggy and brittle, and often failed with obscure errors messages, see for example, <a href="https://github.com/esp8266/Arduino/issues/3369">https://github.com/esp8266/Arduino/issues/3369</a>. This bug was fixed in Dec 2018, so the ESP8266 is fully supported.</p>
+<p>The ESP32 had a broken implementation of FPSTR() (<a href="https://github.com/espressif/arduino-esp32/issues/1371">https://github.com/espressif/arduino-esp32/issues/1371</a>), but the bug was fixed in ESP32 Core 1.0.3 around Sept 2019. ESP32 is fully supported.</p>
+<p>On Teensy-ARM, flash strings are <em>not</em> supported, but F(), PSTR() and (const __FlashStringHelper*) are defined. The useful FPSTR() macro is not defined.</p>
+<p>The megaAVR had a broken implementation of the F() macro (does not return a const __FlashStringHelper*), but returns a (const char*)). But more importantly, megaAVR uses the ArrduinoCore-api which is blacklisted by AUnit, so the megaAVR (e.g. Nano Every) is not supported. </p>
 
 <p class="definition">Definition in file <a class="el" href="Flash_8h_source.html">Flash.h</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
@@ -155,7 +157,7 @@ Macros</h2></td></tr>
 <p>The FPSTR() macro is defined on ESP8266 and ESP32, but not on other platforms (e.g. </p>
 <p>AVR, SAMD, Teensyduino, and STM32duino). We define our own version to make this work on the various platforms. </p>
 
-<p class="definition">Definition at line <a class="el" href="Flash_8h_source.html#l00078">78</a> of file <a class="el" href="Flash_8h_source.html">Flash.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Flash_8h_source.html#l00077">77</a> of file <a class="el" href="Flash_8h_source.html">Flash.h</a>.</p>
 
 </div>
 </div>
