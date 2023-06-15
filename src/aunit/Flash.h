@@ -33,9 +33,6 @@ SOFTWARE.
  * and the (const __FlashStringHelper*) pointer. However, the useful FPSTR()
  * macro is not defined.
  *
- * On Teensy-ARM, flash strings are *not* supported, but F(), PSTR() and (const
- * __FlashStringHelper*) are defined. The useful FPSTR() macro is not defined.
- *
  * Seeeduino SAMD core has a broken implementation of FPSTR(). This file
  * clobbers that implementation.
  *
@@ -43,26 +40,28 @@ SOFTWARE.
  * anything.
  *
  * Arduino's SAMD core breaks backwards compatibility after version >= 1.8.10.
- * AUnit does not support the ArduinoCore-API, so we don't support any
- * Arduino-branded SAMD boards.
+ * AUnit does not support the ArduinoCore-API, so Arduino-branded SAMD boards
+ * are explicitly blacklisted.
  *
  * STM32duino seems to have forked from Teensyduino, so it too has F() and
  * PSTR(), but no FPSTR() macro.
  *
- * On the ESP8266 platform, flash strings used to be buggy and brittle, and
- * often failed with obscure errors messages, see for example,
+ * The ESP8266 platform used to have flash strings which were buggy and brittle,
+ * and often failed with obscure errors messages, see for example,
  * https://github.com/esp8266/Arduino/issues/3369. This bug was fixed in Dec
- * 2018, so we can use normal F(), PSTR(), and FPSTR() macros on the ESP8266.
+ * 2018, so the ESP8266 is fully supported.
  *
  * The ESP32 had a broken implementation of FPSTR()
  * (https://github.com/espressif/arduino-esp32/issues/1371), but the bug was
- * fixed in ESP32 Core 1.0.3 around Sept 2019. Therefore, ESP32 can now use
- * normal F(), PSTR() and FPSTR() macros.
+ * fixed in ESP32 Core 1.0.3 around Sept 2019. ESP32 is fully supported.
+ *
+ * On Teensy-ARM, flash strings are *not* supported, but F(), PSTR() and (const
+ * __FlashStringHelper*) are defined. The useful FPSTR() macro is not defined.
  *
  * The megaAVR had a broken implementation of the F() macro (does not return a
- * const __FlashStringHelper*), but returns a (const char*)). But AUnit does not
- * supports the ArrduinoCore-api, which the megaAVR uses, so we don't have to
- * sorry about this.
+ * const __FlashStringHelper*), but returns a (const char*)). But more
+ * importantly, megaAVR uses the ArrduinoCore-api which is blacklisted by AUnit,
+ * so the megaAVR (e.g. Nano Every) is not supported.
  */
 
 #ifndef AUNIT_FLASH_H
