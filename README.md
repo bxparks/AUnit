@@ -84,8 +84,8 @@ Actions](https://github.com/features/actions).
     * [Compared with ArduinoUnit](#CompareArduinoUnit)
 * [System Requirements](#SystemRequirements)
     * [Hardware](#Hardware)
-    * [Tool Chain](#ToolChains)
-    * [Operating System](#ToolChains)
+    * [Toolchains](#Toolchains)
+    * [Operating System](#OperatingSystem)
 * [License](#License)
 * [Feedback and Support](#FeedbackAndSupport)
 * [Authors](#Authors)
@@ -2043,19 +2043,14 @@ compiler errors:
 
 * Any platform using the
     [ArduinoCore-API](https://github.com/arduino/ArduinoCore-api), such as:
-    * Arduino-branded megaAVR using
-      [ArduinoCore-megaavr](https://github.com/arduino/ArduinoCore-megaavr/)
-        * Nano Every
-    * Arduino-branded SAMD21 or SAMD51 boards using
-      [ArduinoCore-samd](https://github.com/arduino/ArduinoCore-samd) after
-      version >= 1.8.10
-        * MKRZero
-        * Nano 33 IoT
-    * Raspberry Pi Pico (RP2040) using
-      [Arduino-Pico](https://github.com/earlephilhower/arduino-pico)
+    * Arduino Nano Every
+    * Arduino Nano 33 IoT
+    * Arduino MKRZero
+    * Arduino UNO R4
+    * Raspberry Pi Pico (RP2040)
 
-<a name="ToolChain"></a>
-### Tool Chain
+<a name="Toolchains"></a>
+### Toolchains
 
 This library was validated using:
 
@@ -2071,13 +2066,14 @@ This library was validated using:
 * [ESP32 Arduino 2.0.9](https://github.com/espressif/arduino-esp32)
 * [Teensyduino 1.57](https://www.pjrc.com/teensy/td_download.html)
 
-This library is *not* compatible with:
+This library is *not* compatible with any platform using the
+[ArduinoCore-API](https://github.com/arduino/ArduinoCore-api), such as:
 
-* Any platform using the
-  [ArduinoCore-API](https://github.com/arduino/ArduinoCore-api), for example:
-    * [Arduino SAMD Boards >=1.8.10](https://github.com/arduino/ArduinoCore-samd)
-    * [Arduino megaAVR](https://github.com/arduino/ArduinoCore-megaavr/)
-    * [MegaCoreX](https://github.com/MCUdude/MegaCoreX)
+* [Arduino SAMD Boards >=1.8.10](https://github.com/arduino/ArduinoCore-samd)
+* [Arduino megaAVR](https://github.com/arduino/ArduinoCore-megaavr/)
+* [ArduinoCore-renesas](https://github.com/arduino/ArduinoCore-renesas)
+* [Arduino-Pico](https://github.com/earlephilhower/arduino-pico)
+* [MegaCoreX](https://github.com/MCUdude/MegaCoreX)
 
 (See [Issue #56](https://github.com/bxparks/AUnit/issues/56)
 and [Issue #66](https://github.com/bxparks/AUnit/issues/66)).
