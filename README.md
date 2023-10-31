@@ -394,7 +394,7 @@ until it passes, fails or is skipped.
 Here is a rough outline of an AUnit unit test sketch:
 
 ```C++
-#line 2 AUnitTest.ino
+#line 2 "AUnitTest.ino"
 
 #include <AUnit.h>
 using namespace aunit;
@@ -1283,9 +1283,10 @@ _The bit field constants have slightly different names:_
 AUnit suffers from the same compiler/preprocessor bug as ArduinoUnit that causes
 the built-in `__LINE__` macro to be off by one. The solution is to add:
 ```C++
-#line 2 {file.ino}
+#line 2 "filename.ino"
 ```
-as the first line of a unit test sketch.
+as the first line of a unit test sketch, where the "filename.ino" must appear in
+double-quotes.
 
 ***ArduinoUnit Compatibility***: _This problem is identical to ArduinoUnit._
 
@@ -2069,9 +2070,9 @@ This library was validated using:
 This library is *not* compatible with any platform using the
 [ArduinoCore-API](https://github.com/arduino/ArduinoCore-api), such as:
 
-* [Arduino SAMD Boards >=1.8.10](https://github.com/arduino/ArduinoCore-samd)
-* [Arduino megaAVR](https://github.com/arduino/ArduinoCore-megaavr/)
-* [ArduinoCore-renesas](https://github.com/arduino/ArduinoCore-renesas)
+* [ArduinoCore SAMD >=1.8.10](https://github.com/arduino/ArduinoCore-samd)
+* [ArduinoCore megaAVR](https://github.com/arduino/ArduinoCore-megaavr/)
+* [ArduinoCore renesas](https://github.com/arduino/ArduinoCore-renesas)
 * [Arduino-Pico](https://github.com/earlephilhower/arduino-pico)
 * [MegaCoreX](https://github.com/MCUdude/MegaCoreX)
 
