@@ -2,7 +2,7 @@
 
 [![AUnit Tests](https://github.com/bxparks/AUnit/actions/workflows/aunit_tests.yml/badge.svg)](https://github.com/bxparks/AUnit/actions/workflows/aunit_tests.yml)
 
-A unit testing framework for Arduino platforms inspired by by
+A unit testing framework for Arduino platforms inspired by
 [ArduinoUnit](https://github.com/mmurdoch/arduinounit) and [Google
 Test](https://github.com/google/googletest/). AUnit is almost a drop-in
 replacement of ArduinoUnit (v2.2) with some advantages. AUnit supports timeouts
